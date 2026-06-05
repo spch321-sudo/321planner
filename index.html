@@ -9,7 +9,7 @@
 <title>活出基督・成為得勝者</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#f5f3ef;color:#1a1d23;max-width:480px;margin:0 auto;min-height:100vh;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#f4f6fa;color:#1a1d23;max-width:480px;margin:0 auto;min-height:100vh;-webkit-text-size-adjust:100%;line-height:1.6}
 body.dark{background:#0f0e0c;color:#ede8df}
 body.dark .card{background:#1e1c18;border-color:#2e2b24;box-shadow:none}
 body.dark .inp{background:#242018;border-color:#2e2b24;color:#ede8df}
@@ -20,9 +20,9 @@ body.dark .task-row.done{background:#0d2825;border-color:#1ac8b830}
 body.dark .chk{border-color:#3a362e}
 body.dark #nav,body.dark .hdr,body.dark .tabs{background:#1a1815;border-color:#2e2b24}
 body.dark .nb{color:#6a5f50}
-body.dark .nb.on{color:#6b8cff;background:#1a2040;border-top-color:#6b8cff}
+body.dark .nb.on{color:#7ba7ff;background:#162040;border-top-color:#7ba7ff}
 body.dark .tb{color:#6a5f50}
-body.dark .tb.on{color:#6b8cff;background:#1a2040;border-bottom-color:#6b8cff}
+body.dark .tb.on{color:#7ba7ff;background:#162040;border-bottom-color:#7ba7ff}
 body.dark #sb{background:#1a1815;border-color:#2e2b24}
 body.dark .cal-cell{background:#1e1c18;border-color:#2e2b24;color:#a09080}
 body.dark .cal-cell.today{background:#1a2040}
@@ -35,42 +35,42 @@ body.dark .prog-bar{background:#242018}
 button{cursor:pointer;font-family:inherit;border:none;outline:none;-webkit-appearance:none}
 input,textarea{font-family:inherit;outline:none;-webkit-appearance:none;border-radius:0}
 textarea{resize:none}
-.card{background:#faf8f4;border:1px solid #e0dbd2;border-radius:12px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.inp{background:#eeebe4;border:1.5px solid #e0dbd2;border-radius:8px;padding:7px 10px;color:#1a1d23;font-size:12px;width:100%}
-.inp:focus{border-color:#3b5bdb}
-.ta{background:#faf8f4;border:1.5px solid #e0dbd2;border-radius:8px;padding:8px 11px;color:#1a1d23;font-size:12px;width:100%;line-height:1.7}
-.ta:focus{border-color:#3b5bdb}
-#nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#faf8f4;border-top:1px solid #e0dbd2;display:flex;z-index:90;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -2px 16px rgba(0,0,0,.06)}
-.nb{flex:1;padding:8px 1px 6px;border:none;background:transparent;color:#8a9ab0;font-size:9px;display:flex;flex-direction:column;align-items:center;gap:2px;border-top:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
-.nb.on{color:#3b5bdb;border-top-color:#3b5bdb;background:#eceef8;font-weight:700}
+.card{background:#f8fafc;border:1px solid #d8dce8;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.inp{background:#eaecf4;border:1.5px solid #e0dbd2;border-radius:8px;padding:7px 10px;color:#243050;font-size:15px;width:100%}
+.inp:focus{border-color:#1e4d8c}
+.ta{background:#f8fafc;border:1.5px solid #e0dbd2;border-radius:8px;padding:8px 11px;color:#243050;font-size:15px;width:100%;line-height:1.7}
+.ta:focus{border-color:#1e4d8c}
+#nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#f8fafc;border-top:1px solid #d8dce8;display:flex;z-index:90;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -2px 16px rgba(0,0,0,.06)}
+.nb{flex:1;padding:10px 1px 8px;border:none;background:transparent;color:#7a8fa8;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:2px;border-top:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
+.nb.on{color:#1e4d8c;border-top-color:#1e4d8c;background:#e8edf5;font-weight:700}
 .sc{display:none;min-height:100vh;padding-bottom:85px}
 .sc.on{display:block}
-.hdr{background:#faf8f4;border-bottom:1px solid #e0dbd2;padding:12px 14px 10px;position:sticky;top:0;z-index:80;box-shadow:0 1px 8px rgba(0,0,0,.06)}
-.tabs{display:flex;background:#faf8f4;border-bottom:1px solid #e0dbd2}
-.tb{flex:1;padding:10px 4px;border:none;background:transparent;color:#8a9ab0;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
-.tb.on{color:#3b5bdb;border-bottom-color:#3b5bdb;background:#eceef8;font-weight:700}
-.badge{font-size:10px;padding:1px 7px;border-radius:6px;font-weight:600;display:inline-block}
-.block-card{background:#faf8f4;border:1px solid #e0dbd2;border-radius:12px;padding:11px 14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.task-row{display:flex;align-items:flex-start;gap:7px;padding:6px;border-radius:8px;margin-bottom:3px;border:1px solid #e0dbd2;transition:background .15s}
-.task-row.done{background:#e2f5f3;border-color:#0f9b8e30}
-.chk{width:18px;height:18px;border-radius:50%;border:2px solid #cec8be;background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:1px;transition:all .2s}
-.chk.done{background:#0f9b8e;border-color:#0f9b8e}
-#sb{position:fixed;top:0;right:0;bottom:0;width:285px;background:#faf8f4;border-left:1px solid #e0dbd2;display:flex;flex-direction:column;z-index:200;transform:translateX(100%);transition:transform .25s ease;box-shadow:-8px 0 32px rgba(0,0,0,.12)}
+.hdr{background:#f8fafc;border-bottom:1px solid #d8dce8;padding:14px 16px 12px;position:sticky;top:0;z-index:80;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.tabs{display:flex;background:#f8fafc;border-bottom:1px solid #d8dce8}
+.tb{flex:1;padding:12px 4px;border:none;background:transparent;color:#7a8aaa;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
+.tb.on{color:#1e4d8c;border-bottom-color:#1e4d8c;background:#e8edf5;font-weight:700}
+.badge{font-size:13px;padding:1px 7px;border-radius:6px;font-weight:600;display:inline-block}
+.block-card{background:#f8fafc;border:1px solid #d8dce8;border-radius:12px;padding:13px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.task-row{display:flex;align-items:flex-start;gap:8px;padding:9px;border-radius:8px;margin-bottom:3px;border:1px solid #d8dce8;transition:background .15s}
+.task-row.done{background:#e2f5f3;border-color:#0a8f8430}
+.chk{width:24px;height:24px;border-radius:50%;border:2px solid #cec8be;background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:1px;transition:all .2s}
+.chk.done{background:#0a8f84;border-color:#0a8f84}
+#sb{position:fixed;top:0;right:0;bottom:0;width:285px;background:#f8fafc;border-left:1px solid #d8dce8;display:flex;flex-direction:column;z-index:200;transform:translateX(100%);transition:transform .25s ease;box-shadow:-8px 0 32px rgba(0,0,0,.12)}
 #sb.on{transform:translateX(0)}
 #ov{position:fixed;inset:0;background:rgba(30,30,40,.35);z-index:199;display:none}
 #ov.on{display:block}
-#toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#0f9b8e;color:#fff;padding:9px 22px;border-radius:22px;font-size:12px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid #e0dbd2;border-radius:0 0 10px 10px;overflow:hidden}
-.cal-hdr{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:#eeebe4;border:1px solid #e0dbd2;border-radius:10px 10px 0 0;border-bottom:none}
-.cal-hdr div{text-align:center;font-size:10px;color:#4a5568;padding:7px 0;font-weight:700;border-right:1px solid #e0dbd2}
-.cal-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;border:1px solid #e0dbd2;background:#faf8f4;font-size:13px}
-.cal-cell.today{background:#eceef8}
-.cal-cell.sel{background:#3b5bdb;color:#fff}
+#toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#0a8f84;color:#fff;padding:9px 22px;border-radius:22px;font-size:15px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid #d8dce8;border-radius:0 0 10px 10px;overflow:hidden}
+.cal-hdr{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px 10px 0 0;border-bottom:none}
+.cal-hdr div{text-align:center;font-size:13px;color:#4a5a72;padding:7px 0;font-weight:700;border-right:1px solid #e0dbd2}
+.cal-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;border:1px solid #d8dce8;background:#f8fafc;font-size:16px}
+.cal-cell.today{background:#e8edf5}
+.cal-cell.sel{background:#1e4d8c;color:#fff}
 .cal-cell.past{color:#cec8be}
-.cal-cell.fut{color:#8a9ab0}
-.cal-cell.empty{background:#eeebe4;cursor:default}
+.cal-cell.fut{color:#7a8fa8}
+.cal-cell.empty{background:#eaecf4;cursor:default}
 .cal-dot{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%}
-.prog-bar{height:5px;background:#eeebe4;border-radius:10px;overflow:hidden}
+.prog-bar{height:5px;background:#eaecf4;border-radius:10px;overflow:hidden}
 .prog-fill{height:100%;border-radius:10px;transition:width .5s}
 .focus-ring{position:relative;width:200px;height:200px;margin:0 auto}
 </style>
@@ -79,16 +79,16 @@ textarea{resize:none}
 <div id="toast"></div>
 <div id="ov" onclick="closeSB()"></div>
 <div id="sb">
-  <div style="padding:14px 14px 10px;border-bottom:1px solid #e0dbd2;display:flex;justify-content:space-between;align-items:center">
-    <div style="color:#1a1d23;font-size:15px;font-weight:700">記錄 &amp; 規劃</div>
-    <button onclick="closeSB()" style="background:none;border:none;color:#8a9ab0;font-size:22px;cursor:pointer">&#10005;</button>
+  <div style="padding:14px 14px 10px;border-bottom:1px solid #d8dce8;display:flex;justify-content:space-between;align-items:center">
+    <div style="color:#1a1d23;font-size:19px;font-weight:700">記錄 &amp; 規劃</div>
+    <button onclick="closeSB()" style="background:none;border:none;color:#7a8fa8;font-size:26px;cursor:pointer">&#10005;</button>
   </div>
-  <div style="padding:8px 14px;border-bottom:1px solid #e0dbd2"><input id="sbq" oninput="renderSB()" placeholder="搜尋…" class="inp"></div>
+  <div style="padding:8px 14px;border-bottom:1px solid #d8dce8"><input id="sbq" oninput="renderSB()" placeholder="搜尋…" class="inp"></div>
   <div id="sblist" style="flex:1;overflow-y:auto"></div>
-  <div style="padding:10px 14px;border-top:1px solid #e0dbd2;display:flex;gap:6px">
-    <button onclick="doExpJSON()" style="flex:1;padding:7px;background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;color:#4a5568;font-size:11px;cursor:pointer;font-weight:600">&#128229; JSON</button>
-    <button onclick="doExpMD()" style="flex:1;padding:7px;background:#e2f5f3;border:1px solid #0f9b8e40;border-radius:8px;color:#0f9b8e;font-size:11px;cursor:pointer;font-weight:600">&#128196; MD</button>
-    <label style="flex:1;padding:7px;background:#f4eeff;border:1px solid #7c4dbd40;border-radius:8px;color:#7c4dbd;font-size:11px;cursor:pointer;text-align:center;font-weight:600">&#128228; 匯入<input type="file" accept=".json" onchange="doImp(event)" style="display:none"></label>
+  <div style="padding:10px 14px;border-top:1px solid #d8dce8;display:flex;gap:6px">
+    <button onclick="doExpJSON()" style="flex:1;padding:7px;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;color:#4a5a72;font-size:14px;cursor:pointer;font-weight:600">&#128229; JSON</button>
+    <button onclick="doExpMD()" style="flex:1;padding:7px;background:#e2f5f3;border:1px solid #0f9b8e40;border-radius:8px;color:#0a8f84;font-size:14px;cursor:pointer;font-weight:600">&#128196; MD</button>
+    <label style="flex:1;padding:7px;background:#f2eeff;border:1px solid #6b45b040;border-radius:8px;color:#6b45b0;font-size:14px;cursor:pointer;text-align:center;font-weight:600">&#128228; 匯入<input type="file" accept=".json" onchange="doImp(event)" style="display:none"></label>
   </div>
 </div>
 
@@ -97,45 +97,45 @@ textarea{resize:none}
   <div class="hdr">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
       <div>
-        <div style="font-size:9px;color:#8a9ab0;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">國度321空中團契</div>
-        <div style="font-size:18px;color:#3b5bdb;font-weight:900;line-height:1.1">活出基督・成為得勝者</div>
+        <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">國度321空中團契</div>
+        <div style="font-size:26px;color:#1a3a6b;font-weight:900;line-height:1.1">活出基督・成為得勝者</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center">
-        <span id="sv" style="font-size:11px;color:#0f9b8e;font-weight:600;opacity:0;transition:opacity .4s">&#9729;&#65039;</span>
-        <button id="dmbtn" onclick="togDark()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:6px 8px;color:#4a5568;font-size:15px">&#127769;</button>
-        <button onclick="openSB()" style="background:#eceef8;border:1px solid #3b5bdb40;border-radius:8px;padding:6px 11px;color:#3b5bdb;font-size:12px;font-weight:600">&#128218; 記錄</button>
+        <span id="sv" style="font-size:14px;color:#0a8f84;font-weight:600;opacity:0;transition:opacity .4s">&#9729;&#65039;</span>
+        <button id="dmbtn" onclick="togDark()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 8px;color:#4a5a72;font-size:19px">&#127769;</button>
+        <button onclick="openSB()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 11px;color:#1e4d8c;font-size:15px;font-weight:600">&#128218; 記錄</button>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-      <button onclick="prevDay()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:5px 11px;color:#4a5568;font-size:18px;line-height:1">&#8249;</button>
+      <button onclick="prevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8249;</button>
       <div style="flex:1;text-align:center">
-        <div id="ddate" style="color:#1a1d23;font-size:13px;font-weight:600"></div>
+        <div id="ddate" style="color:#243050;font-size:16px;font-weight:600"></div>
         <div id="dbadge" style="display:flex;justify-content:center;gap:5px;margin-top:3px"></div>
       </div>
-      <button onclick="nextDay()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:5px 11px;color:#4a5568;font-size:18px;line-height:1">&#8250;</button>
+      <button onclick="nextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8250;</button>
     </div>
     <div style="display:flex;gap:6px;justify-content:center;margin-bottom:8px">
-      <button style="padding:4px 10px;border-radius:14px;background:#e2f5f3;border:1.5px solid #0f9b8e;color:#0f9b8e;font-size:11px;cursor:pointer;font-weight:600" onclick="goRel(0)">今日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#eeebe4;border:1.5px solid #cec8be;color:#4a5568;font-size:11px;cursor:pointer;font-weight:600" onclick="goRel(-1)">昨日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#f4eeff;border:1.5px solid #7c4dbd;color:#7c4dbd;font-size:11px;cursor:pointer;font-weight:600" onclick="goRel(1)">明日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#f4eeff;border:1.5px solid #7c4dbd;color:#7c4dbd;font-size:11px;cursor:pointer;font-weight:600" onclick="goRel(7)">下週</button>
+      <button style="padding:4px 10px;border-radius:14px;background:#e2f5f3;border:1.5px solid #0f9b8e;color:#0a8f84;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(0)">今日</button>
+      <button style="padding:4px 10px;border-radius:14px;background:#eaecf4;border:1.5px solid #cec8be;color:#4a5a72;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(-1)">昨日</button>
+      <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(1)">明日</button>
+      <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(7)">下週</button>
     </div>
     <div id="prog" style="display:none;align-items:center;gap:10px">
-      <div class="prog-bar" style="flex:1"><div id="progfill" class="prog-fill" style="background:#3b5bdb;width:0%"></div></div>
-      <span id="progtxt" style="font-size:11px;color:#4a5568;font-weight:600"></span>
+      <div class="prog-bar" style="flex:1"><div id="progfill" class="prog-fill" style="background:#1e4d8c;width:0%"></div></div>
+      <span id="progtxt" style="font-size:14px;color:#4a5a72;font-weight:600"></span>
     </div>
   </div>
-  <div style="background:linear-gradient(90deg,#eef2ff,#f0fdf4);border-bottom:1px solid #e0dbd2;padding:9px 16px;display:flex;align-items:center;gap:10px">
-    <span style="opacity:.6;font-size:14px">&#128214;</span>
-    <span id="verse" style="color:#4338ca;font-size:12px;flex:1;line-height:1.6;font-style:italic"></span>
+  <div style="background:linear-gradient(90deg,#eef2ff,#f0fdf4);border-bottom:1px solid #d8dce8;padding:9px 16px;display:flex;align-items:center;gap:10px">
+    <span style="opacity:.6;font-size:18px">&#128214;</span>
+    <span id="verse" style="color:#4338ca;font-size:15px;flex:1;line-height:1.6;font-style:italic"></span>
   </div>
   <div id="futbanner" style="padding:10px 14px 0;display:none">
-    <div style="background:#f4eeff;border:1px solid #7c4dbd30;border-radius:10px;padding:9px 14px;font-size:12px;color:#7c4dbd;font-weight:500">&#128197; <strong>預先規劃模式</strong> — 提前安排任務、設定目標</div>
+    <div style="background:#f2eeff;border:1px solid #6b45b030;border-radius:10px;padding:9px 14px;font-size:15px;color:#6b45b0;font-weight:500">&#128197; <strong>預先規劃模式</strong> — 提前安排任務、設定目標</div>
   </div>
   <div class="tabs">
-    <button class="tb on" onclick="hTab('tasks',this)"><span style="font-size:15px">&#9201;</span>時間</button>
-    <button class="tb" onclick="hTab('priority',this)"><span style="font-size:15px">&#127919;</span>優先</button>
-    <button class="tb" onclick="hTab('review',this)"><span style="font-size:15px">&#127769;</span>回顧</button>
+    <button class="tb on" onclick="hTab('tasks',this)"><span style="font-size:19px">&#9201;</span>時間</button>
+    <button class="tb" onclick="hTab('priority',this)"><span style="font-size:19px">&#127919;</span>優先</button>
+    <button class="tb" onclick="hTab('review',this)"><span style="font-size:19px">&#127769;</span>回顧</button>
   </div>
   <div id="hcon" style="padding:14px 16px 0"></div>
 </div>
@@ -145,15 +145,15 @@ textarea{resize:none}
   <div class="hdr">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div>
-        <div style="font-size:9px;color:#8a9ab0;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px">Week View</div>
-        <div style="font-size:18px;color:#3b5bdb;font-weight:900">本週規劃總覽</div>
+        <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px">Week View</div>
+        <div style="font-size:22px;color:#1e4d8c;font-weight:900">本週規劃總覽</div>
       </div>
-      <button onclick="wkGoToday()" style="background:#eceef8;border:1px solid #3b5bdb40;border-radius:8px;padding:6px 11px;color:#3b5bdb;font-size:11px;font-weight:700">&#128205; 本週</button>
+      <button onclick="wkGoToday()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 11px;color:#1e4d8c;font-size:14px;font-weight:700">&#128205; 本週</button>
     </div>
     <div style="display:flex;align-items:center;gap:6px">
-      <button onclick="wkPrev()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:7px;padding:4px 10px;color:#4a5568;font-size:16px;line-height:1">&#8249;</button>
-      <div id="wkRange" style="flex:1;text-align:center;font-size:12px;color:#4a5568;font-weight:600"></div>
-      <button onclick="wkNext()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:7px;padding:4px 10px;color:#4a5568;font-size:16px;line-height:1">&#8250;</button>
+      <button onclick="wkPrev()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;padding:4px 10px;color:#4a5a72;font-size:20px;line-height:1">&#8249;</button>
+      <div id="wkRange" style="flex:1;text-align:center;font-size:15px;color:#4a5a72;font-weight:600"></div>
+      <button onclick="wkNext()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;padding:4px 10px;color:#4a5a72;font-size:20px;line-height:1">&#8250;</button>
     </div>
   </div>
   <div id="wkcon" style="padding:12px 14px"></div>
@@ -162,13 +162,13 @@ textarea{resize:none}
 <!-- GRATITUDE -->
 <div id="s-grat" class="sc">
   <div class="hdr">
-    <div style="font-size:9px;color:#8a9ab0;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Gratitude Journal</div>
-    <div style="font-size:18px;color:#d97706;font-weight:900">&#128155; 感恩日記</div>
-    <div style="font-size:11px;color:#8a9ab0;margin-top:3px">凡事謝恩，把榮耀歸給耶穌 — 321理念</div>
+    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Gratitude Journal</div>
+    <div style="font-size:22px;color:#d97706;font-weight:900">&#128155; 感恩日記</div>
+    <div style="font-size:14px;color:#7a8fa8;margin-top:3px">凡事謝恩，把榮耀歸給耶穌 — 321理念</div>
   </div>
   <div style="padding:12px 14px">
     <div id="gratToday" style="margin-bottom:16px"></div>
-    <div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:10px">過去記錄</div>
+    <div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:10px">過去記錄</div>
     <div id="gratHistory"></div>
   </div>
 </div>
@@ -176,24 +176,24 @@ textarea{resize:none}
 <!-- CALENDAR -->
 <div id="s-cal" class="sc">
   <div class="hdr" style="text-align:center">
-    <div style="font-size:10px;color:#8a9ab0;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Calendar</div>
-    <div style="font-size:20px;color:#1a1d23;font-weight:900;margin-bottom:12px">月曆視圖</div>
+    <div style="font-size:13px;color:#7a8fa8;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Calendar</div>
+    <div style="font-size:24px;color:#1a1d23;font-weight:900;margin-bottom:12px">月曆視圖</div>
     <div style="display:flex;align-items:center;justify-content:space-between">
-      <button onclick="calPrev()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:6px 14px;color:#4a5568;font-size:18px;line-height:1">&#8249;</button>
+      <button onclick="calPrev()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 14px;color:#4a5a72;font-size:22px;line-height:1">&#8249;</button>
       <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-        <div id="calTitle" style="color:#1a1d23;font-size:16px;font-weight:700"></div>
-        <button onclick="calToday()" style="background:#eceef8;border:1px solid #3b5bdb40;border-radius:10px;padding:3px 14px;color:#3b5bdb;font-size:11px;cursor:pointer;font-weight:700">&#128205; 跳回今天</button>
+        <div id="calTitle" style="color:#1a1d23;font-size:20px;font-weight:700"></div>
+        <button onclick="calToday()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:10px;padding:3px 14px;color:#1e4d8c;font-size:14px;cursor:pointer;font-weight:700">&#128205; 跳回今天</button>
       </div>
-      <button onclick="calNext()" style="background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:6px 14px;color:#4a5568;font-size:18px;line-height:1">&#8250;</button>
+      <button onclick="calNext()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 14px;color:#4a5a72;font-size:22px;line-height:1">&#8250;</button>
     </div>
   </div>
   <div style="padding:14px 16px">
     <div class="cal-hdr"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div style="border-right:none">六</div></div>
     <div class="cal-grid" id="calgrid" style="margin-bottom:14px"></div>
     <div style="display:flex;gap:12px;margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:#0f9b8e"></div><span style="font-size:11px;color:#4a5568">已記錄</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:#7c4dbd"></div><span style="font-size:11px;color:#4a5568">已規劃</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:14px;height:14px;border-radius:4px;background:#eceef8;border:1.5px solid #3b5bdb60"></div><span style="font-size:11px;color:#4a5568">今日</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:#0a8f84"></div><span style="font-size:14px;color:#4a5a72">已記錄</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:#6b45b0"></div><span style="font-size:14px;color:#4a5a72">已規劃</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:14px;height:14px;border-radius:4px;background:#e8edf5;border:1.5px solid #1e4d8c60"></div><span style="font-size:14px;color:#4a5a72">今日</span></div>
     </div>
     <div id="calprev"></div>
   </div>
@@ -202,16 +202,16 @@ textarea{resize:none}
 <!-- FOCUS -->
 <div id="s-foc" class="sc">
   <div class="hdr" style="text-align:center">
-    <div style="font-size:10px;color:#8a9ab0;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Focus Timer</div>
-    <div style="font-size:20px;color:#1a1d23;font-weight:900">最大深度・最小干擾</div>
+    <div style="font-size:13px;color:#7a8fa8;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Focus Timer</div>
+    <div style="font-size:24px;color:#1a1d23;font-weight:900">最大深度・最小干擾</div>
   </div>
   <div style="padding:14px 16px;display:flex;flex-direction:column;align-items:center">
     <div id="fpresets" style="display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap;justify-content:center"></div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;background:#eeebe4;border:1px solid #e0dbd2;border-radius:12px;padding:10px 14px;width:100%;max-width:300px">
-      <span style="font-size:12px;color:#4a5568;font-weight:500;white-space:nowrap">&#9881;&#65039; 自訂</span>
-      <input id="fcustom" type="number" value="30" min="1" max="240" style="width:60px;background:#faf8f4;border:1.5px solid #e0dbd2;border-radius:7px;padding:5px 8px;color:#1a1d23;font-size:14px;font-weight:700;text-align:center;outline:none">
-      <span style="font-size:12px;color:#4a5568">分鐘</span>
-      <button onclick="startCustom()" style="padding:5px 12px;background:#3b5bdb;border:none;border-radius:8px;color:#fff;font-size:12px;cursor:pointer;font-weight:700;margin-left:auto">&#9654; 開始</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;background:#eaecf4;border:1px solid #d8dce8;border-radius:12px;padding:10px 14px;width:100%;max-width:300px">
+      <span style="font-size:15px;color:#4a5a72;font-weight:500;white-space:nowrap">&#9881;&#65039; 自訂</span>
+      <input id="fcustom" type="number" value="30" min="1" max="240" style="width:60px;background:#f8fafc;border:1.5px solid #e0dbd2;border-radius:7px;padding:5px 8px;color:#1a1d23;font-size:18px;font-weight:700;text-align:center;outline:none">
+      <span style="font-size:15px;color:#4a5a72">分鐘</span>
+      <button onclick="startCustom()" style="padding:5px 12px;background:#1e4d8c;border:none;border-radius:8px;color:#fff;font-size:15px;cursor:pointer;font-weight:700;margin-left:auto">&#9654; 開始</button>
     </div>
     <input id="ftask" placeholder="本次工作的唯一任務（選填）" class="inp" style="text-align:center;margin-bottom:16px;max-width:300px">
     <div class="focus-ring" style="margin-bottom:20px">
@@ -220,21 +220,21 @@ textarea{resize:none}
         <circle id="farc" cx="100" cy="100" r="90" fill="none" stroke="#d97706" stroke-width="10" stroke-dasharray="565.49" stroke-dashoffset="565.49" stroke-linecap="round" style="transition:stroke-dashoffset .8s ease,stroke .5s"/>
       </svg>
       <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center">
-        <div id="ftime" style="font-size:44px;font-weight:900;color:#1a1d23;letter-spacing:-2px;line-height:1">25:00</div>
-        <div id="flabel" style="font-size:12px;color:#8a9ab0;margin-top:5px">25分鐘專注</div>
+        <div id="ftime" style="font-size:48px;font-weight:900;color:#1a1d23;letter-spacing:-2px;line-height:1">25:00</div>
+        <div id="flabel" style="font-size:15px;color:#7a8fa8;margin-top:5px">25分鐘專注</div>
       </div>
     </div>
     <div id="fbtns" style="display:flex;gap:10px;margin-bottom:18px"></div>
     <div id="fdone" style="display:none;padding:14px 18px;background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e40;border-radius:14px;text-align:center;margin-bottom:18px;width:100%;max-width:320px">
-      <div style="color:#0f766e;font-size:14px;line-height:1.9">&#127881; 「我靠著那加給我力量的，凡事都能做。」<br><span style="font-size:12px;color:#8a9ab0">— 腓立比書4:13</span></div>
-      <button onclick="stopFocus()" style="margin-top:12px;padding:8px 20px;background:#0f9b8e;border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:700">開始下一個</button>
+      <div style="color:#0f766e;font-size:18px;line-height:1.9">&#127881; 「我靠著那加給我力量的，凡事都能做。」<br><span style="font-size:15px;color:#7a8fa8">— 腓立比書4:13</span></div>
+      <button onclick="stopFocus()" style="margin-top:12px;padding:8px 20px;background:#0a8f84;border:none;border-radius:10px;color:#fff;font-size:16px;cursor:pointer;font-weight:700">開始下一個</button>
     </div>
-    <div id="fsessions" style="display:none;background:#faf8f4;border:1px solid #e0dbd2;border-radius:12px;padding:12px 14px;margin-bottom:14px;text-align:center;width:100%;max-width:320px">
-      <div id="fscount" style="font-size:32px;font-weight:900;color:#0f9b8e"></div>
-      <div style="font-size:12px;color:#4a5568;margin-top:3px">今日專注工作階段完成</div>
+    <div id="fsessions" style="display:none;background:#f8fafc;border:1px solid #d8dce8;border-radius:12px;padding:12px 14px;margin-bottom:14px;text-align:center;width:100%;max-width:320px">
+      <div id="fscount" style="font-size:36px;font-weight:900;color:#0a8f84"></div>
+      <div style="font-size:15px;color:#4a5a72;margin-top:3px">今日專注工作階段完成</div>
     </div>
-    <div style="background:linear-gradient(135deg,#eef2ff,#f0fdf4);border:1px solid #3b5bdb20;border-radius:12px;padding:12px 16px;text-align:center;width:100%;max-width:320px">
-      <div style="color:#4338ca;font-size:13px;line-height:1.9;font-style:italic">焦點在耶穌，不在自己<br><span style="color:#8a9ab0;font-size:11px;font-style:normal">用心靠聖靈，不用腦靠自己</span></div>
+    <div style="background:linear-gradient(135deg,#eef2ff,#f0fdf4);border:1px solid #1e4d8c20;border-radius:12px;padding:12px 16px;text-align:center;width:100%;max-width:320px">
+      <div style="color:#4338ca;font-size:16px;line-height:1.9;font-style:italic">焦點在耶穌，不在自己<br><span style="color:#7a8aaa;font-size:14px;font-style:normal">用心靠聖靈，不用腦靠自己</span></div>
     </div>
   </div>
 </div>
@@ -242,60 +242,93 @@ textarea{resize:none}
 <!-- STATS -->
 <div id="s-sta" class="sc">
   <div class="hdr" style="text-align:center">
-    <div style="font-size:10px;color:#8a9ab0;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Statistics</div>
-    <div style="font-size:20px;color:#1a1d23;font-weight:900">生命成長統計</div>
+    <div style="font-size:13px;color:#7a8fa8;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">Statistics</div>
+    <div style="font-size:24px;color:#1a1d23;font-weight:900">生命成長統計</div>
   </div>
   <div id="stcon" style="padding:14px 16px"></div>
 </div>
 
 
-<!-- WEEKLY REVIEW -->
+<!-- WEEKLY REVIEW - STATIC HTML -->
 <div id="s-wrev" class="sc">
   <div class="hdr">
-    <div style="font-size:9px;color:#8a9ab0;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Weekly Review</div>
-    <div style="font-size:18px;color:#3b5bdb;font-weight:900">&#128175; 每週回顧與目標</div>
-    <div style="font-size:11px;color:#8a9ab0;margin-top:3px">先生命・再關係・後事工 — 321三維度回顧</div>
+    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Weekly Review</div>
+    <div style="font-size:22px;color:#1e4d8c;font-weight:900">&#128175; 每週回顧與目標</div>
+    <div style="font-size:14px;color:#7a8fa8;margin-top:3px">先生命・再關係・後事工 — 321三維度回顧</div>
   </div>
-  <div id="wrevcon" style="padding:12px 14px"></div>
+  <div style="padding:12px 14px" id="wrevcon">
+    <div id="wrev-loading" style="text-align:center;padding:30px;color:#7a8fa8;font-size:15px">載入中…</div>
+  </div>
+</div>
+
+<!-- 920 TRACKER -->
+<div id="s-920" class="sc">
+  <div class="hdr">
+    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">920 Practice</div>
+    <div style="font-size:22px;color:#e05c3a;font-weight:900">&#127807; 920 操練</div>
+    <div style="font-size:14px;color:#7a8fa8;margin-top:3px">每個「2」是你的操練對象 · 活出「0」無己的生命 · 結出「9」聖靈的果子</div>
+  </div>
+  <div id="con920" style="padding:12px 14px"></div>
+</div>
+
+<!-- MORNING PRAYER -->
+<div id="s-pray" class="sc">
+  <div class="hdr">
+    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Morning Prayer · ACTS</div>
+    <div style="font-size:22px;color:#d97706;font-weight:900">&#128591; 每日晨禱引導</div>
+    <div style="font-size:14px;color:#7a8fa8;margin-top:3px">讚美 · 認罪 · 感謝 · 祈求 — ACTS模式</div>
+  </div>
+  <div id="praycon" style="padding:12px 14px"></div>
+</div>
+
+<!-- PROJECT MANAGEMENT -->
+<div id="s-proj" class="sc">
+  <div class="hdr">
+    <div style="font-size:9px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Project Management</div>
+    <div style="font-size:22px;color:#1e4d8c;font-weight:900">&#128196; 專案管理</div>
+    <div style="font-size:14px;color:#7a8fa8;margin-top:3px">計畫 &#8594; 推動 &#8594; 執行 &#8594; 檢討</div>
+  </div>
+  <div id="projcon" style="padding:12px 14px"></div>
 </div>
 <div id="nav">
-  <button class="nb on" onclick="goSc('home',this)"><span style="font-size:17px">&#128197;</span>每日</button>
-  <button class="nb" onclick="goSc('wk',this)"><span style="font-size:17px">&#128198;</span>本週</button>
-  <button class="nb" onclick="goSc('grat',this)"><span style="font-size:17px">&#128155;</span>感恩</button>
-  <button class="nb" onclick="goSc('wrev',this)"><span style="font-size:17px">&#127775;</span>回顧</button>
-  <button class="nb" onclick="goSc('foc',this)"><span style="font-size:17px">&#9711;</span>專注</button>
-  <button class="nb" onclick="goSc('sta',this)"><span style="font-size:17px">&#128202;</span>統計</button>
+  <button class="nb on" onclick="goSc('home',this)"><span style="font-size:21px">&#128197;</span>每日</button>
+  <button class="nb" onclick="goSc('pray',this)"><span style="font-size:21px">&#128591;</span>晨禱</button>
+  <button class="nb" onclick="goSc('920',this)"><span style="font-size:21px">&#127807;</span>920</button>
+  <button class="nb" onclick="goSc('wrev',this)"><span style="font-size:21px">&#127775;</span>回顧</button>
+  <button class="nb" onclick="goSc('proj',this)"><span style="font-size:21px">&#128196;</span>專案</button>
+  <button class="nb" onclick="goSc('sta',this)"><span style="font-size:21px">&#128202;</span>統計</button>
 </div>
 
 <script>
 // Storage
+function _pad(n){return n<10?"0"+n:String(n);}
 function lsS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function lsG(k){try{var r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch(e){return null;}}
-function saveDay(d,data){lsS("p4_"+d,Object.assign({},data,{_t:Date.now()}));var idx=getIdx();if(idx.indexOf(d)<0){idx.unshift(d);idx.sort().reverse();}lsS("p4_idx",idx.slice(0,300));}
+function saveDay(d,data){var _copy={};for(var _k in data){if(data.hasOwnProperty(_k))_copy[_k]=data[_k];}_copy._t=Date.now();lsS("p4_"+d,_copy);var idx=getIdx();if(idx.indexOf(d)<0){idx.unshift(d);idx.sort().reverse();}lsS("p4_idx",idx.slice(0,300));}
 function getDay(d){return lsG("p4_"+d)||null;}
 function getIdx(){return lsG("p4_idx")||[];}
 function blank(){return{tasks:[],review:{},note:"",mood:3,energy:3,highlight:"",sessions:0,plan:""};}
 
 // Date
-function tod(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function tod(){var d=new Date();return d.getFullYear()+"-"+_pad(d.getMonth()+1)+"-"+_pad(d.getDate());}
 function fL(d){return new Date(d+"T00:00:00").toLocaleDateString("zh-TW",{year:"numeric",month:"long",day:"numeric",weekday:"long"});}
 function fS(d){return new Date(d+"T00:00:00").toLocaleDateString("zh-TW",{month:"2-digit",day:"2-digit",weekday:"short"});}
-function addD(d,n){var dt=new Date(d+"T00:00:00");dt.setDate(dt.getDate()+n);return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
+function addD(d,n){var dt=new Date(d+"T00:00:00");dt.setDate(dt.getDate()+n);return dt.getFullYear()+"-"+_pad(dt.getMonth()+1)+"-"+_pad(dt.getDate());}
 
 // Constants
 var BL=[
-  {id:"morning",label:"清晨靈修",icon:"&#127749;",color:"#d97706",time:"06:00–07:00",desc:"聖經・禱告・默想"},
-  {id:"deep",label:"深度工作",icon:"&#128293;",color:"#e05c3a",time:"08:00–11:30",desc:"最重要任務・高度專注"},
-  {id:"connect",label:"關係連結",icon:"&#129309;",color:"#3b82c4",time:"12:00–13:30",desc:"用餐・與人互動"},
-  {id:"admin",label:"行政事務",icon:"&#128203;",color:"#6366f1",time:"14:00–16:30",desc:"郵件・回覆・雜務"},
-  {id:"create",label:"創意產出",icon:"&#9997;&#65039;",color:"#7c4dbd",time:"17:00–18:30",desc:"講章・材料・寫作"},
-  {id:"evening",label:"晚間回顧",icon:"&#127769;",color:"#0f9b8e",time:"21:00–22:00",desc:"反思・禱告・預備明日"}
+  {id:"morning",label:"清晨靈修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"聖經・禱告・默想"},
+  {id:"deep",label:"深度工作",icon:"🔥",color:"#e05c3a",time:"08:00–11:30",desc:"最重要任務・高度專注"},
+  {id:"connect",label:"關係連結",icon:"🤝",color:"#3b82c4",time:"12:00–13:30",desc:"用餐・與人互動"},
+  {id:"admin",label:"行政事務",icon:"📋",color:"#6366f1",time:"14:00–16:30",desc:"郵件・回覆・雜務"},
+  {id:"create",label:"創意產出",icon:"✍️",color:"#7c4dbd",time:"17:00–18:30",desc:"講章・材料・寫作"},
+  {id:"evening",label:"晚間回顧",icon:"🌙",color:"#0f9b8e",time:"21:00–22:00",desc:"反思・禱告・預備明日"}
 ];
 var PR={A:"#e05c3a",B:"#d97706",C:"#3b82c4",D:"#7c4dbd"};
 var PL={A:"A必做",B:"B應做",C:"C可做",D:"D委派"};
 var TAGS=[{id:"321",l:"321",c:"#d97706"},{id:"pray",l:"禱告",c:"#0f9b8e"},{id:"rel",l:"關係",c:"#3b82c4"},{id:"min",l:"事工",c:"#7c4dbd"},{id:"self",l:"個人",c:"#2e8b57"}];
-var RQ=[{key:"done",icon:"&#9989;",label:"今日完成了什麼？",color:"#0f9b8e"},{key:"god",icon:"&#128591;",label:"神在哪裡作工？",color:"#d97706"},{key:"block",icon:"&#9889;",label:"有什麼讓我分心？",color:"#e05c3a"},{key:"adjust",icon:"&#127807;",label:"明日要調整什麼？",color:"#3b82c4"},{key:"thanks",icon:"&#128155;",label:"今日最感恩的事",color:"#b45309"}];
-var MOODS=["&#128566;","&#128532;","&#128528;","&#128578;","&#128522;","&#129392;"];
+var RQ=[{key:"done",icon:"✅",label:"今日完成了什麼？",color:"#0f9b8e"},{key:"god",icon:"🙏",label:"神在哪裡作工？",color:"#d97706"},{key:"block",icon:"⚡",label:"有什麼讓我分心？",color:"#e05c3a"},{key:"adjust",icon:"🌿",label:"明日要調整什麼？",color:"#3b82c4"},{key:"thanks",icon:"💛",label:"今日最感恩的事",color:"#b45309"}];
+var MOODS=["😶","😔","😐","🙂","😊","🥰"];
 var FPS=[{min:25,c:"#d97706"},{min:45,c:"#e05c3a"},{min:60,c:"#0f9b8e"},{min:90,c:"#7c4dbd"}];
 var VS=["你所做的，要交託耶和華，你所謀的，就必成立。— 箴16:3","我靠著那加給我力量的，凡事都能做。— 腓4:13","現在活著的，不再是我，乃是基督在我裡面活著。— 加2:20","你們要休息，要知道我是神。— 詩46:10","你們要先求他的國和他的義。— 太6:33","你當剛強壯膽，不要懼怕；耶和華你的神必與你同在。— 書1:9"];
 
@@ -312,7 +345,7 @@ function togDark(){
   document.body.classList.toggle("dark",darkMode);
   lsS("p4_dark",darkMode);
   var b=document.getElementById("dmbtn");
-  if(b)b.innerHTML=darkMode?"&#9728;&#65039;":"&#127769;";
+  if(b)b.innerHTML=darkMode?"☀️":"🌙";
 }
 function initDark(){
   var s=lsG("p4_dark");
@@ -320,7 +353,7 @@ function initDark(){
   darkMode=(s!==null)?s:sys;
   document.body.classList.toggle("dark",darkMode);
   var b=document.getElementById("dmbtn");
-  if(b)b.innerHTML=darkMode?"&#9728;&#65039;":"&#127769;";
+  if(b)b.innerHTML=darkMode?"☀️":"🌙";
 }
 
 // Audio
@@ -371,6 +404,9 @@ function goSc(id,btn){
   if(id==="wk")renderWk();
   if(id==="grat")renderGrat();
   if(id==="wrev")renderWRev();
+  if(id==="920")render920();
+  if(id==="pray")renderPray();
+  if(id==="proj")renderProj();
 }
 function prevDay(){curDate=addD(curDate,-1);loadAndRender();}
 function nextDay(){curDate=addD(curDate,1);loadAndRender();}
@@ -408,13 +444,13 @@ function renderHome(){
   var t=tod(),fut=curDate>t,ro=curDate<t&&curDate!==t;
   document.getElementById("ddate").textContent=fL(curDate);
   var db=document.getElementById("dbadge");db.innerHTML="";
-  if(curDate===t)db.innerHTML+='<span class="badge" style="color:#0f9b8e;background:#e2f5f3;border:1px solid #0f9b8e40">今日</span>';
-  if(fut)db.innerHTML+='<span class="badge" style="color:#7c4dbd;background:#f4eeff;border:1px solid #7c4dbd40">預先規劃</span>';
+  if(curDate===t)db.innerHTML+='<span class="badge" style="color:#0a8f84;background:#e2f5f3;border:1px solid #0f9b8e40">今日</span>';
+  if(fut)db.innerHTML+='<span class="badge" style="color:#6b45b0;background:#f2eeff;border:1px solid #6b45b040">預先規劃</span>';
   if(ro)db.innerHTML+='<span class="badge" style="color:#e05c3a;background:#fdf0ec;border:1px solid #e05c3a40">歷史記錄</span>';
   document.getElementById("futbanner").style.display=fut?"block":"none";
   var total=curDay.tasks.length,done=curDay.tasks.filter(function(t){return t.done;}).length,pct=total>0?Math.round(done/total*100):0;
   var pg=document.getElementById("prog");
-  if(total>0){pg.style.display="flex";document.getElementById("progfill").style.width=pct+"%";document.getElementById("progfill").style.background=pct===100?"#0f9b8e":"#3b5bdb";document.getElementById("progtxt").textContent=done+"/"+total+" · "+pct+"%";}
+  if(total>0){pg.style.display="flex";document.getElementById("progfill").style.width=pct+"%";document.getElementById("progfill").style.background=pct===100?"#0f9b8e":"#1e4d8c";document.getElementById("progtxt").textContent=done+"/"+total+" · "+pct+"%";}
   else pg.style.display="none";
   renderHCon();
 }
@@ -431,26 +467,26 @@ function renderHCon(){
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function taskHTML(t,ro){
   var pc=PR[t.prio]||"#8a9ab0";
-  var tags=(t.tags||[]).map(function(tid){var tg=null;for(var ti=0;ti<TAGS.length;ti++){if(TAGS[ti].id===tid){tg=TAGS[ti];break;}}return tg?('<span style="font-size:10px;padding:1px 6px;border-radius:5px;background:'+tg.c+'18;color:'+tg.c+'">'+tg.l+'</span>'):"";}).join("");
-  var rec=t.recurring?'<span style="font-size:10px;padding:1px 6px;border-radius:5px;background:#f4eeff;color:#7c4dbd;font-weight:600">&#128257; 每日重複</span>':"";
+  var tags=(t.tags||[]).map(function(tid){var tg=null;for(var ti=0;ti<TAGS.length;ti++){if(TAGS[ti].id===tid){tg=TAGS[ti];break;}}return tg?('<span style="font-size:13px;padding:1px 6px;border-radius:5px;background:'+tg.c+'18;color:'+tg.c+'">'+tg.l+'</span>'):"";}).join("");
+  var rec=t.recurring?'<span style="font-size:13px;padding:1px 6px;border-radius:5px;background:#f2eeff;color:#6b45b0;font-weight:600">🔁 每日重複</span>':"";
   var dc=t.done?" done":"";
-  var del_btn=ro?"":('<button data-id="'+t.id+'" onclick="delTaskById(this.getAttribute(\'data-id\'))" style="background:none;border:none;color:#cec8be;cursor:pointer;font-size:14px;flex-shrink:0">&#215;</button>');
+  var del_btn=ro?"":('<button data-id="'+t.id+'" onclick="delTaskById(this.getAttribute(\'data-id\'))" style="background:none;border:none;color:#cec8be;cursor:pointer;font-size:18px;flex-shrink:0">×</button>');
   return '<div class="task-row'+dc+'" id="tr-'+t.id+'">'
-    +'<div class="chk'+dc+'" data-id="'+t.id+'" onclick="togTaskById(this.getAttribute(\'data-id\'))">'+( t.done?'<span style="color:#fff;font-size:10px;font-weight:700">&#10003;</span>':'')+'</div>'
+    +'<div class="chk'+dc+'" data-id="'+t.id+'" onclick="togTaskById(this.getAttribute(\'data-id\'))">'+( t.done?'<span style="color:#fff;font-size:13px;font-weight:700">✓</span>':'')+'</div>'
     +'<div style="flex:1;min-width:0">'
-    +'<div data-id="'+t.id+'" ondblclick="'+(ro?'':'editTaskById(this.getAttribute(\'data-id\'))')+'" style="color:'+(t.done?'#0f9b8e':'#1a1d23')+';text-decoration:'+(t.done?'line-through':'none')+';font-size:13px;line-height:1.5;cursor:'+(ro?'default':'text')+'">'+esc(t.text)+'</div>'
+    +'<div data-id="'+t.id+'" ondblclick="'+(ro?'':'editTaskById(this.getAttribute(\'data-id\'))')+'" style="color:'+(t.done?'#0f9b8e':'#2d4263')+';text-decoration:'+(t.done?'line-through':'none')+';font-size:16px;line-height:1.5;cursor:'+(ro?'default':'text')+'">'+esc(t.text)+'</div>'
     +'<div style="display:flex;gap:3px;flex-wrap:wrap;margin-top:3px;align-items:center">'
-    +'<span style="font-size:10px;padding:1px 6px;border-radius:5px;background:'+pc+'18;color:'+pc+';font-weight:600">'+PL[t.prio]+'</span>'+tags+rec
+    +'<span style="font-size:13px;padding:1px 6px;border-radius:5px;background:'+pc+'18;color:'+pc+';font-weight:600">'+PL[t.prio]+'</span>'+tags+rec
     +'</div></div>'+del_btn+'</div>';
 }
 function addTaskHTML(bid){
   return '<div style="margin-top:8px">'
     +'<div style="display:flex;gap:6px"><input id="ati-'+bid+'" class="inp" placeholder="新增任務… (Enter)" onkeydown="if(event.key===\'Enter\')subTask(\''+bid+'\')" onfocus="showAE(\''+bid+'\')">'
-    +'<button onclick="subTask(\''+bid+'\')" style="padding:0 12px;background:#3b5bdb;border:none;border-radius:8px;color:#fff;font-size:18px;line-height:1;cursor:pointer;font-weight:700">+</button></div>'
-    +'<div id="ae-'+bid+'" style="display:none;background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;padding:9px 10px;margin-top:5px">'
-    +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px">'+(function(){var s='';['A','B','C','D'].forEach(function(k){var v=PL[k];s+='<button data-bid="'+bid+'" data-prio="'+k+'" onclick="setAP(this)" class="apbtn" style="padding:3px 9px;border:1.5px solid '+PR[k]+';border-radius:12px;cursor:pointer;background:'+(k==='A'?PR[k]+'22':'transparent')+';color:'+(k==='A'?PR[k]:'#8a9ab0')+';font-size:11px;font-weight:'+(k==='A'?700:400)+'">'+v+'</button>';});return s;})()+'</div>'
-    +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px">'+TAGS.map(function(t){return'<button data-bid="'+bid+'" data-tag="'+t.id+'" onclick="togAT(this)" class="atbtn" style="padding:2px 8px;border:1px solid '+t.c+'50;border-radius:10px;cursor:pointer;background:transparent;color:#8a9ab0;font-size:10px">'+t.l+'</button>';}).join('')+'</div>'
-    +'<label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8a9ab0;cursor:pointer"><input type="checkbox" id="ar-'+bid+'"> &#128257; 每日重複任務</label>'
+    +'<button onclick="subTask(\''+bid+'\')" style="padding:0 12px;background:#1e4d8c;border:none;border-radius:8px;color:#fff;font-size:22px;line-height:1;cursor:pointer;font-weight:700">+</button></div>'
+    +'<div id="ae-'+bid+'" style="display:none;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:9px 10px;margin-top:5px">'
+    +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px">'+(function(){var s='';['A','B','C','D'].forEach(function(k){var v=PL[k];s+='<button data-bid="'+bid+'" data-prio="'+k+'" onclick="setAP(this)" class="apbtn" style="padding:3px 9px;border:1.5px solid '+PR[k]+';border-radius:12px;cursor:pointer;background:'+(k==='A'?PR[k]+'22':'transparent')+';color:'+(k==='A'?PR[k]:'#8a9ab0')+';font-size:14px;font-weight:'+(k==='A'?700:400)+'">'+v+'</button>';});return s;})()+'</div>'
+    +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px">'+TAGS.map(function(t){return'<button data-bid="'+bid+'" data-tag="'+t.id+'" onclick="togAT(this)" class="atbtn" style="padding:2px 8px;border:1px solid '+t.c+'50;border-radius:10px;cursor:pointer;background:transparent;color:#7a8fa8;font-size:13px">'+t.l+'</button>';}).join('')+'</div>'
+    +'<label style="display:flex;align-items:center;gap:6px;font-size:14px;color:#7a8fa8;cursor:pointer"><input type="checkbox" id="ar-'+bid+'"> 🔁 每日重複任務</label>'
     +'</div></div>';
 }
 
@@ -467,18 +503,18 @@ function bindEvents(){}
 // Tasks tab
 function renderTasks(ro,fut){
   var tpls=getTemplates();
-  var tplBtn=tpls.length>0?'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">'+tpls.map(function(tpl,idx){return'<button data-tidx="'+idx+'" onclick="applyTpl(parseInt(this.dataset.tidx))" style="padding:4px 10px;background:#eceef8;border:1px solid #3b5bdb40;border-radius:12px;color:#3b5bdb;font-size:11px;cursor:pointer;font-weight:600">&#128193; '+esc(tpl.name)+'</button>';}).join('')+"</div>":'';
-  var h=tplBtn+'<div class="card" style="background:#eceef8;border:1px solid #3b5bdb20;font-size:12px;color:#4338ca;line-height:1.7;margin-bottom:12px">&#127807; 先<strong>生命</strong>、再<strong>關係</strong>、後<strong>事工</strong> — 讓耶穌作王掌權 · <span style="color:#8a9ab0">雙擊任務可編輯</span></div>';
+  var tplBtn=tpls.length>0?'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">'+tpls.map(function(tpl,idx){return'<button data-tidx="'+idx+'" onclick="applyTpl(parseInt(this.dataset.tidx))" style="padding:4px 10px;background:#e8edf5;border:1px solid #1e4d8c40;border-radius:12px;color:#1e4d8c;font-size:14px;cursor:pointer;font-weight:600">📁 '+esc(tpl.name)+'</button>';}).join('')+"</div>":'';
+  var h=tplBtn+'<div class="card" style="background:#e8edf5;border:1px solid #1e4d8c20;font-size:15px;color:#4338ca;line-height:1.7;margin-bottom:12px">🌿 先<strong>生命</strong>、再<strong>關係</strong>、後<strong>事工</strong> — 讓耶穌作王掌權 · <span style="color:#7a8fa8">雙擊任務可編輯</span></div>';
   BL.forEach(function(b){
     var bt=curDay.tasks.filter(function(t){return t.block===b.id;}),dn=bt.filter(function(t){return t.done;}).length,clp=coll[b.id];
     h+='<div class="block-card" style="border-left:4px solid '+b.color+'">';
     h+='<div data-bid="'+b.id+'" onclick="togColl(this.dataset.bid)" style="display:flex;align-items:center;gap:8px;margin-bottom:'+(clp?0:10)+'px;cursor:pointer">';
-    h+='<span style="font-size:18px">'+b.icon+'</span>';
-    h+='<div style="flex:1"><div style="color:'+b.color+';font-weight:700;font-size:14px">'+b.label+'</div>';
-    h+='<div style="display:flex;gap:6px;margin-top:2px;align-items:center"><span style="color:#3b5bdb;font-size:10px;font-weight:600;background:#eceef8;border-radius:5px;padding:1px 5px">'+b.time+'</span><span style="color:#8a9ab0;font-size:11px">'+b.desc+'</span></div></div>';
-    if(bt.length>0)h+='<div style="font-size:11px;padding:2px 8px;border-radius:10px;background:'+(dn===bt.length?'#e2f5f3':'#eeebe4')+';color:'+(dn===bt.length?'#0f9b8e':'#8a9ab0')+';font-weight:600;border:1px solid '+(dn===bt.length?'#0f9b8e40':'#e0dbd2')+'">'+dn+'/'+bt.length+'</div>';
-    h+='<span style="color:#8a9ab0;font-size:13px">'+(clp?'&#9656;':'&#9662;')+'</span></div>';
-    if(!clp){if(bt.length===0&&!ro)h+='<div style="color:#8a9ab0;font-size:12px;font-style:italic;padding:4px 6px;margin-bottom:4px">尚無任務</div>';bt.forEach(function(t){h+=taskHTML(t,ro);});if(!ro)h+=addTaskHTML(b.id);}
+    h+='<span style="font-size:22px">'+b.icon+'</span>';
+    h+='<div style="flex:1"><div style="color:'+b.color+';font-weight:700;font-size:18px">'+b.label+'</div>';
+    h+='<div style="display:flex;gap:6px;margin-top:2px;align-items:center"><span style="color:#1e4d8c;font-size:13px;font-weight:600;background:#e8edf5;border-radius:5px;padding:1px 5px">'+b.time+'</span><span style="color:#7a8aaa;font-size:14px">'+b.desc+'</span></div></div>';
+    if(bt.length>0)h+='<div style="font-size:14px;padding:2px 8px;border-radius:10px;background:'+(dn===bt.length?'#e2f5f3':'#eeebe4')+';color:'+(dn===bt.length?'#0f9b8e':'#8a9ab0')+';font-weight:600;border:1px solid '+(dn===bt.length?'#0f9b8e40':'#e0dbd2')+'">'+dn+'/'+bt.length+'</div>';
+    h+='<span style="color:#7a8fa8;font-size:16px">'+(clp?'▸':'▾')+'</span></div>';
+    if(!clp){if(bt.length===0&&!ro)h+='<div style="color:#7a8fa8;font-size:15px;font-style:italic;padding:4px 6px;margin-bottom:4px">尚無任務</div>';bt.forEach(function(t){h+=taskHTML(t,ro);});if(!ro)h+=addTaskHTML(b.id);}
     h+='</div>';
   });
   return h;
@@ -487,36 +523,37 @@ function togColl(id){coll[id]=!coll[id];renderHCon();}
 
 // Priority tab
 function renderPriority(ro){
-  var h='<div class="card" style="background:#eeebe4;font-size:12px;color:#4a5568;line-height:1.7">&#127919; <span style="color:#e05c3a;font-weight:600">A必做</span>：神的呼召 · <span style="color:#d97706;font-weight:600">B應做</span>：有益事工 · <span style="color:#3b82c4;font-weight:600">C可做</span>：若有餘力 · <span style="color:#7c4dbd;font-weight:600">D委派</span>：讓他人承擔</div>';
+  var h='<div class="card" style="background:#eaecf4;font-size:15px;color:#4a5a72;line-height:1.7">🎯 <span style="color:#e05c3a;font-weight:600">A必做</span>：神的呼召 · <span style="color:#d97706;font-weight:600">B應做</span>：有益事工 · <span style="color:#3b82c4;font-weight:600">C可做</span>：若有餘力 · <span style="color:#6b45b0;font-weight:600">D委派</span>：讓他人承擔</div>';
   h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">';
-  [{id:"all",l:"全部"},{id:"pending",l:"待完成"},{id:"done",l:"已完成"}].concat(TAGS.map(function(t){return{id:t.id,l:t.l,c:t.c};})).forEach(function(f){h+='<button data-fid="'+f.id+'" onclick="setPF(this.dataset.fid)" style="padding:4px 11px;border:1.5px solid '+(f.c||"#cec8be")+';border-radius:14px;cursor:pointer;background:'+(pFilter===f.id?(f.c||"#3b5bdb")+"18":"transparent")+';color:'+(pFilter===f.id?(f.c||"#3b5bdb"):"#8a9ab0")+';font-size:11px;font-weight:'+(pFilter===f.id?700:400)+'">'+f.l+'</button>';});
+  var FILTERS=[{id:"all",l:"全部"},{id:"pending",l:"待完成"},{id:"done",l:"已完成"}].concat(TAGS.map(function(t){return{id:t.id,l:t.l,c:t.c};}));
+  FILTERS.forEach(function(f){h+='<button data-fid="'+f.id+'" onclick="setPF(this.dataset.fid)" style="padding:4px 11px;border:1.5px solid '+(f.c||"#cec8be")+';border-radius:14px;cursor:pointer;background:'+(pFilter===f.id?(f.c||"#1e4d8c")+"18":"transparent")+';color:'+(pFilter===f.id?(f.c||"#1e4d8c"):"#8a9ab0")+';font-size:14px;font-weight:'+(pFilter===f.id?700:400)+'">'+f.l+'</button>';});
   h+='</div>';
   if(!ro)h+='<div style="margin-bottom:14px">'+addTaskHTML("deep")+'</div>';
   var fl=pFilter==="all"?curDay.tasks:pFilter==="done"?curDay.tasks.filter(function(t){return t.done;}):pFilter==="pending"?curDay.tasks.filter(function(t){return!t.done;}):curDay.tasks.filter(function(t){return(t.tags||[]).indexOf(pFilter)>=0;});
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
-  ['A','B','C','D'].forEach(function(k){var lbl=PL[k];var col=fl.filter(function(t){return t.prio===k;});h+='<div style="background:#faf8f4;border:1px solid '+PR[k]+'30;border-top:3px solid '+PR[k]+';border-radius:12px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:'+PR[k]+';font-weight:700;font-size:13px">'+lbl+'</span>'+(col.length>0?'<span style="font-size:11px;color:#8a9ab0;font-weight:600">'+col.filter(function(t){return t.done;}).length+'/'+col.length+'</span>':'')+'</div>'+(col.length===0?'<div style="color:#8a9ab0;font-size:12px;font-style:italic">無任務</div>':'')+col.map(function(t){return taskHTML(t,ro);}).join('')+'</div>';});
+  ['A','B','C','D'].forEach(function(k){var lbl=PL[k];var col=fl.filter(function(t){return t.prio===k;});h+='<div style="background:#f8fafc;border:1px solid '+PR[k]+'30;border-top:3px solid '+PR[k]+';border-radius:12px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:'+PR[k]+';font-weight:700;font-size:16px">'+lbl+'</span>'+(col.length>0?'<span style="font-size:14px;color:#7a8fa8;font-weight:600">'+col.filter(function(t){return t.done;}).length+'/'+col.length+'</span>':'')+'</div>'+(col.length===0?'<div style="color:#7a8fa8;font-size:15px;font-style:italic">無任務</div>':'')+col.map(function(t){return taskHTML(t,ro);}).join('')+'</div>';});
   h+='</div>';return h;
 }
 function setPF(f){pFilter=f;renderHCon();}
 
 // Review tab
 function renderReview(ro,fut){
-  if(fut)return'<div class="card" style="background:#f4eeff;border:1px solid #7c4dbd30;font-size:12px;color:#7c4dbd">&#128197; 預先規劃模式</div><div style="color:#4a5568;font-size:13px;margin-bottom:6px;font-weight:600">&#128221; 規劃備注</div><textarea class="ta" rows="4" placeholder="記下這天的目標、計畫、期望…" oninput="curDay.plan=this.value;trigSave()">'+esc(curDay.plan||"")+'</textarea>';
+  if(fut)return'<div class="card" style="background:#f2eeff;border:1px solid #6b45b030;font-size:15px;color:#6b45b0">📅 預先規劃模式</div><div style="color:#4a5a72;font-size:16px;margin-bottom:6px;font-weight:600">📝 規劃備注</div><textarea class="ta" rows="4" placeholder="記下這天的目標、計畫、期望…" oninput="curDay.plan=this.value;trigSave()">'+esc(curDay.plan||"")+'</textarea>';
   var filled=RQ.filter(function(q){return curDay.review[q.key]&&curDay.review[q.key].trim();}).length;
-  var h=(ro?'<div class="card" style="background:#fdf0ec;border:1px solid #e05c3a30;font-size:12px;color:#e05c3a;font-weight:500">&#128214; 歷史記錄（唯讀）</div>':'');
-  h+='<div class="card"><div style="display:flex;align-items:center;gap:6px;margin-bottom:10px"><span style="font-size:11px;color:#4a5568;width:50px">今日狀態</span>'+MOODS.map(function(m,i){return'<button onclick="'+(ro?'':'setMood('+i+')')+'" style="background:none;border:none;cursor:'+(ro?'default':'pointer')+';font-size:'+(curDay.mood===i?22:15)+'px;opacity:'+(curDay.mood===i?1:.3)+';transform:'+(curDay.mood===i?'scale(1.2)':'scale(1)')+'">'+m+'</button>';}).join('')+'</div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:#4a5568;width:50px">精力指數</span><div style="display:flex;gap:4px">'+[1,2,3,4,5].map(function(n){return'<button onclick="'+(ro?'':'setEnergy('+n+')')+'" style="width:24px;height:24px;border-radius:6px;border:1.5px solid '+(n<=(curDay.energy||3)?'#e05c3a':'#e0dbd2')+';background:'+(n<=(curDay.energy||3)?'#fdf0ec':'transparent')+';cursor:'+(ro?'default':'pointer')+';color:'+(n<=(curDay.energy||3)?'#e05c3a':'#cec8be')+';font-size:13px;line-height:1;font-weight:700">&#9679;</button>';}).join('')+'</div><span style="font-size:11px;color:#4a5568">'+(curDay.energy||3)+'/5</span></div></div>';
-  h+='<div style="margin-bottom:12px"><div style="color:#1a1d23;font-size:13px;margin-bottom:6px;font-weight:600">&#11088; 今日最大亮點</div>'+(ro?'<div class="card" style="color:'+(curDay.highlight?'#1a1d23':'#8a9ab0')+';font-style:'+(curDay.highlight?'normal':'italic')+'">'+(curDay.highlight||'（未填）')+'</div>':'<input class="inp" placeholder="今天最值得記住的一句話…" value="'+esc(curDay.highlight||"")+'" oninput="curDay.highlight=this.value;trigSave()" style="font-size:13px">')+'</div>';
-  h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:'+(filled/RQ.length*100)+'%;background:#0f9b8e"></div></div><span style="font-size:12px;color:#0f9b8e;font-weight:600">'+filled+'/'+RQ.length+' 回顧完成</span></div>';
-  RQ.forEach(function(q){var val=curDay.review[q.key]||"";h+='<div style="margin-bottom:12px"><div style="color:'+q.color+';font-size:13px;margin-bottom:4px;display:flex;gap:6px;align-items:center;font-weight:600"><span>'+q.icon+'</span><span>'+q.label+'</span></div>'+(ro?'<div class="card" style="color:'+(val.trim()?'#1a1d23':'#8a9ab0')+';font-style:'+(val.trim()?'normal':'italic')+';min-height:36px">'+(val.trim()||'（未填）')+'</div>':'<textarea class="ta" rows="2" placeholder="在此書寫…" data-key="'+q.key+'" oninput="curDay.review[this.dataset.key]=this.value;trigSave()">'+esc(val)+'</textarea>')+'</div>';});
-  h+='<div style="margin-bottom:14px"><div style="color:#4a5568;font-size:12px;margin-bottom:5px;font-weight:500">&#128591; 禱告筆記</div>'+(ro?'<div class="card" style="color:'+(curDay.note?'#1a1d23':'#8a9ab0')+';font-style:'+(curDay.note?'normal':'italic')+';min-height:44px">'+(curDay.note||'（未填）')+'</div>':'<textarea class="ta" rows="3" placeholder="禱告記錄、感恩、靈感…" oninput="curDay.note=this.value;trigSave()">'+esc(curDay.note||"")+'</textarea>')+'</div>';
-  h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:14px 16px"><div style="color:#0f766e;font-size:13px;line-height:2;font-weight:500">&#128161; <strong>321 回顧提醒</strong><br>今日有讓<span style="color:#3b5bdb;font-weight:700">耶穌作王</span>嗎？<br>有什麼驕傲需要放下，讓謙卑帶動謙卑？<br>明日從<span style="color:#3b5bdb;font-weight:700">生命&#8594;關係&#8594;事工</span>重新出發。</div></div>';
+  var h=(ro?'<div class="card" style="background:#fdf0ec;border:1px solid #e05c3a30;font-size:15px;color:#e05c3a;font-weight:500">📖 歷史記錄（唯讀）</div>':'');
+  h+='<div class="card"><div style="display:flex;align-items:center;gap:6px;margin-bottom:10px"><span style="font-size:14px;color:#4a5a72;width:50px">今日狀態</span>'+MOODS.map(function(m,i){return'<button onclick="'+(ro?'':'setMood('+i+')')+'" style="background:none;border:none;cursor:'+(ro?'default':'pointer')+';font-size:'+(curDay.mood===i?22:15)+'px;opacity:'+(curDay.mood===i?1:.3)+';transform:'+(curDay.mood===i?'scale(1.2)':'scale(1)')+'">'+m+'</button>';}).join('')+'</div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px;color:#4a5a72;width:50px">精力指數</span><div style="display:flex;gap:4px">'+[1,2,3,4,5].map(function(n){return'<button onclick="'+(ro?'':'setEnergy('+n+')')+'" style="width:24px;height:24px;border-radius:6px;border:1.5px solid '+(n<=(curDay.energy||3)?'#e05c3a':'#e0dbd2')+';background:'+(n<=(curDay.energy||3)?'#fdf0ec':'transparent')+';cursor:'+(ro?'default':'pointer')+';color:'+(n<=(curDay.energy||3)?'#e05c3a':'#cec8be')+';font-size:16px;line-height:1;font-weight:700">●</button>';}).join('')+'</div><span style="font-size:14px;color:#4a5a72">'+(curDay.energy||3)+'/5</span></div></div>';
+  h+='<div style="margin-bottom:12px"><div style="color:#243050;font-size:16px;margin-bottom:6px;font-weight:600">⭐ 今日最大亮點</div>'+(ro?'<div class="card" style="color:'+(curDay.highlight?'#1a1d23':'#8a9ab0')+';font-style:'+(curDay.highlight?'normal':'italic')+'">'+(curDay.highlight||'（未填）')+'</div>':'<input class="inp" placeholder="今天最值得記住的一句話…" value="'+esc(curDay.highlight||"")+'" oninput="curDay.highlight=this.value;trigSave()" style="font-size:16px">')+'</div>';
+  h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:'+(filled/RQ.length*100)+'%;background:#0a8f84"></div></div><span style="font-size:15px;color:#0a8f84;font-weight:600">'+filled+'/'+RQ.length+' 回顧完成</span></div>';
+  RQ.forEach(function(q){var val=curDay.review[q.key]||"";h+='<div style="margin-bottom:12px"><div style="color:'+q.color+';font-size:16px;margin-bottom:4px;display:flex;gap:6px;align-items:center;font-weight:600"><span>'+q.icon+'</span><span>'+q.label+'</span></div>'+(ro?'<div class="card" style="color:'+(val.trim()?'#1a1d23':'#8a9ab0')+';font-style:'+(val.trim()?'normal':'italic')+';min-height:36px">'+(val.trim()||'（未填）')+'</div>':'<textarea class="ta" rows="2" placeholder="在此書寫…" data-key="'+q.key+'" oninput="curDay.review[this.dataset.key]=this.value;trigSave()">'+esc(val)+'</textarea>')+'</div>';});
+  h+='<div style="margin-bottom:14px"><div style="color:#4a5a72;font-size:15px;margin-bottom:5px;font-weight:500">🙏 禱告筆記</div>'+(ro?'<div class="card" style="color:'+(curDay.note?'#1a1d23':'#8a9ab0')+';font-style:'+(curDay.note?'normal':'italic')+';min-height:44px">'+(curDay.note||'（未填）')+'</div>':'<textarea class="ta" rows="3" placeholder="禱告記錄、感恩、靈感…" oninput="curDay.note=this.value;trigSave()">'+esc(curDay.note||"")+'</textarea>')+'</div>';
+  h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:14px 16px"><div style="color:#0f766e;font-size:16px;line-height:2;font-weight:500">💡 <strong>321 回顧提醒</strong><br>今日有讓<span style="color:#1e4d8c;font-weight:700">耶穌作王</span>嗎？<br>有什麼驕傲需要放下，讓謙卑帶動謙卑？<br>明日從<span style="color:#1e4d8c;font-weight:700">生命→關係→事工</span>重新出發。</div></div>';
   return h;
 }
 function setMood(v){curDay.mood=v;renderHCon();}
 function setEnergy(v){curDay.energy=v;renderHCon();}
 
 // Week View
-function getWkStart(d){var dt=new Date(d+"T00:00:00");dt.setDate(dt.getDate()-dt.getDay());return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
+function getWkStart(d){var dt=new Date(d+"T00:00:00");dt.setDate(dt.getDate()-dt.getDay());return dt.getFullYear()+"-"+_pad(dt.getMonth()+1)+"-"+_pad(dt.getDate());}
 function wkGoToday(){wkStart=getWkStart(tod());renderWk();}
 function wkPrev(){wkStart=addD(wkStart,-7);renderWk();}
 function wkNext(){wkStart=addD(wkStart,7);renderWk();}
@@ -535,35 +572,35 @@ function renderWk(){
     var pct=tot>0?Math.round(dn/tot*100):0;
     var isT=d===t,isFut=d>t;
     var bg=isT?"#eceef8":isFut?"#faf8f4":"#faf8f4";
-    var bdr=isT?"#3b5bdb":"#e0dbd2";
+    var bdr=isT?"#1e4d8c":"#e0dbd2";
     var dn2=new Date(d+"T00:00:00").getDate();
     var dw=new Date(d+"T00:00:00").toLocaleDateString("zh-TW",{weekday:"short"});
     h+='<div data-wkd="'+d+'" onclick="wkGotoDay(this.dataset.wkd)" style="background:'+bg+';border:1.5px solid '+bdr+';border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer">';
-    h+='<div style="font-size:10px;color:#8a9ab0;margin-bottom:2px">'+dw+'</div>';
-    h+='<div style="font-size:16px;font-weight:'+(isT?900:400)+';color:'+(isT?"#3b5bdb":isFut?"#8a9ab0":"#1a1d23")+'">'+dn2+'</div>';
-    h+='<div style="margin:5px auto;width:32px;height:32px;border-radius:50%;background:#eeebe4;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:'+(pct===100?"#0f9b8e":"#3b5bdb")+'">'+( tot>0?pct+"%":"—")+'</div>';
-    if(tot>0)h+='<div style="font-size:9px;color:#8a9ab0">'+dn+"/"+tot+'</div>';
-    if(dy.mood>0)h+='<div style="font-size:12px;margin-top:2px">'+MOODS[dy.mood]+'</div>';
+    h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:2px">'+dw+'</div>';
+    h+='<div style="font-size:20px;font-weight:'+(isT?900:400)+';color:'+(isT?"#1e4d8c":isFut?"#8a9ab0":"#1a1d23")+'">'+dn2+'</div>';
+    h+='<div style="margin:5px auto;width:32px;height:32px;border-radius:50%;background:#eaecf4;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:'+(pct===100?"#0a8f84":"#1e4d8c")+'">'+( tot>0?pct+"%":"—")+'</div>';
+    if(tot>0)h+='<div style="font-size:12px;color:#7a8fa8">'+dn+"/"+tot+'</div>';
+    if(dy.mood>0)h+='<div style="font-size:15px;margin-top:2px">'+MOODS[dy.mood]+'</div>';
     h+='</div>';
   });
   h+='</div>';
   var wpct=wtot>0?Math.round(wdn/wtot*100):0;
-  h+='<div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="flex:1"><div style="font-size:11px;color:#8a9ab0;margin-bottom:4px">本週任務完成率</div><div class="prog-bar"><div class="prog-fill" style="width:'+wpct+'%;background:'+(wpct===100?"#0f9b8e":"#3b5bdb")+'"></div></div></div><div style="font-size:20px;font-weight:900;color:'+(wpct===100?"#0f9b8e":"#3b5bdb")+'">'+wpct+'%</div></div>';
-  h+='<div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:10px">各天任務</div>';
+  h+='<div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="flex:1"><div style="font-size:14px;color:#7a8fa8;margin-bottom:4px">本週任務完成率</div><div class="prog-bar"><div class="prog-fill" style="width:'+wpct+'%;background:'+(wpct===100?"#0f9b8e":"#1e4d8c")+'"></div></div></div><div style="font-size:24px;font-weight:900;color:'+(wpct===100?"#0a8f84":"#1e4d8c")+'">'+wpct+'%</div></div>';
+  h+='<div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:10px">各天任務</div>';
   days.forEach(function(d){
     var dy=getDay(d)||blank();
     if(!dy.tasks||dy.tasks.length===0)return;
     var isT=d===t;
     var dl=new Date(d+"T00:00:00").toLocaleDateString("zh-TW",{month:"2-digit",day:"2-digit",weekday:"short"});
     var dn=dy.tasks.filter(function(t){return t.done;}).length;
-    h+='<div class="block-card" style="border-left:3px solid '+(isT?"#3b5bdb":"#e0dbd2")+'">';
-    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-size:12px;font-weight:700;color:'+(isT?"#3b5bdb":"#1a1d23")+'">'+dl+(isT?" &#128309;":"")+'</div><div style="font-size:11px;color:#8a9ab0">'+dn+"/"+dy.tasks.length+'</div></div>';
-    dy.tasks.slice(0,4).forEach(function(t){h+='<div style="font-size:11px;color:'+(t.done?"#0f9b8e":"#4a5568")+';margin-bottom:2px">'+(t.done?"&#10003;":"&#9675;")+" "+esc(t.text)+'</div>';});
-    if(dy.tasks.length>4)h+='<div style="font-size:10px;color:#8a9ab0;margin-top:2px">+'+(dy.tasks.length-4)+' 更多</div>';
-    h+='<button data-wkd="'+d+'" onclick="wkGotoDay(this.dataset.wkd)" style="margin-top:8px;width:100%;padding:5px;background:#eeebe4;border:1px solid #e0dbd2;border-radius:7px;color:#4a5568;font-size:11px;cursor:pointer">前往編輯 &#8594;</button>';
+    h+='<div class="block-card" style="border-left:3px solid '+(isT?"#1e4d8c":"#e0dbd2")+'">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-size:15px;font-weight:700;color:'+(isT?"#1e4d8c":"#1a1d23")+'">'+dl+(isT?" 🔵":"")+'</div><div style="font-size:14px;color:#7a8fa8">'+dn+"/"+dy.tasks.length+'</div></div>';
+    dy.tasks.slice(0,4).forEach(function(t){h+='<div style="font-size:14px;color:'+(t.done?"#0f9b8e":"#4a5568")+';margin-bottom:2px">'+(t.done?"✓":"○")+" "+esc(t.text)+'</div>';});
+    if(dy.tasks.length>4)h+='<div style="font-size:13px;color:#7a8fa8;margin-top:2px">+'+(dy.tasks.length-4)+' 更多</div>';
+    h+='<button data-wkd="'+d+'" onclick="wkGotoDay(this.dataset.wkd)" style="margin-top:8px;width:100%;padding:5px;background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;color:#4a5a72;font-size:14px;cursor:pointer">前往編輯 →</button>';
     h+='</div>';
   });
-  if(days.every(function(d){var dy=getDay(d);return !dy||!dy.tasks||dy.tasks.length===0;}))h+='<div style="text-align:center;padding:30px;color:#8a9ab0;font-size:13px;line-height:2">本週尚無任務記錄<br>前往「每日規劃」開始新增</div>';
+  if(days.every(function(d){var dy=getDay(d);return !dy||!dy.tasks||dy.tasks.length===0;}))h+='<div style="text-align:center;padding:30px;color:#7a8fa8;font-size:16px;line-height:2">本週尚無任務記錄<br>前往「每日規劃」開始新增</div>';
   document.getElementById("wkcon").innerHTML=h;
 }
 
@@ -574,31 +611,31 @@ function updGrat(n,val){var t=tod();var g=getGrat(t);g.items[n]=val;saveGrat(t,g
 function updGratVerse(val){var t=tod();var g=getGrat(t);g.verse=val;saveGrat(t,g);}
 function renderGrat(){
   var t=tod(),idx=getIdx(),g=getGrat(t);
-  var h='<div style="background:linear-gradient(135deg,#eceef8,#f4eeff);border:1px solid #d9770640;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
-  h+='<div style="font-size:13px;font-weight:700;color:#d97706;margin-bottom:10px">&#10024; 今天，我感謝神⋯</div>';
+  var h='<div style="background:linear-gradient(135deg,#eceef8,#f2eeff);border:1px solid #d9770640;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
+  h+='<div style="font-size:16px;font-weight:700;color:#d97706;margin-bottom:10px">✨ 今天，我感謝神⋯</div>';
   [0,1,2].forEach(function(n){
     h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-    h+='<div style="width:22px;height:22px;border-radius:50%;background:#d97706;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(n+1)+'</div>';
-    h+='<input class="inp" placeholder="感謝神⋯" value="'+esc(g.items[n]||"")+'" data-gn="'+n+'" oninput="updGrat(parseInt(this.dataset.gn),this.value)" style="flex:1;background:#faf8f4;border-color:#d9770640;font-size:13px">';
+    h+='<div style="width:22px;height:22px;border-radius:50%;background:#d97706;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(n+1)+'</div>';
+    h+='<input class="inp" placeholder="感謝神⋯" value="'+esc(g.items[n]||"")+'" data-gn="'+n+'" oninput="updGrat(parseInt(this.dataset.gn),this.value)" style="flex:1;background:#f8fafc;border-color:#d9770640;font-size:16px">';
     h+='</div>';
   });
-  h+='<div style="margin-top:4px"><div style="font-size:11px;color:#8a9ab0;margin-bottom:4px">今日感恩經文（選填）</div>';
-  h+='<input class="inp" placeholder="例：詩篇100:4" value="'+esc(g.verse||"")+'" oninput="updGratVerse(this.value)" style="background:#faf8f4;border-color:#d9770640;font-size:12px;font-style:italic"></div>';
+  h+='<div style="margin-top:4px"><div style="font-size:14px;color:#7a8fa8;margin-bottom:4px">今日感恩經文（選填）</div>';
+  h+='<input class="inp" placeholder="例：詩篇100:4" value="'+esc(g.verse||"")+'" oninput="updGratVerse(this.value)" style="background:#f8fafc;border-color:#d9770640;font-size:15px;font-style:italic"></div>';
   h+='</div>';
-  h+='<div class="card" style="margin-bottom:14px;font-size:12px;color:#4a5568;line-height:1.8;font-style:italic">「你們要感謝耶和華，因他本為善，他的慈愛永遠長存。」— 詩篇107:1<br><span style="color:#8a9ab0;font-size:10px;font-style:normal">每天3件感恩，讓耶穌得到一切的榮耀</span></div>';
+  h+='<div class="card" style="margin-bottom:14px;font-size:15px;color:#4a5a72;line-height:1.8;font-style:italic">「你們要感謝耶和華，因他本為善，他的慈愛永遠長存。」— 詩篇107:1<br><span style="color:#7a8fa8;font-size:13px;font-style:normal">每天3件感恩，讓耶穌得到一切的榮耀</span></div>';
   document.getElementById("gratToday").innerHTML=h;
   var hh="";
   var gdays=idx.filter(function(d){var gd=getGrat(d);return gd.items&&gd.items.some(function(i){return i&&i.trim();});}).slice(0,30);
-  if(gdays.length===0){hh='<div style="text-align:center;padding:20px;color:#8a9ab0;font-size:12px">尚無歷史記錄<br>今天開始寫下第一筆感恩 &#128155;</div>';}
+  if(gdays.length===0){hh='<div style="text-align:center;padding:20px;color:#7a8fa8;font-size:15px">尚無歷史記錄<br>今天開始寫下第一筆感恩 💛</div>';}
   else{
     gdays.forEach(function(d){
       var gd=getGrat(d),isT=d===t;
       var items=gd.items.filter(function(i){return i&&i.trim();});
       if(!items.length)return;
       hh+='<div class="block-card" style="border-left:3px solid #d97706">';
-      hh+='<div style="font-size:11px;color:#d97706;font-weight:600;margin-bottom:6px">'+fS(d)+(isT?" · 今日":"")+'</div>';
-      items.forEach(function(item){hh+='<div style="font-size:12px;color:#4a5568;margin-bottom:3px;display:flex;align-items:flex-start;gap:6px"><span style="color:#d97706">&#128155;</span>'+esc(item)+'</div>';});
-      if(gd.verse)hh+='<div style="font-size:10px;color:#8a9ab0;margin-top:4px;font-style:italic">&#128214; '+esc(gd.verse)+'</div>';
+      hh+='<div style="font-size:14px;color:#d97706;font-weight:600;margin-bottom:6px">'+fS(d)+(isT?" · 今日":"")+'</div>';
+      items.forEach(function(item){hh+='<div style="font-size:15px;color:#4a5a72;margin-bottom:3px;display:flex;align-items:flex-start;gap:6px"><span style="color:#d97706">💛</span>'+esc(item)+'</div>';});
+      if(gd.verse)hh+='<div style="font-size:13px;color:#7a8fa8;margin-top:4px;font-style:italic">📖 '+esc(gd.verse)+'</div>';
       hh+='</div>';
     });
   }
@@ -614,12 +651,12 @@ function renderCal(){
   for(var i=0;i<first;i++){var e=document.createElement("div");e.className="cal-cell empty";g.appendChild(e);}
   for(var d=1;d<=dim;d++){
     (function(d){
-      var ds=calY+"-"+String(calM+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+      var ds=calY+"-"+_pad(calM+1)+"-"+_pad(d);
       var isTod=ds===t,isFut=ds>t,isPst=ds<t,has=idx.indexOf(ds)>=0,isSel=ds===calSel;
       var cell=document.createElement("div");
       cell.className="cal-cell"+(isTod?" today":"")+(isSel?" sel":"")+(isFut?" fut":"")+(isPst&&!isTod?" past":"");
       cell.innerHTML='<span style="font-weight:'+(isTod?700:400)+'">'+(isSel?'<span style="color:#fff">'+d+'</span>':d)+'</span>';
-      if(isTod&&!isSel){var dot=document.createElement("div");dot.className="cal-dot";dot.style.background="#3b5bdb";cell.appendChild(dot);}
+      if(isTod&&!isSel){var dot=document.createElement("div");dot.className="cal-dot";dot.style.background="#1e4d8c";cell.appendChild(dot);}
       else if(has){var dot2=document.createElement("div");dot2.className="cal-dot";dot2.style.background=isSel?"#fff":isFut?"#7c4dbd":"#0f9b8e";cell.appendChild(dot2);}
       cell.onclick=function(){selectCalDay(ds);};g.appendChild(cell);
     })(d);
@@ -634,12 +671,12 @@ function selectCalDay(ds){
   if(!calSel){cp.innerHTML="";return;}
   var dy=getDay(ds)||blank(),tot=dy.tasks.length,dn=dy.tasks.filter(function(t){return t.done;}).length;
   var isTod=ds===tod();
-  var badge=isTod?'<span class="badge" style="color:#0f9b8e;background:#e2f5f3">今日</span>':(ds>tod()?'<span class="badge" style="color:#7c4dbd;background:#f4eeff">已規劃</span>':'<span class="badge" style="color:#e05c3a;background:#fdf0ec">歷史</span>');
-  var h='<div class="card" style="border:1px solid #3b5bdb30;border-top:3px solid #3b5bdb">';
-  h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><div style="color:#1a1d23;font-size:14px;font-weight:700">'+fL(ds)+'</div><div style="margin-top:3px">'+badge+'</div></div>'+(tot>0?'<div style="text-align:right"><div style="font-size:20px;font-weight:900;color:'+(dn===tot?"#0f9b8e":"#3b5bdb")+'">'+dn+'/'+tot+'</div><div style="font-size:10px;color:#8a9ab0">任務完成</div></div>':'')+'</div>';
-  if(dy.highlight)h+='<div style="font-size:12px;color:#b45309;margin-bottom:6px">&#11088; '+esc(dy.highlight)+'</div>';
-  if(tot>0)h+='<div style="font-size:12px;color:#4a5568;margin-bottom:10px;line-height:1.6">'+dy.tasks.slice(0,3).map(function(t){return'<div style="color:'+(t.done?"#0f9b8e":"#4a5568")+'">'+(t.done?"&#10003;":"&#9675;")+" "+esc(t.text)+'</div>';}).join('')+(tot>3?'<div>+'+(tot-3)+' 更多</div>':'')+'</div>';
-  h+='<button data-ds="'+ds+'" onclick="gotoCalDay(this.dataset.ds)" style="width:100%;padding:9px;background:#3b5bdb;border:none;border-radius:9px;color:#fff;font-weight:700;font-size:13px;cursor:pointer">前往此日 &#8594;</button></div>';
+  var badge=isTod?'<span class="badge" style="color:#0a8f84;background:#e2f5f3">今日</span>':(ds>tod()?'<span class="badge" style="color:#6b45b0;background:#f2eeff">已規劃</span>':'<span class="badge" style="color:#e05c3a;background:#fdf0ec">歷史</span>');
+  var h='<div class="card" style="border:1px solid #1e4d8c30;border-top:3px solid #1e4d8c">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><div style="color:#1a1d23;font-size:18px;font-weight:700">'+fL(ds)+'</div><div style="margin-top:3px">'+badge+'</div></div>'+(tot>0?'<div style="text-align:right"><div style="font-size:24px;font-weight:900;color:'+(dn===tot?"#0f9b8e":"#1e4d8c")+'">'+dn+'/'+tot+'</div><div style="font-size:13px;color:#7a8fa8">任務完成</div></div>':'')+'</div>';
+  if(dy.highlight)h+='<div style="font-size:15px;color:#b45309;margin-bottom:6px">⭐ '+esc(dy.highlight)+'</div>';
+  if(tot>0)h+='<div style="font-size:15px;color:#4a5a72;margin-bottom:10px;line-height:1.6">'+dy.tasks.slice(0,3).map(function(t){return'<div style="color:'+(t.done?"#0f9b8e":"#4a5568")+'">'+(t.done?"✓":"○")+" "+esc(t.text)+'</div>';}).join('')+(tot>3?'<div>+'+(tot-3)+' 更多</div>':'')+'</div>';
+  h+='<button data-ds="'+ds+'" onclick="gotoCalDay(this.dataset.ds)" style="width:100%;padding:9px;background:#1e4d8c;border:none;border-radius:9px;color:#fff;font-weight:700;font-size:16px;cursor:pointer">前往此日 →</button></div>';
   cp.innerHTML=h;
 }
 function gotoCalDay(ds){curDate=ds;loadAndRender();calSel=null;document.getElementById("calprev").innerHTML="";goSc("home",document.querySelector(".nb"));}
@@ -648,17 +685,17 @@ function gotoCalDay(ds){curDate=ds;loadAndRender();calSel=null;document.getEleme
 var CIRC=565.49;
 function initFocus(){
   var pb=document.getElementById("fpresets");
-  pb.innerHTML=FPS.map(function(p,i){return'<button data-fsel="'+i+'" onclick="selPreset(parseInt(this.dataset.fsel))" id="fp'+i+'" style="padding:6px 14px;border:2px solid '+p.c+(i===0?"":"60")+';border-radius:16px;background:'+(i===0?p.c+"18":"transparent")+';color:'+(i===0?p.c:"#8a9ab0")+';font-size:12px;cursor:pointer;font-weight:'+(i===0?700:400)+'">'+p.min+'分鐘</button>';}).join('');
-  document.getElementById("fbtns").innerHTML='<button onclick="startPreset()" style="padding:12px 36px;background:'+FPS[0].c+';border:none;border-radius:12px;color:#fff;font-weight:900;font-size:16px;cursor:pointer">開始專注</button>';
+  pb.innerHTML=FPS.map(function(p,i){return'<button data-fsel="'+i+'" onclick="selPreset(parseInt(this.dataset.fsel))" id="fp'+i+'" style="padding:6px 14px;border:2px solid '+p.c+(i===0?"":"60")+';border-radius:16px;background:'+(i===0?p.c+"18":"transparent")+';color:'+(i===0?p.c:"#8a9ab0")+';font-size:15px;cursor:pointer;font-weight:'+(i===0?700:400)+'">'+p.min+'分鐘</button>';}).join('');
+  document.getElementById("fbtns").innerHTML='<button onclick="startPreset()" style="padding:12px 36px;background:'+FPS[0].c+';border:none;border-radius:12px;color:#fff;font-weight:900;font-size:20px;cursor:pointer">開始專注</button>';
 }
 function selPreset(i){fSel=i;FPS.forEach(function(p,j){var b=document.getElementById("fp"+j);if(b){b.style.border="2px solid "+p.c+(j===i?"":"60");b.style.background=j===i?p.c+"18":"transparent";b.style.color=j===i?p.c:"#8a9ab0";b.style.fontWeight=j===i?700:400;}});if(!fTot){var p=FPS[i];setTimerDisplay(p.min*60,p.min*60);document.getElementById("farc").style.stroke=p.c;document.getElementById("flabel").textContent=p.min+"分鐘專注";}}
 function startPreset(){warmAudio();var p=FPS[fSel];startFocus(p.min,p.c);}
-function startCustom(){warmAudio();var m=Math.max(1,Math.min(240,parseInt(document.getElementById("fcustom").value)||25));stopFocus();setTimeout(function(){startFocus(m,"#3b5bdb");},50);}
-function startFocus(min,color){var tot=min*60;fSec=tot;fTot=tot;fRun=true;document.getElementById("fdone").style.display="none";document.getElementById("ftask").disabled=true;document.getElementById("farc").style.stroke=color||"#3b5bdb";document.getElementById("fbtns").innerHTML='<button onclick="pauseFocus()" id="fpause" style="padding:11px 22px;background:#faf8f4;border:1.5px solid #e0dbd2;border-radius:12px;color:#1a1d23;font-size:14px;cursor:pointer;font-weight:600">&#9208; 暫停</button><button onclick="stopFocus()" style="padding:11px 22px;background:#eeebe4;border:1.5px solid #e0dbd2;border-radius:12px;color:#4a5568;font-size:14px;cursor:pointer;font-weight:600">&#9209; 停止</button>';
+function startCustom(){warmAudio();var m=Math.max(1,Math.min(240,parseInt(document.getElementById("fcustom").value)||25));stopFocus();setTimeout(function(){startFocus(m,"#1e4d8c");},50);}
+function startFocus(min,color){var tot=min*60;fSec=tot;fTot=tot;fRun=true;document.getElementById("fdone").style.display="none";document.getElementById("ftask").disabled=true;document.getElementById("farc").style.stroke=color||"#1e4d8c";document.getElementById("fbtns").innerHTML='<button onclick="pauseFocus()" id="fpause" style="padding:11px 22px;background:#f8fafc;border:1.5px solid #e0dbd2;border-radius:12px;color:#1a1d23;font-size:18px;cursor:pointer;font-weight:600">⏸ 暫停</button><button onclick="stopFocus()" style="padding:11px 22px;background:#eaecf4;border:1.5px solid #e0dbd2;border-radius:12px;color:#4a5a72;font-size:18px;cursor:pointer;font-weight:600">⏹ 停止</button>';
   clearInterval(fTimer);fTimer=setInterval(function(){if(!fRun)return;fSec=Math.max(0,fSec-1);setTimerDisplay(fSec,fTot);if(fSec===0){clearInterval(fTimer);fRun=false;playBell();fSessN++;var d=getDay(tod())||blank();d.sessions=(d.sessions||0)+1;saveDay(tod(),d);if(curDate===tod())curDay.sessions=d.sessions;document.getElementById("fdone").style.display="block";document.getElementById("fsessions").style.display="block";document.getElementById("fscount").textContent=fSessN;document.getElementById("farc").style.stroke="#0f9b8e";document.getElementById("ftime").textContent="完成！";document.getElementById("ftime").style.color="#0f9b8e";document.getElementById("flabel").textContent="鈴聲已響起";document.getElementById("fbtns").innerHTML='';}},1000);}
-function pauseFocus(){fRun=!fRun;var b=document.getElementById("fpause");if(b)b.innerHTML=fRun?"&#9208; 暫停":"&#9654; 繼續";}
-function stopFocus(){clearInterval(fTimer);fRun=false;fSec=0;fTot=0;document.getElementById("fdone").style.display="none";document.getElementById("ftask").disabled=false;document.getElementById("ftime").style.color="#1a1d23";var p=FPS[fSel];setTimerDisplay(p.min*60,p.min*60);document.getElementById("farc").style.stroke=p.c;document.getElementById("flabel").textContent=p.min+"分鐘專注";document.getElementById("fbtns").innerHTML='<button onclick="startPreset()" style="padding:12px 36px;background:'+p.c+';border:none;border-radius:12px;color:#fff;font-weight:900;font-size:16px;cursor:pointer">開始專注</button>';}
-function setTimerDisplay(sec,tot){var mm=String(Math.floor(sec/60)).padStart(2,"0"),ss=String(sec%60).padStart(2,"0");document.getElementById("ftime").textContent=mm+":"+ss;var pct=tot>0?(tot-sec)/tot:0;document.getElementById("farc").style.strokeDashoffset=CIRC*(1-pct);}
+function pauseFocus(){fRun=!fRun;var b=document.getElementById("fpause");if(b)b.innerHTML=fRun?"⏸ 暫停":"▶ 繼續";}
+function stopFocus(){clearInterval(fTimer);fRun=false;fSec=0;fTot=0;document.getElementById("fdone").style.display="none";document.getElementById("ftask").disabled=false;document.getElementById("ftime").style.color="#1a1d23";var p=FPS[fSel];setTimerDisplay(p.min*60,p.min*60);document.getElementById("farc").style.stroke=p.c;document.getElementById("flabel").textContent=p.min+"分鐘專注";document.getElementById("fbtns").innerHTML='<button onclick="startPreset()" style="padding:12px 36px;background:'+p.c+';border:none;border-radius:12px;color:#fff;font-weight:900;font-size:20px;cursor:pointer">開始專注</button>';}
+function setTimerDisplay(sec,tot){var mm=_pad(Math.floor(sec/60)),ss=_pad(sec%60);document.getElementById("ftime").textContent=mm+":"+ss;var pct=tot>0?(tot-sec)/tot:0;document.getElementById("farc").style.strokeDashoffset=CIRC*(1-pct);}
 
 // Stats
 function renderStats(){
@@ -667,31 +704,32 @@ function renderStats(){
   var days7=last7.map(function(d){return getDay(d)||blank();});
   var tp=function(d){var n=d.tasks?d.tasks.length:0;return n>0?d.tasks.filter(function(t){return t.done;}).length/n*100:0;};
   var streak=0;
-  for(var i=0;i<90;i++){var dt=new Date();dt.setDate(dt.getDate()-i);var ds=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");if(idx.indexOf(ds)>=0)streak++;else break;}
+  for(var i=0;i<90;i++){var dt=new Date();dt.setDate(dt.getDate()-i);var ds=dt.getFullYear()+"-"+_pad(dt.getMonth()+1)+"-"+_pad(dt.getDate());if(idx.indexOf(ds)>=0)streak++;else break;}
   var avg7=days7.length?Math.round(days7.reduce(function(a,d){return a+tp(d);},0)/days7.length):0;
   var focus=days7.reduce(function(a,d){return a+(d.sessions||0);},0);
   var mds=days7.filter(function(d){return d.mood>0;}),eds=days7.filter(function(d){return d.energy>0;});
   var moodAvg=mds.length?(mds.reduce(function(a,d){return a+d.mood;},0)/mds.length).toFixed(1):"—";
   var energyAvg=eds.length?(eds.reduce(function(a,d){return a+d.energy;},0)/eds.length).toFixed(1):"—";
   var h='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">';
-  [{l:"連續天數",v:streak+"天",c:"#0f9b8e",bg:"#e2f5f3"},{l:"總記錄",v:idx.length+"天",c:"#3b5bdb",bg:"#eceef8"},{l:"本週完成率",v:avg7+"%",c:"#e05c3a",bg:"#fdf0ec"}].forEach(function(s){h+='<div style="background:'+s.bg+';border:1px solid '+s.c+'30;border-top:3px solid '+s.c+';border-radius:12px;padding:12px 8px;text-align:center"><div style="font-size:22px;font-weight:900;color:'+s.c+'">'+s.v+'</div><div style="font-size:11px;color:#4a5568;margin-top:3px;font-weight:500">'+s.l+'</div></div>';});
+  var STATCARDS=[{l:"連續天數",v:streak+"天",c:"#0f9b8e",bg:"#e2f5f3"},{l:"總記錄",v:idx.length+"天",c:"#1e4d8c",bg:"#eceef8"},{l:"本週完成率",v:avg7+"%",c:"#e05c3a",bg:"#fdf0ec"}];
+  STATCARDS.forEach(function(s){h+='<div style="background:'+s.bg+';border:1px solid '+s.c+'30;border-top:3px solid '+s.c+';border-radius:12px;padding:12px 8px;text-align:center"><div style="font-size:26px;font-weight:900;color:'+s.c+'">'+s.v+'</div><div style="font-size:14px;color:#4a5a72;margin-top:3px;font-weight:500">'+s.l+'</div></div>';});
   h+='</div>';
-  h+='<div class="card" style="margin-bottom:14px"><div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">本週平均狀態</div><div style="display:flex;gap:16px;align-items:center">';
-  h+='<div style="flex:1;text-align:center"><div style="font-size:32px">'+MOODS[Math.round(parseFloat(moodAvg)||3)]+'</div><div style="font-size:11px;color:#4a5568;margin-top:4px">心情 '+moodAvg+'</div></div>';
-  h+='<div style="flex:1;text-align:center"><div style="font-size:14px;color:#e05c3a;letter-spacing:1px">'+("●".repeat(Math.round(parseFloat(energyAvg)||3)))+"○".repeat(5-Math.round(parseFloat(energyAvg)||3))+'</div><div style="font-size:11px;color:#4a5568;margin-top:6px">精力 '+energyAvg+'/5</div></div>';
-  if(focus>0)h+='<div style="flex:1;text-align:center"><div style="font-size:32px;font-weight:900;color:#0f9b8e">'+focus+'</div><div style="font-size:11px;color:#4a5568;margin-top:4px">專注次數</div></div>';
+  h+='<div class="card" style="margin-bottom:14px"><div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">本週平均狀態</div><div style="display:flex;gap:16px;align-items:center">';
+  h+='<div style="flex:1;text-align:center"><div style="font-size:36px">'+MOODS[Math.round(parseFloat(moodAvg)||3)]+'</div><div style="font-size:14px;color:#4a5a72;margin-top:4px">心情 '+moodAvg+'</div></div>';
+  h+='<div style="flex:1;text-align:center"><div style="font-size:18px;color:#e05c3a;letter-spacing:1px">'+("●".repeat(Math.round(parseFloat(energyAvg)||3)))+"○".repeat(5-Math.round(parseFloat(energyAvg)||3))+'</div><div style="font-size:14px;color:#4a5a72;margin-top:6px">精力 '+energyAvg+'/5</div></div>';
+  if(focus>0)h+='<div style="flex:1;text-align:center"><div style="font-size:36px;font-weight:900;color:#0a8f84">'+focus+'</div><div style="font-size:14px;color:#4a5a72;margin-top:4px">專注次數</div></div>';
   h+='</div></div>';
   if(last7.length>0){
-    h+='<div class="card" style="margin-bottom:14px"><div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">近 7 天完成率</div><div style="display:flex;gap:5px;align-items:flex-end;height:80px">';
-    days7.slice().reverse().forEach(function(d,i){var p=tp(d),n=d.tasks?d.tasks.length:0,ds=last7[last7.length-1-i];h+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="font-size:10px;color:#4a5568;font-weight:600">'+(p>0?Math.round(p)+"%":n>0?"0%":"—")+'</div><div style="width:100%;height:'+Math.max(p*.7,n>0?5:0)+'px;background:'+(ds>t?"#7c4dbd60":p===100?"#0f9b8e":p>0?"#3b5bdb":"#eeebe4")+';border-radius:4px 4px 0 0;min-height:'+(n>0?5:0)+'px"></div><div style="font-size:9px;color:#8a9ab0">'+(ds?new Date(ds+"T00:00:00").toLocaleDateString("zh-TW",{weekday:"short"}):"")+'</div></div>';});
+    h+='<div class="card" style="margin-bottom:14px"><div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">近 7 天完成率</div><div style="display:flex;gap:5px;align-items:flex-end;height:80px">';
+    days7.slice().reverse().forEach(function(d,i){var p=tp(d),n=d.tasks?d.tasks.length:0,ds=last7[last7.length-1-i];h+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="font-size:13px;color:#4a5a72;font-weight:600">'+(p>0?Math.round(p)+"%":n>0?"0%":"—")+'</div><div style="width:100%;height:'+Math.max(p*.7,n>0?5:0)+'px;background:'+(ds>t?"#7c4dbd60":p===100?"#0f9b8e":p>0?"#1e4d8c":"#eeebe4")+';border-radius:4px 4px 0 0;min-height:'+(n>0?5:0)+'px"></div><div style="font-size:12px;color:#7a8fa8">'+(ds?new Date(ds+"T00:00:00").toLocaleDateString("zh-TW",{weekday:"short"}):"")+'</div></div>';});
     h+='</div></div>';
   }
-  h+='<div class="card" style="margin-bottom:14px"><div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;margin-bottom:10px;font-weight:600;text-transform:uppercase">30 天熱力圖</div><div style="display:flex;flex-wrap:wrap;gap:3px">';
-  for(var j=0;j<30;j++){var dj=new Date();dj.setDate(dj.getDate()-(29-j));var dsj=dj.getFullYear()+"-"+String(dj.getMonth()+1).padStart(2,"0")+"-"+String(dj.getDate()).padStart(2,"0");var hasj=idx.indexOf(dsj)>=0,isFutj=dsj>t;h+='<div style="width:18px;height:18px;border-radius:4px;background:'+(hasj?(isFutj?"#7c4dbd40":"#0f9b8e"):"#eeebe4")+';border:1px solid '+(hasj?(isFutj?"#7c4dbd60":"#0f9b8e80"):"#e0dbd2")+'"></div>';}
-  h+='</div><div style="display:flex;gap:10px;margin-top:8px;align-items:center"><div style="width:14px;height:14px;border-radius:3px;background:#0f9b8e"></div><span style="font-size:10px;color:#4a5568">已記錄</span><div style="width:14px;height:14px;border-radius:3px;background:#7c4dbd40"></div><span style="font-size:10px;color:#4a5568">規劃中</span><div style="width:14px;height:14px;border-radius:3px;background:#eeebe4;border:1px solid #e0dbd2"></div><span style="font-size:10px;color:#4a5568">無記錄</span></div></div>';
+  h+='<div class="card" style="margin-bottom:14px"><div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;margin-bottom:10px;font-weight:600;text-transform:uppercase">30 天熱力圖</div><div style="display:flex;flex-wrap:wrap;gap:3px">';
+  for(var j=0;j<30;j++){var dj=new Date();dj.setDate(dj.getDate()-(29-j));var dsj=dj.getFullYear()+"-"+_pad(dj.getMonth()+1)+"-"+_pad(dj.getDate());var hasj=idx.indexOf(dsj)>=0,isFutj=dsj>t;h+='<div style="width:18px;height:18px;border-radius:4px;background:'+(hasj?(isFutj?"#6b45b040":"#0f9b8e"):"#eeebe4")+';border:1px solid '+(hasj?(isFutj?"#7c4dbd60":"#0f9b8e80"):"#e0dbd2")+'"></div>';}
+  h+='</div><div style="display:flex;gap:10px;margin-top:8px;align-items:center"><div style="width:14px;height:14px;border-radius:3px;background:#0a8f84"></div><span style="font-size:13px;color:#4a5a72">已記錄</span><div style="width:14px;height:14px;border-radius:3px;background:#6b45b040"></div><span style="font-size:13px;color:#4a5a72">規劃中</span><div style="width:14px;height:14px;border-radius:3px;background:#eaecf4;border:1px solid #d8dce8"></div><span style="font-size:13px;color:#4a5a72">無記錄</span></div></div>';
   // Add time analysis
   h+=renderTimeAnalysis(idx);
-  if(idx.length===0)h='<div style="text-align:center;padding:40px;color:#8a9ab0;font-size:13px;line-height:2">開始記錄第一天<br>統計數據將在這裡顯示</div>';
+  if(idx.length===0)h='<div style="text-align:center;padding:40px;color:#7a8fa8;font-size:16px;line-height:2">開始記錄第一天<br>統計數據將在這裡顯示</div>';
   document.getElementById("stcon").innerHTML=h;
 }
 
@@ -703,23 +741,23 @@ function renderSB(){
   var items=[];
   idx.slice(0,80).forEach(function(d){var dy=getDay(d)||blank();if(!q||fL(d).indexOf(q)>=0||(dy.highlight||"").indexOf(q)>=0||(dy.plan||"").indexOf(q)>=0||dy.tasks.some(function(t){return t.text.toLowerCase().indexOf(q)>=0;})){items.push({d:d,dy:dy});}});
   var el=document.getElementById("sblist");
-  if(items.length===0){el.innerHTML='<div style="padding:24px;color:#8a9ab0;font-size:12px;text-align:center">'+(q?"找不到記錄":"尚無歷史記錄")+'</div>';return;}
+  if(items.length===0){el.innerHTML='<div style="padding:24px;color:#7a8fa8;font-size:15px;text-align:center">'+(q?"找不到記錄":"尚無歷史記錄")+'</div>';return;}
   el.innerHTML=items.map(function(item){
     var d=item.d,dy=item.dy,tot=dy.tasks.length,dn=dy.tasks.filter(function(t){return t.done;}).length;
     var rev=RQ.filter(function(q2){return dy.review[q2.key]&&dy.review[q2.key].trim();}).length;
     var act=d===curDate,isFut=d>t;
-    return'<div data-sd="'+d+'" onclick="sbGoto(this.dataset.sd)" style="padding:10px 14px;cursor:pointer;background:'+(act?"#eceef8":"transparent")+';border-left:3px solid '+(act?"#3b5bdb":"transparent")+'">'
-      +'<div style="color:'+(act?"#3b5bdb":"#1a1d23")+';font-size:13px;font-weight:'+(act?700:400)+';display:flex;align-items:center;gap:5px">'+fS(d)+(d===t?'<span class="badge" style="color:#0f9b8e;background:#e2f5f3">今日</span>':"")+(isFut?'<span class="badge" style="color:#7c4dbd;background:#f4eeff">規劃</span>':'')+'</div>'
-      +(dy.highlight?'<div style="color:#4a5568;font-size:11px;margin-top:2px">'+esc(dy.highlight.slice(0,26))+(dy.highlight.length>26?"…":"")+'</div>':'')
-      +'<div style="font-size:11px;color:#8a9ab0;margin-top:2px">任務'+dn+'/'+tot+' · 回顧'+rev+'/'+RQ.length+(dy.mood?" · "+MOODS[dy.mood]:"")+'</div></div>';
+    return'<div data-sd="'+d+'" onclick="sbGoto(this.dataset.sd)" style="padding:10px 14px;cursor:pointer;background:'+(act?"#eceef8":"transparent")+';border-left:3px solid '+(act?"#1e4d8c":"transparent")+'">'
+      +'<div style="color:'+(act?"#1e4d8c":"#1a1d23")+';font-size:16px;font-weight:'+(act?700:400)+';display:flex;align-items:center;gap:5px">'+fS(d)+(d===t?'<span class="badge" style="color:#0a8f84;background:#e2f5f3">今日</span>':"")+(isFut?'<span class="badge" style="color:#6b45b0;background:#f2eeff">規劃</span>':'')+'</div>'
+      +(dy.highlight?'<div style="color:#4a5a72;font-size:14px;margin-top:2px">'+esc(dy.highlight.slice(0,26))+(dy.highlight.length>26?"…":"")+'</div>':'')
+      +'<div style="font-size:14px;color:#7a8fa8;margin-top:2px">任務'+dn+'/'+tot+' · 回顧'+rev+'/'+RQ.length+(dy.mood?" · "+MOODS[dy.mood]:"")+'</div></div>';
   }).join('');
 }
 function sbGoto(d){curDate=d;loadAndRender();closeSB();goSc("home",document.querySelector(".nb"));}
 
 // Export/Import
-function doExpJSON(){var all=[];getIdx().forEach(function(d){var dy=getDay(d);if(dy)all.push({date:d,data:dy});});var blob=new Blob([JSON.stringify({v:4,exported:new Date().toISOString(),days:all},null,2)],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="321planner_"+tod()+".json";a.click();URL.revokeObjectURL(a.href);toast("&#128229; JSON 匯出成功");closeSB();}
-function doExpMD(){var lines=["# 321 每日規劃記錄","匯出："+new Date().toLocaleString("zh-TW"),""];getIdx().forEach(function(d){var dy=getDay(d);if(!dy)return;lines.push("## "+fL(d));lines.push("任務："+(dy.tasks||[]).filter(function(t){return t.done;}).length+"/"+(dy.tasks||[]).length);if(dy.highlight)lines.push("⭐ "+dy.highlight);RQ.forEach(function(q){if(dy.review&&dy.review[q.key])lines.push(q.label+": "+dy.review[q.key]);});if(dy.note)lines.push("🙏 "+dy.note);lines.push("");});var blob=new Blob([lines.join("\n")],{type:"text/markdown"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="321planner_"+tod()+".md";a.click();URL.revokeObjectURL(a.href);toast("&#128196; MD 匯出成功");closeSB();}
-function doImp(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);var count=0;(data.days||[]).forEach(function(item){if(item.date&&item.data){saveDay(item.date,item.data);count++;}});toast("&#10003; 匯入 "+count+" 天記錄");renderSB();}catch(er){toast("&#10007; 匯入失敗","#e05c3a");}};reader.readAsText(file);e.target.value="";}
+function doExpJSON(){var all=[];getIdx().forEach(function(d){var dy=getDay(d);if(dy)all.push({date:d,data:dy});});var blob=new Blob([JSON.stringify({v:4,exported:new Date().toISOString(),days:all},null,2)],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="321planner_"+tod()+".json";a.click();URL.revokeObjectURL(a.href);toast("📥 JSON 匯出成功");closeSB();}
+function doExpMD(){var lines=["# 321 每日規劃記錄","匯出："+new Date().toLocaleString("zh-TW"),""];getIdx().forEach(function(d){var dy=getDay(d);if(!dy)return;lines.push("## "+fL(d));lines.push("任務："+(dy.tasks||[]).filter(function(t){return t.done;}).length+"/"+(dy.tasks||[]).length);if(dy.highlight)lines.push("⭐ "+dy.highlight);RQ.forEach(function(q){if(dy.review&&dy.review[q.key])lines.push(q.label+": "+dy.review[q.key]);});if(dy.note)lines.push("🙏 "+dy.note);lines.push("");});var blob=new Blob([lines.join("\n")],{type:"text/markdown"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="321planner_"+tod()+".md";a.click();URL.revokeObjectURL(a.href);toast("📄 MD 匯出成功");closeSB();}
+function doImp(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{var data=JSON.parse(ev.target.result);var count=0;(data.days||[]).forEach(function(item){if(item.date&&item.data){saveDay(item.date,item.data);count++;}});toast("✓ 匯入 "+count+" 天記錄");renderSB();}catch(er){toast("✗ 匯入失敗","#e05c3a");}};reader.readAsText(file);e.target.value="";}
 
 // Verse rotation
 var vi=0;
@@ -743,124 +781,130 @@ function saveTemplates(t){lsS("p4_tpl",t);}
 
 // Weekly Review Render
 function renderWRev(){
-  var t=tod(),ws=getWkStart(t),idx=getIdx();
-  var we=addD(ws,6);
-  var s=new Date(ws+"T00:00:00"),e=new Date(we+"T00:00:00");
-  var wLabel=s.toLocaleDateString("zh-TW",{month:"long",day:"numeric"})+" — "+e.toLocaleDateString("zh-TW",{month:"long",day:"numeric"});
+  var el=document.getElementById("wrevcon");
+  if(!el){setTimeout(renderWRev,300);return;}
+  try{
+    var t=tod();
+    var ws=getWkStart(t);
+    var wend=addD(ws,6);
+    var goals=getGoals(ws);
+    var rev=getWRev(ws);
+    var idx=getIdx();
+    var tpls=getTemplates();
 
-  // Calc week stats
-  var days=[],i;for(i=0;i<7;i++)days.push(addD(ws,i));
-  var wtot=0,wdn=0,focusTot=0;
-  var blCount={morning:0,deep:0,connect:0,admin:0,create:0,evening:0};
-  days.forEach(function(d){
-    var dy=getDay(d)||blank();
-    wtot+=(dy.tasks||[]).length;
-    wdn+=(dy.tasks||[]).filter(function(t){return t.done;}).length;
-    focusTot+=(dy.sessions||0);
-    (dy.tasks||[]).forEach(function(t){if(t.done&&blCount[t.block]!==undefined)blCount[t.block]++;});
-  });
-  var wpct=wtot>0?Math.round(wdn/wtot*100):0;
-  var rev=getWRev(ws);
-  var goals=getGoals(ws);
+    // Week stats
+    var days=[],i;
+    for(i=0;i<7;i++)days.push(addD(ws,i));
+    var wtot=0,wdn=0,focusTot=0;
+    for(i=0;i<days.length;i++){
+      var dy=getDay(days[i]);
+      if(dy&&dy.tasks){
+        wtot+=dy.tasks.length;
+        for(var j=0;j<dy.tasks.length;j++){if(dy.tasks[j].done)wdn++;}
+      }
+      if(dy&&dy.sessions)focusTot+=dy.sessions;
+    }
+    var wpct=wtot>0?Math.round(wdn/wtot*100):0;
 
-  var h='';
+    var h='';
 
-  // Week summary card
-  h+='<div class="card" style="background:linear-gradient(135deg,#eceef8,#f4eeff);border:1px solid #3b5bdb30;margin-bottom:14px">';
-  h+='<div style="font-size:12px;color:#8a9ab0;margin-bottom:6px;font-weight:600">&#128336; '+wLabel+'</div>';
-  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">';
-  h+='<div><div style="font-size:22px;font-weight:900;color:'+(wpct===100?"#0f9b8e":"#3b5bdb")+'">'+wpct+'%</div><div style="font-size:10px;color:#8a9ab0">任務完成率</div></div>';
-  h+='<div><div style="font-size:22px;font-weight:900;color:#d97706">'+wdn+'/'+wtot+'</div><div style="font-size:10px;color:#8a9ab0">任務完成</div></div>';
-  h+='<div><div style="font-size:22px;font-weight:900;color:#7c4dbd">'+focusTot+'</div><div style="font-size:10px;color:#8a9ab0">專注次數</div></div>';
-  h+='</div>';
+    // Week range
+    var s1=new Date(ws+'T00:00:00');
+    var e1=new Date(wend+'T00:00:00');
+    var wLabel=(s1.getMonth()+1)+'月'+s1.getDate()+'日 — '+(e1.getMonth()+1)+'月'+e1.getDate()+'日';
 
-  // Block breakdown mini chart
-  if(wtot>0){
-    h+='<div style="margin-top:12px"><div style="font-size:11px;color:#8a9ab0;margin-bottom:6px">各區塊完成任務數</div>';
-    var BLMap={morning:{label:"清晨靈修",color:"#d97706"},deep:{label:"深度工作",color:"#e05c3a"},connect:{label:"關係連結",color:"#3b82c4"},admin:{label:"行政事務",color:"#6366f1"},create:{label:"創意產出",color:"#7c4dbd"},evening:{label:"晚間回顧",color:"#0f9b8e"}};
-    var blVals=[];['morning','deep','connect','admin','create','evening'].forEach(function(k){blVals.push(blCount[k]);});var maxB=Math.max.apply(null,blVals)||1;
-    ['morning','deep','connect','admin','create','evening'].forEach(function(bid){var cnt=blCount[bid];if(cnt===0)return;var bl=BLMap[bid];
-      var bid=e[0],cnt=e[1];if(cnt===0)return;
-      var bl=BLMap[bid];
-      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
-      h+='<div style="font-size:10px;color:'+bl.color+';width:54px;font-weight:600;white-space:nowrap">'+bl.label.slice(0,4)+'</div>';
-      h+='<div style="flex:1;height:6px;background:#eeebe4;border-radius:10px;overflow:hidden"><div style="width:'+(cnt/maxB*100)+'%;height:100%;background:'+bl.color+';border-radius:10px"></div></div>';
-      h+='<div style="font-size:10px;color:#8a9ab0;width:16px;text-align:right">'+cnt+'</div>';
+    // Stats cards
+    h+='<div style="background:linear-gradient(135deg,#e8edf5,#f0f4f8);border:1px solid #1e4d8c30;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
+    h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:10px;font-weight:600">'+wLabel+'</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">';
+    h+='<div><div style="font-size:24px;font-weight:900;color:'+(wpct===100?'#0a8f84':'#1e4d8c')+'">'+wpct+'%</div><div style="font-size:12px;color:#7a8fa8">完成率</div></div>';
+    h+='<div><div style="font-size:24px;font-weight:900;color:#d97706">'+wdn+'/'+wtot+'</div><div style="font-size:12px;color:#7a8fa8">任務</div></div>';
+    h+='<div><div style="font-size:24px;font-weight:900;color:#6b45b0">'+focusTot+'</div><div style="font-size:12px;color:#7a8fa8">專注</div></div>';
+    h+='</div>';
+    // Progress bar
+    h+='<div style="margin-top:10px;height:6px;background:#d8dce8;border-radius:10px;overflow:hidden">';
+    h+='<div style="width:'+wpct+'%;height:100%;background:'+(wpct===100?'#0a8f84':'#1e4d8c')+';border-radius:10px"></div></div>';
+    h+='</div>';
+
+    // 321 Goals
+    h+='<div class="card" style="margin-bottom:14px">';
+    h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:4px">&#127775; 本週目標</div>';
+    h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:12px">讓耶穌在生命・關係・事工上都得榮耀</div>';
+    var gkeys=['life','rel','min'];
+    var gicons=['&#127807;','&#129309;','&#127775;'];
+    var glabels=['生命目標','關係目標','事工目標'];
+    var gcolors=['#0a8f84','#3b82c4','#6b45b0'];
+    var gphs=['本週在靈命上要達到的目標…','本週要建立或深化的關係…','本週要完成的事工或服事…'];
+    for(i=0;i<3;i++){
+      h+='<div style="margin-bottom:10px">';
+      h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">';
+      h+='<span style="font-size:16px">'+gicons[i]+'</span>';
+      h+='<span style="font-size:14px;font-weight:700;color:'+gcolors[i]+'">'+glabels[i]+'</span></div>';
+      h+='<input class="inp" placeholder="'+gphs[i]+'" value="'+esc(goals[gkeys[i]]||'')+'" data-gkey="'+gkeys[i]+'" oninput="updGoal(this.dataset.gkey,this.value)" style="font-size:14px;border-color:'+gcolors[i]+'40">';
       h+='</div>';
-    });
+    }
     h+='</div>';
+
+    // Review questions
+    h+='<div class="card" style="margin-bottom:14px">';
+    h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:12px">&#128172; 本週回顧</div>';
+    var wqkeys=['highlight','life','rel','min','thanks','next'];
+    var wqicons=['&#11088;','&#127807;','&#129309;','&#127775;','&#128155;','&#128207;'];
+    var wqlabels=['本週最大的亮點或突破？','靈命上有什麼成長？','關係上有什麼進步？','事工上有什麼果效？','這週最感恩的三件事','下週要特別注意的是？'];
+    var wqcolors=['#d97706','#0a8f84','#3b82c4','#6b45b0','#d97706','#e05c3a'];
+    for(i=0;i<wqkeys.length;i++){
+      h+='<div style="margin-bottom:12px">';
+      h+='<div style="color:'+wqcolors[i]+';font-size:14px;margin-bottom:4px;display:flex;gap:6px;align-items:center;font-weight:600">';
+      h+='<span>'+wqicons[i]+'</span><span>'+wqlabels[i]+'</span></div>';
+      h+='<textarea class="ta" rows="2" placeholder="在此書寫…" data-wkey="'+wqkeys[i]+'" oninput="updWRev(this.dataset.wkey,this.value)">'+esc(rev[wqkeys[i]]||'')+'</textarea>';
+      h+='</div>';
+    }
+    h+='</div>';
+
+    // Templates
+    h+='<div class="card" style="margin-bottom:14px">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+    h+='<div style="font-size:15px;font-weight:700;color:#1e3252">&#128193; 任務模板</div>';
+    h+='<button onclick="showAddTpl()" style="padding:6px 12px;background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;color:#1e4d8c;font-size:13px;cursor:pointer;font-weight:600">+ 儲存今日</button>';
+    h+='</div>';
+    if(tpls.length===0){
+      h+='<div style="color:#7a8fa8;font-size:13px;text-align:center;padding:10px 0">尚無模板</div>';
+    } else {
+      for(i=0;i<tpls.length;i++){
+        h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f4f6fa;border-radius:8px;margin-bottom:6px">';
+        h+='<div><div style="font-size:14px;font-weight:600;color:#1e3252">'+esc(tpls[i].name)+'</div>';
+        h+='<div style="font-size:12px;color:#7a8fa8">'+tpls[i].tasks.length+' 個任務</div></div>';
+        h+='<div style="display:flex;gap:6px">';
+        h+='<button data-tidx="'+i+'" onclick="applyTpl(parseInt(this.dataset.tidx))" style="padding:5px 10px;background:#0a8f84;border:none;border-radius:7px;color:#fff;font-size:13px;cursor:pointer;font-weight:600">套用</button>';
+        h+='<button data-tidx="'+i+'" onclick="delTpl(parseInt(this.dataset.tidx))" style="padding:5px 8px;background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;color:#7a8fa8;font-size:13px;cursor:pointer">×</button>';
+        h+='</div></div>';
+      }
+    }
+    h+='<div id="tplInput" style="display:none;margin-top:8px">';
+    h+='<input id="tplName" class="inp" placeholder="模板名稱（例：講道日、靈修日）" style="margin-bottom:6px">';
+    h+='<div style="display:flex;gap:6px">';
+    h+='<button onclick="saveTpl()" style="flex:1;padding:8px;background:#1e4d8c;border:none;border-radius:8px;color:#fff;font-size:14px;cursor:pointer;font-weight:600">儲存模板</button>';
+    h+='<button onclick="hideTplInput()" style="padding:8px 12px;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;color:#4a5a72;font-size:14px;cursor:pointer">取消</button>';
+    h+='</div></div>';
+    h+='</div>';
+
+    // 321 reminder
+    h+='<div style="background:linear-gradient(135deg,#e0f7f5,#e8edf5);border:1px solid #0a8f8430;border-radius:12px;padding:14px 16px">';
+    h+='<div style="color:#0a7a70;font-size:14px;line-height:2;font-weight:500">&#128161; <strong>321 每週回顧提醒</strong><br>';
+    h+='這週有讓<span style="color:#1e4d8c;font-weight:700">耶穌作王</span>嗎？<br>';
+    h+='謙卑帶動謙卑 — 下週從<span style="color:#1e4d8c;font-weight:700">無己</span>重新出發。</div>';
+    h+='</div>';
+
+    el.innerHTML=h;
+  } catch(err){
+    el.innerHTML='<div style="padding:20px;color:#e05c3a;font-size:14px">載入失敗，請重新點選「回顧」</div>';
   }
-  h+='</div>';
-
-  // 321 Three-dimensional Goals
-  h+='<div class="card" style="margin-bottom:14px">';
-  h+='<div style="font-size:13px;font-weight:700;color:#1a1d23;margin-bottom:4px">&#127775; 本週目標 — 321三維度</div>';
-  h+='<div style="font-size:11px;color:#8a9ab0;margin-bottom:12px">讓耶穌在生命・關係・事工上都得榮耀</div>';
-  [{key:"life",icon:"&#127807;",label:"生命目標",color:"#0f9b8e",ph:"本週在靈命上要達到的目標…"},
-   {key:"rel",icon:"&#129309;",label:"關係目標",color:"#3b82c4",ph:"本週要建立或深化的關係…"},
-   {key:"min",icon:"&#127775;",label:"事工目標",color:"#7c4dbd",ph:"本週要完成的事工或服事…"}].forEach(function(g){
-    h+='<div style="margin-bottom:10px">';
-    h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span style="font-size:14px">'+g.icon+'</span><span style="font-size:12px;font-weight:700;color:'+g.color+'">'+g.label+'</span></div>';
-    h+='<input class="inp" placeholder="'+g.ph+'" value="'+esc(goals[g.key]||"")+'" data-gkey="'+g.key+'" oninput="updGoal(this.dataset.gkey,this.value)" style="font-size:12px;border-color:'+g.color+'40">';
-    h+='</div>';
-  });
-  h+='</div>';
-
-  // Weekly Review Questions
-  h+='<div class="card" style="margin-bottom:14px">';
-  h+='<div style="font-size:13px;font-weight:700;color:#1a1d23;margin-bottom:12px">&#128172; 本週回顧問題</div>';
-  var wrqs=[
-    {key:"highlight",icon:"&#11088;",label:"本週最大的亮點或突破？",color:"#d97706"},
-    {key:"life",icon:"&#127807;",label:"這週在靈命上有什麼成長？",color:"#0f9b8e"},
-    {key:"rel",icon:"&#129309;",label:"這週在關係上有什麼進步？",color:"#3b82c4"},
-    {key:"min",icon:"&#127775;",label:"這週在事工上有什麼果效？",color:"#7c4dbd"},
-    {key:"thanks",icon:"&#128155;",label:"這週最感恩的三件事",color:"#d97706"},
-    {key:"next",icon:"&#127807;",label:"下週要特別注意或改善的是？",color:"#e05c3a"},
-  ];
-  wrqs.forEach(function(q){
-    h+='<div style="margin-bottom:12px">';
-    h+='<div style="color:'+q.color+';font-size:12px;margin-bottom:4px;display:flex;gap:6px;align-items:center;font-weight:600"><span>'+q.icon+'</span><span>'+q.label+'</span></div>';
-    h+='<textarea class="ta" rows="2" placeholder="在此書寫…" data-wkey="'+q.key+'" oninput="updWRev(this.dataset.wkey,this.value)">'+esc(rev[q.key]||"")+'</textarea>';
-    h+='</div>';
-  });
-  h+='</div>';
-
-  // 321 Reminder
-  h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:14px 16px;margin-bottom:14px">';
-  h+='<div style="color:#0f766e;font-size:13px;line-height:2;font-weight:500">&#128161; <strong>321 每週回顧提醒</strong><br>這週有讓<span style="color:#3b5bdb;font-weight:700">耶穌作王</span>嗎？<br>謙卑帶動謙卑 — 下週從<span style="color:#3b5bdb;font-weight:700">無己</span>重新出發。<br>為下週設立清晰的<span style="color:#0f9b8e;font-weight:700">生命・關係・事工</span>目標。</div>';
-  h+='</div>';
-
-  // Task Templates section
-  h+='<div class="card" style="margin-bottom:14px">';
-  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
-  h+='<div style="font-size:13px;font-weight:700;color:#1a1d23">&#128193; 任務模板</div>';
-  h+='<button onclick="showAddTpl()" style="padding:4px 10px;background:#eceef8;border:1px solid #3b5bdb40;border-radius:8px;color:#3b5bdb;font-size:11px;cursor:pointer;font-weight:600">+ 儲存今日為模板</button>';
-  h+='</div>';
-  var tpls=getTemplates();
-  if(tpls.length===0){h+='<div style="color:#8a9ab0;font-size:12px;font-style:italic;text-align:center;padding:10px 0">尚無模板<br>點「儲存今日」把今天的任務存為可重用模板</div>';}
-  else{
-    tpls.forEach(function(tpl,idx){
-      h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f5f3ef;border-radius:8px;margin-bottom:6px">';
-      h+='<div><div style="font-size:12px;font-weight:600;color:#1a1d23">'+esc(tpl.name)+'</div>';
-      h+='<div style="font-size:10px;color:#8a9ab0">'+tpl.tasks.length+' 個任務</div></div>';
-      h+='<div style="display:flex;gap:6px">';
-      h+='<button data-tidx="'+idx+'" onclick="applyTpl(parseInt(this.dataset.tidx))" style="padding:3px 9px;background:#0f9b8e;border:none;border-radius:7px;color:#fff;font-size:11px;cursor:pointer;font-weight:600">套用到今日</button>';
-      h+='<button data-tidx="'+idx+'" onclick="delTpl(parseInt(this.dataset.tidx))" style="padding:3px 7px;background:#eeebe4;border:1px solid #e0dbd2;border-radius:7px;color:#8a9ab0;font-size:11px;cursor:pointer">&#215;</button>';
-      h+='</div></div>';
-    });
-  }
-  h+='<div id="tplInput" style="display:none;margin-top:8px">';
-  h+='<input id="tplName" class="inp" placeholder="模板名稱（例：講道日、靈修日）" style="margin-bottom:6px">';
-  h+='<div style="display:flex;gap:6px"><button onclick="saveTpl()" style="flex:1;padding:7px;background:#3b5bdb;border:none;border-radius:8px;color:#fff;font-size:12px;cursor:pointer;font-weight:600">儲存模板</button><button onclick="document.getElementById('tplInput').style.display='none'" style="padding:7px 12px;background:#eeebe4;border:1px solid #e0dbd2;border-radius:8px;color:#4a5568;font-size:12px;cursor:pointer">取消</button></div>';
-  h+='</div>';
-  h+='</div>';
-
-  document.getElementById("wrevcon").innerHTML=h;
 }
 
 function updGoal(key,val){var t=tod();var ws=getWkStart(t);var g=getGoals(ws);g[key]=val;saveGoals(ws,g);}
 function updWRev(key,val){var t=tod();var ws=getWkStart(t);var r=getWRev(ws);r[key]=val;saveWRev(ws,r);}
 
+function hideTplInput(){var el=document.getElementById('tplInput');if(el)el.style.display='none';}
 function showAddTpl(){
   var el=document.getElementById("tplInput");
   if(el)el.style.display="block";
@@ -876,7 +920,7 @@ function saveTpl(){
   tpls.push({name:name,tasks:tasks,created:tod()});
   saveTemplates(tpls);
   document.getElementById("tplInput").style.display="none";
-  toast("&#10003; 模板「"+name+"」已儲存");
+  toast("✓ 模板「"+name+"」已儲存");
   renderWRev();
 }
 function applyTpl(idx){
@@ -887,11 +931,11 @@ function applyTpl(idx){
     var already=curDay.tasks.some(function(x){return x.text===t.text&&x.block===t.block;});
     if(!already){curDay.tasks.push({id:Date.now()+""+Math.random(),block:t.block,text:t.text,prio:t.prio,tags:t.tags||[],done:false,recurring:false});added++;}
   });
-  if(added>0){saveDay(curDate,curDay);toast("&#10003; 已套用 "+added+" 個任務到今日");}
+  if(added>0){saveDay(curDate,curDay);toast("✓ 已套用 "+added+" 個任務到今日");}
   else toast("所有任務已存在","#d97706");
 }
 function delTpl(idx){
-  var tpls=getTemplates();tpls.splice(idx,1);saveTemplates(tpls);renderWRev();toast("&#10003; 模板已刪除");
+  var tpls=getTemplates();tpls.splice(idx,1);saveTemplates(tpls);renderWRev();toast("✓ 模板已刪除");
 }
 
 // Enhanced Stats with Time Analysis
@@ -907,8 +951,8 @@ function renderTimeAnalysis(idx){
   var BLInfo={morning:{label:"清晨靈修",color:"#d97706"},deep:{label:"深度工作",color:"#e05c3a"},connect:{label:"關係連結",color:"#3b82c4"},admin:{label:"行政事務",color:"#6366f1"},create:{label:"創意產出",color:"#7c4dbd"},evening:{label:"晚間回顧",color:"#0f9b8e"}};
   var blTotVals=[];['morning','deep','connect','admin','create','evening'].forEach(function(k){blTotVals.push(blTotal[k]);});var maxT=Math.max.apply(null,blTotVals)||1;
   var totalAll=0;['morning','deep','connect','admin','create','evening'].forEach(function(k){totalAll+=blTotal[k];});
-  var h='<div class="card" style="margin-bottom:14px"><div style="font-size:11px;color:#8a9ab0;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">30天 時間區塊分析</div>';
-  if(totalAll===0){h+='<div style="color:#8a9ab0;font-size:12px;font-style:italic;text-align:center;padding:10px">記錄更多天後顯示分析</div>';}
+  var h='<div class="card" style="margin-bottom:14px"><div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;margin-bottom:12px;font-weight:600;text-transform:uppercase">30天 時間區塊分析</div>';
+  if(totalAll===0){h+='<div style="color:#7a8fa8;font-size:15px;font-style:italic;text-align:center;padding:10px">記錄更多天後顯示分析</div>';}
   else{
     ['morning','deep','connect','admin','create','evening'].forEach(function(bid){
       var bl=BLInfo[bid];var tot=blTotal[bid],dn=blCount[bid];
@@ -917,14 +961,14 @@ function renderTimeAnalysis(idx){
       var barPct=Math.round(tot/maxT*100);
       h+='<div style="margin-bottom:10px">';
       h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-      h+='<div style="font-size:11px;font-weight:600;color:'+bl.color+'">'+bl.label+'</div>';
-      h+='<div style="font-size:10px;color:#8a9ab0">'+dn+'/'+tot+' 完成 ('+pct+'%)</div>';
+      h+='<div style="font-size:14px;font-weight:600;color:'+bl.color+'">'+bl.label+'</div>';
+      h+='<div style="font-size:13px;color:#7a8fa8">'+dn+'/'+tot+' 完成 ('+pct+'%)</div>';
       h+='</div>';
-      h+='<div style="height:8px;background:#eeebe4;border-radius:10px;overflow:hidden">';
+      h+='<div style="height:8px;background:#eaecf4;border-radius:10px;overflow:hidden">';
       h+='<div style="width:'+barPct+'%;height:100%;background:'+bl.color+';border-radius:10px;position:relative">';
       h+='<div style="position:absolute;right:0;top:0;width:'+(100-pct)+'%;height:100%;background:'+bl.color+'60"></div>';
       h+='</div></div>';
-      h+='<div style="display:flex;justify-content:space-between;font-size:9px;color:#8a9ab0;margin-top:2px"><span>'+Math.round(tot/totalAll*100)+'% 總任務佔比</span><span>完成率 '+pct+'%</span></div>';
+      h+='<div style="display:flex;justify-content:space-between;font-size:12px;color:#7a8fa8;margin-top:2px"><span>'+Math.round(tot/totalAll*100)+'% 總任務佔比</span><span>完成率 '+pct+'%</span></div>';
       h+='</div>';
     });
     // Recommendation
@@ -932,13 +976,881 @@ function renderTimeAnalysis(idx){
     if(leastDone.length>0){
       var leastBid=leastDone[0][0];
       h+='<div style="background:#fdf0ec;border:1px solid #e05c3a20;border-radius:8px;padding:8px 10px;margin-top:8px">';
-      h+='<div style="font-size:11px;color:#e05c3a;font-weight:600">&#128270; 需要關注：'+BLInfo[leastBid].label+'</div>';
-      h+='<div style="font-size:10px;color:#8a9ab0;margin-top:2px">此區塊完成率最低，考慮減少任務數量或增加專注時間</div>';
+      h+='<div style="font-size:14px;color:#e05c3a;font-weight:600">🔎 需要關注：'+BLInfo[leastBid].label+'</div>';
+      h+='<div style="font-size:13px;color:#7a8fa8;margin-top:2px">此區塊完成率最低，考慮減少任務數量或增加專注時間</div>';
       h+='</div>';
     }
   }
   h+='</div>';
   return h;
+}
+
+
+// ── PHASE 3: 920 Tracker ──
+
+// 920 storage
+function get920(){return lsG("p4_920")||{people:[],notes:{}};}
+function save920(d){lsS("p4_920",d);}
+function get920Log(pid,d){return lsG("p4_920log_"+pid+"_"+d)||{checked:[],note:""};}
+function save920Log(pid,d,data){lsS("p4_920log_"+pid+"_"+d,data);}
+
+// Nine fruits labels
+var FRUITS=["仁愛","喜樂","和平","忍耐","恩慈","良善","信實","溫柔","節制"];
+var FRUIT_COLORS=["#e05c3a","#d97706","#0f9b8e","#3b82c4","#6366f1","#2e8b57","#7c4dbd","#3b82c4","#8a9ab0"];
+
+function render920(){
+  var data=get920();var t=tod();
+  var h="";
+
+  // Intro card
+  h+='<div style="background:linear-gradient(135deg,#fdf0ec,#fff7ed);border:1px solid #e05c3a30;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
+  h+='<div style="font-size:16px;font-weight:700;color:#e05c3a;margin-bottom:6px">920 操練核心</div>';
+  h+='<div style="font-size:15px;color:#4a5a72;line-height:1.9">每個跟你有關係的人是你的「<strong style="color:#e05c3a">2</strong>」<br>操練活出「<strong style="color:#0a8f84">0</strong>」無己的生命<br>結出「<strong style="color:#d97706">9</strong>」聖靈的果子</div>';
+  h+='</div>';
+
+  // Add person button
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+  h+='<div style="font-size:16px;font-weight:700;color:#1a1d23">我的「2」關係清單</div>';
+  h+='<button onclick="show920Add()" style="padding:5px 12px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:8px;color:#e05c3a;font-size:14px;cursor:pointer;font-weight:600">+ 新增</button>';
+  h+='</div>';
+
+  // Add person input (hidden by default)
+  h+='<div id="add920box" style="display:none;background:#f8fafc;border:1px solid #d8dce8;border-radius:10px;padding:12px;margin-bottom:12px">';
+  h+='<div style="font-size:14px;color:#7a8fa8;margin-bottom:6px">新增一個重要的「2」</div>';
+  h+='<input id="p920name" class="inp" placeholder="姓名（例：媽媽、John、同工李弟兄）" style="margin-bottom:6px">';
+  h+='<input id="p920rel" class="inp" placeholder="關係（例：家人、慕道友、同工）" style="margin-bottom:8px">';
+  h+='<div style="display:flex;gap:6px">';
+  h+='<button onclick="add920Person()" style="flex:1;padding:7px;background:#e05c3a;border:none;border-radius:8px;color:#fff;font-size:15px;cursor:pointer;font-weight:600">新增</button>';
+  h+='<button onclick="hide920Add()" style="padding:7px 12px;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;color:#4a5a72;font-size:15px;cursor:pointer">取消</button>';
+  h+='</div></div>';
+
+  if(data.people.length===0){
+    h+='<div style="text-align:center;padding:30px;color:#7a8fa8;font-size:16px;line-height:2">尚無「2」關係<br>點「新增」加入第一個操練對象</div>';
+  } else {
+    data.people.forEach(function(p,pi){
+      var log=get920Log(p.id,t);
+      var doneCount=log.checked?log.checked.length:0;
+      h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-left:4px solid #e05c3a;border-radius:12px;padding:12px 14px;margin-bottom:10px">';
+      // Header
+      h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
+      h+='<div>';
+      h+='<div style="font-size:18px;font-weight:700;color:#1a1d23">'+esc(p.name)+'</div>';
+      h+='<div style="font-size:14px;color:#7a8fa8;margin-top:2px">'+esc(p.rel||"")+'</div>';
+      h+='</div>';
+      h+='<div style="display:flex;gap:6px;align-items:center">';
+      h+='<div style="font-size:14px;padding:3px 9px;border-radius:10px;background:'+(doneCount>0?"#e2f5f3":"#eeebe4")+';color:'+(doneCount>0?"#0f9b8e":"#8a9ab0")+';font-weight:600">今日 '+doneCount+'/9</div>';
+      h+='<button data-pi="'+pi+'" onclick="del920Person(parseInt(this.dataset.pi))" style="background:none;border:none;color:#cec8be;cursor:pointer;font-size:18px">×</button>';
+      h+='</div></div>';
+      // 9 fruits grid
+      h+='<div style="margin-bottom:10px"><div style="font-size:14px;color:#7a8fa8;margin-bottom:6px">今日操練聖靈果子（點選已操練的）</div>';
+      h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">';
+      FRUITS.forEach(function(fr,fi){
+        var done=log.checked&&log.checked.indexOf(fi)>=0;
+        h+='<button data-pid="'+p.id+'" data-fi="'+fi+'" onclick="tog920Fruit(this.dataset.pid,parseInt(this.dataset.fi))" style="padding:6px 4px;border:1.5px solid '+(done?FRUIT_COLORS[fi]:"#e0dbd2")+';border-radius:8px;background:'+(done?FRUIT_COLORS[fi]+"18":"transparent")+';color:'+(done?FRUIT_COLORS[fi]:"#8a9ab0")+';font-size:14px;cursor:pointer;font-weight:'+(done?700:400)+'">';
+        h+=fr+(done?" ✓":"");
+        h+='</button>';
+      });
+      h+='</div></div>';
+      // Prayer note
+      h+='<div style="margin-top:10px">';
+      h+='<div style="font-size:15px;font-weight:900;color:#1a1d23;margin-bottom:10px">🕐 今日生命操練功課</div>';
+
+      // Step 1: What happened
+      h+='<div style="background:#fff7ed;border:1px solid #d9770640;border-left:4px solid #d97706;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h+='<div style="width:28px;height:28px;border-radius:50%;background:#d97706;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:#d97706">發生了什麼事？</div></div>';
+      h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:6px">與'+esc(p.name)+'互動中，發生了什麼讓我有反應的事？</div>';
+      var v1=(log.practice&&log.practice.event)||"";
+      h+='<textarea class="ta" rows="2" placeholder="簡單描述發生的事情或衝突…" data-pid2="'+p.id+'" data-ikey="event" oninput="upd920Practice(this.dataset.pid2,this.dataset.ikey,this.value)" style="border-color:#d9770640">'+esc(v1)+'</textarea>';
+      h+='</div>';
+
+      // Step 2: My reaction - see the problem (有己/驕傲)
+      h+='<div style="background:#fdf0ec;border:1px solid #e05c3a40;border-left:4px solid #e05c3a;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h+='<div style="width:28px;height:28px;border-radius:50%;background:#e05c3a;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:#e05c3a">看見我的問題</div></div>';
+      h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:8px">我有什麼情緒反應？我的舊人有己驕傲表現在哪？</div>';
+
+      var REACTIONS=[
+        {key:"anger",label:"憤怒/不滿",icon:"😡"},
+        {key:"proud",label:"驕傲/自以為是",icon:"👑"},
+        {key:"self",label:"以自我為中心",icon:"🥖"},
+        {key:"control",label:"想要控制",icon:"🔨"},
+        {key:"judge",label:"論斷批評",icon:"👆"},
+        {key:"fear",label:"恐懼/不安",icon:"😵"},
+        {key:"hurt",label:"受傷/委屈",icon:"😢"},
+        {key:"withdraw",label:"逃避退縮",icon:"🛀"},
+      ];
+      h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px">';
+      REACTIONS.forEach(function(r){
+        var checked=log.practice&&log.practice.reactions&&log.practice.reactions.indexOf(r.key)>=0;
+        h+='<button data-pid3="'+p.id+'" data-rkey="'+r.key+'" onclick="tog920Reaction(this.dataset.pid3,this.dataset.rkey)" style="padding:7px 10px;border:1.5px solid '+(checked?"#e05c3a":"#e0dbd2")+';border-radius:9px;background:'+(checked?"#fdf0ec":"transparent")+';color:'+(checked?"#e05c3a":"#8a9ab0")+';font-size:13px;cursor:pointer;font-weight:'+(checked?700:400)+';text-align:left">';
+        h+=r.icon+' '+r.label+(checked?" ✓":"");
+        h+='</button>';
+      });
+      h+='</div>';
+      var v2=(log.practice&&log.practice.myprob)||"";
+      h+='<textarea class="ta" rows="2" placeholder="我看見自己哪裡有己？哪裡驕傲？" data-pid2="'+p.id+'" data-ikey="myprob" oninput="upd920Practice(this.dataset.pid2,this.dataset.ikey,this.value)" style="border-color:#e05c3a40">'+esc(v2)+'</textarea>';
+      h+='</div>';
+
+      // Step 3: Separate the problems
+      h+='<div style="background:#eef2ff;border:1px solid #1e4d8c40;border-left:4px solid #1e4d8c;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h+='<div style="width:28px;height:28px;border-radius:50%;background:#1e4d8c;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:#1e4d8c">分清楚問題的歸屬</div></div>';
+      h+='<div style="background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:13px;color:#4a5a72;line-height:2">';
+      h+='💡 <strong style="color:#1e4d8c">關鍵提醒：</strong><br>不要讓別人的問題變成我的問題<br>';
+      h+='他/她的問題是他/她的問題，我的問題是我的問題<br>';
+      h+='<span style="color:#e05c3a">我能改變的只有自己</span></div>';
+      var v3=(log.practice&&log.practice.separate)||"";
+      h+='<textarea class="ta" rows="2" placeholder="他/她的問題：___ 我的問題：___ 分開來看…" data-pid2="'+p.id+'" data-ikey="separate" oninput="upd920Practice(this.dataset.pid2,this.dataset.ikey,this.value)" style="border-color:#1e4d8c40">'+esc(v3)+'</textarea>';
+      h+='</div>';
+
+      // Step 4: Submit to Jesus - transformation
+      h+='<div style="background:#e2f5f3;border:1px solid #0f9b8e40;border-left:4px solid #0f9b8e;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h+='<div style="width:28px;height:28px;border-radius:50%;background:#0a8f84;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:#0a8f84">靠耶穌改變我的問題</div></div>';
+      h+='<div style="font-size:13px;color:#7a8aaa;margin-bottom:8px">把問題交託耶穌，從有己→無己，從驕傲→謙卑</div>';
+      var v4=(log.practice&&log.practice.prayer)||"";
+      h+='<textarea class="ta" rows="3" placeholder="主耶穌，我看見我的問題是… 我願意放下…交託給你… 求你改變我…" data-pid2="'+p.id+'" data-ikey="prayer" oninput="upd920Practice(this.dataset.pid2,this.dataset.ikey,this.value)" style="border-color:#0a8f8440">'+esc(v4)+'</textarea>';
+      h+='</div>';
+
+      // Step 5: Fruit result
+      h+='<div style="background:#f2eeff;border:1px solid #6b45b040;border-left:4px solid #7c4dbd;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h+='<div style="width:28px;height:28px;border-radius:50%;background:#6b45b0;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:#6b45b0">結出聖靈果子</div></div>';
+      h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:8px">今日藉這個操練，結出了哪些聖靈果子？</div>';
+      h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px">';
+      FRUITS.forEach(function(fr,fi){
+        var done=log.checked&&log.checked.indexOf(fi)>=0;
+        h+='<button data-pid="'+p.id+'" data-fi="'+fi+'" onclick="tog920Fruit(this.dataset.pid,parseInt(this.dataset.fi))" style="padding:7px 4px;border:1.5px solid '+(done?FRUIT_COLORS[fi]:"#e0dbd2")+';border-radius:9px;background:'+(done?FRUIT_COLORS[fi]+"18":"transparent")+';color:'+(done?FRUIT_COLORS[fi]:"#8a9ab0")+';font-size:13px;cursor:pointer;font-weight:'+(done?700:400)+'">';
+        h+=fr+(done?" ✓":"");
+        h+='</button>';
+      });
+      h+='</div>';
+      var v5=(log.practice&&log.practice.fruitnote)||"";
+      h+='<textarea class="ta" rows="2" placeholder="今天在這段關係中，我活出了什麼？有什麼改變？" data-pid2="'+p.id+'" data-ikey="fruitnote" oninput="upd920Practice(this.dataset.pid2,this.dataset.ikey,this.value)" style="border-color:#6b45b040">'+esc(v5)+'</textarea>';
+      h+='</div>';
+
+      // 321 reminder quote
+      h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border-radius:12px;padding:10px 14px;font-size:13px;color:#0f766e;line-height:1.9">';
+      h+='💡 謙卑帶動謙卑 · 驕傲激起驕傲<br>用<strong>謙卑</strong>對謙卑，達到<strong>雙贏</strong></div>';
+
+      h+='</div>';
+    });
+  }
+
+  // 920 stats - last 7 days
+  h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-radius:12px;padding:12px 14px;margin-bottom:14px">';
+  h+='<div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:10px">近7天920操練記錄</div>';
+  if(data.people.length===0){
+    h+='<div style="color:#7a8fa8;font-size:15px;text-align:center">新增操練對象後顯示統計</div>';
+  } else {
+    var days7=[];var i;for(i=6;i>=0;i--)days7.push(addD(t,-i));
+    h+='<div style="display:flex;gap:4px">';
+    days7.forEach(function(d){
+      var total=0;
+      data.people.forEach(function(p){
+        var log=get920Log(p.id,d);
+        total+=log.checked?log.checked.length:0;
+      });
+      var maxTotal=data.people.length*9;
+      var pct=maxTotal>0?Math.round(total/maxTotal*100):0;
+      var dt=new Date(d+"T00:00:00");
+      h+='<div style="flex:1;text-align:center">';
+      h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:3px">'+dt.toLocaleDateString("zh-TW",{weekday:"short"})+'</div>';
+      h+='<div style="height:40px;background:#eaecf4;border-radius:4px;position:relative;overflow:hidden">';
+      h+='<div style="position:absolute;bottom:0;left:0;width:100%;height:'+pct+'%;background:#e05c3a;border-radius:4px"></div>';
+      h+='</div>';
+      h+='<div style="font-size:12px;color:#7a8fa8;margin-top:3px">'+(total>0?total:"")+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+  h+='</div>';
+
+  // 321 reminder
+  h+='<div style="background:linear-gradient(135deg,#fdf0ec,#fff7ed);border:1px solid #e05c3a20;border-radius:12px;padding:12px 16px">';
+  h+='<div style="color:#b45309;font-size:15px;line-height:2">💡 <strong>920 操練提醒</strong><br>謙卑戰勝驕傲 · 無己戰勝撒旦<br>先與「2」<strong>連結</strong>，再帶來<strong>教導</strong><br>人比事重要 · 關係比東西重要</div>';
+  h+='</div>';
+
+  document.getElementById("con920").innerHTML=h;
+}
+
+function show920Add(){var el=document.getElementById("add920box");if(el)el.style.display="block";}
+function hide920Add(){var el=document.getElementById("add920box");if(el)el.style.display="none";}
+function add920Person(){
+  var name=document.getElementById("p920name").value.trim();
+  var rel=document.getElementById("p920rel").value.trim();
+  if(!name)return;
+  var data=get920();
+  data.people.push({id:"p"+Date.now(),name:name,rel:rel,created:tod()});
+  save920(data);hide920Add();render920();toast("已新增「"+name+"」到920清單");
+}
+function del920Person(pi){
+  var data=get920();data.people.splice(pi,1);save920(data);render920();
+}
+function tog920Fruit(pid,fi){
+  var t=tod();var log=get920Log(pid,t);
+  if(!log.checked)log.checked=[];
+  var idx=log.checked.indexOf(fi);
+  if(idx>=0)log.checked.splice(idx,1);else log.checked.push(fi);
+  save920Log(pid,t,log);render920();
+}
+function upd920Note(pid,val){
+  var t=tod();var log=get920Log(pid,t);log.note=val;save920Log(pid,t,log);
+}
+
+function tog920Reaction(pid,key){
+  var t=tod();var log=get920Log(pid,t);
+  if(!log.practice)log.practice={};
+  if(!log.practice.reactions)log.practice.reactions=[];
+  var idx=log.practice.reactions.indexOf(key);
+  if(idx>=0)log.practice.reactions.splice(idx,1);
+  else log.practice.reactions.push(key);
+  save920Log(pid,t,log);render920();
+}
+function upd920Practice(pid,key,val){
+  var t=tod();var log=get920Log(pid,t);
+  if(!log.practice)log.practice={};
+  log.practice[key]=val;
+  save920Log(pid,t,log);
+}
+
+
+// ── PHASE 3: Morning Prayer (ACTS) ──
+
+function getPray(d){return lsG("p4_pray_"+d)||{adore:"",confess:"",thanks:"",supplication:"",verse:"",done:false};}
+function savePray(d,data){lsS("p4_pray_"+d,data);}
+
+var ACTS_STEPS=[
+  {key:"adore",letter:"A",full:"Adoration 讚美",color:"#d97706",icon:"⭐",
+   label:"讚美神的屬性與作為",
+   prompts:["神啊，我讚美你，因為你是…","今天我看見你的…","你的信實，你的慈愛…"]},
+  {key:"confess",letter:"C",full:"Confession 認罪",color:"#e05c3a",icon:"🙏",
+   label:"認罪悔改，交託罪疚",
+   prompts:["主，請原諒我…","昨天我的驕傲表現在…","我需要你幫我勝過的是…"]},
+  {key:"thanks",letter:"T",full:"Thanksgiving 感謝",color:"#0f9b8e",icon:"💛",
+   label:"感謝神昨日的帶領",
+   prompts:["昨天我感謝你…","你在以下的事上保護了我…","因為你，我能夠…"]},
+  {key:"supplication",letter:"S",full:"Supplication 祈求",color:"#1e4d8c",icon:"📚",
+   label:"為自己、家人、事工祈求",
+   prompts:["今天我最需要你的是…","為我所愛的人求…","為你的國和你的義求…"]}
+];
+
+function renderPray(){
+  var t=tod();
+  if(!t){setTimeout(renderPray,200);return;}
+  var pray=getPray(t);
+  var h="";
+
+  // Date header
+  h+='<div style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border:1px solid #d9770640;border-radius:14px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px">';
+  h+='<div style="font-size:36px">🌙</div>';
+  h+='<div><div style="font-size:16px;font-weight:700;color:#d97706">'+fL(t)+'</div>';
+  h+='<div style="font-size:14px;color:#7a8fa8;margin-top:2px">每日晨禱 · ACTS模式引導</div></div>';
+  h+='</div>';
+
+  // Progress
+  var filled=ACTS_STEPS.filter(function(s){return pray[s.key]&&pray[s.key].trim();}).length;
+  h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">';
+  h+='<div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:'+(filled/4*100)+'%;background:#d97706"></div></div>';
+  h+='<span style="font-size:15px;color:#d97706;font-weight:600">'+filled+'/4 完成</span>';
+  h+='</div>';
+
+  // ACTS steps
+  ACTS_STEPS.forEach(function(step){
+    var val=pray[step.key]||"";
+    var done=val.trim().length>0;
+    h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-left:4px solid '+(done?step.color:"#e0dbd2")+';border-radius:12px;padding:12px 14px;margin-bottom:10px">';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+    h+='<div style="width:32px;height:32px;border-radius:50%;background:'+step.color+';color:#fff;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+step.letter+'</div>';
+    h+='<div style="flex:1"><div style="font-size:15px;font-weight:700;color:'+step.color+'">'+step.full+'</div>';
+    h+='<div style="font-size:13px;color:#7a8fa8">'+step.label+'</div></div>';
+    if(done)h+='<div style="font-size:20px">✓</div>';
+    h+='</div>';
+    // Prompts
+    h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px">';
+    step.prompts.forEach(function(p){
+      h+='<button data-skey="'+step.key+'" data-prompt="'+esc(p)+'" onclick="usePrayPrompt(this.dataset.skey,this.dataset.prompt)" style="padding:3px 8px;background:'+step.color+'12;border:1px solid '+step.color+'30;border-radius:10px;color:'+step.color+';font-size:13px;cursor:pointer">'+esc(p.slice(0,12))+'…</button>';
+    });
+    h+='</div>';
+    h+='<textarea class="ta" rows="3" placeholder="在此寫下禱告…" data-pkey="'+step.key+'" oninput="updPray(this.dataset.pkey,this.value)" style="border-color:'+step.color+'30">'+esc(val)+'</textarea>';
+    h+='</div>';
+  });
+
+  // Scripture reading
+  var verse=pray.verse||"";
+  h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-left:4px solid #7c4dbd;border-radius:12px;padding:12px 14px;margin-bottom:14px">';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+  h+='<div style="width:32px;height:32px;border-radius:50%;background:#6b45b0;color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center">📖</div>';
+  h+='<div><div style="font-size:15px;font-weight:700;color:#6b45b0">今日讀經章節</div>';
+  h+='<div style="font-size:13px;color:#7a8fa8">聖靈是我的引導</div></div></div>';
+  h+='<input class="inp" placeholder="例：約翰福音3:1-21" value="'+esc(verse)+'" data-pkey2="verse" oninput="updPray(this.dataset.pkey2,this.value)" style="border-color:#6b45b030">';
+  h+='</div>';
+
+  // 321 reminder
+  h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:12px 16px;margin-bottom:14px">';
+  h+='<div style="color:#0f766e;font-size:15px;line-height:2">💡 <strong>321 晨禱提醒</strong><br>讓耶穌作王從早晨開始<br>用<strong>心</strong>靠聖靈 · 不用腦靠自己<br>焦點在<strong>耶穌</strong>，不在自己</div>';
+  h+='</div>';
+
+  // History
+  var idx=getIdx();var prayDays=idx.filter(function(d){
+    var p=getPray(d);return ACTS_STEPS.some(function(s){return p[s.key]&&p[s.key].trim();});
+  }).slice(0,7);
+  if(prayDays.length>0){
+    h+='<div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:8px">近期晨禱記錄</div>';
+    prayDays.forEach(function(d){
+      if(d===t)return;
+      var p=getPray(d);
+      var fc=ACTS_STEPS.filter(function(s){return p[s.key]&&p[s.key].trim();}).length;
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#f8fafc;border:1px solid #d8dce8;border-radius:10px;margin-bottom:6px">';
+      h+='<div style="font-size:14px;color:#4a5a72;font-weight:600;flex:1">'+fS(d)+'</div>';
+      h+='<div style="display:flex;gap:3px">';
+      ACTS_STEPS.forEach(function(s){
+        var done2=p[s.key]&&p[s.key].trim();
+        h+='<div style="width:20px;height:20px;border-radius:50%;background:'+(done2?s.color:"#eeebe4")+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff">'+s.letter+'</div>';
+      });
+      h+='</div>';
+      h+='<div style="font-size:13px;color:#7a8fa8">'+fc+'/4</div>';
+      h+='</div>';
+    });
+  }
+
+  document.getElementById("praycon").innerHTML=h;
+}
+
+function updPray(key,val){
+  var t=tod();var pray=getPray(t);pray[key]=val;savePray(t,pray);
+}
+function usePrayPrompt(key,prompt){
+  var t=tod();var pray=getPray(t);
+  pray[key]=(pray[key]?pray[key]+"\n":"")+prompt+"\n";
+  savePray(t,pray);renderPray();
+}
+
+
+// ── PROJECT MANAGEMENT ──
+
+function getProjects(){return lsG("p4_projects")||[];}
+function saveProjects(list){lsS("p4_projects",list);}
+function getProjId(){return "pr"+Date.now();}
+
+var PROJ_STATUS=[
+  {id:"plan",label:"計畫中",color:"#3b82c4",bg:"#eef2ff",icon:"📋"},
+  {id:"active",label:"進行中",color:"#d97706",bg:"#fff7ed",icon:"🔥"},
+  {id:"done",label:"已完成",color:"#0a8f84",bg:"#e5f5f3",icon:"✅"},
+  {id:"hold",label:"暫停",color:"#7a8fa8",bg:"#f0f4f8",icon:"⏸"}
+];
+
+var PROJ_ROLES=[
+  {id:"owner",label:"負責人",desc:"主要負責推動整個專案",color:"#1e4d8c",icon:"👑"},
+  {id:"driver",label:"執行者",desc:"具體執行各項任務",color:"#d97706",icon:"⚡"},
+  {id:"support",label:"支援者",desc:"提供資源或協助",color:"#0a8f84",icon:"🤝"},
+  {id:"accountable",label:"問責對象",desc:"向誰交代、誰來審核",color:"#e05c3a",icon:"🎯"},
+  {id:"informed",label:"知情者",desc:"需要定期知道進度",color:"#6b45b0",icon:"📢"}
+];
+
+var PROJ_PHASES=[
+  {id:"plan",label:"計畫",icon:"📋",color:"#3b82c4",bg:"#eef4ff",
+   desc:"目標設定・資源規劃・分工安排",
+   questions:["目標是什麼？","誰負責什麼？","需要什麼資源？","時間表如何？"]},
+  {id:"drive",label:"推動",icon:"🚀",color:"#d97706",bg:"#fff7ed",
+   desc:"啟動行動・協調溝通・克服阻力",
+   questions:["如何啟動？","有什麼阻力？","如何激勵團隊？","下一步行動是？"]},
+  {id:"exec",label:"執行",icon:"⚡",color:"#e05c3a",bg:"#fdf3f0",
+   desc:"具體落實・進度追蹤・問題解決",
+   questions:["進度如何？","有什麼問題？","誰需要支援？","什麼要調整？"]},
+  {id:"review",label:"檢討",icon:"🔍",color:"#0a8f84",bg:"#e5f5f3",
+   desc:"成果評估・學習改善・下次更好",
+   questions:["達成目標了嗎？","學到什麼？","下次如何改善？","感謝誰的貢獻？"]}
+];
+var PHASE_STATUS=[
+  {id:"todo",label:"未開始",color:"#7a8fa8",bg:"#f4f6fa"},
+  {id:"inprogress",label:"進行中",color:"#d97706",bg:"#fff7ed"},
+  {id:"blocked",label:"受阻",color:"#e05c3a",bg:"#fdf3f0"},
+  {id:"done",label:"已完成",color:"#0a8f84",bg:"#e5f5f3"}
+];
+
+function renderProj(){
+  var projects=getProjects();
+  var con=document.getElementById("projcon");
+  if(!con)return;
+  var h="";
+
+  // Add project button
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">';
+  h+='<div style="font-size:15px;font-weight:700;color:#1e3252">我的專案</div>';
+  h+='<button onclick="showNewProj()" style="padding:9px 18px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;cursor:pointer;font-weight:700">＋ 新增</button>';
+  h+='</div>';
+
+  // New project form
+  h+='<div id="newProjBox" style="display:none;background:#f4f6fa;border:1.5px solid #1e4d8c40;border-radius:14px;padding:16px;margin-bottom:14px">';
+  h+='<div style="font-size:16px;font-weight:700;color:#1e4d8c;margin-bottom:12px">建立新專案</div>';
+  h+='<input id="projTitle" class="inp" placeholder="專案名稱（必填）" style="margin-bottom:8px;font-size:15px">';
+  h+='<textarea id="projDesc" class="ta" rows="2" placeholder="目標與說明（選填）" style="margin-bottom:10px;font-size:14px"></textarea>';
+  h+='<div style="display:flex;gap:8px;margin-bottom:12px">';
+  h+='<div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">開始日期</div><input id="projStart" type="date" class="inp" style="font-size:14px"></div>';
+  h+='<div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">完成期限</div><input id="projDue" type="date" class="inp" style="font-size:14px"></div>';
+  h+='</div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;margin-bottom:6px;font-weight:600">專案狀態</div>';
+  h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px" id="statusBtns">';
+  PROJ_STATUS.forEach(function(s){
+    h+='<button data-sid="'+s.id+'" onclick="selProjStatus(this.dataset.sid)" class="psbtn" style="padding:7px 14px;border:1.5px solid '+s.color+';border-radius:10px;background:transparent;color:#7a8fa8;font-size:14px;cursor:pointer">'+s.icon+' '+s.label+'</button>';
+  });
+  h+='</div>';
+  h+='<div style="display:flex;gap:8px">';
+  h+='<button onclick="createProj()" style="flex:1;padding:11px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;cursor:pointer;font-weight:700">建立專案</button>';
+  h+='<button onclick="hideNewProj()" style="padding:11px 16px;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px;color:#4a5a72;font-size:14px;cursor:pointer">取消</button>';
+  h+='</div></div>';
+
+  // Empty state
+  if(projects.length===0){
+    h+='<div style="text-align:center;padding:50px 20px;color:#7a8fa8">';
+    h+='<div style="font-size:52px;margin-bottom:14px">📋</div>';
+    h+='<div style="font-size:17px;font-weight:700;color:#1e3252;margin-bottom:8px">尚無專案</div>';
+    h+='<div style="font-size:14px;line-height:1.9">點「＋ 新增」開始建立<br>你的事工或工作專案</div></div>';
+    con.innerHTML=h;return;
+  }
+
+  // Project cards
+  projects.forEach(function(p,pi){
+    var st=PROJ_STATUS[0];
+    for(var si=0;si<PROJ_STATUS.length;si++){if(PROJ_STATUS[si].id===p.status)st=PROJ_STATUS[si];}
+    var doneTasks=(p.tasks||[]).filter(function(t){return t.done;}).length;
+    var totalTasks=(p.tasks||[]).length;
+    var taskPct=totalTasks>0?Math.round(doneTasks/totalTasks*100):0;
+    var donePhases=0;
+    PROJ_PHASES.forEach(function(ph){if(p.phases&&p.phases[ph.id]&&p.phases[ph.id].done)donePhases++;});
+    var phasePct=Math.round(donePhases/PROJ_PHASES.length*100);
+    var activeTab=(p.activeTab||"overview");
+
+    h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-radius:16px;margin-bottom:16px;overflow:hidden">';
+
+    // Card header (always visible)
+    h+='<div onclick="toggleProj('+pi+')" style="padding:16px;cursor:pointer">';
+    h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">';
+    h+='<div style="flex:1">';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+    h+='<span style="font-size:13px;padding:4px 12px;border-radius:8px;background:'+st.bg+';color:'+st.color+';font-weight:700">'+st.icon+' '+st.label+'</span>';
+    if(p.due){
+      var today=tod();
+      var overdue=p.due<today&&p.status!=="done";
+      h+='<span style="font-size:12px;color:'+(overdue?"#e05c3a":"#7a8fa8")+';font-weight:'+(overdue?700:400)+'">📅 '+p.due+(overdue?" ⚠️":"")+'</span>';
+    }
+    h+='</div>';
+    h+='<div style="font-size:18px;font-weight:800;color:#1e3252;margin-bottom:6px">'+esc(p.title)+'</div>';
+    if(p.desc)h+='<div style="font-size:13px;color:#4a5a72;line-height:1.6">'+esc(p.desc.slice(0,60))+(p.desc.length>60?"…":"")+'</div>';
+    h+='</div>';
+    h+='<div style="font-size:22px;color:#7a8fa8;margin-left:10px">'+(p.open?"▲":"▼")+'</div>';
+    h+='</div>';
+    // Progress summary
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+    // Phase progress
+    h+='<div style="background:#fff;border-radius:10px;padding:8px 12px">';
+    h+='<div style="font-size:11px;color:#7a8fa8;margin-bottom:4px">四階段進度</div>';
+    h+='<div style="display:flex;align-items:center;gap:6px">';
+    h+='<div style="flex:1;height:6px;background:#eaecf4;border-radius:10px"><div style="width:'+phasePct+'%;height:100%;background:'+(phasePct===100?"#0a8f84":"#1e4d8c")+';border-radius:10px"></div></div>';
+    h+='<span style="font-size:13px;color:'+(phasePct===100?"#0a8f84":"#1e4d8c")+';font-weight:700">'+phasePct+'%</span>';
+    h+='</div></div>';
+    // Task progress
+    h+='<div style="background:#fff;border-radius:10px;padding:8px 12px">';
+    h+='<div style="font-size:11px;color:#7a8fa8;margin-bottom:4px">任務完成</div>';
+    h+='<div style="display:flex;align-items:center;gap:6px">';
+    h+='<div style="flex:1;height:6px;background:#eaecf4;border-radius:10px"><div style="width:'+taskPct+'%;height:100%;background:'+(taskPct===100?"#0a8f84":"#d97706")+';border-radius:10px"></div></div>';
+    h+='<span style="font-size:13px;color:'+(taskPct===100?"#0a8f84":"#d97706")+';font-weight:700">'+doneTasks+'/'+totalTasks+'</span>';
+    h+='</div></div>';
+    h+='</div></div>';
+
+    // Expanded detail with tabs
+    if(p.open){
+      // Tab bar
+      var tabs=[
+        {id:"overview",icon:"📊",label:"概覽"},
+        {id:"roles",icon:"👥",label:"分工"},
+        {id:"schedule",icon:"📅",label:"時間表"},
+        {id:"tasks",icon:"✅",label:"待辦"}
+      ];
+      h+='<div style="display:flex;border-top:1px solid #d8dce8;border-bottom:1px solid #d8dce8;background:#fff">';
+      tabs.forEach(function(tab){
+        var isActive=activeTab===tab.id;
+        h+='<button data-pi="'+pi+'" data-tid="'+tab.id+'" onclick="switchProjTab(this.dataset.pi,this.dataset.tid)" style="flex:1;padding:11px 4px;border:none;background:'+(isActive?"#e8edf5":"transparent")+';color:'+(isActive?"#1e4d8c":"#7a8fa8")+';font-size:13px;cursor:pointer;font-weight:'+(isActive?700:400)+';border-bottom:2.5px solid '+(isActive?"#1e4d8c":"transparent")+'">';
+        h+=tab.icon+'<br>'+tab.label;
+        h+='</button>';
+      });
+      h+='</div>';
+
+      // Tab content
+      h+='<div style="padding:16px">';
+
+      // ── Overview Tab ──
+      if(activeTab==="overview"){
+        // Phase pipeline visual
+        h+='<div style="display:flex;align-items:center;gap:0;margin-bottom:20px;overflow-x:auto">';
+        PROJ_PHASES.forEach(function(ph,phi){
+          var phData=(p.phases&&p.phases[ph.id])||{status:"todo",note:"",done:false};
+          var phStatus=phData.status||"todo";
+          var psSt=PHASE_STATUS[0];
+          for(var si=0;si<PHASE_STATUS.length;si++){if(PHASE_STATUS[si].id===phStatus)psSt=PHASE_STATUS[si];}
+          h+='<div style="flex:1;min-width:60px;text-align:center">';
+          h+='<div style="width:40px;height:40px;border-radius:50%;background:'+psSt.bg+';border:2.5px solid '+psSt.color+';margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:18px">'+ph.icon+'</div>';
+          h+='<div style="font-size:11px;font-weight:700;color:'+psSt.color+'">'+ph.label+'</div>';
+          h+='<div style="font-size:10px;color:'+psSt.color+';background:'+psSt.bg+';border-radius:6px;padding:1px 4px;margin-top:2px">'+psSt.label+'</div>';
+          h+='</div>';
+          if(phi<PROJ_PHASES.length-1){
+            var nextDone=(p.phases&&p.phases[PROJ_PHASES[phi+1].id]&&p.phases[PROJ_PHASES[phi+1].id].status==="done");
+            h+='<div style="width:20px;height:2px;background:'+(psSt.id==="done"?"#0a8f84":"#d8dce8")+';flex-shrink:0;margin-top:-18px"></div>';
+          }
+        });
+        h+='</div>';
+
+        // Each phase card
+        h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:12px">各階段詳情</div>';
+        PROJ_PHASES.forEach(function(ph){
+          var phData=(p.phases&&p.phases[ph.id])||{status:"todo",note:"",done:false};
+          var phStatus=phData.status||"todo";
+          var psSt=PHASE_STATUS[0];
+          for(var si=0;si<PHASE_STATUS.length;si++){if(PHASE_STATUS[si].id===phStatus)psSt=PHASE_STATUS[si];}
+          var isExpanded=phData.expanded;
+
+          h+='<div style="background:'+psSt.bg+';border:1.5px solid '+psSt.color+'40;border-left:4px solid '+psSt.color+';border-radius:12px;margin-bottom:10px;overflow:hidden">';
+
+          // Phase header (click to expand)
+          h+='<div onclick="togglePhaseDetail(\'' +p.id+ '\',\''+ph.id+'\')" style="padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px">';
+          h+='<span style="font-size:22px">'+ph.icon+'</span>';
+          h+='<div style="flex:1">';
+          h+='<div style="font-size:15px;font-weight:800;color:'+ph.color+'">'+ph.label+'階段</div>';
+          h+='<div style="font-size:12px;color:#7a8fa8">'+ph.desc+'</div>';
+          h+='</div>';
+          // Status badge
+          h+='<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
+          h+='<span style="font-size:12px;padding:3px 10px;border-radius:8px;background:'+psSt.color+';color:#fff;font-weight:700">'+psSt.label+'</span>';
+          h+='<span style="font-size:16px;color:#7a8fa8">'+(isExpanded?"▲":"▼")+'</span>';
+          h+='</div></div>';
+
+          // Expanded content
+          if(isExpanded){
+            h+='<div style="border-top:1px solid '+psSt.color+'30;padding:14px">';
+
+            // Status selector
+            h+='<div style="font-size:12px;font-weight:600;color:#7a8fa8;margin-bottom:8px">階段狀態</div>';
+            h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px">';
+            PHASE_STATUS.forEach(function(ps){
+              var isA=phStatus===ps.id;
+              h+='<button data-projid="'+p.id+'" data-phid="'+ph.id+'" data-psid="'+ps.id+'" onclick="setPhaseStatus(this.dataset.projid,this.dataset.phid,this.dataset.psid)" style="padding:6px 12px;border:1.5px solid '+ps.color+';border-radius:9px;background:'+(isA?ps.color:"transparent")+';color:'+(isA?"#fff":ps.color)+';font-size:13px;cursor:pointer;font-weight:'+(isA?700:400)+'">'+ps.label+'</button>';
+            });
+            h+='</div>';
+
+            // Key questions
+            h+='<div style="font-size:12px;font-weight:600;color:#7a8fa8;margin-bottom:8px">此階段關鍵問題</div>';
+            h+='<div style="background:#fff;border-radius:8px;padding:10px;margin-bottom:12px">';
+            ph.questions.forEach(function(q){
+              h+='<div style="font-size:13px;color:#4a5a72;padding:4px 0;border-bottom:1px solid #f0f4f8;display:flex;gap:6px"><span style="color:'+ph.color+'">▸</span>'+q+'</div>';
+            });
+            h+='</div>';
+
+            // Notes
+            h+='<div style="font-size:12px;font-weight:600;color:#7a8fa8;margin-bottom:6px">階段記錄與備注</div>';
+            h+='<textarea class="ta" rows="3" placeholder="記錄這個階段的進度、決定、問題、行動…" data-pi="'+p.id+'" data-phid="'+ph.id+'" oninput="updPhaseNoteById(this.dataset.pi,this.dataset.phid,this.value)" style="font-size:14px;border-color:'+ph.color+'30">'+esc(phData.note||"")+'</textarea>';
+
+            h+='</div>';
+          }
+          h+='</div>';
+        });
+
+        // Status + delete
+        h+='<div style="border-top:1px solid #d8dce8;padding-top:14px;margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">';
+        PROJ_STATUS.forEach(function(s){
+          var isA=p.status===s.id;
+          h+='<button data-pi="'+pi+'" data-sid="'+s.id+'" onclick="changeProjStatus(this.dataset.pi,this.dataset.sid)" style="padding:6px 12px;border:1.5px solid '+s.color+';border-radius:9px;background:'+(isA?s.bg:"transparent")+';color:'+(isA?s.color:"#7a8fa8")+';font-size:13px;cursor:pointer;font-weight:'+(isA?700:400)+'">'+s.icon+' '+s.label+'</button>';
+        });
+        h+='<button data-pi="'+pi+'" onclick="delProj(parseInt(this.dataset.pi))" style="padding:6px 12px;border:1px solid #e05c3a40;border-radius:9px;background:#fdf0ec;color:#e05c3a;font-size:13px;cursor:pointer;margin-left:auto">🗑 刪除</button>';
+        h+='</div>';
+      }
+
+// ── Roles Tab ──
+      if(activeTab==="roles"){
+        h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:6px">RACI 角色責任矩陣</div>';
+        h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:14px;line-height:1.7">每個角色都清楚知道自己的責任<br>問責對象是最終拍板、向TA交代的人</div>';
+        PROJ_ROLES.forEach(function(r){
+          var val=(p.roles&&p.roles[r.id])||"";
+          h+='<div style="background:#fff;border:1px solid #d8dce8;border-left:4px solid '+r.color+';border-radius:12px;padding:12px 14px;margin-bottom:10px">';
+          h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+          h+='<span style="font-size:20px">'+r.icon+'</span>';
+          h+='<div><div style="font-size:15px;font-weight:700;color:'+r.color+'">'+r.label+'</div>';
+          h+='<div style="font-size:12px;color:#7a8fa8">'+r.desc+'</div></div>';
+          h+='</div>';
+          h+='<input class="inp" placeholder="填入姓名或角色（例：主耀牧師）" value="'+esc(val)+'" data-pi="'+pi+'" data-rid="'+r.id+'" oninput="updProjRole(this.dataset.pi,this.dataset.rid,this.value)" style="font-size:14px;border-color:'+r.color+'40">';
+          h+='</div>';
+        });
+        // Role summary
+        var filledRoles=PROJ_ROLES.filter(function(r){return p.roles&&p.roles[r.id]&&p.roles[r.id].trim();}).length;
+        h+='<div style="background:#e8edf5;border-radius:10px;padding:10px 14px;margin-top:6px">';
+        h+='<div style="font-size:13px;color:#1e4d8c;font-weight:600">'+filledRoles+'/'+PROJ_ROLES.length+' 角色已指派</div>';
+        if(filledRoles===PROJ_ROLES.length)h+='<div style="font-size:12px;color:#0a8f84;margin-top:3px">✓ 所有角色已完整指派</div>';
+        h+='</div>';
+      }
+
+      // ── Schedule Tab ──
+      if(activeTab==="schedule"){
+        var schedList=p.schedule||[];
+        h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:14px">里程碑時間表</div>';
+        if(schedList.length===0){
+          h+='<div style="text-align:center;padding:24px;color:#7a8fa8;font-size:14px">尚無里程碑<br>在下方新增第一個里程碑</div>';
+        } else {
+          var today=tod();
+          schedList.forEach(function(s,si){
+            var overdue=s.dueDate&&s.dueDate<today&&!s.done;
+            h+='<div style="display:flex;gap:10px;margin-bottom:10px">';
+            // Timeline dot
+            h+='<div style="display:flex;flex-direction:column;align-items:center;width:24px">';
+            h+='<div style="width:22px;height:22px;border-radius:50%;background:'+(s.done?"#0a8f84":overdue?"#e05c3a":"#1e4d8c")+';display:flex;align-items:center;justify-content:center;flex-shrink:0">';
+            h+='<span style="color:#fff;font-size:12px;font-weight:700">'+(s.done?"✓":si+1)+'</span></div>';
+            if(si<schedList.length-1)h+='<div style="width:2px;flex:1;background:#d8dce8;margin:2px 0"></div>';
+            h+='</div>';
+            // Content
+            h+='<div style="flex:1;background:'+(s.done?"#e5f5f3":overdue?"#fdf0ec":"#fff")+';border:1px solid '+(s.done?"#0a8f8440":overdue?"#e05c3a40":"#d8dce8")+';border-radius:12px;padding:12px;margin-bottom:'+(si<schedList.length-1?4:0)+'px">';
+            h+='<div style="display:flex;align-items:flex-start;justify-content:space-between">';
+            h+='<div style="flex:1">';
+            h+='<div style="font-size:15px;font-weight:700;color:'+(s.done?"#0a8f84":overdue?"#e05c3a":"#1e3252")+';text-decoration:'+(s.done?"line-through":"none")+'">'+esc(s.milestone)+'</div>';
+            h+='<div style="display:flex;gap:8px;margin-top:5px;flex-wrap:wrap">';
+            if(s.startDate)h+='<span style="font-size:12px;color:#7a8fa8">開始 '+s.startDate+'</span>';
+            if(s.dueDate)h+='<span style="font-size:12px;color:'+(overdue?"#e05c3a":"#7a8fa8")+';font-weight:'+(overdue?700:400)+'">截止 '+s.dueDate+(overdue?" ⚠":"")+'</span>';
+            if(s.assignee)h+='<span style="font-size:12px;background:#e8edf5;color:#1e4d8c;padding:1px 8px;border-radius:6px;font-weight:600">👤 '+esc(s.assignee)+'</span>';
+            h+='</div></div>';
+            h+='<div style="display:flex;gap:5px;margin-left:8px">';
+            h+='<input type="checkbox" '+(s.done?'checked':'')+' data-pi="'+pi+'" data-si="'+si+'" onchange="togProjSched(this.dataset.pi,this.dataset.si,this.checked)" style="width:22px;height:22px;cursor:pointer;accent-color:#0a8f84">';
+            h+='<button data-pi="'+pi+'" data-si="'+si+'" onclick="delProjSched(this.dataset.pi,this.dataset.si)" style="background:none;border:none;color:#d8dce8;cursor:pointer;font-size:18px">×</button>';
+            h+='</div></div></div></div>';
+          });
+          // Summary
+          var doneS=schedList.filter(function(s){return s.done;}).length;
+          h+='<div style="background:#e8edf5;border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">';
+          h+='<span style="font-size:14px;color:#1e4d8c;font-weight:600">進度：'+doneS+'/'+schedList.length+' 里程碑完成</span>';
+          h+='<span style="font-size:14px;font-weight:700;color:'+(doneS===schedList.length?"#0a8f84":"#1e4d8c")+'">'+Math.round(doneS/schedList.length*100)+'%</span>';
+          h+='</div>';
+        }
+
+        // Add schedule form
+        h+='<div style="background:#f4f6fa;border:1.5px dashed #d8dce8;border-radius:12px;padding:14px">';
+        h+='<div style="font-size:14px;font-weight:700;color:#1e4d8c;margin-bottom:10px">＋ 新增里程碑</div>';
+        h+='<input id="pms'+pi+'" class="inp" placeholder="里程碑或任務名稱" style="margin-bottom:8px;font-size:14px">';
+        h+='<div style="display:flex;gap:6px;margin-bottom:8px">';
+        h+='<div style="flex:1"><div style="font-size:11px;color:#7a8fa8;margin-bottom:3px">開始日期</div><input id="pms_s'+pi+'" type="date" class="inp" style="font-size:13px"></div>';
+        h+='<div style="flex:1"><div style="font-size:11px;color:#7a8fa8;margin-bottom:3px">截止日期</div><input id="pms_d'+pi+'" type="date" class="inp" style="font-size:13px"></div>';
+        h+='</div>';
+        h+='<div style="display:flex;gap:8px">';
+        h+='<input id="pms_a'+pi+'" class="inp" placeholder="負責人" style="flex:1;font-size:13px">';
+        h+='<button onclick="addProjSched('+pi+')" style="padding:9px 18px;background:#1e4d8c;border:none;border-radius:9px;color:#fff;font-size:14px;cursor:pointer;font-weight:700;white-space:nowrap">新增</button>';
+        h+='</div></div>';
+      }
+
+      // ── Tasks Tab ──
+      if(activeTab==="tasks"){
+        var taskList=p.tasks||[];
+        var doneCnt=taskList.filter(function(t){return t.done;}).length;
+        h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">';
+        h+='<div style="font-size:15px;font-weight:700;color:#1e3252">待辦事項</div>';
+        h+='<div style="font-size:13px;color:'+(doneCnt===taskList.length&&taskList.length>0?"#0a8f84":"#7a8fa8")+';font-weight:600">'+doneCnt+'/'+taskList.length+' 完成</div>';
+        h+='</div>';
+        if(taskList.length===0){
+          h+='<div style="text-align:center;padding:20px;color:#7a8fa8;font-size:14px">尚無待辦事項</div>';
+        } else {
+          // Group: pending first, then done
+          var pending=taskList.filter(function(t){return !t.done;});
+          var done=taskList.filter(function(t){return t.done;});
+          var ordered=pending.concat(done);
+          ordered.forEach(function(t){
+            var ti=taskList.indexOf(t);
+            h+='<div style="display:flex;align-items:center;gap:10px;padding:12px;background:'+(t.done?"#e5f5f3":"#fff")+';border:1px solid '+(t.done?"#0a8f8440":"#d8dce8")+';border-radius:12px;margin-bottom:8px">';
+            h+='<input type="checkbox" '+(t.done?'checked':'')+' data-pi="'+pi+'" data-ti="'+ti+'" onchange="togProjTask(this.dataset.pi,this.dataset.ti,this.checked)" style="width:24px;height:24px;cursor:pointer;flex-shrink:0;accent-color:#0a8f84">';
+            h+='<div style="flex:1;font-size:15px;color:'+(t.done?"#0a8f84":"#243050")+';text-decoration:'+(t.done?"line-through":"none")+'">'+esc(t.text)+'</div>';
+            h+='<button data-pi="'+pi+'" data-ti="'+ti+'" onclick="delProjTask(this.dataset.pi,this.dataset.ti)" style="background:none;border:none;color:#d8dce8;cursor:pointer;font-size:20px;line-height:1">×</button>';
+            h+='</div>';
+          });
+        }
+        h+='<div style="display:flex;gap:8px;margin-top:8px">';
+        h+='<input id="ptask'+pi+'" class="inp" placeholder="新增待辦事項..." style="flex:1;font-size:14px">';
+        h+='<button onclick="addProjTask('+pi+')" style="padding:9px 16px;background:#1e4d8c;border:none;border-radius:9px;color:#fff;font-size:16px;cursor:pointer;font-weight:700">＋</button>';
+        h+='</div>';
+      }
+
+      h+='</div>'; // tab content end
+    }
+    h+='</div>'; // card end
+  });
+
+  con.innerHTML=h;
+}
+
+// Project helpers
+var _projStatus="plan";
+function selProjStatus(sid){
+  _projStatus=sid;
+  var PSTAT=PROJ_STATUS;
+  document.querySelectorAll(".psbtn").forEach(function(b){
+    var s=null;
+    for(var i=0;i<PSTAT.length;i++){if(PSTAT[i].id===b.dataset.sid)s=PSTAT[i];}
+    if(!s)return;
+    b.style.background=b.dataset.sid===sid?s.bg:"transparent";
+    b.style.color=b.dataset.sid===sid?s.color:"#7a8fa8";
+    b.style.fontWeight=b.dataset.sid===sid?"700":"400";
+  });
+}
+function showNewProj(){var el=document.getElementById("newProjBox");if(el)el.style.display="block";}
+function hideNewProj(){var el=document.getElementById("newProjBox");if(el)el.style.display="none";}
+function createProj(){
+  var title=document.getElementById("projTitle").value.trim();
+  var desc=document.getElementById("projDesc").value.trim();
+  var start=document.getElementById("projStart").value;
+  var due=document.getElementById("projDue").value;
+  if(!title){toast("請填入專案名稱","#e05c3a");return;}
+  var projects=getProjects();
+  projects.push({id:getProjId(),title:title,desc:desc,start:start,due:due,status:_projStatus||"plan",roles:{},phases:{},tasks:[],open:true,created:tod()});
+  saveProjects(projects);
+  hideNewProj();
+  _projStatus="plan";
+  toast("專案「"+title+"」已建立");
+  renderProj();
+}
+function toggleProj(pi){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  projects[pi].open=!projects[pi].open;
+  saveProjects(projects);renderProj();
+}
+function delProj(pi){
+  var projects=getProjects();projects.splice(pi,1);saveProjects(projects);renderProj();toast("專案已刪除");
+}
+function changeProjStatus(pi,sid){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  projects[pi].status=sid;saveProjects(projects);renderProj();
+}
+function updProjRole(pi,rid,val){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].roles)projects[pi].roles={};
+  projects[pi].roles[rid]=val;saveProjects(projects);
+}
+function togProjPhase(pi,phid,checked){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].phases)projects[pi].phases={};
+  if(!projects[pi].phases[phid])projects[pi].phases[phid]={done:false,note:""};
+  projects[pi].phases[phid].done=checked;saveProjects(projects);renderProj();
+}
+function updPhaseNote(pi,phid,val){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].phases)projects[pi].phases={};
+  if(!projects[pi].phases[phid])projects[pi].phases[phid]={done:false,note:""};
+  projects[pi].phases[phid].note=val;saveProjects(projects);
+}
+function addProjTask(pi){
+  var inp=document.getElementById("ptask"+pi);
+  if(!inp||!inp.value.trim())return;
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].tasks)projects[pi].tasks=[];
+  projects[pi].tasks.push({text:inp.value.trim(),done:false,created:tod()});
+  inp.value="";saveProjects(projects);renderProj();
+}
+function togProjTask(pi,ti,checked){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].tasks||ti>=projects[pi].tasks.length)return;
+  projects[pi].tasks[ti].done=checked;saveProjects(projects);renderProj();
+}
+function delProjTask(pi,ti){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].tasks)return;
+  projects[pi].tasks.splice(ti,1);saveProjects(projects);renderProj();
+}
+
+function projTaskKey(e,pi){if(e.key==='Enter')addProjTask(pi);}
+
+// Project schedule helpers
+function addProjSched(pi){
+  var milestone=document.getElementById("pms"+pi);
+  var startDate=document.getElementById("pms_s"+pi);
+  var dueDate=document.getElementById("pms_d"+pi);
+  var assignee=document.getElementById("pms_a"+pi);
+  if(!milestone||!milestone.value.trim()){toast("請填入里程碑名稱","#e05c3a");return;}
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].schedule)projects[pi].schedule=[];
+  projects[pi].schedule.push({
+    milestone:milestone.value.trim(),
+    startDate:startDate?startDate.value:"",
+    dueDate:dueDate?dueDate.value:"",
+    assignee:assignee?assignee.value.trim():"",
+    note:"",done:false,
+    created:tod()
+  });
+  if(milestone)milestone.value="";
+  if(startDate)startDate.value="";
+  if(dueDate)dueDate.value="";
+  if(assignee)assignee.value="";
+  saveProjects(projects);renderProj();
+}
+function delProjSched(pi,si){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].schedule)return;
+  projects[pi].schedule.splice(si,1);
+  saveProjects(projects);renderProj();
+}
+function togProjSched(pi,si,checked){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  if(!projects[pi].schedule||si>=projects[pi].schedule.length)return;
+  projects[pi].schedule[si].done=checked;
+  saveProjects(projects);renderProj();
+}
+
+function switchProjTab(pi,tid){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  projects[pi].activeTab=tid;
+  saveProjects(projects);renderProj();
+}
+
+function togglePhaseDetail(projId,phId){
+  var projects=getProjects();
+  var proj=null;
+  for(var i=0;i<projects.length;i++){if(projects[i].id===projId)proj=projects[i];}
+  if(!proj)return;
+  if(!proj.phases)proj.phases={};
+  if(!proj.phases[phId])proj.phases[phId]={status:"todo",note:"",done:false};
+  proj.phases[phId].expanded=!proj.phases[phId].expanded;
+  saveProjects(projects);renderProj();
+}
+function setPhaseStatus(projId,phId,statusId){
+  var projects=getProjects();
+  var proj=null;
+  for(var i=0;i<projects.length;i++){if(projects[i].id===projId)proj=projects[i];}
+  if(!proj)return;
+  if(!proj.phases)proj.phases={};
+  if(!proj.phases[phId])proj.phases[phId]={status:"todo",note:"",done:false};
+  proj.phases[phId].status=statusId;
+  proj.phases[phId].done=(statusId==="done");
+  saveProjects(projects);renderProj();
+  toast(proj.title+"「"+phId+"」→ "+statusId);
+}
+function updPhaseNoteById(projId,phId,val){
+  var projects=getProjects();
+  var proj=null;
+  for(var i=0;i<projects.length;i++){if(projects[i].id===projId)proj=projects[i];}
+  if(!proj)return;
+  if(!proj.phases)proj.phases={};
+  if(!proj.phases[phId])proj.phases[phId]={status:"todo",note:"",done:false};
+  proj.phases[phId].note=val;
+  saveProjects(projects);
 }
 
 window.onload=function(){
