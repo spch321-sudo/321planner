@@ -6,7 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#2d3a8c">
-<title>活出基督・成為得勝者</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="321每日得勝">
+<meta name="application-name" content="321每日得勝">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<title>321每日得勝</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#f4f6fa;color:#1a1d23;max-width:480px;margin:0 auto;min-height:100vh;-webkit-text-size-adjust:100%;line-height:1.6}
@@ -217,20 +225,54 @@ body.fs-large [style*="font-size:11px"] { font-size:15px !important }
 body.fs-large [style*="font-size:10px"] { font-size:14px !important }
 body.fs-large [style*="font-size:9px"]  { font-size:13px !important }
 
+/* XLarge — 超大字體，最易閱讀 */
+body.fs-xlarge { font-size:22px }
+body.fs-xlarge .hdr { font-size:22px }
+body.fs-xlarge .nb { font-size:17px }
+body.fs-xlarge .tb { font-size:19px }
+body.fs-xlarge .nb span { font-size:26px !important }
+body.fs-xlarge .inp { font-size:21px !important }
+body.fs-xlarge .ta { font-size:21px !important }
+body.fs-xlarge .card { font-size:21px !important }
+body.fs-xlarge .task-row { font-size:21px !important }
+body.fs-xlarge .block-card { font-size:21px !important }
+body.fs-xlarge .badge { font-size:17px !important }
+body.fs-xlarge #ttl-main { font-size:26px !important }
+body.fs-xlarge #ttl-sub  { font-size:38px !important }
+body.fs-xlarge [style*="font-size:28px"] { font-size:36px !important }
+body.fs-xlarge [style*="font-size:24px"] { font-size:32px !important }
+body.fs-xlarge [style*="font-size:22px"] { font-size:28px !important }
+body.fs-xlarge [style*="font-size:20px"] { font-size:26px !important }
+body.fs-xlarge [style*="font-size:18px"] { font-size:24px !important }
+body.fs-xlarge [style*="font-size:17px"] { font-size:23px !important }
+body.fs-xlarge [style*="font-size:16px"] { font-size:22px !important }
+body.fs-xlarge [style*="font-size:15px"] { font-size:21px !important }
+body.fs-xlarge [style*="font-size:14px"] { font-size:20px !important }
+body.fs-xlarge [style*="font-size:13px"] { font-size:19px !important }
+body.fs-xlarge [style*="font-size:12px"] { font-size:18px !important }
+body.fs-xlarge [style*="font-size:11px"] { font-size:17px !important }
+body.fs-xlarge [style*="font-size:10px"] { font-size:16px !important }
+body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 
-/* ── Daily Declaration ── */
-#decl-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,20,50,.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;backdrop-filter:blur(4px)}
-#decl-box{background:#fff;border-radius:24px;padding:28px 24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:slideUp .4s ease}
-.dark #decl-box{background:#1e2030;color:#e8edf5}
+
+/* ── Reading Plan ── */
+.rp-plan-btn{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;border:2px solid transparent;cursor:pointer;transition:all .2s;width:100%;background:#f8fafc;text-align:left;margin-bottom:8px}
+.rp-plan-btn.active{border-color:#1e4d8c;background:#e8edf5}
+.dark .rp-plan-btn{background:#1e2030;color:#e8edf5}
+.dark .rp-plan-btn.active{background:#1a2a50;border-color:#4a7fff}
+#rp-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.9);z-index:945;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px)}
+#rp-box{background:#f4f6fa;width:100%;max-width:480px;border-radius:28px 28px 0 0;max-height:94vh;overflow-y:auto;animation:slideUp .4s ease}
+.dark #rp-box{background:#141826}
+
 @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
 
 /* ── Quick Record FAB ── */
-#fab{position:fixed;bottom:80px;right:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 18px rgba(30,77,140,.5);z-index:800;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+#fab{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 18px rgba(30,77,140,.5);z-index:800;display:flex;align-items:center;justify-content:center;transition:transform .15s}
 #fab:active{transform:scale(.9)}
-#qr-panel{position:fixed;bottom:145px;right:16px;width:280px;background:#fff;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:800;overflow:hidden;transform:scale(0);transform-origin:bottom right;transition:transform .25s cubic-bezier(.34,1.56,.64,1);opacity:0}
-#qr-panel.open{transform:scale(1);opacity:1}
+#qr-panel{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:850;display:none;align-items:flex-end;justify-content:center;padding-bottom:80px;box-sizing:border-box}
+
 .dark #qr-panel{background:#1e2030}
-#qr-panel .qr-item{padding:13px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid #f0f4f8;font-size:15px;color:#1e3252}
+#qr-panel .qr-item{padding:13px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid #f0f4f8;font-size:15px;color:#1e3252;-webkit-tap-highlight-color:rgba(0,0,0,.1);touch-action:manipulation;width:100%;text-align:left;background:none;border-left:none;border-right:none;border-top:none;border-radius:0;font-family:inherit;-webkit-appearance:none}
 #qr-panel .qr-item:last-child{border-bottom:none}
 .dark #qr-panel .qr-item{color:#e8edf5;border-bottom-color:#2a3050}
 #qr-panel .qr-item:active{background:#f4f6fa}
@@ -255,38 +297,58 @@ body.fs-large [style*="font-size:9px"]  { font-size:13px !important }
 
 <!-- HOME -->
 <div id="s-home" class="sc on">
-  <div class="hdr">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-      <div>
-        <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;margin-bottom:3px;text-transform:uppercase">國度321空中團契</div>
-        <div id="ttl-main" style="font-size:20px;color:#1a3a6b;font-weight:700;line-height:1.3;letter-spacing:1px">每日活出基督</div>
-        <div id="ttl-sub" style="font-size:28px;color:#1a3a6b;font-weight:900;line-height:1.2">成為得勝者</div>
+  <div class="hdr" style="padding-bottom:0">
+
+    <!-- 永遠顯示的頂部列 -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px">
+      <div style="display:flex;align-items:center;gap:6px;cursor:pointer;flex:1;min-width:0" onclick="togHdr()">
+        <div style="min-width:0">
+          <div style="font-size:11px;color:#7a8fa8;letter-spacing:2px;text-transform:uppercase">國度321空中團契</div>
+          <div id="ttl-main" style="font-size:20px;color:#1a3a6b;font-weight:700;line-height:1.2;letter-spacing:1px">每日活出基督</div>
+          <div id="ttl-sub" style="font-size:28px;color:#1a3a6b;font-weight:900;line-height:1.1">成為得勝者</div>
+        </div>
+        <div id="hdr-chevron" style="font-size:20px;color:#b0b8c8;margin-left:2px;transition:transform .35s;flex-shrink:0;line-height:1">&#8964;</div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center">
+      <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;margin-left:8px">
         <span id="sv" style="font-size:14px;color:#0a8f84;font-weight:600;opacity:0;transition:opacity .4s">&#9729;&#65039;</span>
         <button id="dmbtn" onclick="togDark()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 8px;color:#4a5a72;font-size:19px">&#127769;</button>
         <button id="fsbtn" onclick="cycleFont()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 10px;color:#1e4d8c;font-size:16px;font-weight:700" title="字體大小">A</button>
         <button onclick="openSB()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 11px;color:#1e4d8c;font-size:15px;font-weight:600">&#128218; 記錄</button>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-      <button onclick="prevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8249;</button>
-      <div style="flex:1;text-align:center">
-        <div id="ddate" style="color:#243050;font-size:16px;font-weight:600"></div>
-        <div id="dbadge" style="display:flex;justify-content:center;gap:5px;margin-top:3px"></div>
+
+    <!-- 可收合區塊：日期導航 + 快捷按鈕 + 進度條 -->
+    <div id="hdr-collapsible" style="overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .3s;max-height:200px;opacity:1">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <button onclick="prevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8249;</button>
+        <div style="flex:1;text-align:center">
+          <div id="ddate" style="color:#243050;font-size:16px;font-weight:600"></div>
+          <div id="dbadge" style="display:flex;justify-content:center;gap:5px;margin-top:3px"></div>
+        </div>
+        <button onclick="nextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8250;</button>
       </div>
-      <button onclick="nextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 11px;color:#4a5a72;font-size:22px;line-height:1">&#8250;</button>
+      <div style="display:flex;gap:6px;justify-content:center;margin-bottom:10px">
+        <button style="padding:4px 10px;border-radius:14px;background:#e2f5f3;border:1.5px solid #0f9b8e;color:#0a8f84;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(0)">今日</button>
+        <button style="padding:4px 10px;border-radius:14px;background:#eaecf4;border:1.5px solid #cec8be;color:#4a5a72;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(-1)">昨日</button>
+        <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(1)">明日</button>
+        <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(7)">下週</button>
+      </div>
+      <div id="prog" style="display:none;align-items:center;gap:10px;padding-bottom:4px">
+        <div class="prog-bar" style="flex:1"><div id="progfill" class="prog-fill" style="background:#1e4d8c;width:0%"></div></div>
+        <span id="progtxt" style="font-size:14px;color:#4a5a72;font-weight:600"></span>
+      </div>
     </div>
-    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:8px">
-      <button style="padding:4px 10px;border-radius:14px;background:#e2f5f3;border:1.5px solid #0f9b8e;color:#0a8f84;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(0)">今日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#eaecf4;border:1.5px solid #cec8be;color:#4a5a72;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(-1)">昨日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(1)">明日</button>
-      <button style="padding:4px 10px;border-radius:14px;background:#f2eeff;border:1.5px solid #7c4dbd;color:#6b45b0;font-size:14px;cursor:pointer;font-weight:600" onclick="goRel(7)">下週</button>
+
+    <!-- 收合時顯示的迷你日期列 -->
+    <div id="hdr-mini" style="display:none;padding-bottom:8px">
+      <div style="display:flex;align-items:center;gap:6px;justify-content:center">
+        <button onclick="prevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;padding:3px 9px;color:#4a5a72;font-size:18px;line-height:1">&#8249;</button>
+        <div id="ddate-mini" style="color:#243050;font-size:14px;font-weight:600;text-align:center;min-width:150px"></div>
+        <button onclick="nextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:7px;padding:3px 9px;color:#4a5a72;font-size:18px;line-height:1">&#8250;</button>
+        <button style="padding:3px 10px;border-radius:12px;background:#e2f5f3;border:1.5px solid #0f9b8e;color:#0a8f84;font-size:13px;cursor:pointer;font-weight:600" onclick="goRel(0)">今日</button>
+      </div>
     </div>
-    <div id="prog" style="display:none;align-items:center;gap:10px">
-      <div class="prog-bar" style="flex:1"><div id="progfill" class="prog-fill" style="background:#1e4d8c;width:0%"></div></div>
-      <span id="progtxt" style="font-size:14px;color:#4a5a72;font-weight:600"></span>
-    </div>
+
   </div>
   <div style="background:linear-gradient(90deg,#eef2ff,#f0fdf4);border-bottom:1px solid #d8dce8;padding:9px 16px;display:flex;align-items:center;gap:10px">
     <span style="opacity:.6;font-size:18px">&#128214;</span>
@@ -473,13 +535,154 @@ body.fs-large [style*="font-size:9px"]  { font-size:13px !important }
   </div>
   <div id="projcon" style="padding:12px 14px"></div>
 </div>
+
+<!-- SCHEDULE (Google Calendar style) -->
+<div id="s-sched" class="sc">
+  <div class="hdr" style="padding-bottom:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:10px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px">Daily Schedule</div>
+        <div style="font-size:22px;color:#1e4d8c;font-weight:900">🗓️ 每日時程表</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button onclick="schedPrevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 10px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">‹</button>
+        <div id="sched-date-lbl" style="font-size:14px;font-weight:700;color:#1e3252;min-width:110px;text-align:center"></div>
+        <button onclick="schedNextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 10px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">›</button>
+        <button onclick="schedGoToday()" style="background:#e2f5f3;border:1.5px solid #0f9b8e;border-radius:8px;padding:5px 10px;color:#0a8f84;font-size:12px;font-weight:700;cursor:pointer">今日</button>
+      </div>
+    </div>
+  </div>
+  <!-- Timeline body -->
+  <div id="sched-wrap" style="position:relative;overflow-y:auto;height:calc(100vh - 160px);background:#fff;-webkit-overflow-scrolling:touch">
+    <div id="sched-grid" style="position:relative;min-height:1440px">
+      <!-- Time labels + hour lines injected by JS -->
+    </div>
+  </div>
+  <!-- Add event modal trigger -->
+  <button onclick="schedOpenAdd()" style="position:fixed;bottom:80px;right:16px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:26px;box-shadow:0 4px 16px rgba(30,77,140,.35);cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;line-height:1" id="sched-fab" style2="right:auto;left:16px">＋</button>
+</div>
+
+<!-- SCHED ADD/EDIT MODAL -->
+<div id="sched-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:950;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px)">
+  <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;padding:20px 18px 30px;animation:slideUp .35s ease">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-size:18px;font-weight:800;color:#1e3252" id="sched-modal-title">新增時程</div>
+      <button onclick="schedCloseModal()" style="background:#eaecf4;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#4a5a72">✕</button>
+    </div>
+    <!-- Title -->
+    <div style="margin-bottom:12px">
+      <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:5px;letter-spacing:1px">事件名稱</div>
+      <input id="sched-ev-title" type="text" placeholder="輸入事件名稱…" maxlength="50"
+        style="width:100%;padding:11px 13px;border:1.5px solid #d8dce8;border-radius:11px;font-size:15px;background:#fff;box-sizing:border-box;outline:none;color:#1e3252">
+    </div>
+    <!-- Time row -->
+    <div style="display:flex;gap:10px;margin-bottom:12px">
+      <div style="flex:1">
+        <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:5px;letter-spacing:1px">開始時間</div>
+        <input id="sched-ev-start" type="time" value="09:00"
+          style="width:100%;padding:10px 12px;border:1.5px solid #d8dce8;border-radius:11px;font-size:15px;background:#fff;box-sizing:border-box;outline:none;color:#1e3252">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:5px;letter-spacing:1px">結束時間</div>
+        <input id="sched-ev-end" type="time" value="10:00"
+          style="width:100%;padding:10px 12px;border:1.5px solid #d8dce8;border-radius:11px;font-size:15px;background:#fff;box-sizing:border-box;outline:none;color:#1e3252">
+      </div>
+    </div>
+    <!-- Color -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">顏色標籤</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="sched-color-row">
+        <div class="sched-col-opt active" data-col="#1e4d8c" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#1e4d8c;cursor:pointer;border:3px solid #1e4d8c;box-shadow:0 0 0 2px #fff inset"></div>
+        <div class="sched-col-opt" data-col="#0a8f84" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#0a8f84;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#d97706" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#d97706;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#e05c3a" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#e05c3a;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#7c4dbd" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#7c4dbd;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#2e8b57" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#2e8b57;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#b45309" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#b45309;cursor:pointer;border:3px solid transparent"></div>
+        <div class="sched-col-opt" data-col="#6366f1" onclick="schedPickCol(this)" style="width:28px;height:28px;border-radius:50%;background:#6366f1;cursor:pointer;border:3px solid transparent"></div>
+      </div>
+    </div>
+    <!-- Note -->
+    <div style="margin-bottom:14px">
+      <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:5px;letter-spacing:1px">備注（選填）</div>
+      <textarea id="sched-ev-note" rows="2" placeholder="地點、提醒、備注…" maxlength="200"
+        style="width:100%;padding:10px 13px;border:1.5px solid #d8dce8;border-radius:11px;font-size:14px;background:#fff;box-sizing:border-box;outline:none;resize:none;color:#1e3252"></textarea>
+    </div>
+    <!-- Repeat -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">🔄 重複方式</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="sched-repeat-row">
+        <button class="sched-rep-btn active" data-rep="none" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #1e4d8c;background:#e8edf5;color:#1e4d8c;font-size:13px;font-weight:700;cursor:pointer">不重複</button>
+        <button class="sched-rep-btn" data-rep="daily" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">每天</button>
+        <button class="sched-rep-btn" data-rep="weekly" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">每週</button>
+        <button class="sched-rep-btn" data-rep="monthly" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">每月</button>
+        <button class="sched-rep-btn" data-rep="yearly" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">每年</button>
+        <button class="sched-rep-btn" data-rep="custom" onclick="schedPickRep(this)" style="padding:7px 12px;border-radius:20px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">自訂…</button>
+      </div>
+      <!-- Custom weekday picker (shown only when weekly selected) -->
+      <div id="sched-weekday-row" style="display:none;margin-top:10px">
+        <div style="font-size:12px;color:#7a8fa8;margin-bottom:6px">選擇重複的星期：</div>
+        <div style="display:flex;gap:6px">
+          <button class="sched-wd-btn" data-wd="0" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">日</button>
+          <button class="sched-wd-btn" data-wd="1" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">一</button>
+          <button class="sched-wd-btn" data-wd="2" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">二</button>
+          <button class="sched-wd-btn" data-wd="3" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">三</button>
+          <button class="sched-wd-btn" data-wd="4" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">四</button>
+          <button class="sched-wd-btn" data-wd="5" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">五</button>
+          <button class="sched-wd-btn" data-wd="6" onclick="schedTogWd(this)" style="width:36px;height:36px;border-radius:50%;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:700;cursor:pointer">六</button>
+        </div>
+      </div>
+      <!-- Custom repeat panel -->
+      <div id="sched-custom-row" style="display:none;margin-top:12px;background:#f8fafc;border-radius:12px;padding:12px 14px;border:1px solid #e0e4f0">
+        <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:10px;letter-spacing:1px">自訂週期</div>
+        <!-- Interval -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="font-size:14px;color:#4a5a72;font-weight:600;white-space:nowrap">每</div>
+          <div style="display:flex;gap:4px">
+            <button class="sched-ci-btn" data-ci="1" onclick="schedPickCI(this)" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #1e4d8c;background:#e8edf5;color:#1e4d8c;font-size:14px;font-weight:700;cursor:pointer">1</button>
+            <button class="sched-ci-btn" data-ci="2" onclick="schedPickCI(this)" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:14px;font-weight:600;cursor:pointer">2</button>
+            <button class="sched-ci-btn" data-ci="3" onclick="schedPickCI(this)" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:14px;font-weight:600;cursor:pointer">3</button>
+            <button class="sched-ci-btn" data-ci="4" onclick="schedPickCI(this)" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:14px;font-weight:600;cursor:pointer">4</button>
+          </div>
+          <div style="display:flex;gap:4px">
+            <button class="sched-cu-btn" data-cu="day" onclick="schedPickCU(this)" style="padding:7px 12px;border-radius:8px;border:1.5px solid #1e4d8c;background:#e8edf5;color:#1e4d8c;font-size:13px;font-weight:700;cursor:pointer">天</button>
+            <button class="sched-cu-btn" data-cu="week" onclick="schedPickCU(this)" style="padding:7px 12px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">週</button>
+            <button class="sched-cu-btn" data-cu="month" onclick="schedPickCU(this)" style="padding:7px 12px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">個月</button>
+          </div>
+        </div>
+        <!-- End condition -->
+        <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">結束條件</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="sched-ce-btn active" data-ce="forever" onclick="schedPickCE(this)" style="padding:6px 12px;border-radius:8px;border:1.5px solid #1e4d8c;background:#e8edf5;color:#1e4d8c;font-size:13px;font-weight:700;cursor:pointer">不結束</button>
+          <button class="sched-ce-btn" data-ce="count" onclick="schedPickCE(this)" style="padding:6px 12px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">次數</button>
+          <button class="sched-ce-btn" data-ce="date" onclick="schedPickCE(this)" style="padding:6px 12px;border-radius:8px;border:1.5px solid #d8dce8;background:transparent;color:#7a8fa8;font-size:13px;font-weight:600;cursor:pointer">結束日期</button>
+        </div>
+        <div id="sched-ce-count-row" style="display:none;margin-top:8px;display:none">
+          <input id="sched-ce-count" type="number" min="1" max="99" value="10" placeholder="次數"
+            style="width:80px;padding:8px 10px;border:1.5px solid #d8dce8;border-radius:8px;font-size:14px;color:#1e3252;background:#fff;outline:none">
+          <span style="font-size:14px;color:#4a5a72;margin-left:6px">次後結束</span>
+        </div>
+        <div id="sched-ce-date-row" style="display:none;margin-top:8px">
+          <input id="sched-ce-date" type="date"
+            style="width:100%;padding:8px 10px;border:1.5px solid #d8dce8;border-radius:8px;font-size:14px;color:#1e3252;background:#fff;outline:none;box-sizing:border-box">
+        </div>
+      </div>
+    </div>
+    <!-- Buttons -->
+    <div style="display:flex;gap:8px">
+      <button id="sched-del-btn" onclick="schedDeleteEv()" style="display:none;flex:0 0 auto;padding:13px 16px;background:#fdf0ec;border:1.5px solid #e05c3a40;border-radius:12px;color:#e05c3a;font-size:14px;font-weight:700;cursor:pointer">🗑️ 刪除</button>
+      <button onclick="schedSaveEv()" style="flex:1;padding:13px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer">✓ 儲存</button>
+    </div>
+  </div>
+</div>
+
 <div id="nav">
   <button class="nb on" onclick="goSc('home',this)"><span style="font-size:21px">&#128197;</span>規劃</button>
   <button class="nb" onclick="goSc('pray',this)"><span style="font-size:21px">&#128591;</span>晨禱</button>
   <button class="nb" onclick="goSc('920',this)"><span style="font-size:21px">&#127807;</span>920</button>
   <button class="nb" onclick="goSc('wrev',this)"><span style="font-size:21px">&#127775;</span>週顧</button>
+  <button class="nb" onclick="goSc('sched',this)"><span style="font-size:21px">🗓️</span>時程</button>
   <button class="nb" onclick="goSc('cal',this)"><span style="font-size:21px">&#128198;</span>日曆</button>
-  <button class="nb" onclick="goSc('sta',this)"><span style="font-size:21px">&#128202;</span>統計</button>
 </div>
 
 <script>
@@ -502,11 +705,30 @@ function addD(d,n){var dt=new Date(d+"T00:00:00");dt.setDate(dt.getDate()+n);ret
 var BL=[
   {id:"morning",label:"清晨靈修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"聖經・禱告・默想"},
   {id:"deep",label:"深度工作",icon:"🔥",color:"#e05c3a",time:"08:00–11:30",desc:"最重要任務・高度專注"},
-  {id:"connect",label:"關係連結",icon:"🤝",color:"#3b82c4",time:"12:00–13:30",desc:"用餐・與人互動"},
-  {id:"admin",label:"行政事務",icon:"📋",color:"#6366f1",time:"14:00–16:30",desc:"郵件・回覆・雜務"},
-  {id:"create",label:"創意產出",icon:"✍️",color:"#7c4dbd",time:"17:00–18:30",desc:"講章・材料・寫作"},
-  {id:"evening",label:"晚間回顧",icon:"🌙",color:"#0f9b8e",time:"21:00–22:00",desc:"反思・禱告・預備明日"}
+  {id:"connect",label:"午間團契",icon:"🤝",color:"#3b82c4",time:"12:00–13:00",desc:"用餐・關係連結・團契"},
+  {id:"create",label:"創意產出",icon:"✍️",color:"#7c4dbd",time:"13:00–16:00",desc:"講章・材料・寫作"},
+  {id:"admin",label:"行政事務",icon:"📋",color:"#6366f1",time:"16:00–18:00",desc:"郵件・回覆・雜務"},
+  {id:"connect2",label:"晚間團契",icon:"🍽️",color:"#0f9b8e",time:"18:00–19:30",desc:"用餐・關係連結・團契"},
+  {id:"rest",label:"家庭休閒",icon:"🏠",color:"#2e8b57",time:"19:30–21:00",desc:"家庭・休閒・關機保護"},
+  {id:"evening",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"反思・禱告・預備明日"}
 ];
+var USFM_MAP={
+    '創':'GEN','出':'EXO','利':'LEV','民':'NUM','申':'DEU',
+    '書':'JOS','士':'JDG','得':'RUT','撒上':'1SA','撒下':'2SA',
+    '王上':'1KI','王下':'2KI','代上':'1CH','代下':'2CH','拉':'EZR',
+    '尼':'NEH','斯':'EST','伯':'JOB','詩':'PSA','箴':'PRO',
+    '傳':'ECC','歌':'SNG','賽':'ISA','耶':'JER','哀':'LAM',
+    '結':'EZK','但':'DAN','何':'HOS','珥':'JOL','摩':'AMO',
+    '俄':'OBA','拿':'JON','彌':'MIC','鴻':'NAM','哈':'HAB',
+    '番':'ZEP','該':'HAG','亞':'ZEC','瑪':'MAL',
+    '太':'MAT','可':'MRK','路':'LUK','約':'JHN','徒':'ACT',
+    '羅':'ROM','林前':'1CO','林後':'2CO','加':'GAL','弗':'EPH',
+    '腓':'PHP','西':'COL','帖前':'1TH','帖後':'2TH','提前':'1TI',
+    '提後':'2TI','多':'TIT','門':'PHM','來':'HEB','雅':'JAS',
+    '彼前':'1PE','彼後':'2PE','約一':'1JN','約二':'2JN','約三':'3JN',
+    '猶':'JUD','啟':'REV'
+  };
+
 var PR={A:"#e05c3a",B:"#d97706",C:"#3b82c4",D:"#7c4dbd"};
 var PL={A:"A必做",B:"B應做",C:"C可做",D:"D委派"};
 var TAGS=[{id:"321",l:"321",c:"#d97706"},{id:"pray",l:"禱告",c:"#0f9b8e"},{id:"rel",l:"關係",c:"#3b82c4"},{id:"min",l:"事工",c:"#7c4dbd"},{id:"self",l:"個人",c:"#2e8b57"}];
@@ -521,6 +743,38 @@ var calY=new Date().getFullYear(),calM=new Date().getMonth(),calSel=null;
 var fSel=0,fSec=0,fTot=0,fRun=false,fTimer=null,fSessN=0;
 var coll={},pFilter="all",wkStart=null,darkMode=false;
 var _ac=null;
+
+// Header collapse
+var _hdrOpen=true;
+function togHdr(){
+  _hdrOpen=!_hdrOpen;
+  var col=document.getElementById('hdr-collapsible');
+  var mini=document.getElementById('hdr-mini');
+  var chev=document.getElementById('hdr-chevron');
+  if(_hdrOpen){
+    col.style.maxHeight='200px';
+    col.style.opacity='1';
+    mini.style.display='none';
+    chev.style.transform='rotate(0deg)';
+  } else {
+    col.style.maxHeight='0';
+    col.style.opacity='0';
+    mini.style.display='block';
+    chev.style.transform='rotate(180deg)';
+    // sync mini date
+    var dd=document.getElementById('ddate');
+    var dm=document.getElementById('ddate-mini');
+    if(dd&&dm)dm.textContent=dd.textContent;
+  }
+  lsS('p4_hdrOpen',_hdrOpen);
+}
+function initHdr(){
+  var s=lsG('p4_hdrOpen');
+  if(s===false){
+    _hdrOpen=true; // force open then toggle
+    togHdr();
+  }
+}
 
 // Dark mode
 function togDark(){
@@ -609,6 +863,7 @@ function goSc(id,btn){
   if(id==="920")render920();
   if(id==="pray")renderPray();
   if(id==="proj")renderProj();
+  if(id==="sched"){schedRenderDateLabel();schedRender();}
 }
 function prevDay(){curDate=addD(curDate,-1);loadAndRender();}
 function nextDay(){curDate=addD(curDate,1);loadAndRender();}
@@ -645,6 +900,9 @@ function hTab(id,btn){
 function renderHome(){
   var t=tod(),fut=curDate>t,ro=curDate<t&&curDate!==t;
   document.getElementById("ddate").textContent=fL(curDate);
+  // sync mini date bar when collapsed
+  var dm=document.getElementById('ddate-mini');
+  if(dm)dm.textContent=fL(curDate);
   var db=document.getElementById("dbadge");db.innerHTML="";
   if(curDate===t)db.innerHTML+='<span class="badge" style="color:#0a8f84;background:#e2f5f3;border:1px solid #0f9b8e40">今日</span>';
   if(fut)db.innerHTML+='<span class="badge" style="color:#6b45b0;background:#f2eeff;border:1px solid #6b45b040">預先規劃</span>';
@@ -725,6 +983,8 @@ function renderTasks(ro,fut){
     var isCustom=!!(custom[b.id]);
     h+='<div id="bledit-'+b.id+'" style="display:none;background:#f4f6fa;border:1px solid #1e4d8c30;border-radius:10px;padding:10px 12px;margin-bottom:8px">';
     h+='<div style="font-size:13px;font-weight:700;color:#1e4d8c;margin-bottom:8px">✏️ 自訂「'+b.label+'」</div>';
+    h+='<div style="margin-bottom:8px"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">名稱</div>';
+    h+='<input id="bln-'+b.id+'" class="inp" value="'+b.label+'" placeholder="區塊名稱" style="font-size:14px"></div>';
     h+='<div style="display:flex;gap:8px;margin-bottom:8px">';
     h+='<div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">時間</div>';
     h+='<input id="blt-'+b.id+'" class="inp" value="'+b.time+'" placeholder="例：06:00–07:00" style="font-size:14px"></div>';
@@ -733,13 +993,19 @@ function renderTasks(ro,fut){
     h+='</div>';
     h+='<div style="display:flex;gap:6px">';
     h+='<button data-bid3="'+b.id+'" onclick="saveBlock(this.dataset.bid3)" style="flex:1;padding:7px;background:#1e4d8c;border:none;border-radius:8px;color:#fff;font-size:14px;cursor:pointer;font-weight:700">儲存</button>';
-    if(isCustom)h+='<button data-bid3="'+b.id+'" onclick="resetBlock(this.dataset.bid3)" style="padding:7px 12px;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;color:#7a8fa8;font-size:13px;cursor:pointer">恢復預設</button>';
+    if(b._extra){
+      h+='<button data-bid3="'+b.id+'" onclick="deleteExtraBlock(this.dataset.bid3)" style="padding:7px 12px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:8px;color:#e05c3a;font-size:13px;cursor:pointer;font-weight:700">🗑️ 刪除</button>';
+    } else if(isCustom){
+      h+='<button data-bid3="'+b.id+'" onclick="resetBlock(this.dataset.bid3)" style="padding:7px 12px;background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;color:#7a8fa8;font-size:13px;cursor:pointer">恢復預設</button>';
+    }
     h+='<button data-bid3="'+b.id+'" onclick="togBLEdit(this.dataset.bid3)" style="padding:7px 12px;background:#f4f6fa;border:1px solid #d8dce8;border-radius:8px;color:#7a8fa8;font-size:13px;cursor:pointer">取消</button>';
     h+='</div></div>';
     // Tasks
     if(!clp){if(bt.length===0&&!ro)h+='<div style="color:#7a8fa8;font-size:15px;font-style:italic;padding:4px 6px;margin-bottom:4px">尚無任務</div>';bt.forEach(function(t){h+=taskHTML(t,ro);});if(!ro)h+=addTaskHTML(b.id);}
     h+='</div>';
   });
+  // Add new block button
+  if(!ro)h+='<button onclick="addExtraBlock()" style="width:100%;padding:12px;background:#f4f6fa;border:2px dashed #1e4d8c40;border-radius:14px;color:#1e4d8c;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px">＋ 新增時間區塊</button>';
   return h;
 }
 function togColl(id){coll[id]=!coll[id];renderHCon();}
@@ -2109,11 +2375,11 @@ function goProjTab(btn){
 }
 
 // Font size cycle: small → medium → large → small
-var _fsIdx=1;var _fsSizes=['fs-small','fs-medium','fs-large'];var _fsLabels=['小','中','大'];
+var _fsIdx=2;var _fsSizes=['fs-small','fs-medium','fs-large','fs-xlarge'];var _fsLabels=['小','中','大','特大'];
 function cycleFont(){
-  _fsIdx=(_fsIdx+1)%3;
+  _fsIdx=(_fsIdx+1)%4;
   var cls=_fsSizes[_fsIdx];
-  document.body.classList.remove('fs-small','fs-medium','fs-large');
+  document.body.classList.remove('fs-small','fs-medium','fs-large','fs-xlarge');
   document.body.classList.add(cls);
   var btn=document.getElementById('fsbtn');
   if(btn){btn.textContent=_fsLabels[_fsIdx]+' A';}
@@ -2122,37 +2388,89 @@ function cycleFont(){
 function initFont(){
   var s=lsG('p4_fs');
   if(s!==null)_fsIdx=s;
-  else _fsIdx=1;
+  else _fsIdx=2; // 預設「大」字體
   var cls=_fsSizes[_fsIdx];
-  document.body.classList.remove('fs-small','fs-medium','fs-large');
+  document.body.classList.remove('fs-small','fs-medium','fs-large','fs-xlarge');
   document.body.classList.add(cls);
   var btn=document.getElementById('fsbtn');
-  if(btn)btn.textContent=_fsLabels[_fsIdx];
+  if(btn)btn.textContent=_fsLabels[_fsIdx]+' A';
 }
 
 // Custom block settings storage
 function getBLCustom(){return lsG("p4_blcustom")||{};}
 function saveBLCustom(d){lsS("p4_blcustom",d);}
+function getBLExtra(){return lsG("p4_blextra")||[];}
+function saveBLExtra(arr){lsS("p4_blextra",arr);}
 function getBL(){
   var custom=getBLCustom();
-  return BL.map(function(b){
+  var base=BL.map(function(b){
     var c=custom[b.id];
-    return c?{id:b.id,label:b.label,icon:b.icon,color:b.color,
+    return c?{id:b.id,label:c.label||b.label,icon:b.icon,color:b.color,
               time:c.time||b.time,desc:c.desc||b.desc}:b;
   });
+  // Merge extra user-created blocks, sorted by time
+  var extra=getBLExtra();
+  var all=base.concat(extra);
+  all.sort(function(a,b){
+    var at=a.time?a.time.replace(/[^0-9:]/g,'').substring(0,5):'99:99';
+    var bt2=b.time?b.time.replace(/[^0-9:]/g,'').substring(0,5):'99:99';
+    return at<bt2?-1:at>bt2?1:0;
+  });
+  return all;
+}
+function addExtraBlock(){
+  var extra=getBLExtra();
+  var newId='ex_'+(Date.now());
+  var COLORS=['#0a8f84','#3b82c4','#7c4dbd','#d97706','#e05c3a','#2e8b57','#6366f1','#b45309'];
+  var col=COLORS[extra.length%COLORS.length];
+  extra.push({id:newId,label:'新時間區塊',icon:'📌',color:col,time:'09:00–10:00',desc:'自訂區塊',_extra:true});
+  saveBLExtra(extra);
+  renderHCon();
+  // auto-open edit panel
+  setTimeout(function(){
+    togBLEdit(newId);
+    var ni=document.getElementById('bln-'+newId);
+    if(ni){ni.select();ni.focus();}
+  },100);
+}
+function deleteExtraBlock(bid){
+  var extra=getBLExtra().filter(function(b){return b.id!==bid;});
+  saveBLExtra(extra);
+  // also clean up tasks assigned to this block
+  if(curDay&&curDay.tasks){
+    curDay.tasks=curDay.tasks.filter(function(t){return t.block!==bid;});
+    trigSave();
+  }
+  toast('已刪除區塊','#e05c3a');
+  renderHCon();
 }
 function editBlock(bid){
   var el=document.getElementById("bledit-"+bid);
   if(el){el.style.display=el.style.display==="none"?"block":"none";return;}
 }
 function saveBlock(bid){
+  var ni=document.getElementById("bln-"+bid);
   var ti=document.getElementById("blt-"+bid);
   var di=document.getElementById("bld-"+bid);
   if(!ti||!di)return;
-  var custom=getBLCustom();
-  custom[bid]={time:ti.value.trim(),desc:di.value.trim()};
-  saveBLCustom(custom);
-  toast("✓ 時間區塊已更新");
+  var newLabel=(ni?ni.value.trim():'')||'新時間區塊';
+  var newTime=ti.value.trim();
+  var newDesc=di.value.trim();
+  // Check if it's an extra block
+  var extra=getBLExtra();
+  var eIdx=extra.findIndex?extra.findIndex(function(b){return b.id===bid;}):
+    (function(){for(var i=0;i<extra.length;i++){if(extra[i].id===bid)return i;}return -1;})();
+  if(eIdx>=0){
+    extra[eIdx].label=newLabel;
+    extra[eIdx].time=newTime;
+    extra[eIdx].desc=newDesc;
+    saveBLExtra(extra);
+  } else {
+    var custom=getBLCustom();
+    custom[bid]={label:newLabel,time:newTime,desc:newDesc};
+    saveBLCustom(custom);
+  }
+  toast("✓ 已更新");
   renderHCon();
 }
 function resetBlock(bid){
@@ -2175,107 +2493,6 @@ function togProjTaskClick(el){
   togProjTask(pi,ti,!done);
 }
 
-// ══════════════════════════════════════════
-// DAILY DECLARATION
-// ══════════════════════════════════════════
-
-var DEFAULT_DECLS = [
-  "我是神所愛的兒女，有神同在，凡事都能做",
-  "我活出無己的生命，讓耶穌在我裡面作王",
-  "我謙卑戰勝驕傲，用謙卑帶動謙卑",
-  "先生命、再關係、後事工，讓耶穌得榮耀",
-  "我今日要結出聖靈的果子，成為得勝者"
-];
-
-var DEFAULT_DECL_VERSE = "我靠著那加給我力量的，凡事都能做。— 腓立比書4:13";
-
-function getDecls(){
-  var d=lsG("p4_decls");
-  if(!d||!d.items||d.items.length===0)return{items:DEFAULT_DECLS.slice(),verse:DEFAULT_DECL_VERSE,enabled:true};
-  return d;
-}
-function saveDecls(d){lsS("p4_decls",d);}
-
-function openDeclModal(){
-  var d=getDecls();
-  if(!d.enabled)return;
-  var el=document.getElementById("decl-modal");
-  if(!el)return;
-  el.style.display="flex";
-  // Set date
-  var dd=document.getElementById("decl-date");
-  if(dd)dd.textContent=fL(tod());
-  // Set verse
-  var dv=document.getElementById("decl-verse");
-  if(dv)dv.textContent="「"+d.verse+"」";
-  // Render declarations
-  renderDeclList(d);
-}
-
-function renderDeclList(d){
-  var el=document.getElementById("decl-list");
-  if(!el)return;
-  var editing=el.dataset.editing==="1";
-  var h="";
-  d.items.forEach(function(item,i){
-    if(editing){
-      h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">';
-      h+='<input class="inp" value="'+esc(item)+'" data-di="'+i+'" oninput="updDeclItem(this.dataset.di,this.value)" style="flex:1;font-size:14px">';
-      h+='<button data-di="'+i+'" onclick="delDeclItem(parseInt(this.dataset.di))" style="background:none;border:none;color:#e05c3a;font-size:20px;cursor:pointer">×</button>';
-      h+='</div>';
-    } else {
-      h+='<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0f4f8">';
-      h+='<div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">'+(i+1)+'</div>';
-      h+='<div style="flex:1;font-size:15px;color:#1e3252;line-height:1.7;font-weight:500">'+esc(item)+'</div>';
-      h+='</div>';
-    }
-  });
-  el.innerHTML=h;
-}
-
-function editDecls(){
-  var el=document.getElementById("decl-list");
-  var btn=document.getElementById("decl-edit-btn");
-  var editing=el.dataset.editing==="1";
-  el.dataset.editing=editing?"0":"1";
-  btn.textContent=editing?"編輯":"完成";
-  renderDeclList(getDecls());
-}
-function updDeclItem(i,val){
-  var d=getDecls();d.items[i]=val;saveDecls(d);
-}
-function delDeclItem(i){
-  var d=getDecls();d.items.splice(i,1);saveDecls(d);
-  renderDeclList(d);
-}
-function addDeclItem(){
-  var d=getDecls();
-  d.items.push("我宣告…");
-  saveDecls(d);
-  var el=document.getElementById("decl-list");
-  el.dataset.editing="1";
-  document.getElementById("decl-edit-btn").textContent="完成";
-  renderDeclList(d);
-}
-function closeDeclModal(){
-  var el=document.getElementById("decl-modal");
-  if(el)el.style.display="none";
-  lsS("p4_decl_shown",tod());
-}
-
-function checkShowDecl(){
-  var shown=lsG("p4_decl_shown");
-  var d=getDecls();
-  if(!d.enabled)return;
-  if(shown!==tod()){
-    setTimeout(openDeclModal,800);
-  }
-}
-
-// ══════════════════════════════════════════
-// QUICK RECORD (FAB)
-// ══════════════════════════════════════════
-
 var _fabOpen=false;
 var _qrType="";
 var _qrIcons={spark:"⚡",thanks:"💛",prayer:"🙏",verse:"📖",victory:"🏆"};
@@ -2288,16 +2505,13 @@ function togFAB(){
   _fabOpen=!_fabOpen;
   var panel=document.getElementById("qr-panel");
   var fab=document.getElementById("fab");
-  if(panel){
-    if(_fabOpen){panel.classList.add("open");}
-    else{panel.classList.remove("open");}
-  }
+  if(panel){panel.style.display=_fabOpen?"flex":"none";}
   if(fab)fab.textContent=_fabOpen?"✕":"✦";
 }
 function closeFAB(){
   _fabOpen=false;
   var panel=document.getElementById("qr-panel");
-  if(panel)panel.classList.remove("open");
+  if(panel)panel.style.display="none";
   var fab=document.getElementById("fab");
   if(fab)fab.textContent="✦";
 }
@@ -2317,6 +2531,7 @@ function closeQRModal(){
   var modal=document.getElementById("qr-modal");
   if(modal)modal.style.display="none";
 }
+
 function saveQR(){
   var inp=document.getElementById("qr-input");
   if(!inp||!inp.value.trim()){toast("請填入內容","#e05c3a");return;}
@@ -3178,11 +3393,396 @@ function openSoapModal(){
   renderSoapWeek();
   renderBookPills();
   renderSoapSteps();
+  updateRPSummaryLabel();
 }
 function closeSoapModal(){
   var el=document.getElementById("soap-modal");
   if(el)el.style.display="none";
 }
+
+// ════════════════════════════════════════
+// 讀經計劃 Reading Plan System
+// ════════════════════════════════════════
+
+// ── 計劃定義 ──
+var RP_PLANS={
+  prov:{
+    id:'prov',name:'箴言・智慧月讀',icon:'💎',color:'#b45309',
+    desc:'每月循環，每天1章箴言',
+    // 31章，按日期餘數取章節（每月循環）
+    mode:'monthly_cycle',
+    books:[{name:'箴言',abbr:'箴',chapters:31}]
+  },
+  gospel:{
+    id:'gospel',name:'四福音書・跟隨耶穌',icon:'✝️',color:'#1e4d8c',
+    desc:'馬太→馬可→路加→約翰，約90天',
+    mode:'sequential',
+    total:89,
+    schedule:[
+      {name:'馬太福音',abbr:'太',chapters:28},
+      {name:'馬可福音',abbr:'可',chapters:16},
+      {name:'路加福音',abbr:'路',chapters:24},
+      {name:'約翰福音',abbr:'約',chapters:21}
+    ]
+  },
+  nt:{
+    id:'nt',name:'新約全書・90天讀完',icon:'📘',color:'#0a5e55',
+    desc:'260章，90天讀完，每天約3章',
+    mode:'sequential',
+    total:260,
+    schedule:[
+      {name:'馬太福音',abbr:'太',chapters:28},{name:'馬可福音',abbr:'可',chapters:16},
+      {name:'路加福音',abbr:'路',chapters:24},{name:'約翰福音',abbr:'約',chapters:21},
+      {name:'使徒行傳',abbr:'徒',chapters:28},{name:'羅馬書',abbr:'羅',chapters:16},
+      {name:'哥林多前書',abbr:'林前',chapters:16},{name:'哥林多後書',abbr:'林後',chapters:13},
+      {name:'加拉太書',abbr:'加',chapters:6},{name:'以弗所書',abbr:'弗',chapters:6},
+      {name:'腓立比書',abbr:'腓',chapters:4},{name:'歌羅西書',abbr:'西',chapters:4},
+      {name:'帖撒羅尼迦前書',abbr:'帖前',chapters:5},{name:'帖撒羅尼迦後書',abbr:'帖後',chapters:3},
+      {name:'提摩太前書',abbr:'提前',chapters:6},{name:'提摩太後書',abbr:'提後',chapters:4},
+      {name:'提多書',abbr:'多',chapters:3},{name:'腓利門書',abbr:'門',chapters:1},
+      {name:'希伯來書',abbr:'來',chapters:13},{name:'雅各書',abbr:'雅',chapters:5},
+      {name:'彼得前書',abbr:'彼前',chapters:5},{name:'彼得後書',abbr:'彼後',chapters:3},
+      {name:'約翰一書',abbr:'約一',chapters:5},{name:'約翰二書',abbr:'約二',chapters:1},
+      {name:'約翰三書',abbr:'約三',chapters:1},{name:'猶大書',abbr:'猶',chapters:1},
+      {name:'啟示錄',abbr:'啟',chapters:22}
+    ],
+    // 每天讀幾章：260章÷90天≈2-3章/天，前80天3章，後10天2章
+    chapPerDay:3
+  },
+  full:{
+    id:'full',name:'全本聖經・一年讀完',icon:'📖',color:'#4a1d7c',
+    desc:'1189章，每天約3章，舊約2章＋新約1章',
+    mode:'dual',
+    // OT 平均 2章/天，NT 平均 1章/天，共365天
+    ot:[
+      {name:'創世記',abbr:'創',chapters:50},{name:'出埃及記',abbr:'出',chapters:40},
+      {name:'利未記',abbr:'利',chapters:27},{name:'民數記',abbr:'民',chapters:36},
+      {name:'申命記',abbr:'申',chapters:34},{name:'約書亞記',abbr:'書',chapters:24},
+      {name:'士師記',abbr:'士',chapters:21},{name:'路得記',abbr:'得',chapters:4},
+      {name:'撒母耳記上',abbr:'撒上',chapters:31},{name:'撒母耳記下',abbr:'撒下',chapters:24},
+      {name:'列王紀上',abbr:'王上',chapters:22},{name:'列王紀下',abbr:'王下',chapters:25},
+      {name:'歷代志上',abbr:'代上',chapters:29},{name:'歷代志下',abbr:'代下',chapters:36},
+      {name:'以斯拉記',abbr:'拉',chapters:10},{name:'尼希米記',abbr:'尼',chapters:13},
+      {name:'以斯帖記',abbr:'斯',chapters:10},{name:'約伯記',abbr:'伯',chapters:42},
+      {name:'詩篇',abbr:'詩',chapters:150},{name:'箴言',abbr:'箴',chapters:31},
+      {name:'傳道書',abbr:'傳',chapters:12},{name:'雅歌',abbr:'歌',chapters:8},
+      {name:'以賽亞書',abbr:'賽',chapters:66},{name:'耶利米書',abbr:'耶',chapters:52},
+      {name:'耶利米哀歌',abbr:'哀',chapters:5},{name:'以西結書',abbr:'結',chapters:48},
+      {name:'但以理書',abbr:'但',chapters:12},{name:'何西阿書',abbr:'何',chapters:14},
+      {name:'約珥書',abbr:'珥',chapters:3},{name:'阿摩司書',abbr:'摩',chapters:9},
+      {name:'俄巴底亞書',abbr:'俄',chapters:1},{name:'約拿書',abbr:'拿',chapters:4},
+      {name:'彌迦書',abbr:'彌',chapters:7},{name:'那鴻書',abbr:'鴻',chapters:3},
+      {name:'哈巴谷書',abbr:'哈',chapters:3},{name:'西番雅書',abbr:'番',chapters:3},
+      {name:'哈該書',abbr:'該',chapters:2},{name:'撒迦利亞書',abbr:'亞',chapters:14},
+      {name:'瑪拉基書',abbr:'瑪',chapters:4}
+    ],
+    nt:[
+      {name:'馬太福音',abbr:'太',chapters:28},{name:'馬可福音',abbr:'可',chapters:16},
+      {name:'路加福音',abbr:'路',chapters:24},{name:'約翰福音',abbr:'約',chapters:21},
+      {name:'使徒行傳',abbr:'徒',chapters:28},{name:'羅馬書',abbr:'羅',chapters:16},
+      {name:'哥林多前書',abbr:'林前',chapters:16},{name:'哥林多後書',abbr:'林後',chapters:13},
+      {name:'加拉太書',abbr:'加',chapters:6},{name:'以弗所書',abbr:'弗',chapters:6},
+      {name:'腓立比書',abbr:'腓',chapters:4},{name:'歌羅西書',abbr:'西',chapters:4},
+      {name:'帖撒羅尼迦前書',abbr:'帖前',chapters:5},{name:'帖撒羅尼迦後書',abbr:'帖後',chapters:3},
+      {name:'提摩太前書',abbr:'提前',chapters:6},{name:'提摩太後書',abbr:'提後',chapters:4},
+      {name:'提多書',abbr:'多',chapters:3},{name:'腓利門書',abbr:'門',chapters:1},
+      {name:'希伯來書',abbr:'來',chapters:13},{name:'雅各書',abbr:'雅',chapters:5},
+      {name:'彼得前書',abbr:'彼前',chapters:5},{name:'彼得後書',abbr:'彼後',chapters:3},
+      {name:'約翰一書',abbr:'約一',chapters:5},{name:'約翰二書',abbr:'約二',chapters:1},
+      {name:'約翰三書',abbr:'約三',chapters:1},{name:'猶大書',abbr:'猶',chapters:1},
+      {name:'啟示錄',abbr:'啟',chapters:22}
+    ]
+  },
+  slow:{
+    id:'slow',name:'一天一章・深度默想版',icon:'🕊️',color:'#0a5e55',
+    desc:'1189章，每天1章，約3年3個月讀完全本聖經',
+    mode:'sequential',total:1189,
+    schedule:null
+  }
+};
+// ES5-compatible: set slow.schedule after RP_PLANS is defined
+RP_PLANS.slow.schedule=RP_PLANS.full.ot.concat(RP_PLANS.full.nt);
+
+var _rpSel=null; // 暫選計劃id
+// 閻大衛男聲有聲聖經 Spotify Podcast（手機自動跳 Spotify App，播放最佳）
+function maleAudioLink(abbr,chap){
+  var BID_MAP={'創':1,'出':2,'利':3,'民':4,'申':5,'書':6,'士':7,'得':8,'撒上':9,'撒下':10,'王上':11,'王下':12,'代上':13,'代下':14,'拉':15,'尼':16,'斯':17,'伯':18,'詩':19,'箴':20,'傳':21,'歌':22,'賽':23,'耶':24,'哀':25,'結':26,'但':27,'何':28,'珥':29,'摩':30,'俄':31,'拿':32,'彌':33,'鴻':34,'哈':35,'番':36,'該':37,'亞':38,'瑪':39,'太':40,'可':41,'路':42,'約':43,'徒':44,'羅':45,'林前':46,'林後':47,'加':48,'弗':49,'腓':50,'西':51,'帖前':52,'帖後':53,'提前':54,'提後':55,'多':56,'門':57,'來':58,'雅':59,'彼前':60,'彼後':61,'約一':62,'約二':63,'約三':64,'猶':65,'啟':66};
+  var b=BID_MAP[abbr]||1;
+  var c=('00'+chap).slice(-3);
+  return 'https://bible.fhl.net/new/listenhb.php?version=20&bid='+b+'&chap='+c;
+}
+
+
+function rpDaysBetween(d1,d2){
+  var a=new Date(d1+'T00:00:00'),b=new Date(d2+'T00:00:00');
+  return Math.floor((b-a)/(86400000));
+}
+
+// 計算今日應讀章節
+function rpGetTodayReading(planId){
+  var cfg=lsG('p4_rp_cfg');
+  if(!cfg||cfg.id!==planId)return null;
+  var plan=RP_PLANS[planId];
+  var dayN=rpDaysBetween(cfg.start,tod()); // 從第0天開始
+  if(dayN<0)return null;
+
+  if(planId==='prov'){
+    // 從開始日依序讀，第0天→第1章，第1天→第2章，循環31章
+    var ch=(dayN%31)+1;
+    return [{book:'箴言',abbr:'箴',chapter:ch,label:'箴言 第'+ch+'章'}];
+  }
+  if(planId==='gospel'||planId==='slow'){
+    // sequential，每天1章
+    var idx=dayN%plan.total;
+    var cum=0;
+    for(var i=0;i<plan.schedule.length;i++){
+      var bk=plan.schedule[i];
+      if(idx<cum+bk.chapters){
+        var ch2=idx-cum+1;
+        return [{book:bk.name,abbr:bk.abbr,chapter:ch2,label:bk.name+' 第'+ch2+'章'}];
+      }
+      cum+=bk.chapters;
+    }
+    return null;
+  }
+  if(planId==='nt'){
+    // 90天讀完260章：每天約3章，線性順序
+    var DAYS=90,TOTAL=260;
+    var dayIdx=dayN%DAYS; // 循環
+    // 計算今天起始章index
+    var startCh=Math.floor(dayIdx*(TOTAL/DAYS));
+    var endCh=Math.floor((dayIdx+1)*(TOTAL/DAYS));
+    if(endCh>TOTAL)endCh=TOTAL;
+    var arr=[];
+    for(var ci=startCh;ci<endCh;ci++){
+      var r2=rpChFromIdx(plan.schedule,ci);
+      if(r2)arr.push({book:r2.name,abbr:r2.abbr,chapter:r2.ch,label:r2.name+' 第'+r2.ch+'章'});
+    }
+    return arr.length>0?arr:null;
+  }
+  if(planId==='full'){
+    // 舊約：每730章(≈2章/天×365)循環，但直接線性
+    var otTotal=929,ntTotal=260;
+    var otDay=Math.floor(dayN*2)%otTotal; // 第幾章舊約
+    var ntDay=dayN%ntTotal; // 第幾章新約
+
+    var otRes=rpChFromIdx(plan.ot,otDay);
+    var otRes2=rpChFromIdx(plan.ot,(otDay+1)%otTotal);
+    var ntRes=rpChFromIdx(plan.nt,ntDay);
+    var arr=[];
+    if(otRes)arr.push({book:otRes.name,abbr:otRes.abbr,chapter:otRes.ch,label:otRes.name+' 第'+otRes.ch+'章（舊約1）'});
+    if(otRes2&&(otRes2.name!==otRes.name||otRes2.ch!==otRes.ch))arr.push({book:otRes2.name,abbr:otRes2.abbr,chapter:otRes2.ch,label:otRes2.name+' 第'+otRes2.ch+'章（舊約2）'});
+    if(ntRes)arr.push({book:ntRes.name,abbr:ntRes.abbr,chapter:ntRes.ch,label:ntRes.name+' 第'+ntRes.ch+'章（新約）'});
+    return arr;
+  }
+  return null;
+}
+
+function rpChFromIdx(list,idx){
+  var cum=0;
+  for(var i=0;i<list.length;i++){
+    if(idx<cum+list[i].chapters){
+      return {name:list[i].name,abbr:list[i].abbr,ch:idx-cum+1};
+    }
+    cum+=list[i].chapters;
+  }
+  return null;
+}
+
+function rpGetProgress(planId){
+  var cfg=lsG('p4_rp_cfg');
+  if(!cfg||cfg.id!==planId)return 0;
+  var plan=RP_PLANS[planId];
+  var dayN=rpDaysBetween(cfg.start,tod());
+  if(dayN<0)return 0;
+  if(planId==='prov')return Math.round(((new Date().getDate()-1)/30)*100);
+  if(planId==='gospel')return Math.min(100,Math.round((dayN/plan.total)*100));
+  if(planId==='nt')return Math.min(100,Math.round((dayN/90)*100));
+  if(planId==='slow')return Math.min(100,Math.round((dayN/1189)*100));
+  if(planId==='full')return Math.min(100,Math.round((dayN/365)*100));
+  return 0;
+}
+
+// UI
+var _rpCurTab='pick';
+function openRPModal(){
+  var el=document.getElementById('rp-modal');
+  if(el)el.style.display='flex';
+  rpRefreshUI();
+  rpTab('pick');
+}
+function closeRPModal(){
+  var el=document.getElementById('rp-modal');
+  if(el)el.style.display='none';
+}
+function rpTab(t){
+  _rpCurTab=t;
+  document.getElementById('rp-tab-pick').style.background=t==='pick'?'#1e4d8c':'transparent';
+  document.getElementById('rp-tab-pick').style.color=t==='pick'?'#fff':'#7a8fa8';
+  document.getElementById('rp-tab-today').style.background=t==='today'?'#1e4d8c':'transparent';
+  document.getElementById('rp-tab-today').style.color=t==='today'?'#fff':'#7a8fa8';
+  document.getElementById('rp-pick-pane').style.display=t==='pick'?'block':'none';
+  document.getElementById('rp-today-pane').style.display=t==='today'?'block':'none';
+  if(t==='today')rpRenderToday();
+}
+function rpSelect(id){
+  _rpSel=id;
+  ['prov','gospel','nt','full','slow'].forEach(function(k){
+    var btn=document.getElementById('rpbtn-'+k);
+    var chk=document.getElementById('rp-check-'+k);
+    if(btn)btn.classList.toggle('active',k===id);
+    if(chk)chk.style.display=k===id?'block':'none';
+  });
+  document.getElementById('rp-start-setting').style.display='block';
+}
+function rpSetStart(mode){
+  var d=tod();
+  if(mode==='month'){var dt=new Date();d=dt.getFullYear()+'-'+_pad(dt.getMonth()+1)+'-01';}
+  if(mode==='year'){d=new Date().getFullYear()+'-01-01';}
+  lsS('p4_rp_pendingStart',d);
+  // highlight active start button
+  toast('📅 開始日期：'+d);
+}
+function rpConfirm(){
+  if(!_rpSel){toast('請先選擇計劃','#e05c3a');return;}
+  var start=lsG('p4_rp_pendingStart')||tod();
+  lsS('p4_rp_cfg',{id:_rpSel,start:start});
+  rpRefreshUI();
+  rpTab('today');
+  toast('✅ 讀經計劃已啟用！',  '#0a8f84');
+  updateRPSummaryLabel();
+}
+function rpRefreshUI(){
+  var cfg=lsG('p4_rp_cfg');
+  if(cfg){
+    _rpSel=cfg.id;
+    ['prov','gospel','nt','full','slow'].forEach(function(k){
+      var btn=document.getElementById('rpbtn-'+k);
+      var chk=document.getElementById('rp-check-'+k);
+      if(btn)btn.classList.toggle('active',k===cfg.id);
+      if(chk)chk.style.display=k===cfg.id?'block':'none';
+    });
+  }
+}
+function rpRenderToday(){
+  var el=document.getElementById('rp-today-content');
+  if(!el)return;
+  var cfg=lsG('p4_rp_cfg');
+  if(!cfg){
+    el.innerHTML='<div style="text-align:center;padding:40px 20px;color:#7a8fa8"><div style="font-size:40px;margin-bottom:12px">📅</div><div style="font-size:16px;font-weight:700">尚未選擇讀經計劃</div><div style="font-size:13px;margin-top:8px">請先在「選擇計劃」頁面啟用計劃</div></div>';
+    return;
+  }
+  var plan=RP_PLANS[cfg.id];
+  var readings=rpGetTodayReading(cfg.id);
+  var pct=rpGetProgress(cfg.id);
+  var dayN=rpDaysBetween(cfg.start,tod())+1;
+  var usfmMap=USFM_MAP;
+
+  var h='';
+  // 計劃標題
+  h+='<div style="background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px">';
+  h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
+  h+='<span style="font-size:26px">'+plan.icon+'</span>';
+  h+='<div><div style="font-size:15px;font-weight:800;color:#1e3252">'+plan.name+'</div>';
+  h+='<div style="font-size:12px;color:#7a8fa8">第 '+dayN+' 天 · 開始於 '+cfg.start+'</div></div></div>';
+  // 進度條
+  h+='<div style="height:8px;background:#eaecf4;border-radius:10px;overflow:hidden;margin-bottom:4px">';
+  h+='<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,'+plan.color+',#0a8f84);border-radius:10px;transition:width .5s"></div></div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;text-align:right">進度 '+pct+'%</div></div>';
+
+  // 今日章節
+  if(!readings||readings.length===0){
+    h+='<div style="background:#fff;border-radius:14px;padding:20px;text-align:center;color:#7a8fa8">無法取得今日進度</div>';
+  } else {
+    h+='<div style="font-size:12px;font-weight:700;color:#7a8fa8;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">📖 今日應讀</div>';
+    for(var i=0;i<readings.length;i++){
+      var r=readings[i];
+      if(r.special){
+        h+='<div style="background:linear-gradient(135deg,#e5f5f3,#e8edf5);border-radius:14px;padding:16px;margin-bottom:10px;text-align:center">';
+        h+='<div style="font-size:22px;margin-bottom:6px">🌿</div>';
+        h+='<div style="font-size:16px;font-weight:800;color:#0a8f84">'+r.label+'</div>';
+        h+='<div style="font-size:13px;color:#7a8fa8;margin-top:6px">'+r.desc+'</div></div>';
+      } else {
+        var usfm=usfmMap[r.abbr]||r.abbr.toUpperCase();
+        var fhlUrl='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(r.abbr)+'&chap='+r.chapter;
+        var maleAudioUrl=maleAudioLink(r.abbr,r.chapter);
+        var yvUrl='https://www.bible.com/zh-TW/bible/46/'+usfm+'.'+r.chapter+'.CUNPSS';
+        h+='<div style="background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:10px;border-left:4px solid '+plan.color+'">';
+        h+='<div style="font-size:16px;font-weight:800;color:#1e3252;margin-bottom:10px">'+r.label+'</div>';
+        h+='<div style="display:flex;flex-direction:column;gap:7px">';
+        h+='<a href="'+fhlUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700">📖 信望愛聖經 閱讀</a>';
+        h+='<div style="display:flex;gap:7px">';
+        h+='<a href="'+yvUrl+'" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(135deg,#155e75,#0e7490);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700">📗 YV閱讀</a>';
+        h+='<a href="'+maleAudioLink(r.abbr,r.chapter)+'" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(135deg,#7c2d12,#b45309);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700">🔈 男聲朗讀</a>';
+        h+='</div>';
+        // 填入SOAP按鈕
+        h+='<button data-ref="'+r.book+' '+r.chapter+'章" onclick="rpFillAndClose(this.dataset.ref)" style="width:100%;padding:9px;background:#f2eeff;border:1.5px solid #7c4dbd;border-radius:10px;color:#6b45b0;font-size:13px;font-weight:700;cursor:pointer">✏️ 填入SOAP默想欄位</button>';
+        h+='</div></div>';
+      }
+    }
+  }
+  // 重置按鈕
+  h+='<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e8edf5">';
+  h+='<button onclick="rpReset()" style="width:100%;padding:10px;background:#fdf0ec;border:1.5px solid #e05c3a40;border-radius:10px;color:#e05c3a;font-size:13px;font-weight:700;cursor:pointer">🔄 重置 / 更換計劃</button>';
+  h+='</div>';
+  el.innerHTML=h;
+}
+function rpFillAndClose(ref){
+  var inp=document.getElementById('soap-ref');
+  if(inp){inp.value=ref;saveSoap();toast('✅ 已填入：'+ref,'#0a8f84');}
+  closeRPModal();
+}
+function rpReset(){
+  // confirm() 在 App 內嵌瀏覽器中被封鎖，改用 inline 確認
+  var existing=document.getElementById('rp-reset-confirm');
+  if(existing){existing.remove();return;}
+  // 把確認框插入 rp-today-content 底部（固定容器）
+  var container=document.getElementById('rp-today-content');
+  if(!container)return;
+  var box=document.createElement('div');
+  box.id='rp-reset-confirm';
+  box.style.cssText='background:#fff3f0;border:1.5px solid #e05c3a;border-radius:12px;padding:14px 16px;margin-top:10px;text-align:center';
+  box.innerHTML='<div style="font-size:14px;font-weight:700;color:#e05c3a;margin-bottom:10px">⚠️ 確定要重置讀經計劃嗎？</div>'
+    +'<div style="display:flex;gap:8px">'
+    +'<button onclick="document.getElementById(\'rp-reset-confirm\').remove()" style="flex:1;padding:9px;background:#eaecf4;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;color:#4a5a72">取消</button>'
+    +'<button onclick="rpDoReset()" style="flex:1;padding:9px;background:#e05c3a;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;color:#fff">✓ 確定重置</button>'
+    +'</div>';
+  container.appendChild(box);
+  // 滾動到確認框
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function rpDoReset(){
+  lsS('p4_rp_cfg',null);
+  _rpSel=null;
+  var box=document.getElementById('rp-reset-confirm');
+  if(box)box.remove();
+  ['prov','gospel','nt','full','slow'].forEach(function(k){
+    var btn=document.getElementById('rpbtn-'+k);
+    var chk=document.getElementById('rp-check-'+k);
+    if(btn)btn.classList.remove('active');
+    if(chk)chk.style.display='none';
+  });
+  document.getElementById('rp-start-setting').style.display='none';
+  rpTab('pick');
+  updateRPSummaryLabel();
+  toast('已重置讀經計劃','#e05c3a');
+}
+function updateRPSummaryLabel(){
+  var lbl=document.getElementById('rp-summary-lbl');
+  if(!lbl)return;
+  var cfg=lsG('p4_rp_cfg');
+  if(!cfg){lbl.textContent='選擇並追蹤你的讀經計劃';return;}
+  var plan=RP_PLANS[cfg.id];
+  var pct=rpGetProgress(cfg.id);
+  var readings=rpGetTodayReading(cfg.id);
+  var todayStr='';
+  if(readings&&readings.length>0&&!readings[0].special){
+    todayStr=' · 今日：'+readings[0].book+readings[0].chapter+'章';
+  }
+  lbl.textContent=plan.icon+' '+plan.name+' · '+pct+'%'+todayStr;
+}
+
+
 
 function loadSoapData(t){
   var d=getSoap(t);
@@ -4095,12 +4695,12 @@ function renderBibleBrowser(){
 
   // Fill + external links
   h+='<div style="background:#f4f6fa;border-radius:12px;padding:12px 14px">';
-  h+='<div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">在瀏覽器查閱和合本</div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">🌐 在瀏覽器查閱和合本繁體</div>';
   h+='<div style="display:flex;flex-direction:column;gap:6px">';
-  var burl1='https://www.biblegateway.com/passage/?search='+encodeURIComponent(b.name+' '+st.chapter)+'&version=CUNPSS-上帝';
-  h+='<button data-url="'+burl1+'" onclick="bbOpenUrl(this.dataset.url)" style="padding:10px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:600;text-align:left">📖 Bible Gateway 和合本（新窗口開啟）</button>';
-  var burl2='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(b.abbr)+'&chap='+st.chapter;
-  h+='<button data-url="'+burl2+'" onclick="bbOpenUrl(this.dataset.url)" style="padding:10px;background:#0a8f84;border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:600;text-align:left">📖 信望愛聖經 和合本（新窗口開啟）</button>';
+  var burl1='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(b.abbr)+'&chap='+st.chapter;
+  h+='<button data-url="'+burl1+'" onclick="bbOpenUrl(this.dataset.url)" style="padding:10px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:600;text-align:left">📖 信望愛聖經・和合本繁體 ⭐（新窗口開啟）</button>';
+  var burl2=maleAudioLink(b.abbr,st.chapter);
+  h+='<button data-url="'+burl2+'" onclick="bbOpenUrl(this.dataset.url)" style="padding:10px;background:#b45309;border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:600;text-align:left">🔈 男聲朗讀（新窗口開啟）</button>';
   h+='</div></div>';
 
   h+='</div>';
@@ -4190,37 +4790,49 @@ var BB_API_MAP={
 function bbFetchVerses(abbr,bookName,chapter){
   var dispEl=document.getElementById('verse-display');
   if(!dispEl)return;
-  // Bible site URLs - all pointing to Traditional Chinese versions
+
+  var usfmMap=USFM_MAP;
+  var usfm=usfmMap[abbr]||abbr.toUpperCase();
+
+  // ── 1. 信望愛聖經（閱讀，最穩定繁體）──
   var fhlUrl='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(abbr)+'&chap='+chapter;
-  // Bible Gateway: CUNPSS-神 = Chinese Union New Punctuation Standard - God version (Traditional)
-  var bgUrl='https://www.biblegateway.com/passage/?search='+encodeURIComponent(bookName)+'+'+chapter+'&version=CUNPSS-%E7%A5%9E';
-  // 戲劇聖經 - audio drama Bible (Cantonese/Mandarin)
-  var dramaUrl='https://www.bible.com/zh-TW/bible/46/'+abbr.toUpperCase()+'.'+chapter+'.CUNPSS';
-  // 中文版聖經 cbible.com - clear Traditional Chinese
-  var cbUrl='https://cbible.org/'+encodeURIComponent(bookName)+chapter+'/';
+
+  // ── 2. YouVersion 繁體閱讀版（CUNPSS，version=46）──
+  var yvReadUrl='https://www.bible.com/zh-TW/bible/46/'+usfm+'.'+chapter+'.CUNPSS';
+
+  // ── 3. 閻大衛男聲朗讀版（cb.fhl.net，和合本，普通話男聲）──
+  var fhlAudioUrl2=maleAudioLink(abbr,chapter);
+
   var h='<div style="padding:8px 0">';
-  h+='<div style="font-size:14px;font-weight:700;color:#1e3252;margin-bottom:10px">'+bookName+' 第'+chapter+'章</div>';
-  h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.9;margin-bottom:12px">選擇方式查閱和合本繁體經文：</div>';
-  h+='<div style="display:flex;flex-direction:column;gap:8px">';
-  // 1. 信望愛 - best for Traditional Chinese
+  h+='<div style="font-size:14px;font-weight:700;color:#1e3252;margin-bottom:4px">'+bookName+' 第'+chapter+'章</div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;margin-bottom:12px">選擇方式查閱和合本繁體經文：</div>';
+
+  // ── 📖 閱讀 ──
+  h+='<div style="font-size:11px;font-weight:800;color:#7a8fa8;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase">📖 閱讀繁體聖經</div>';
+  h+='<div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px">';
+
   h+='<a href="'+fhlUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border-radius:12px;color:#fff;text-decoration:none">';
   h+='<span style="font-size:22px">📖</span>';
-  h+='<div><div style="font-size:15px;font-weight:700">信望愛聖經</div><div style="font-size:12px;opacity:.85">和合本繁體 · 台灣神學院授權 ⭐推薦</div></div></a>';
-  // 2. Bible Gateway Chinese
-  h+='<a href="'+bgUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#7c2d12,#b45309);border-radius:12px;color:#fff;text-decoration:none">';
-  h+='<span style="font-size:22px">🌐</span>';
-  h+='<div><div style="font-size:15px;font-weight:700">Bible Gateway 繁中版</div><div style="font-size:12px;opacity:.85">和合本神版 · 自動繁體中文</div></div></a>';
-  // 3. YouVersion 戲劇聖經 audio
-  h+='<a href="'+dramaUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#0a5e55,#0a8f84);border-radius:12px;color:#fff;text-decoration:none">';
-  h+='<span style="font-size:22px">🎧</span>';
-  h+='<div><div style="font-size:15px;font-weight:700">YouVersion · 有聲聖經</div><div style="font-size:12px;opacity:.85">語音朗讀 · 戲劇版 · 和合本</div></div></a>';
-  // 4. o-bible multi-version
-  var obUrl='https://www.o-bible.com/cgi-bin/ob.cgi?version=hb5&book='+abbr+'&chapter='+chapter;
-  h+='<a href="'+obUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#374151,#6b45b0);border-radius:12px;color:#fff;text-decoration:none">';
-  h+='<span style="font-size:22px">📚</span>';
-  h+='<div><div style="font-size:15px;font-weight:700">網路聖經</div><div style="font-size:12px;opacity:.85">和合本 · 多版本對照</div></div></a>';
+  h+='<div><div style="font-size:15px;font-weight:700">信望愛聖經 ⭐</div><div style="font-size:12px;opacity:.85">和合本繁體 · 台灣最穩定推薦</div></div></a>';
+
+  h+='<a href="'+yvReadUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#155e75,#0e7490);border-radius:12px;color:#fff;text-decoration:none">';
+  h+='<span style="font-size:22px">📗</span>';
+  h+='<div><div style="font-size:15px;font-weight:700">YouVersion 閱讀版</div><div style="font-size:12px;opacity:.85">繁體和合本 · 直接跳至對應章節</div></div></a>';
+
   h+='</div>';
-  // Fill reference
+
+  // ── 🔈 有聲聖經（男聲）──
+  h+='<div style="font-size:11px;font-weight:800;color:#7a8fa8;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase">🔈 有聲聖經・男聲朗讀</div>';
+  h+='<div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px">';
+
+  h+='<a href="'+fhlAudioUrl2+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#7c2d12,#b45309);border-radius:12px;color:#fff;text-decoration:none">';
+  h+='<span style="font-size:22px">🔈</span>';
+  h+='<div><div style="font-size:15px;font-weight:700">閻大衛・男聲朗讀 ⭐</div><div style="font-size:12px;opacity:.85">和合本・普通話男聲・閻大衛朗讀</div></div></a>';
+
+  h+='</div>';
+  h+='</div>';
+
+  // 填入讀經欄位
   h+='<div style="margin-top:12px;padding:12px;background:#f4f6fa;border-radius:12px">';
   h+='<div style="font-size:12px;color:#7a8fa8;margin-bottom:8px">讀完後點此填入讀經欄位，開始SOAP默想：</div>';
   h+='<button data-ref="'+bookName+' '+chapter+'章" onclick="bbFillRef(this.dataset.ref)" style="width:100%;padding:10px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:14px;cursor:pointer;font-weight:700">✏️ 填入「'+bookName+' '+chapter+'章」→ 開始默想</button>';
@@ -4267,31 +4879,455 @@ function bbSelectBook(bi){
 window.onload=function(){
   initDark();
   initFont();
-  checkShowDecl();
+  initHdr();
   rotateVerse();setInterval(rotateVerse,9000);
   wkStart=getWkStart(tod());
   loadAndRender();initFocus();renderCal();
+  schedInit();
+  // Event delegation for qr-panel (bypasses iframe onclick restrictions)
+  var qrPanel=document.getElementById('qr-panel');
+  if(qrPanel){
+    qrPanel.addEventListener('click',function(e){
+      var item=e.target;
+      while(item&&item!==qrPanel){
+        if(item.dataset&&item.dataset.qr){break;}
+        item=item.parentNode;
+      }
+      if(!item||!item.dataset||!item.dataset.qr)return;
+      var qr=item.dataset.qr;
+      if(qr==='soap'){closeFAB();openSoapModal();}
+      else if(qr==='records'){closeFAB();openRecords();}
+      else if(qr==='share'){closeFAB();openShareModal('weekly');}
+      else{qrRecord(qr);}
+    });
+    qrPanel.addEventListener('touchend',function(e){
+      e.preventDefault();
+      var item=e.target;
+      while(item&&item!==qrPanel){
+        if(item.dataset&&item.dataset.qr){break;}
+        item=item.parentNode;
+      }
+      if(!item||!item.dataset||!item.dataset.qr)return;
+      var qr=item.dataset.qr;
+      if(qr==='soap'){closeFAB();openSoapModal();}
+      else if(qr==='records'){closeFAB();openRecords();}
+      else if(qr==='share'){closeFAB();openShareModal('weekly');}
+      else{qrRecord(qr);}
+    });
+  }
+  // Also bind fab button via addEventListener
+  var fabBtn=document.getElementById('fab');
+  if(fabBtn){
+    fabBtn.addEventListener('click',togFAB);
+    fabBtn.addEventListener('touchend',function(e){e.preventDefault();togFAB();});
+  }
 };
+
+// ════════════════════════════════════════
+// 時程表 Schedule (Google Calendar style)
+// ════════════════════════════════════════
+var _schedDate=tod();
+var _schedEditId=null;
+var _schedCol='#1e4d8c';
+var HOUR_H=60; // px per hour
+var SCHED_START=5; // 05:00 開始
+var SCHED_END=24; // 24:00 結束
+
+function schedKey(d){return 'p4_sched_'+d;}
+function schedLoad(d){return lsG(schedKey(d))||[];}
+function schedSave(d,arr){lsS(schedKey(d),arr);}
+
+function schedInit(){
+  _schedDate=tod();
+  schedRenderDateLabel();
+}
+
+function schedRenderDateLabel(){
+  var el=document.getElementById('sched-date-lbl');
+  if(!el)return;
+  var dt=new Date(_schedDate+'T00:00:00');
+  var days=['日','一','二','三','四','五','六'];
+  el.textContent=(dt.getMonth()+1)+'月'+dt.getDate()+'日 週'+days[dt.getDay()];
+}
+
+function schedPrevDay(){
+  var d=new Date(_schedDate+'T00:00:00');
+  d.setDate(d.getDate()-1);
+  _schedDate=d.getFullYear()+'-'+_pad(d.getMonth()+1)+'-'+_pad(d.getDate());
+  schedRenderDateLabel();
+  schedRender();
+}
+function schedNextDay(){
+  var d=new Date(_schedDate+'T00:00:00');
+  d.setDate(d.getDate()+1);
+  _schedDate=d.getFullYear()+'-'+_pad(d.getMonth()+1)+'-'+_pad(d.getDate());
+  schedRenderDateLabel();
+  schedRender();
+}
+function schedGoToday(){
+  _schedDate=tod();
+  schedRenderDateLabel();
+  schedRender();
+  // scroll to current time
+  setTimeout(function(){
+    var wrap=document.getElementById('sched-wrap');
+    var now=new Date();
+    var mins=now.getHours()*60+now.getMinutes()-SCHED_START*60;
+    if(wrap&&mins>0)wrap.scrollTop=Math.max(0,(mins/60)*HOUR_H-100);
+  },100);
+}
+
+function schedTimeToY(hhmm){
+  var parts=hhmm.split(':');
+  var h=parseInt(parts[0]),m=parseInt(parts[1]||0);
+  return ((h-SCHED_START)*60+m)/60*HOUR_H;
+}
+function schedMinsToPx(mins){return mins/60*HOUR_H;}
+
+function schedRender(){
+  var grid=document.getElementById('sched-grid');
+  if(!grid)return;
+  var totalHours=SCHED_END-SCHED_START;
+  var totalH=totalHours*HOUR_H;
+  grid.style.minHeight=totalH+'px';
+
+  var html='';
+  // Hour lines + labels
+  for(var h=SCHED_START;h<=SCHED_END;h++){
+    var y=(h-SCHED_START)*HOUR_H;
+    var label=h<10?'0'+h+':00':h+':00';
+    html+='<div style="position:absolute;left:0;right:0;top:'+y+'px;display:flex;align-items:flex-start;pointer-events:none">'
+      +'<div style="width:52px;padding-right:8px;text-align:right;font-size:11px;color:#b0b8c8;font-weight:600;margin-top:-7px;flex-shrink:0">'+label+'</div>'
+      +'<div style="flex:1;height:1px;background:'+(h===SCHED_START?'transparent':'#e8ecf2')+';margin-top:0"></div>'
+      +'</div>';
+    // 30-min dotted line
+    if(h<SCHED_END){
+      var y2=y+HOUR_H/2;
+      html+='<div style="position:absolute;left:52px;right:0;top:'+y2+'px;height:1px;background:#f0f3f7;pointer-events:none"></div>';
+    }
+  }
+
+  // BL preset blocks (lighter, background layer)
+  // Use BL + body block for background layer
+  var blDefs=[{icon:'🚶',label:'身體啟動',time:'07:00-08:00',color:'#2e8b57'}].concat(BL.map(function(b){
+    // BL.time uses en-dash (–), normalize to hyphen
+    var t=b.time;
+    for(var ci=0;ci<t.length;ci++){var cc=t.charCodeAt(ci);if(cc>45&&cc<65){t=t.substring(0,ci)+'-'+t.substring(ci+1);break;}}
+    return {icon:b.icon,label:b.label,time:t,color:b.color};
+  }));
+  blDefs.forEach(function(bl){
+    var sep=bl.time.indexOf('-',3); // find hyphen after HH:mm
+    if(sep<0)return;
+    var parts=[bl.time.substring(0,sep),bl.time.substring(sep+1)];
+    var sy=schedTimeToY(parts[0]);
+    var ey=schedTimeToY(parts[1]);
+    var bh=ey-sy;
+    if(bh<1)return;
+    html+='<div style="position:absolute;left:56px;right:8px;top:'+sy+'px;height:'+bh+'px;background:'+bl.color+'18;border-left:3px solid '+bl.color+'60;border-radius:0 6px 6px 0;padding:3px 8px;box-sizing:border-box;pointer-events:none;overflow:hidden">'
+      +'<div style="font-size:11px;color:'+bl.color+';font-weight:700;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+bl.icon+' '+bl.label+'</div>'
+      +'<div style="font-size:10px;color:'+bl.color+';opacity:.6">'+parts[0]+' – '+parts[1]+'</div>'
+      +'</div>';
+  });
+
+  // User events (stored + lazy repeat)
+  var evs=schedLoad(_schedDate);
+  var repEvs=schedGetRepeatEventsForDay(_schedDate);
+  var allEvs=evs.concat(repEvs);
+  allEvs.sort(function(a,b){return a.start<b.start?-1:1;});
+  allEvs.forEach(function(ev,i){
+    var sy=schedTimeToY(ev.start);
+    var ey=schedTimeToY(ev.end);
+    var bh=Math.max(ey-sy,22);
+    var col=ev.color||'#1e4d8c';
+    html+='<div onclick="schedEditEv('+i+')" style="position:absolute;left:60px;right:8px;top:'+sy+'px;height:'+bh+'px;background:'+col+';border-radius:8px;padding:5px 9px;box-sizing:border-box;cursor:pointer;box-shadow:0 2px 8px '+col+'55;overflow:hidden;z-index:10">'
+      +'<div style="font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+ev.title+(ev.repeat&&ev.repeat!=='none'?' 🔄':'')+'</div>'
+      +(bh>34?'<div style="font-size:11px;color:rgba(255,255,255,.8)">'+ev.start+' – '+ev.end+'</div>':'')
+      +(ev.note&&bh>52?'<div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+ev.note+'</div>':'')
+      +'</div>';
+  });
+
+  // Current time line
+  if(_schedDate===tod()){
+    var now=new Date();
+    var nowY=schedTimeToY(_pad(now.getHours())+':'+_pad(now.getMinutes()));
+    html+='<div style="position:absolute;left:44px;right:0;top:'+nowY+'px;height:2px;background:#e05c3a;z-index:20;pointer-events:none">'
+      +'<div style="position:absolute;left:-4px;top:-4px;width:10px;height:10px;border-radius:50%;background:#e05c3a"></div>'
+      +'</div>';
+  }
+
+  // Tap-to-add zones (invisible overlay per hour slot)
+  for(var hh=SCHED_START;hh<SCHED_END;hh++){
+    var hy=(hh-SCHED_START)*HOUR_H;
+    var hLabel=_pad(hh)+':00';
+    html+='<div data-h="'+hLabel+'" onclick="schedTapAdd(this.dataset.h)" style="position:absolute;left:56px;right:0;top:'+hy+'px;height:'+HOUR_H+'px;cursor:pointer;z-index:5"></div>';
+  }
+
+  grid.innerHTML=html;
+
+  // Scroll to 06:00 on first render, or current time
+  var wrap=document.getElementById('sched-wrap');
+  if(wrap&&wrap._firstRender!==_schedDate){
+    wrap._firstRender=_schedDate;
+    var scrollTo=_schedDate===tod()?Math.max(0,schedTimeToY(_pad(new Date().getHours())+':00')-80):schedTimeToY('06:00')-20;
+    setTimeout(function(){wrap.scrollTop=scrollTo;},50);
+  }
+}
+
+function schedTapAdd(hhmm){
+  // pre-fill start time from tapped hour
+  document.getElementById('sched-ev-start').value=hhmm;
+  var h=parseInt(hhmm.split(':')[0]);
+  document.getElementById('sched-ev-end').value=_pad(h+1)+':00';
+  schedOpenAdd();
+}
+
+function schedOpenAdd(prefillStart){
+  _schedEditId=null;
+  document.getElementById('sched-ev-title').value='';
+  document.getElementById('sched-ev-note').value='';
+  if(!prefillStart){
+    document.getElementById('sched-ev-start').value='09:00';
+    document.getElementById('sched-ev-end').value='10:00';
+  }
+  _schedCol='#1e4d8c';
+  _schedRep='none';
+  _schedWds=[];
+  _schedCI=1;_schedCU='day';_schedCE='forever';
+  schedRefreshColPicker();
+  schedRefreshRepPicker();
+  document.getElementById('sched-modal-title').textContent='新增時程';
+  document.getElementById('sched-del-btn').style.display='none';
+  document.getElementById('sched-modal').style.display='flex';
+  setTimeout(function(){document.getElementById('sched-ev-title').focus();},200);
+}
+
+function schedEditEv(idx){
+  var evs=schedLoad(_schedDate);
+  var ev=evs[idx];
+  if(!ev)return;
+  _schedEditId=idx;
+  document.getElementById('sched-ev-title').value=ev.title||'';
+  document.getElementById('sched-ev-start').value=ev.start||'09:00';
+  document.getElementById('sched-ev-end').value=ev.end||'10:00';
+  document.getElementById('sched-ev-note').value=ev.note||'';
+  _schedCol=ev.color||'#1e4d8c';
+  _schedRep=ev.repeat||'none';
+  _schedWds=ev.weekdays||[];
+  _schedCI=ev.customInterval||1;
+  _schedCU=ev.customUnit||'day';
+  _schedCE=ev.customEnd||'forever';
+  schedRefreshColPicker();
+  schedRefreshRepPicker();
+  document.getElementById('sched-modal-title').textContent='編輯時程';
+  document.getElementById('sched-del-btn').style.display='block';
+  document.getElementById('sched-modal').style.display='flex';
+}
+
+function schedRefreshColPicker(){
+  var opts=document.querySelectorAll('.sched-col-opt');
+  for(var i=0;i<opts.length;i++){
+    var o=opts[i];
+    var isActive=o.dataset.col===_schedCol;
+    o.style.border=isActive?'3px solid '+_schedCol:'3px solid transparent';
+    o.style.boxShadow=isActive?'0 0 0 2px #fff inset':'none';
+  }
+}
+
+function schedPickCol(el){
+  _schedCol=el.dataset.col;
+  schedRefreshColPicker();
+}
+
+function schedSaveEv(){
+  var title=(document.getElementById('sched-ev-title').value||'').trim();
+  if(!title){toast('請輸入事件名稱','#e05c3a');return;}
+  var start=document.getElementById('sched-ev-start').value;
+  var end=document.getElementById('sched-ev-end').value;
+  if(start>=end){toast('結束時間須晚於開始時間','#e05c3a');return;}
+  var note=(document.getElementById('sched-ev-note').value||'').trim();
+  var customCount=parseInt(document.getElementById('sched-ce-count')?document.getElementById('sched-ce-count').value:10)||10;
+  var customEndDate=(document.getElementById('sched-ce-date')?document.getElementById('sched-ce-date').value:'')||'';
+  var ev={title:title,start:start,end:end,color:_schedCol,note:note,
+    repeat:_schedRep,weekdays:_schedWds.slice(),
+    customInterval:_schedCI,customUnit:_schedCU,customEnd:_schedCE,
+    customCount:customCount,customEndDate:customEndDate};
+  var evs=schedLoad(_schedDate);
+  if(_schedEditId!==null){evs[_schedEditId]=ev;}else{evs.push(ev);}
+  evs.sort(function(a,b){return a.start<b.start?-1:1;});
+  schedSave(_schedDate,evs);
+  // Save repeat rules separately (no pre-expansion)
+  if(ev.repeat!=='none'){
+    var rules=lsG('p4_schedrules')||[];
+    rules=rules.filter(function(r){return !(_schedEditId!==null&&r._idx===_schedEditId&&r._origin===_schedDate);});
+    rules.push({title:ev.title,start:ev.start,end:ev.end,color:ev.color,note:ev.note,
+      repeat:ev.repeat,weekdays:ev.weekdays,customInterval:ev.customInterval,
+      customUnit:ev.customUnit,customEnd:ev.customEnd,customCount:ev.customCount,
+      customEndDate:ev.customEndDate,_origin:_schedDate});
+    lsS('p4_schedrules',rules);
+  }
+  schedCloseModal();
+  schedRender();
+  toast('✓ 已儲存','#0a8f84');
+}
+
+// Lazy repeat: compute recurring events for a given date on-the-fly
+function schedGetRepeatEventsForDay(dateStr){
+  var rules=lsG('p4_schedrules')||[];
+  var result=[];
+  var d=new Date(dateStr+'T00:00:00');
+  rules.forEach(function(r){
+    var origin=new Date(r._origin+'T00:00:00');
+    if(dateStr<=r._origin)return; // don't show before origin
+    if(r.customEnd==='date'&&r.customEndDate&&dateStr>r.customEndDate)return;
+    var diffDays=Math.round((d-origin)/86400000);
+    var show=false;
+    if(r.repeat==='daily')show=true;
+    if(r.repeat==='weekly'){
+      if(r.weekdays&&r.weekdays.length>0)show=r.weekdays.indexOf(d.getDay())>=0;
+      else show=d.getDay()===origin.getDay();
+    }
+    if(r.repeat==='monthly')show=(d.getDate()===origin.getDate());
+    if(r.repeat==='yearly')show=(d.getMonth()===origin.getMonth()&&d.getDate()===origin.getDate());
+    if(r.repeat==='custom'){
+      var ci=r.customInterval||1;
+      var cu=r.customUnit||'day';
+      if(cu==='day')show=(diffDays%ci===0);
+      else if(cu==='week')show=(diffDays%(ci*7)===0);
+      else if(cu==='month'){
+        show=(d.getDate()===origin.getDate()&&
+          (d.getFullYear()*12+d.getMonth()-(origin.getFullYear()*12+origin.getMonth()))%ci===0);
+      }
+    }
+    if(show){
+      // count check
+      if(r.customEnd==='count'&&r.customCount){
+        var cnt=0;
+        for(var i=1;i<=diffDays;i++){
+          var di=new Date(origin);di.setDate(di.getDate()+i);
+          var ds2=di.getFullYear()+'-'+_pad(di.getMonth()+1)+'-'+_pad(di.getDate());
+          if(schedMatchesRule(r,ds2,origin))cnt++;
+        }
+        if(cnt>r.customCount)show=false;
+      }
+      if(show)result.push({title:r.title,start:r.start,end:r.end,color:r.color,note:r.note,repeat:r.repeat,_repRule:true});
+    }
+  });
+  return result;
+}
+function schedMatchesRule(r,dateStr,origin){
+  var d=new Date(dateStr+'T00:00:00');
+  var diffDays=Math.round((d-origin)/86400000);
+  if(r.repeat==='daily')return true;
+  if(r.repeat==='weekly'){
+    if(r.weekdays&&r.weekdays.length>0)return r.weekdays.indexOf(d.getDay())>=0;
+    return d.getDay()===origin.getDay();
+  }
+  if(r.repeat==='monthly')return d.getDate()===origin.getDate();
+  if(r.repeat==='yearly')return d.getMonth()===origin.getMonth()&&d.getDate()===origin.getDate();
+  if(r.repeat==='custom'){
+    var ci=r.customInterval||1,cu=r.customUnit||'day';
+    if(cu==='day')return diffDays%ci===0;
+    if(cu==='week')return diffDays%(ci*7)===0;
+    if(cu==='month')return d.getDate()===origin.getDate()&&
+      (d.getFullYear()*12+d.getMonth()-(origin.getFullYear()*12+origin.getMonth()))%ci===0;
+  }
+  return false;
+}
+
+function schedDeleteEv(){
+  if(_schedEditId===null)return;
+  var evs=schedLoad(_schedDate);
+  evs.splice(_schedEditId,1);
+  schedSave(_schedDate,evs);
+  schedCloseModal();
+  schedRender();
+  toast('已刪除','#e05c3a');
+}
+
+function schedCloseModal(){
+  document.getElementById('sched-modal').style.display='none';
+  _schedEditId=null;
+}
+
+var _schedRep='none';
+var _schedWds=[];
+var _schedCI=1;
+var _schedCU='day';
+var _schedCE='forever';
+var _REP_LABELS={'none':'不重複','daily':'每天','weekly':'每週','monthly':'每月','yearly':'每年','custom':'自訂'};
+
+function schedPickRep(el){
+  _schedRep=el.dataset.rep;
+  schedRefreshRepPicker();
+}
+function schedTogWd(el){
+  var wd=parseInt(el.dataset.wd);
+  var idx=_schedWds.indexOf(wd);
+  if(idx>=0){_schedWds.splice(idx,1);}else{_schedWds.push(wd);}
+  schedRefreshRepPicker();
+}
+function schedPickCI(el){
+  _schedCI=parseInt(el.dataset.ci);
+  var btns=document.querySelectorAll('.sched-ci-btn');
+  for(var i=0;i<btns.length;i++){
+    var b=btns[i];var on=b.dataset.ci===el.dataset.ci;
+    b.style.background=on?'#e8edf5':'transparent';
+    b.style.color=on?'#1e4d8c':'#7a8fa8';
+    b.style.border=on?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
+    b.style.fontWeight=on?'700':'600';
+  }
+}
+function schedPickCU(el){
+  _schedCU=el.dataset.cu;
+  var btns=document.querySelectorAll('.sched-cu-btn');
+  for(var i=0;i<btns.length;i++){
+    var b=btns[i];var on=b.dataset.cu===_schedCU;
+    b.style.background=on?'#e8edf5':'transparent';
+    b.style.color=on?'#1e4d8c':'#7a8fa8';
+    b.style.border=on?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
+    b.style.fontWeight=on?'700':'600';
+  }
+}
+function schedPickCE(el){
+  _schedCE=el.dataset.ce;
+  var btns=document.querySelectorAll('.sched-ce-btn');
+  for(var i=0;i<btns.length;i++){
+    var b=btns[i];var on=b.dataset.ce===_schedCE;
+    b.style.background=on?'#e8edf5':'transparent';
+    b.style.color=on?'#1e4d8c':'#7a8fa8';
+    b.style.border=on?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
+    b.style.fontWeight=on?'700':'600';
+  }
+  var cr=document.getElementById('sched-ce-count-row');
+  var dr=document.getElementById('sched-ce-date-row');
+  if(cr)cr.style.display=_schedCE==='count'?'block':'none';
+  if(dr)dr.style.display=_schedCE==='date'?'block':'none';
+}
+function schedRefreshRepPicker(){
+  var btns=document.querySelectorAll('.sched-rep-btn');
+  for(var i=0;i<btns.length;i++){
+    var b=btns[i];
+    var active=b.dataset.rep===_schedRep;
+    b.style.background=active?'#e8edf5':'transparent';
+    b.style.color=active?'#1e4d8c':'#7a8fa8';
+    b.style.border=active?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
+    b.style.fontWeight=active?'700':'600';
+  }
+  var wdRow=document.getElementById('sched-weekday-row');
+  if(wdRow)wdRow.style.display=_schedRep==='weekly'?'block':'none';
+  var custRow=document.getElementById('sched-custom-row');
+  if(custRow)custRow.style.display=_schedRep==='custom'?'block':'none';
+  var wdBtns=document.querySelectorAll('.sched-wd-btn');
+  for(var j=0;j<wdBtns.length;j++){
+    var wb=wdBtns[j];
+    var sel=_schedWds.indexOf(parseInt(wb.dataset.wd))>=0;
+    wb.style.background=sel?'#1e4d8c':'transparent';
+    wb.style.color=sel?'#fff':'#7a8fa8';
+    wb.style.border=sel?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
+  }
+}
 </script>
 
-<!-- DAILY DECLARATION MODAL -->
-<div id="decl-modal" style="display:none">
-  <div id="decl-box">
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:36px;margin-bottom:8px">✝️</div>
-      <div style="font-size:11px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Daily Declaration</div>
-      <div id="decl-date" style="font-size:15px;color:#7a8fa8;margin-bottom:4px"></div>
-      <div style="font-size:22px;font-weight:900;color:#1a3a6b">每日生命宣告</div>
-    </div>
-    <div id="decl-verse" style="background:linear-gradient(135deg,#e8edf5,#e0f7f5);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:15px;color:#1e4d8c;font-style:italic;line-height:1.9;text-align:center"></div>
-    <div id="decl-list" style="margin-bottom:20px"></div>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <button onclick="addDeclItem()" style="flex:1;padding:10px;background:#e8edf5;border:1.5px dashed #1e4d8c60;border-radius:10px;color:#1e4d8c;font-size:14px;cursor:pointer;font-weight:600">＋ 新增宣告</button>
-      <button onclick="editDecls()" id="decl-edit-btn" style="padding:10px 14px;background:#f4f6fa;border:1px solid #d8dce8;border-radius:10px;color:#7a8fa8;font-size:14px;cursor:pointer">編輯</button>
-    </div>
-    <button onclick="closeDeclModal()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:14px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;letter-spacing:1px">阿們！開始新的一天 🙏</button>
-  </div>
-</div>
 
 
 
@@ -4371,6 +5407,16 @@ window.onload=function(){
 
     <div style="padding:16px">
 
+      <!-- Reading Plan Banner -->
+      <div onclick="openRPModal()" style="display:flex;align-items:center;gap:12px;padding:13px 16px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border-radius:14px;margin-bottom:14px;cursor:pointer;box-shadow:0 4px 14px rgba(30,77,140,.25)">
+        <span style="font-size:26px">📅</span>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:800;color:#fff">讀經計劃</div>
+          <div id="rp-summary-lbl" style="font-size:12px;color:rgba(255,255,255,.75);margin-top:2px">選擇並追蹤你的讀經計劃</div>
+        </div>
+        <div style="color:rgba(255,255,255,.7);font-size:20px">›</div>
+      </div>
+
       <!-- Reading Plan selector -->
       <div style="background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:14px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
@@ -4434,6 +5480,104 @@ window.onload=function(){
       </div>
 
       <button onclick="closeSoapModal()" style="width:100%;padding:13px;background:linear-gradient(135deg,#b45309,#0a8f84);border:none;border-radius:14px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:20px">完成今日默想 🙏</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- READING PLAN MODAL -->
+<div id="rp-modal" style="display:none">
+  <div id="rp-box">
+    <div style="background:linear-gradient(160deg,#0a1628,#1e4d8c,#0a8f84);padding:24px 20px 18px;border-radius:28px 28px 0 0;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-20px;right:-20px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+      <button onclick="closeRPModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);border:none;border-radius:50%;width:34px;height:34px;color:#fff;font-size:18px;cursor:pointer">✕</button>
+      <div style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Bible Reading Plan</div>
+      <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:4px">📅 讀經計劃</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.75)">選擇計劃，每天跟著讀，靈命天天成長</div>
+    </div>
+
+    <div style="padding:16px">
+      <!-- Tab: 計劃選擇 / 今日進度 -->
+      <div style="display:flex;background:#e8edf5;border-radius:12px;padding:3px;margin-bottom:16px">
+        <button id="rp-tab-pick" onclick="rpTab('pick')" style="flex:1;padding:9px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;background:#1e4d8c;color:#fff">📋 選擇計劃</button>
+        <button id="rp-tab-today" onclick="rpTab('today')" style="flex:1;padding:9px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;background:transparent;color:#7a8fa8">📖 今日進度</button>
+      </div>
+
+      <!-- 計劃選擇頁 -->
+      <div id="rp-pick-pane">
+        <div style="font-size:13px;color:#7a8fa8;margin-bottom:12px;line-height:1.7">點選計劃即可啟用，App 會自動計算今天應讀哪章，並在讀經默想時顯示。</div>
+
+        <!-- Plan 1: 箴言31天 -->
+        <button class="rp-plan-btn" id="rpbtn-prov" onclick="rpSelect('prov')">
+          <span style="font-size:28px">💎</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800;color:#b45309">箴言・智慧月讀</div>
+            <div style="font-size:12px;color:#7a8fa8;margin-top:2px">31章 · 每月循環 · 每天1章</div>
+            <div style="font-size:11px;color:#d97706;margin-top:3px">🔄 每月讀完一遍，積累生命智慧</div>
+          </div>
+          <div id="rp-check-prov" style="font-size:20px;color:#1e4d8c;display:none">✓</div>
+        </button>
+
+        <!-- Plan 2: 福音書90天 -->
+        <button class="rp-plan-btn" id="rpbtn-gospel" onclick="rpSelect('gospel')">
+          <span style="font-size:28px">✝️</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800;color:#1e4d8c">四福音書・跟隨耶穌</div>
+            <div style="font-size:12px;color:#7a8fa8;margin-top:2px">太可路約 共89章 · 約90天</div>
+            <div style="font-size:11px;color:#1e4d8c;margin-top:3px">🎯 認識耶穌生命，活出榜樣</div>
+          </div>
+          <div id="rp-check-gospel" style="font-size:20px;color:#1e4d8c;display:none">✓</div>
+        </button>
+
+        <!-- Plan 3: 新約90天 -->
+        <button class="rp-plan-btn" id="rpbtn-nt" onclick="rpSelect('nt')">
+          <span style="font-size:28px">📘</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800;color:#0a5e55">新約全書・90天讀完</div>
+            <div style="font-size:12px;color:#7a8fa8;margin-top:2px">260章 · 90天 · 每天約3章</div>
+            <div style="font-size:11px;color:#0a8f84;margin-top:3px">📖 連續閱讀，90天走過全部新約</div>
+          </div>
+          <div id="rp-check-nt" style="font-size:20px;color:#1e4d8c;display:none">✓</div>
+        </button>
+
+        <!-- Plan 4: 全本聖經一年 -->
+        <button class="rp-plan-btn" id="rpbtn-full" onclick="rpSelect('full')">
+          <span style="font-size:28px">📖</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800;color:#4a1d7c">全本聖經・一年讀完</div>
+            <div style="font-size:12px;color:#7a8fa8;margin-top:2px">1189章 · 365天 · 每天約3-4章</div>
+            <div style="font-size:11px;color:#6b45b0;margin-top:3px">🏆 舊約2章＋新約1章，均衡閱讀</div>
+          </div>
+          <div id="rp-check-full" style="font-size:20px;color:#1e4d8c;display:none">✓</div>
+        </button>
+
+        <!-- Plan 5: 一天一章深度默想版 -->
+        <button class="rp-plan-btn" id="rpbtn-slow" onclick="rpSelect('slow')">
+          <span style="font-size:28px">🕊️</span>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:800;color:#0a5e55">一天一章・深度默想版</div>
+            <div style="font-size:12px;color:#7a8fa8;margin-top:2px">1189章 · 1189天（約3年3個月）</div>
+            <div style="font-size:11px;color:#0a8f84;margin-top:3px">🌿 每天1章，細細默想，融入生命</div>
+          </div>
+          <div id="rp-check-slow" style="font-size:20px;color:#1e4d8c;display:none">✓</div>
+        </button>
+
+        <!-- 開始日期設定 -->
+        <div id="rp-start-setting" style="display:none;background:#fff;border-radius:14px;padding:14px 16px;margin-top:8px">
+          <div style="font-size:14px;font-weight:700;color:#1e3252;margin-bottom:10px">📅 設定開始日期</div>
+          <div style="display:flex;gap:8px;margin-bottom:10px">
+            <button onclick="rpSetStart('today')" style="flex:1;padding:9px;background:#e2f5f3;border:1.5px solid #0f9b8e;border-radius:10px;color:#0a8f84;font-size:13px;font-weight:700;cursor:pointer">今天開始</button>
+            <button onclick="rpSetStart('month')" style="flex:1;padding:9px;background:#e8edf5;border:1.5px solid #1e4d8c;border-radius:10px;color:#1e4d8c;font-size:13px;font-weight:700;cursor:pointer">本月1日</button>
+            <button onclick="rpSetStart('year')" style="flex:1;padding:9px;background:#f2eeff;border:1.5px solid #7c4dbd;border-radius:10px;color:#6b45b0;font-size:13px;font-weight:700;cursor:pointer">今年1月1日</button>
+          </div>
+          <button onclick="rpConfirm()" style="width:100%;padding:12px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer">✓ 啟用此計劃</button>
+        </div>
+      </div>
+
+      <!-- 今日進度頁 -->
+      <div id="rp-today-pane" style="display:none">
+        <div id="rp-today-content"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -4561,40 +5705,16 @@ window.onload=function(){
   </div>
 </div>
 <!-- QUICK RECORD PANEL -->
-<div id="qr-panel">
-  <div style="padding:12px 16px 6px;font-size:12px;color:#7a8fa8;font-weight:700;letter-spacing:2px;text-transform:uppercase">快速記錄</div>
-  <div class="qr-item" onclick="qrRecord('spark')">
-    <span style="font-size:22px">⚡</span>
-    <div><div style="font-weight:700">靈感感動</div><div style="font-size:12px;color:#7a8fa8">聖靈的感動、啟示</div></div>
-  </div>
-  <div class="qr-item" onclick="qrRecord('thanks')">
-    <span style="font-size:22px">💛</span>
-    <div><div style="font-weight:700">感恩記錄</div><div style="font-size:12px;color:#7a8fa8">隨時記下感恩的事</div></div>
-  </div>
-  <div class="qr-item" onclick="qrRecord('prayer')">
-    <span style="font-size:22px">🙏</span>
-    <div><div style="font-weight:700">禱告記錄</div><div style="font-size:12px;color:#7a8fa8">禱告內容、回應</div></div>
-  </div>
-  <div class="qr-item" onclick="qrRecord('verse')">
-    <span style="font-size:22px">📖</span>
-    <div><div style="font-weight:700">金句摘記</div><div style="font-size:12px;color:#7a8fa8">感動的聖經話語</div></div>
-  </div>
-  <div class="qr-item" onclick="qrRecord('victory')">
-    <span style="font-size:22px">🏆</span>
-    <div><div style="font-weight:700">得勝見證</div><div style="font-size:12px;color:#7a8fa8">記下神的作為</div></div>
-  </div>
-  <div class="qr-item" onclick="closeFAB();openSoapModal()" style="background:linear-gradient(135deg,#fff7ed,#fffbeb)">
-    <span style="font-size:22px">📖</span>
-    <div><div style="font-weight:700;color:#b45309">每日讀經默想</div><div style="font-size:12px;color:#7a8fa8">SOAP + 321默想引導</div></div>
-  </div>
-  <div class="qr-item" onclick="closeFAB();openRecords()" style="background:linear-gradient(135deg,#e8edf5,#e5f5f3)">
-    <span style="font-size:22px">📚</span>
-    <div><div style="font-weight:700;color:#1e4d8c">查看所有記錄</div><div style="font-size:12px;color:#7a8fa8">靈感・禱告・見證・金句</div></div>
-  </div>
-  <div class="qr-item" onclick="closeFAB();openShareModal('weekly')" style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border-top:2px solid #d8dce8">
-    <span style="font-size:22px">✨</span>
-    <div><div style="font-weight:700;color:#d97706">分享得勝卡片</div><div style="font-size:12px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div>
-  </div>
+<div id="qr-panel" onclick="if(event.target===this){closeFAB();}">
+  <div style="background:#fff;border-radius:20px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3)"><div style="padding:12px 16px 6px;font-size:12px;color:#7a8fa8;font-weight:700;letter-spacing:2px;text-transform:uppercase">快速記錄</div>
+  <button class="qr-item" onclick="qrRecord('spark')"><span style="font-size:22px">⚡</span><div><div style="font-weight:700">靈感感動</div><div style="font-size:12px;color:#7a8fa8">聖靈的感動、啟示</div></div></button>
+  <button class="qr-item" onclick="qrRecord('thanks')"><span style="font-size:22px">💛</span><div><div style="font-weight:700">感恩記錄</div><div style="font-size:12px;color:#7a8fa8">隨時記下感恩的事</div></div></button>
+  <button class="qr-item" onclick="qrRecord('prayer')"><span style="font-size:22px">🙏</span><div><div style="font-weight:700">禱告記錄</div><div style="font-size:12px;color:#7a8fa8">禱告內容、回應</div></div></button>
+  <button class="qr-item" onclick="qrRecord('verse')"><span style="font-size:22px">📖</span><div><div style="font-weight:700">金句摘記</div><div style="font-size:12px;color:#7a8fa8">感動的聖經話語</div></div></button>
+  <button class="qr-item" onclick="qrRecord('victory')"><span style="font-size:22px">🏆</span><div><div style="font-weight:700">得勝見證</div><div style="font-size:12px;color:#7a8fa8">記下神的作為</div></div></button>
+  <button class="qr-item" onclick="closeFAB();openSoapModal()" style="background:linear-gradient(135deg,#fff7ed,#fffbeb)"><span style="font-size:22px">📖</span><div><div style="font-weight:700;color:#b45309">每日讀經默想</div><div style="font-size:12px;color:#7a8fa8">SOAP + 321默想引導</div></div></button>
+  <button class="qr-item" onclick="closeFAB();openRecords()" style="background:linear-gradient(135deg,#e8edf5,#e5f5f3)"><span style="font-size:22px">📚</span><div><div style="font-weight:700;color:#1e4d8c">查看所有記錄</div><div style="font-size:12px;color:#7a8fa8">靈感・禱告・見證・金句</div></div></button>
+  <button class="qr-item" onclick="closeFAB();openShareModal('weekly')" style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border-top:2px solid #d8dce8"><span style="font-size:22px">✨</span><div><div style="font-weight:700;color:#d97706">分享得勝卡片</div><div style="font-size:12px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div></button>
 </div>
 
 <!-- QUICK RECORD INPUT MODAL -->
@@ -4612,6 +5732,24 @@ window.onload=function(){
 
 <!-- FAB Button -->
 <button id="fab" onclick="togFAB()" title="快速記錄">✦</button>
+
+<!-- ═══ PWA 離線 Service Worker（防呆註冊）═══ -->
+<script>
+(function(){
+  // 僅在 http/https 正式網址下註冊；沙箱/檔案/blob 環境一律略過，避免拋錯
+  try{
+    if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+      window.addEventListener('load',function(){
+        navigator.serviceWorker.register('sw.js').then(function(reg){
+          console.log('✓ 離線功能已啟用');
+        }).catch(function(err){
+          console.log('SW 略過：'+(err&&err.message?err.message:err));
+        });
+      });
+    }
+  }catch(e){/* 安靜略過，不影響 app 運作 */}
+})();
+</script>
 
 </body>
 </html>
