@@ -1,0 +1,34 @@
+{
+  "name": "321每日得勝",
+  "short_name": "321每日得勝",
+  "description": "每日晨禱・920關係・讀經默想・得勝記錄 — 活出基督，成為得勝者",
+  "lang": "zh-Hant",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1428",
+  "theme_color": "#2d3a8c",
+  "categories": ["lifestyle", "education", "productivity"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
