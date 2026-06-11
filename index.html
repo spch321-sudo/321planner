@@ -6,15 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#2d3a8c">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="321每日得勝">
-<meta name="application-name" content="321每日得勝">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<title>321每日得勝</title>
+<title>活出基督・成為得勝者</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#f4f6fa;color:#1a1d23;max-width:480px;margin:0 auto;min-height:100vh;-webkit-text-size-adjust:100%;line-height:1.6}
@@ -131,7 +123,7 @@ textarea{resize:none}
 .dark .soap-day-sel.on{background:#1a2a50;border-color:#1e4d8c;color:#7dd3fc}
 /* ── Share Card ── */
 #share-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.92);z-index:960;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;backdrop-filter:blur(8px)}
-#share-box{width:100%;max-width:420px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:slideUp .4s ease}
+#share-box{width:100%;max-width:480px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:slideUp .4s ease}
 .dark #share-box{background:#141826}
 .card-style-btn{padding:8px 14px;border-radius:20px;border:2px solid transparent;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
 .card-style-btn.active{border-color:#1e4d8c;background:#e8edf5;color:#1e4d8c}
@@ -255,6 +247,15 @@ body.fs-xlarge [style*="font-size:10px"] { font-size:16px !important }
 body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 
 
+/* ── Icon rounded style ── */
+.nb span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(30,77,140,.08);transition:background .2s}
+.nb.on span{background:rgba(30,77,140,.15)}
+.dark .nb span{background:rgba(255,255,255,.08)}
+.dark .nb.on span{background:rgba(255,255,255,.15)}
+.bl-icon{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.9);flex-shrink:0;font-size:22px}
+.dark .bl-icon{background:rgba(255,255,255,.12)}
+.qr-icon-wrap{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.9);margin-bottom:6px}
+
 /* ── Reading Plan ── */
 .rp-plan-btn{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;border:2px solid transparent;cursor:pointer;transition:all .2s;width:100%;background:#f8fafc;text-align:left;margin-bottom:8px}
 .rp-plan-btn.active{border-color:#1e4d8c;background:#e8edf5}
@@ -267,12 +268,12 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
 
 /* ── Quick Record FAB ── */
-#fab{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 18px rgba(30,77,140,.5);z-index:800;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+#fab{position:fixed;bottom:120px;right:16px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:18px;cursor:grab;box-shadow:0 3px 12px rgba(30,77,140,.45);z-index:800;display:flex;align-items:center;justify-content:center;opacity:.85;transition:opacity .2s,transform .1s;user-select:none;-webkit-user-select:none;touch-action:none}
 #fab:active{transform:scale(.9)}
 #qr-panel{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:850;display:none;align-items:flex-end;justify-content:center;padding-bottom:80px;box-sizing:border-box}
 
 .dark #qr-panel{background:#1e2030}
-#qr-panel .qr-item{padding:13px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid #f0f4f8;font-size:15px;color:#1e3252;-webkit-tap-highlight-color:rgba(0,0,0,.1);touch-action:manipulation;width:100%;text-align:left;background:none;border-left:none;border-right:none;border-top:none;border-radius:0;font-family:inherit;-webkit-appearance:none}
+#qr-panel .qr-item{padding:16px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:15px;color:#1e3252;background:none;border:none;font-family:inherit;text-align:center;-webkit-tap-highlight-color:rgba(30,77,140,.15);touch-action:manipulation;min-height:80px}
 #qr-panel .qr-item:last-child{border-bottom:none}
 .dark #qr-panel .qr-item{color:#e8edf5;border-bottom-color:#2a3050}
 #qr-panel .qr-item:active{background:#f4f6fa}
@@ -969,7 +970,7 @@ function renderTasks(ro,fut){
     // Header row: icon + label + time + desc + edit button
     h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:'+(clp?0:10)+'px">';
     h+='<div data-bid="'+b.id+'" onclick="togColl(this.dataset.bid)" style="display:flex;align-items:center;gap:8px;flex:1;cursor:pointer">';
-    h+='<span style="font-size:22px">'+b.icon+'</span>';
+    h+='<span class="bl-icon">'+b.icon+'</span>';
     h+='<div style="flex:1"><div style="color:'+b.color+';font-weight:700;font-size:18px">'+b.label+'</div>';
     h+='<div style="display:flex;gap:6px;margin-top:2px;align-items:center"><span id="blt-disp-'+b.id+'" style="color:#1e4d8c;font-size:13px;font-weight:600;background:#e8edf5;border-radius:5px;padding:1px 5px">'+b.time+'</span><span id="bld-disp-'+b.id+'" style="color:#7a8aaa;font-size:14px">'+b.desc+'</span></div></div>';
     h+='</div>';
@@ -3054,9 +3055,6 @@ function redrawCard(){
   ctx.font="bold 18px -apple-system,'Helvetica Neue',Arial,sans-serif";
   ctx.fillStyle=th.sub;
   ctx.fillText("國度321空中團契",32,42);
-  ctx.font="bold 13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("spch321-sudo.github.io/321planner",32,64);
 
   var today=tod();
   var dt=new Date(today+"T00:00:00");
@@ -3082,14 +3080,6 @@ function redrawCard(){
     ctx.textAlign="left";
   }
 
-  // Bottom bar
-  ctx.fillStyle="rgba(255,255,255,.1)";
-  ctx.fillRect(0,H-38,W,38);
-  ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle="rgba(255,255,255,.5)";
-  ctx.textAlign="center";
-  ctx.fillText("spch321-sudo.github.io/321planner",W/2,H-16);
-  ctx.textAlign="left";
 }
 
 function drawWeeklyCard(ctx,W,H,th){
@@ -3664,6 +3654,125 @@ function rpRefreshUI(){
     });
   }
 }
+function rpGetDoneKey(planId,dateStr){return 'p4_rpdone_'+planId+'_'+dateStr;}
+function rpIsDone(planId,dateStr){return lsG(rpGetDoneKey(planId,dateStr))===1;}
+function rpMarkDone(planId,dateStr){
+  lsS(rpGetDoneKey(planId,dateStr),1);
+  // update streak
+  var cfg=lsG('p4_rp_cfg');
+  if(cfg){
+    var streak=lsG('p4_rp_streak_'+planId)||{count:0,last:''};
+    var yesterday=addD(dateStr,-1);
+    streak.count=(streak.last===yesterday||streak.last===dateStr)?streak.count+1:1;
+    streak.last=dateStr;
+    lsS('p4_rp_streak_'+planId,streak);
+  }
+  rpRenderToday();
+  toast('✅ 今日讀經完成！','#0a8f84');
+}
+function rpGetStreak(planId){
+  var s=lsG('p4_rp_streak_'+planId)||{count:0,last:''};
+  if(s.last!==tod()&&s.last!==addD(tod(),-1))return 0;
+  return s.count||0;
+}
+function rpGetDoneCount(planId,cfg){
+  if(!cfg)return 0;
+  var count=0;
+  var d=new Date(cfg.start+'T00:00:00');
+  var today=new Date(tod()+'T00:00:00');
+  while(d<=today){
+    var ds=d.getFullYear()+'-'+_pad(d.getMonth()+1)+'-'+_pad(d.getDate());
+    if(rpIsDone(planId,ds))count++;
+    d.setDate(d.getDate()+1);
+  }
+  return count;
+}
+function rpGetMissedDays(planId,cfg){
+  if(!cfg)return [];
+  var missed=[];
+  var d=new Date(cfg.start+'T00:00:00');
+  var today=new Date(tod()+'T00:00:00');
+  while(d<today){
+    var ds=d.getFullYear()+'-'+_pad(d.getMonth()+1)+'-'+_pad(d.getDate());
+    if(!rpIsDone(planId,ds))missed.push(ds);
+    d.setDate(d.getDate()+1);
+  }
+  return missed.slice(-7); // last 7 missed
+}
+function rpOpenMakeup(dateStr){
+  var cfg=lsG('p4_rp_cfg');
+  if(!cfg)return;
+  var plan=RP_PLANS[cfg.id];
+  // Get readings for that date
+  var savedDate=_schedDate||tod();
+  var origScheduleDate=cfg.start;
+  // temporarily compute reading for that date
+  var dayN2=rpDaysBetween(cfg.start,dateStr);
+  var readings2=rpGetReadingsForDay(cfg.id,dayN2);
+  var el=document.getElementById('rp-makeup-content');
+  if(!el)return;
+  var usfmMap=USFM_MAP;
+  var h='<div style="font-size:14px;font-weight:800;color:#1e3252;margin-bottom:12px">📅 補讀：'+dateStr+'</div>';
+  if(!readings2||readings2.length===0){
+    h+='<div style="color:#7a8fa8;padding:16px;text-align:center">無法取得該日章節</div>';
+  } else {
+    for(var i=0;i<readings2.length;i++){
+      var r=readings2[i];
+      if(r.special)continue;
+      var usfm=usfmMap[r.abbr]||r.abbr.toUpperCase();
+      var fhlUrl='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(r.abbr)+'&chap='+r.chapter;
+      var yvUrl='https://www.bible.com/zh-TW/bible/46/'+usfm+'.'+r.chapter+'.CUNPSS';
+      h+='<div style="background:#f8fafc;border-radius:12px;padding:12px 14px;margin-bottom:10px;border-left:3px solid '+plan.color+'">';
+      h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:8px">'+r.label+'</div>';
+      h+='<a href="'+fhlUrl+'" target="_blank" style="display:block;padding:9px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border-radius:9px;color:#fff;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:6px">📖 信望愛聖經 閱讀</a>';
+      h+='<a href="'+yvUrl+'" target="_blank" style="display:block;padding:9px;background:linear-gradient(135deg,#155e75,#0e7490);border-radius:9px;color:#fff;text-decoration:none;font-size:13px;font-weight:700;text-align:center">📗 YouVersion 閱讀</a>';
+      h+='</div>';
+    }
+  }
+  var alreadyDone=rpIsDone(cfg.id,dateStr);
+  h+='<button data-mkdate="'+dateStr+'" data-mkplan="'+cfg.id+'" '+(alreadyDone?'disabled style="width:100%;padding:10px;background:#e2f5f3;border:none;border-radius:10px;color:#0a8f84;font-size:13px;font-weight:700"':
+    'onclick="rpMarkDone(this.dataset.mkplan,this.dataset.mkdate);document.getElementById(\'rp-makeup-modal\').style.display=\'none\'" style="width:100%;padding:10px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer"')+'>'
+    +(alreadyDone?'✅ 已完成補讀':'✓ 標記此日已讀')+'</button>';
+  el.innerHTML=h;
+  document.getElementById('rp-makeup-modal').style.display='flex';
+}
+function rpGetReadingsForDay(planId,dayN){
+  var plan=RP_PLANS[planId];
+  if(!plan)return null;
+  if(planId==='prov'){var ch=(dayN%31)+1;return [{book:'箴言',abbr:'箴',chapter:ch,label:'箴言 第'+ch+'章'}];}
+  if(planId==='gospel'||planId==='slow'){
+    var idx=dayN%plan.total,cum=0;
+    for(var i=0;i<plan.schedule.length;i++){
+      if(idx<cum+plan.schedule[i].chapters){
+        var ch2=idx-cum+1;
+        return [{book:plan.schedule[i].name,abbr:plan.schedule[i].abbr,chapter:ch2,label:plan.schedule[i].name+' 第'+ch2+'章'}];
+      }
+      cum+=plan.schedule[i].chapters;
+    }
+  }
+  if(planId==='nt'){
+    var DAYS=90,TOTAL=260;
+    var dayIdx=dayN%DAYS;
+    var startCh=Math.floor(dayIdx*(TOTAL/DAYS));
+    var endCh=Math.floor((dayIdx+1)*(TOTAL/DAYS));
+    var arr2=[];
+    for(var ci=startCh;ci<endCh;ci++){var r2=rpChFromIdx(plan.schedule,ci);if(r2)arr2.push({book:r2.name,abbr:r2.abbr,chapter:r2.ch,label:r2.name+' 第'+r2.ch+'章'});}
+    return arr2;
+  }
+  if(planId==='full'){
+    var otTotal=929,ntTotal=260;
+    var otDay=Math.floor(dayN*2)%otTotal;
+    var ntDay=dayN%ntTotal;
+    var a3=[];
+    var o1=rpChFromIdx(plan.ot,otDay);var o2=rpChFromIdx(plan.ot,(otDay+1)%otTotal);var n1=rpChFromIdx(plan.nt,ntDay);
+    if(o1)a3.push({book:o1.name,abbr:o1.abbr,chapter:o1.ch,label:o1.name+' 第'+o1.ch+'章（舊約1）'});
+    if(o2&&(o2.name!==o1.name||o2.ch!==o1.ch))a3.push({book:o2.name,abbr:o2.abbr,chapter:o2.ch,label:o2.name+' 第'+o2.ch+'章（舊約2）'});
+    if(n1)a3.push({book:n1.name,abbr:n1.abbr,chapter:n1.ch,label:n1.name+' 第'+n1.ch+'章（新約）'});
+    return a3;
+  }
+  return null;
+}
+
 function rpRenderToday(){
   var el=document.getElementById('rp-today-content');
   if(!el)return;
@@ -3677,18 +3786,28 @@ function rpRenderToday(){
   var pct=rpGetProgress(cfg.id);
   var dayN=rpDaysBetween(cfg.start,tod())+1;
   var usfmMap=USFM_MAP;
+  var todayDone=rpIsDone(cfg.id,tod());
+  var streak=rpGetStreak(cfg.id);
+  var doneCount=rpGetDoneCount(cfg.id,cfg);
+  var missed=rpGetMissedDays(cfg.id,cfg);
 
   var h='';
-  // 計劃標題
+  // 計劃標題 + 統計
   h+='<div style="background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px">';
   h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
   h+='<span style="font-size:26px">'+plan.icon+'</span>';
-  h+='<div><div style="font-size:15px;font-weight:800;color:#1e3252">'+plan.name+'</div>';
+  h+='<div style="flex:1"><div style="font-size:15px;font-weight:800;color:#1e3252">'+plan.name+'</div>';
   h+='<div style="font-size:12px;color:#7a8fa8">第 '+dayN+' 天 · 開始於 '+cfg.start+'</div></div></div>';
   // 進度條
   h+='<div style="height:8px;background:#eaecf4;border-radius:10px;overflow:hidden;margin-bottom:4px">';
   h+='<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,'+plan.color+',#0a8f84);border-radius:10px;transition:width .5s"></div></div>';
-  h+='<div style="font-size:12px;color:#7a8fa8;text-align:right">進度 '+pct+'%</div></div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;text-align:right;margin-bottom:10px">進度 '+pct+'%</div>';
+  // 統計三格
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">';
+  h+='<div style="background:#e2f5f3;border-radius:10px;padding:8px;text-align:center"><div style="font-size:20px">🔥</div><div style="font-size:16px;font-weight:800;color:#0a8f84">'+streak+'</div><div style="font-size:11px;color:#7a8fa8">連續天</div></div>';
+  h+='<div style="background:#e8edf5;border-radius:10px;padding:8px;text-align:center"><div style="font-size:20px">✅</div><div style="font-size:16px;font-weight:800;color:#1e4d8c">'+doneCount+'</div><div style="font-size:11px;color:#7a8fa8">已完成天</div></div>';
+  h+='<div style="background:#fdf0ec;border-radius:10px;padding:8px;text-align:center"><div style="font-size:20px">📋</div><div style="font-size:16px;font-weight:800;color:#e05c3a">'+missed.length+'</div><div style="font-size:11px;color:#7a8fa8">未讀天</div></div>';
+  h+='</div></div>';
 
   // 今日章節
   if(!readings||readings.length===0){
@@ -3705,7 +3824,6 @@ function rpRenderToday(){
       } else {
         var usfm=usfmMap[r.abbr]||r.abbr.toUpperCase();
         var fhlUrl='https://bible.fhl.net/new/read.php?chineses='+encodeURIComponent(r.abbr)+'&chap='+r.chapter;
-        var maleAudioUrl=maleAudioLink(r.abbr,r.chapter);
         var yvUrl='https://www.bible.com/zh-TW/bible/46/'+usfm+'.'+r.chapter+'.CUNPSS';
         h+='<div style="background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:10px;border-left:4px solid '+plan.color+'">';
         h+='<div style="font-size:16px;font-weight:800;color:#1e3252;margin-bottom:10px">'+r.label+'</div>';
@@ -3715,14 +3833,37 @@ function rpRenderToday(){
         h+='<a href="'+yvUrl+'" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(135deg,#155e75,#0e7490);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700">📗 YV閱讀</a>';
         h+='<a href="'+maleAudioLink(r.abbr,r.chapter)+'" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(135deg,#7c2d12,#b45309);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700">🔈 男聲朗讀</a>';
         h+='</div>';
-        // 填入SOAP按鈕
         h+='<button data-ref="'+r.book+' '+r.chapter+'章" onclick="rpFillAndClose(this.dataset.ref)" style="width:100%;padding:9px;background:#f2eeff;border:1.5px solid #7c4dbd;border-radius:10px;color:#6b45b0;font-size:13px;font-weight:700;cursor:pointer">✏️ 填入SOAP默想欄位</button>';
         h+='</div></div>';
       }
     }
+    // 完成今日按鈕
+    if(todayDone){
+      h+='<div style="background:#e2f5f3;border-radius:12px;padding:14px;text-align:center;margin-top:4px"><div style="font-size:22px;margin-bottom:4px">✅</div><div style="font-size:15px;font-weight:800;color:#0a8f84">今日已完成！繼續保持 🔥'+streak+'天連續</div></div>';
+    } else {
+      h+='<button data-plan="'+cfg.id+'" data-date="'+tod()+'" onclick="rpMarkDone(this.dataset.plan,this.dataset.date)" style="width:100%;padding:14px;background:linear-gradient(135deg,#0a8f84,#1e4d8c);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;margin-top:4px">✓ 完成今日讀經</button>';
+    }
   }
-  // 重置按鈕
-  h+='<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e8edf5">';
+
+  // 補讀區
+  if(missed.length>0){
+    h+='<div style="margin-top:14px;background:#fff;border-radius:14px;padding:14px 16px">';
+    h+='<div style="font-size:13px;font-weight:800;color:#e05c3a;margin-bottom:10px">📋 補讀（近7天未讀）</div>';
+    for(var m2=0;m2<missed.length;m2++){
+      var md=missed[m2];
+      var mdDt=new Date(md+'T00:00:00');
+      var mdLabel=(mdDt.getMonth()+1)+'月'+mdDt.getDate()+'日';
+      var mdDone=rpIsDone(cfg.id,md);
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f4f8">';
+      h+='<span style="font-size:14px;color:#1e3252">'+mdLabel+(mdDone?' ✅':'')+'</span>';
+      h+='<button data-mkd="'+md+'" onclick="rpOpenMakeup(this.dataset.mkd)" style="padding:6px 12px;background:'+(mdDone?'#e2f5f3':'#e8edf5')+';border:none;border-radius:8px;color:'+(mdDone?'#0a8f84':'#1e4d8c')+';font-size:12px;font-weight:700;cursor:pointer">'+(mdDone?'已補讀':'補讀')+'</button>';
+      h+='</div>';
+    }
+    h+='</div>';
+  }
+
+  // 重置
+  h+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid #e8edf5">';
   h+='<button onclick="rpReset()" style="width:100%;padding:10px;background:#fdf0ec;border:1.5px solid #e05c3a40;border-radius:10px;color:#e05c3a;font-size:13px;font-weight:700;cursor:pointer">🔄 重置 / 更換計劃</button>';
   h+='</div>';
   el.innerHTML=h;
@@ -4883,44 +5024,276 @@ window.onload=function(){
   rotateVerse();setInterval(rotateVerse,9000);
   wkStart=getWkStart(tod());
   loadAndRender();initFocus();renderCal();
-  schedInit();
-  // Event delegation for qr-panel (bypasses iframe onclick restrictions)
-  var qrPanel=document.getElementById('qr-panel');
-  if(qrPanel){
-    qrPanel.addEventListener('click',function(e){
-      var item=e.target;
-      while(item&&item!==qrPanel){
-        if(item.dataset&&item.dataset.qr){break;}
-        item=item.parentNode;
+// ── Memo ──
+function getMemos(){return lsG('p4_memos')||[];}
+function saveMemos(m){lsS('p4_memos',m);}
+function openMemoModal(){
+  var el=document.getElementById('memo-modal');
+  if(!el)return;
+  document.getElementById('memo-input').value='';
+  var lbl=document.getElementById('memo-date-lbl');
+  var now=new Date();
+  if(lbl)lbl.textContent=fL(tod())+' '+now.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+  renderMemoList();
+  el.style.display='flex';
+  setTimeout(function(){document.getElementById('memo-input').focus();},200);
+}
+function saveMemo(){
+  var inp=document.getElementById('memo-input');
+  var text=(inp&&inp.value||'').trim();
+  if(!text){toast('請輸入備忘內容','#e05c3a');return;}
+  var now=new Date();
+  var memos=getMemos();
+  memos.unshift({id:'m'+Date.now(),text:text,date:tod(),time:now.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'})});
+  if(memos.length>200)memos=memos.slice(0,200);
+  saveMemos(memos);
+  inp.value='';
+  renderMemoList();
+  toast('📝 備忘錄已儲存','#7c4dbd');
+}
+function deleteMemo(id){
+  saveMemos(getMemos().filter(function(m){return m.id!==id;}));
+  renderMemoList();
+}
+function renderMemoList(){
+  var el=document.getElementById('memo-list');
+  if(!el)return;
+  var memos=getMemos();
+  if(!memos.length){el.innerHTML='<div style="text-align:center;color:#b0b8c8;padding:20px;font-size:14px">尚無備忘錄</div>';return;}
+  var h='<div style="font-size:12px;font-weight:700;color:#7a8fa8;letter-spacing:1px;margin-bottom:8px">📋 所有備忘錄（'+memos.length+'）</div>';
+  memos.forEach(function(m){
+    h+='<div style="background:#fff;border-radius:10px;padding:11px 13px;margin-bottom:8px;border-left:3px solid #7c4dbd">';
+    h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">';
+    h+='<div style="font-size:14px;color:#1e3252;line-height:1.6;flex:1;white-space:pre-wrap">'+m.text.replace(/</g,'&lt;')+'</div>';
+    h+='<div data-del-memo="'+m.id+'" style="color:#e05c3a;font-size:18px;cursor:pointer;flex-shrink:0;padding:0 4px;line-height:1">🗑</div>';
+    h+='</div>';
+    h+='<div style="font-size:11px;color:#b0b8c8;margin-top:4px">'+m.date+' '+m.time+'</div>';
+    h+='</div>';
+  });
+  el.innerHTML=h;
+}
+
+// ── Todo ──
+function getTodos(){return lsG('p4_todos')||[];}
+function saveTodos(t){lsS('p4_todos',t);}
+function openTodoModal(){
+  var el=document.getElementById('todo-modal');
+  if(!el)return;
+  document.getElementById('todo-input').value='';
+  renderTodoList();
+  el.style.display='flex';
+  setTimeout(function(){document.getElementById('todo-input').focus();},200);
+}
+function addTodo(){
+  var inp=document.getElementById('todo-input');
+  var text=(inp&&inp.value||'').trim();
+  if(!text){toast('請輸入待辦事項','#e05c3a');return;}
+  var todos=getTodos();
+  todos.unshift({id:'t'+Date.now(),text:text,done:false,date:tod()});
+  saveTodos(todos);
+  inp.value='';
+  renderTodoList();
+}
+function togTodo(id){
+  var todos=getTodos();
+  todos.forEach(function(t){if(t.id===id)t.done=!t.done;});
+  saveTodos(todos);renderTodoList();
+}
+function deleteTodo(id){
+  saveTodos(getTodos().filter(function(t){return t.id!==id;}));
+  renderTodoList();
+}
+function clearDoneTodos(){
+  saveTodos(getTodos().filter(function(t){return !t.done;}));
+  renderTodoList();
+}
+function renderTodoList(){
+  var el=document.getElementById('todo-list');
+  if(!el)return;
+  var todos=getTodos();
+  if(!todos.length){el.innerHTML='<div style="text-align:center;color:#b0b8c8;padding:20px;font-size:14px">尚無待辦事項</div>';return;}
+  var done=todos.filter(function(t){return t.done;}).length;
+  var h='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
+  h+='<div style="font-size:12px;color:#7a8fa8">共 '+todos.length+' 項・已完成 '+done+' 項</div>';
+  if(done>0)h+='<div data-clear-done="1" style="padding:4px 10px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:8px;color:#e05c3a;font-size:12px;font-weight:700;cursor:pointer">清除已完成</div>';
+  h+='</div>';
+  todos.forEach(function(t){
+    h+='<div style="background:#fff;border-radius:10px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px;opacity:'+(t.done?.55:1)+'">';
+    h+='<div data-tog-todo="'+t.id+'" style="width:24px;height:24px;border-radius:6px;border:2px solid '+(t.done?'#0a8f84':'#d8dce8')+';background:'+(t.done?'#0a8f84':'transparent')+';color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center">'+(t.done?'✓':'')+'</div>';
+    h+='<div style="flex:1;font-size:14px;color:'+(t.done?'#b0b8c8':'#1e3252')+';'+(t.done?'text-decoration:line-through':'')+'">'+t.text.replace(/</g,'&lt;')+'</div>';
+    h+='<div data-del-todo="'+t.id+'" style="color:#e05c3a;font-size:16px;cursor:pointer;padding:0 4px;line-height:1">🗑</div>';
+    h+='</div>';
+  });
+  el.innerHTML=h;
+}
+
+
+  // ── Draggable FAB ──
+  (function(){
+    var fab=document.getElementById('fab');
+    if(!fab)return;
+    var dragging=false,startX=0,startY=0,origX=0,origY=0,moved=false;
+    var DRAG_THRESHOLD=6;
+
+    function getPos(e){
+      var t=e.touches?e.touches[0]:e;
+      return {x:t.clientX,y:t.clientY};
+    }
+    function onStart(e){
+      var p=getPos(e);
+      startX=p.x;startY=p.y;
+      var rect=fab.getBoundingClientRect();
+      origX=rect.left;origY=rect.top;
+      dragging=true;moved=false;
+      fab.style.transition='none';
+      fab.style.cursor='grabbing';
+      if(e.type==='touchstart')e.preventDefault();
+    }
+    function onMove(e){
+      if(!dragging)return;
+      var p=getPos(e);
+      var dx=p.x-startX,dy=p.y-startY;
+      if(Math.abs(dx)>DRAG_THRESHOLD||Math.abs(dy)>DRAG_THRESHOLD)moved=true;
+      if(!moved)return;
+      var nx=origX+dx,ny=origY+dy;
+      // Clamp within screen
+      var W=window.innerWidth,H=window.innerHeight;
+      var sz=fab.offsetWidth||40;
+      nx=Math.max(8,Math.min(W-sz-8,nx));
+      ny=Math.max(8,Math.min(H-sz-8,ny));
+      fab.style.right='auto';fab.style.bottom='auto';
+      fab.style.left=nx+'px';fab.style.top=ny+'px';
+      if(e.type==='touchmove')e.preventDefault();
+    }
+    function onEnd(e){
+      if(!dragging)return;
+      dragging=false;
+      fab.style.cursor='grab';
+      fab.style.transition='opacity .2s,transform .1s';
+      // Snap to nearest edge
+      var rect=fab.getBoundingClientRect();
+      var W=window.innerWidth,sz=fab.offsetWidth||40;
+      var cx=rect.left+sz/2;
+      if(cx<W/2){fab.style.left='12px';}
+      else{fab.style.left=(W-sz-12)+'px';}
+      // Save position
+      try{lsS('p4_fab_x',fab.style.left);lsS('p4_fab_y',fab.style.top);}catch(ex){}
+      // If not moved = tap = toggle panel
+      if(!moved){togFAB();}
+      moved=false;
+    }
+    // Touch events
+    fab.addEventListener('touchstart',onStart,{passive:false});
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('touchend',onEnd,false);
+    // Mouse events
+    fab.addEventListener('mousedown',onStart,false);
+    document.addEventListener('mousemove',onMove,false);
+    document.addEventListener('mouseup',onEnd,false);
+    // Restore saved position
+    try{
+      var sx=lsG('p4_fab_x'),sy=lsG('p4_fab_y');
+      if(sx&&sy){fab.style.right='auto';fab.style.bottom='auto';fab.style.left=sx;fab.style.top=sy;}
+    }catch(ex){}
+  })();
+
+  // ── QR Panel items ──
+  (function(){
+    var panel=document.getElementById('qr-panel');
+    if(!panel)return;
+    var _qrTouchStartX=0,_qrTouchStartY=0,_qrTouchMoved=false;
+    function handleQRStart(e){
+      var touch=e.touches?e.touches[0]:e;
+      _qrTouchStartX=touch.clientX;
+      _qrTouchStartY=touch.clientY;
+      _qrTouchMoved=false;
+    }
+    function handleQRMove(e){
+      if(!e.touches)return;
+      var dx=Math.abs(e.touches[0].clientX-_qrTouchStartX);
+      var dy=Math.abs(e.touches[0].clientY-_qrTouchStartY);
+      if(dx>6||dy>6)_qrTouchMoved=true;
+    }
+    function handleQREnd(e){
+      if(_qrTouchMoved)return; // 滑動中，不觸發
+      var t=e.target,action=null;
+      for(var i=0;i<5;i++){
+        if(!t||t===panel)break;
+        if(t.dataset&&t.dataset.action){action=t.dataset.action;break;}
+        t=t.parentNode;
       }
-      if(!item||!item.dataset||!item.dataset.qr)return;
-      var qr=item.dataset.qr;
-      if(qr==='soap'){closeFAB();openSoapModal();}
-      else if(qr==='records'){closeFAB();openRecords();}
-      else if(qr==='share'){closeFAB();openShareModal('weekly');}
-      else{qrRecord(qr);}
-    });
-    qrPanel.addEventListener('touchend',function(e){
+      if(!action){if(e.target===panel||e.target.id==='qr-panel')closeFAB();return;}
       e.preventDefault();
-      var item=e.target;
-      while(item&&item!==qrPanel){
-        if(item.dataset&&item.dataset.qr){break;}
-        item=item.parentNode;
+      if(action==='soap'){closeFAB();setTimeout(function(){openSoapModal();},50);}
+      else if(action==='records'){closeFAB();setTimeout(function(){openRecords();},50);}
+      else if(action==='share'){closeFAB();setTimeout(function(){openShareModal('weekly');},50);}
+      else if(action==='memo'){closeFAB();setTimeout(function(){openMemoModal();},50);}
+      else if(action==='todo'){closeFAB();setTimeout(function(){openTodoModal();},50);}
+      else{closeFAB();setTimeout(function(){qrRecord(action);},50);}
+    }
+    panel.addEventListener('touchstart',handleQRStart,{passive:true});
+    panel.addEventListener('touchmove',handleQRMove,{passive:true});
+    panel.addEventListener('touchend',handleQREnd,false);
+    panel.addEventListener('mousedown',function(e){
+      var t=e.target,action=null;
+      for(var i=0;i<5;i++){
+        if(!t||t===panel)break;
+        if(t.dataset&&t.dataset.action){action=t.dataset.action;break;}
+        t=t.parentNode;
       }
-      if(!item||!item.dataset||!item.dataset.qr)return;
-      var qr=item.dataset.qr;
-      if(qr==='soap'){closeFAB();openSoapModal();}
-      else if(qr==='records'){closeFAB();openRecords();}
-      else if(qr==='share'){closeFAB();openShareModal('weekly');}
-      else{qrRecord(qr);}
-    });
-  }
-  // Also bind fab button via addEventListener
-  var fabBtn=document.getElementById('fab');
-  if(fabBtn){
-    fabBtn.addEventListener('click',togFAB);
-    fabBtn.addEventListener('touchend',function(e){e.preventDefault();togFAB();});
-  }
+      if(!action){if(e.target===panel)closeFAB();return;}
+      if(action==='soap'){closeFAB();setTimeout(function(){openSoapModal();},50);}
+      else if(action==='records'){closeFAB();setTimeout(function(){openRecords();},50);}
+      else if(action==='share'){closeFAB();setTimeout(function(){openShareModal('weekly');},50);}
+      else if(action==='memo'){closeFAB();setTimeout(function(){openMemoModal();},50);}
+      else if(action==='todo'){closeFAB();setTimeout(function(){openTodoModal();},50);}
+      else{closeFAB();setTimeout(function(){qrRecord(action);},50);}
+    },false);
+  })();
+  // ── Memo modal events ──
+  (function(){
+    var mm=document.getElementById('memo-modal');
+    if(!mm)return;
+    function handle(e){
+      var t=e.target;
+      if(t.dataset&&t.dataset.action==='save-memo'){e.preventDefault();saveMemo();return;}
+      for(var i=0;i<4;i++){
+        if(!t||t===mm)break;
+        if(t.dataset&&t.dataset.delMemo){e.preventDefault();deleteMemo(t.dataset.delMemo);return;}
+        t=t.parentNode;
+      }
+    }
+    var _mmSX=0,_mmSY=0,_mmMoved=false;
+    mm.addEventListener('touchstart',function(e){var t=e.touches[0];_mmSX=t.clientX;_mmSY=t.clientY;_mmMoved=false;},{passive:true});
+    mm.addEventListener('touchmove',function(e){if(Math.abs(e.touches[0].clientX-_mmSX)>6||Math.abs(e.touches[0].clientY-_mmSY)>6)_mmMoved=true;},{passive:true});
+    mm.addEventListener('touchend',function(e){if(!_mmMoved)handle(e);},false);
+    mm.addEventListener('mousedown',handle,false);
+    var inp=document.getElementById('memo-input');
+    if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey){e.preventDefault();saveMemo();}});
+  })();
+  // ── Todo modal events ──
+  (function(){
+    var tm=document.getElementById('todo-modal');
+    if(!tm)return;
+    function handle(e){
+      var t=e.target;
+      if(t.dataset&&t.dataset.action==='add-todo'){e.preventDefault();addTodo();return;}
+      for(var i=0;i<4;i++){
+        if(!t||t===tm)break;
+        if(t.dataset&&t.dataset.togTodo){e.preventDefault();togTodo(t.dataset.togTodo);return;}
+        if(t.dataset&&t.dataset.delTodo){e.preventDefault();deleteTodo(t.dataset.delTodo);return;}
+        if(t.dataset&&t.dataset.clearDone){e.preventDefault();clearDoneTodos();return;}
+        t=t.parentNode;
+      }
+    }
+    var _tmSX=0,_tmSY=0,_tmMoved=false;
+    tm.addEventListener('touchstart',function(e){var t=e.touches[0];_tmSX=t.clientX;_tmSY=t.clientY;_tmMoved=false;},{passive:true});
+    tm.addEventListener('touchmove',function(e){if(Math.abs(e.touches[0].clientX-_tmSX)>6||Math.abs(e.touches[0].clientY-_tmSY)>6)_tmMoved=true;},{passive:true});
+    tm.addEventListener('touchend',function(e){if(!_tmMoved)handle(e);},false);
+    tm.addEventListener('mousedown',handle,false);
+    var inp2=document.getElementById('todo-input');
+    if(inp2)inp2.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addTodo();}});
+  })();
 };
 
 // ════════════════════════════════════════
@@ -5485,6 +5858,48 @@ function schedRefreshRepPicker(){
 </div>
 </div>
 <!-- READING PLAN MODAL -->
+<!-- MAKEUP READING MODAL -->
+<!-- MEMO MODAL -->
+<div id="memo-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:960;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:90vh;overflow-y:auto;animation:slideUp .35s ease">
+    <div style="background:linear-gradient(135deg,#7c4dbd,#6b45b0);padding:18px 20px 14px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:18px;font-weight:900;color:#fff">📝 備忘錄</div>
+      <button onclick="document.getElementById('memo-modal').style.display='none'" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:16px">
+      <textarea id="memo-input" rows="6" placeholder="隨手記下備忘事項…" style="width:100%;padding:12px 14px;border:1.5px solid #d8dce8;border-radius:12px;font-size:15px;line-height:1.8;background:#fff;box-sizing:border-box;outline:none;resize:none;color:#1e3252;font-family:inherit"></textarea>
+      <div style="font-size:12px;color:#7a8fa8;margin:8px 0 12px;text-align:right" id="memo-date-lbl"></div>
+      <button data-action="save-memo" style="width:100%;padding:13px;background:linear-gradient(135deg,#7c4dbd,#6b45b0);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px">💾 儲存備忘錄</button>
+      <div id="memo-list" style="max-height:240px;overflow-y:auto"></div>
+    </div>
+  </div>
+</div>
+<!-- TODO MODAL -->
+<div id="todo-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:960;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:90vh;overflow-y:auto;animation:slideUp .35s ease">
+    <div style="background:linear-gradient(135deg,#2e8b57,#0a8f84);padding:18px 20px 14px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:18px;font-weight:900;color:#fff">☑️ 待辦事項</div>
+      <button onclick="document.getElementById('todo-modal').style.display='none'" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:16px">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="todo-input" type="text" placeholder="新增待辦事項…" maxlength="100"
+          style="flex:1;padding:11px 13px;border:1.5px solid #d8dce8;border-radius:11px;font-size:15px;background:#fff;outline:none;color:#1e3252;font-family:inherit">
+        <button data-action="add-todo" style="padding:11px 16px;background:linear-gradient(135deg,#2e8b57,#0a8f84);border:none;border-radius:11px;color:#fff;font-size:18px;cursor:pointer;font-weight:700">＋</button>
+      </div>
+      <div id="todo-list"></div>
+    </div>
+  </div>
+</div>
+<div id="rp-makeup-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.85);z-index:960;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:80vh;overflow-y:auto;animation:slideUp .35s ease">
+    <div style="background:linear-gradient(135deg,#b45309,#d97706);padding:18px 20px 14px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:18px;font-weight:900;color:#fff">📋 補讀章節</div>
+      <button onclick="document.getElementById('rp-makeup-modal').style.display='none'" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:32px;height:32px;color:#fff;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div id="rp-makeup-content" style="padding:16px"></div>
+  </div>
+</div>
 <div id="rp-modal" style="display:none">
   <div id="rp-box">
     <div style="background:linear-gradient(160deg,#0a1628,#1e4d8c,#0a8f84);padding:24px 20px 18px;border-radius:28px 28px 0 0;position:relative;overflow:hidden">
@@ -5587,8 +6002,8 @@ function schedRefreshRepPicker(){
     <!-- Header -->
     <div style="padding:16px 18px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f4f8">
       <div>
-        <div style="font-size:16px;font-weight:800;color:#1e3252">✨ 分享得勝卡片</div>
-        <div style="font-size:12px;color:#7a8fa8;margin-top:2px">截圖後分享到LINE或朋友圈</div>
+        <div style="font-size:19px;font-weight:800;color:#1e3252">✨ 分享得勝卡片</div>
+        <div style="font-size:14px;color:#7a8fa8;margin-top:2px">截圖後分享到LINE或朋友圈</div>
       </div>
       <button onclick="closeShareModal()" style="background:#f4f6fa;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#7a8fa8">✕</button>
     </div>
@@ -5608,11 +6023,11 @@ function schedRefreshRepPicker(){
 
     <!-- Customise -->
     <div style="padding:12px 16px;border-top:1px solid #f0f4f8">
-      <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">自訂訊息（選填）</div>
-      <textarea id="share-msg" class="ta" rows="2" placeholder="加上你想說的話…" oninput="redrawCard()" style="font-size:14px;margin-bottom:10px"></textarea>
+      <div style="font-size:14px;color:#7a8fa8;font-weight:700;margin-bottom:8px;letter-spacing:1px">自訂訊息（選填）</div>
+      <textarea id="share-msg" class="ta" rows="2" placeholder="加上你想說的話…" oninput="redrawCard()" style="font-size:17px;margin-bottom:10px"></textarea>
       <!-- Theme row -->
       <div style="margin-bottom:12px">
-        <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:8px">主題色（一週七色）</div>
+        <div style="font-size:14px;color:#7a8fa8;font-weight:700;margin-bottom:8px">主題色（一週七色）</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button onclick="setTheme('navy')" id="th-navy" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer">
             <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:3px solid #1e4d8c"></div>
@@ -5705,16 +6120,25 @@ function schedRefreshRepPicker(){
   </div>
 </div>
 <!-- QUICK RECORD PANEL -->
-<div id="qr-panel" onclick="if(event.target===this){closeFAB();}">
-  <div style="background:#fff;border-radius:20px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3)"><div style="padding:12px 16px 6px;font-size:12px;color:#7a8fa8;font-weight:700;letter-spacing:2px;text-transform:uppercase">快速記錄</div>
-  <button class="qr-item" onclick="qrRecord('spark')"><span style="font-size:22px">⚡</span><div><div style="font-weight:700">靈感感動</div><div style="font-size:12px;color:#7a8fa8">聖靈的感動、啟示</div></div></button>
-  <button class="qr-item" onclick="qrRecord('thanks')"><span style="font-size:22px">💛</span><div><div style="font-weight:700">感恩記錄</div><div style="font-size:12px;color:#7a8fa8">隨時記下感恩的事</div></div></button>
-  <button class="qr-item" onclick="qrRecord('prayer')"><span style="font-size:22px">🙏</span><div><div style="font-weight:700">禱告記錄</div><div style="font-size:12px;color:#7a8fa8">禱告內容、回應</div></div></button>
-  <button class="qr-item" onclick="qrRecord('verse')"><span style="font-size:22px">📖</span><div><div style="font-weight:700">金句摘記</div><div style="font-size:12px;color:#7a8fa8">感動的聖經話語</div></div></button>
-  <button class="qr-item" onclick="qrRecord('victory')"><span style="font-size:22px">🏆</span><div><div style="font-weight:700">得勝見證</div><div style="font-size:12px;color:#7a8fa8">記下神的作為</div></div></button>
-  <button class="qr-item" onclick="closeFAB();openSoapModal()" style="background:linear-gradient(135deg,#fff7ed,#fffbeb)"><span style="font-size:22px">📖</span><div><div style="font-weight:700;color:#b45309">每日讀經默想</div><div style="font-size:12px;color:#7a8fa8">SOAP + 321默想引導</div></div></button>
-  <button class="qr-item" onclick="closeFAB();openRecords()" style="background:linear-gradient(135deg,#e8edf5,#e5f5f3)"><span style="font-size:22px">📚</span><div><div style="font-weight:700;color:#1e4d8c">查看所有記錄</div><div style="font-size:12px;color:#7a8fa8">靈感・禱告・見證・金句</div></div></button>
-  <button class="qr-item" onclick="closeFAB();openShareModal('weekly')" style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border-top:2px solid #d8dce8"><span style="font-size:22px">✨</span><div><div style="font-weight:700;color:#d97706">分享得勝卡片</div><div style="font-size:12px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div></button>
+<div id="qr-panel" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.8);z-index:900;justify-content:center;align-items:center;padding:60px 0 90px;box-sizing:border-box;backdrop-filter:blur(4px)" onclick="if(event.target.id==='qr-panel'){closeFAB();}">
+  <div style="background:#fff;border-radius:20px;width:calc(100% - 32px);max-width:420px;overflow-y:auto;max-height:calc(100vh - 160px);box-shadow:0 12px 50px rgba(0,0,0,.4);-webkit-overflow-scrolling:touch">
+    <div style="padding:14px 18px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f4f8">
+      <div style="font-size:13px;font-weight:800;color:#1e3252;letter-spacing:1px">✦ 快速記錄</div>
+      <button style="background:#f0f4f8;border:none;border-radius:50%;width:28px;height:28px;font-size:15px;cursor:pointer;color:#7a8fa8;display:flex;align-items:center;justify-content:center" onclick="closeFAB()">✕</button>
+    </div>
+    <div id="qr-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+      <div class="qr-item" data-action="spark" style="border-right:1px solid #f0f4f8;border-bottom:1px solid #f0f4f8"><span class="qr-icon-wrap" style="font-size:26px">⚡</span><div><div style="font-weight:700;font-size:14px">靈感感動</div><div style="font-size:11px;color:#7a8fa8">聖靈的啟示</div></div></div>
+      <div class="qr-item" data-action="thanks" style="border-bottom:1px solid #f0f4f8"><span class="qr-icon-wrap" style="font-size:26px">💛</span><div><div style="font-weight:700;font-size:14px">感恩記錄</div><div style="font-size:11px;color:#7a8fa8">感恩的事</div></div></div>
+      <div class="qr-item" data-action="prayer" style="border-right:1px solid #f0f4f8;border-bottom:1px solid #f0f4f8"><span class="qr-icon-wrap" style="font-size:26px">🙏</span><div><div style="font-weight:700;font-size:14px">禱告記錄</div><div style="font-size:11px;color:#7a8fa8">禱告回應</div></div></div>
+      <div class="qr-item" data-action="verse" style="border-bottom:1px solid #f0f4f8"><span class="qr-icon-wrap" style="font-size:26px">📖</span><div><div style="font-weight:700;font-size:14px">金句摘記</div><div style="font-size:11px;color:#7a8fa8">聖經話語</div></div></div>
+      <div class="qr-item" data-action="victory" style="border-right:1px solid #f0f4f8;border-bottom:1px solid #f0f4f8"><span class="qr-icon-wrap" style="font-size:26px">🏆</span><div><div style="font-weight:700;font-size:14px">得勝見證</div><div style="font-size:11px;color:#7a8fa8">神的作為</div></div></div>
+      <div class="qr-item" data-action="soap" style="border-bottom:1px solid #f0f4f8;background:#fff8f0"><span class="qr-icon-wrap" style="font-size:26px">📗</span><div><div style="font-weight:700;font-size:14px;color:#b45309">讀經默想</div><div style="font-size:11px;color:#7a8fa8">SOAP+321</div></div></div>
+      <div class="qr-item" data-action="memo" style="border-right:1px solid #f0f4f8;border-bottom:1px solid #f0f4f8;background:#f8f4ff"><span class="qr-icon-wrap" style="font-size:26px">📝</span><div><div style="font-weight:700;font-size:14px;color:#7c4dbd">備忘錄</div><div style="font-size:11px;color:#7a8fa8">隨手記下</div></div></div>
+      <div class="qr-item" data-action="todo" style="border-bottom:1px solid #f0f4f8;background:#f0fff8"><span class="qr-icon-wrap" style="font-size:26px">☑️</span><div><div style="font-weight:700;font-size:14px;color:#2e8b57">待辦事項</div><div style="font-size:11px;color:#7a8fa8">快速新增</div></div></div>
+    </div>
+    <div class="qr-item" data-action="records" style="border-bottom:1px solid #f0f4f8;background:#f0f4ff"><span class="qr-icon-wrap" style="font-size:26px">📚</span><div><div style="font-weight:700;color:#1e4d8c">查看所有記錄</div><div style="font-size:12px;color:#7a8fa8">靈感・禱告・見證・金句</div></div></div>
+    <div class="qr-item" data-action="share" style="background:#fff8f0"><span class="qr-icon-wrap" style="font-size:26px">✨</span><div><div style="font-weight:700;color:#d97706">分享得勝卡片</div><div style="font-size:12px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div></div>
+  </div>
 </div>
 
 <!-- QUICK RECORD INPUT MODAL -->
@@ -5731,25 +6155,7 @@ function schedRefreshRepPicker(){
 </div>
 
 <!-- FAB Button -->
-<button id="fab" onclick="togFAB()" title="快速記錄">✦</button>
-
-<!-- ═══ PWA 離線 Service Worker（防呆註冊）═══ -->
-<script>
-(function(){
-  // 僅在 http/https 正式網址下註冊；沙箱/檔案/blob 環境一律略過，避免拋錯
-  try{
-    if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
-      window.addEventListener('load',function(){
-        navigator.serviceWorker.register('sw.js').then(function(reg){
-          console.log('✓ 離線功能已啟用');
-        }).catch(function(err){
-          console.log('SW 略過：'+(err&&err.message?err.message:err));
-        });
-      });
-    }
-  }catch(e){/* 安靜略過，不影響 app 運作 */}
-})();
-</script>
+<button id="fab" title="快速記錄">✦</button>
 
 </body>
 </html>
