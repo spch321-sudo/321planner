@@ -726,8 +726,133 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 <script>
 // Storage
 function _pad(n){return n<10?"0"+n:String(n);}
-function lsS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-function lsG(k){try{var r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch(e){return null;}}
+/* ════════ 資料安全與穩定強化模組 ════════ */
+var _storeWarned=false;
+function dismissStoreWarn(){var b=document.getElementById('store-warn');if(b)b.style.display='none';}
+function _storeWarn(){
+  if(_storeWarned)return;_storeWarned=true;
+  try{
+    var b=document.getElementById('store-warn');
+    if(!b){b=document.createElement('div');b.id='store-warn';b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99998;background:#e05c3a;color:#fff;padding:13px 16px;font-size:14px;line-height:1.7;text-align:center;box-shadow:0 -2px 12px rgba(0,0,0,.25)';document.body.appendChild(b);}
+    b.innerHTML='⚠️ 儲存空間不足或被瀏覽器阻擋，最近的變更可能沒存到。請到「設定 → 資料安全」<b>匯出備份</b>，並改用 Safari 開啟。 <span onclick="dismissStoreWarn()" style="text-decoration:underline;cursor:pointer;margin-left:6px">知道了</span>';
+    b.style.display='block';
+  }catch(e){}
+}
+function lsS(k,v){
+  try{ localStorage.setItem(k,JSON.stringify(v)); return true; }
+  catch(e){
+    try{ try{localStorage.removeItem('p4_skipver');}catch(_){}
+      localStorage.setItem(k,JSON.stringify(v)); return true;
+    }catch(e2){ _storeWarn(); return false; }
+  }
+}
+function lsG(k){
+  try{
+    var r=localStorage.getItem(k);
+    if(r===null||r===undefined||r==='')return null;
+    return JSON.parse(r);
+  }catch(e){
+    /* 資料毀損：嘗試從自動備份救回此鍵 */
+    try{
+      var bak=localStorage.getItem('p4__autobak');
+      if(bak){var obj=JSON.parse(bak); if(obj&&obj.data&&obj.data[k]!=null){return JSON.parse(obj.data[k]);}}
+    }catch(e2){}
+    return null;
+  }
+}
+
+/* ── 備份引擎 ── */
+function _allP4Keys(){var ks=[];try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('p4_')===0&&k!=='p4__autobak')ks.push(k);}}catch(e){}return ks;}
+function _snapshot(){var d={};_allP4Keys().forEach(function(k){try{d[k]=localStorage.getItem(k);}catch(e){}});return {ts:new Date().toISOString(),ver:(typeof APP_VERSION!=='undefined'?APP_VERSION:''),data:d};}
+function autoBackup(){try{localStorage.setItem('p4__autobak',JSON.stringify(_snapshot()));}catch(e){}}
+function exportBackup(){
+  try{
+    var snap=_snapshot();
+    var blob=new Blob([JSON.stringify(snap,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    var d=new Date();var pad=function(n){return(n<10?'0':'')+n;};
+    a.href=url;a.download='321planner-備份-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'-'+pad(d.getHours())+pad(d.getMinutes())+'.json';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){try{URL.revokeObjectURL(url);a.remove();}catch(e){}},1000);
+    if(typeof toast==='function')toast('已匯出備份檔 📤');
+  }catch(e){ if(typeof toast==='function')toast('匯出失敗，請改用 Safari 開啟','#e05c3a'); }
+}
+function _applySnapshot(snap){
+  if(!snap||!snap.data)return false;
+  var ok=true;
+  Object.keys(snap.data).forEach(function(k){ if(k.indexOf('p4_')===0){ try{localStorage.setItem(k,snap.data[k]);}catch(e){ok=false;} } });
+  return ok;
+}
+function importBackupFile(input){
+  var f=input&&input.files&&input.files[0]; if(!f)return;
+  var rd=new FileReader();
+  rd.onload=function(){
+    try{
+      var snap=JSON.parse(rd.result);
+      if(!snap||!snap.data){ if(typeof toast==='function')toast('備份檔格式不符','#e05c3a'); input.value=''; return; }
+      var when=snap.ts?String(snap.ts).slice(0,16).replace('T',' '):'未知';
+      appConfirm('還原備份','確定用這個備份覆蓋目前資料嗎？\n備份時間：'+when+'\n（現有資料會先自動備份一份）','#1e4d8c',function(){
+        autoBackup();
+        if(_applySnapshot(snap)){ if(typeof toast==='function')toast('已還原備份 ✓ 即將重新整理'); setTimeout(function(){location.reload();},900); }
+        else if(typeof toast==='function')toast('還原時部分資料寫入失敗','#e05c3a');
+      });
+    }catch(e){ if(typeof toast==='function')toast('無法讀取此備份檔','#e05c3a'); }
+    input.value='';
+  };
+  rd.readAsText(f);
+}
+function restoreAutoBackup(){
+  try{
+    var bak=localStorage.getItem('p4__autobak');
+    if(!bak){ if(typeof toast==='function')toast('目前沒有自動備份','#e05c3a'); return; }
+    var snap=JSON.parse(bak);
+    var when=snap&&snap.ts?String(snap.ts).slice(0,16).replace('T',' '):'未知';
+    appConfirm('還原自動備份','用 App 最近的自動備份覆蓋目前資料嗎？\n備份時間：'+when,'#1e4d8c',function(){
+      if(_applySnapshot(snap)){ if(typeof toast==='function')toast('已還原 ✓ 即將重新整理'); setTimeout(function(){location.reload();},900); }
+      else if(typeof toast==='function')toast('還原失敗','#e05c3a');
+    });
+  }catch(e){ if(typeof toast==='function')toast('還原失敗','#e05c3a'); }
+}
+
+/* ── 設定頁：資料安全區塊 ── */
+function _securitySettingsHTML(){
+  var ts='—';
+  try{var b=localStorage.getItem('p4__autobak');if(b){var s=JSON.parse(b);if(s&&s.ts)ts=String(s.ts).slice(0,16).replace('T',' ');}}catch(e){}
+  var h='';
+  h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">🛡️ 資料安全與備份</div>';
+  h+='<div class="card" style="margin-bottom:18px">';
+  h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.8;margin-bottom:12px">你的資料只存在這支裝置裡。建議<b>定期匯出備份</b>，存到 LINE Keep、雲端硬碟或電腦；換手機或清除瀏覽器資料時才不會遺失。App 也會自動保留最近一份備份。</div>';
+  h+='<button onclick="exportBackup()" style="width:100%;padding:13px;background:#1e4d8c;border:none;border-radius:11px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:9px">📤 匯出備份檔</button>';
+  h+='<label style="display:block;width:100%;padding:13px;background:#e8edf5;border:1.5px solid #1e4d8c40;border-radius:11px;color:#1e4d8c;font-size:15px;font-weight:700;cursor:pointer;text-align:center;margin-bottom:9px;box-sizing:border-box">📥 匯入備份檔<input type="file" accept="application/json,.json" onchange="importBackupFile(this)" style="display:none"></label>';
+  h+='<button onclick="restoreAutoBackup()" style="width:100%;padding:11px;background:transparent;border:1.5px solid #d8dce8;border-radius:11px;color:#7a8fa8;font-size:14px;cursor:pointer">♻️ 從自動備份還原</button>';
+  h+='<div style="font-size:12px;color:#9aa6ba;margin-top:10px;text-align:center">最近自動備份：'+ts+'</div>';
+  h+='</div>';
+  return h;
+}
+
+/* ── 全域錯誤防護（避免整頁空白；資料不受影響）── */
+var _errShown=false;
+function dismissErrBanner(){var b=document.getElementById('err-banner');if(b)b.style.display='none';_errShown=false;}
+function _showErrBanner(){
+  if(_errShown)return;_errShown=true;
+  try{
+    var b=document.getElementById('err-banner');
+    if(!b){b=document.createElement('div');b.id='err-banner';b.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:99997;background:#1e3252;color:#fff;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.6;box-shadow:0 4px 16px rgba(0,0,0,.3)';document.body.appendChild(b);}
+    b.innerHTML='🛡️ App 遇到一個小狀況，<b>你的資料是安全的</b>。若畫面怪怪的，可關掉重開或下拉重新整理。 <span onclick="dismissErrBanner()" style="text-decoration:underline;cursor:pointer;margin-left:6px">關閉</span>';
+    b.style.display='block';
+    setTimeout(function(){var bb=document.getElementById('err-banner');if(bb){bb.style.display='none';_errShown=false;}},6000);
+  }catch(e){}
+}
+try{
+  window.addEventListener('error',function(){_showErrBanner();});
+  window.addEventListener('unhandledrejection',function(){_showErrBanner();});
+  window.addEventListener('load',function(){ setTimeout(autoBackup,3000); try{setInterval(autoBackup,180000);}catch(e){} });
+  window.addEventListener('pagehide',function(){autoBackup();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)autoBackup();});
+}catch(e){}
+/* ════════ 強化模組結束 ════════ */
+
 function saveDay(d,data){var _copy={};for(var _k in data){if(data.hasOwnProperty(_k))_copy[_k]=data[_k];}_copy._t=Date.now();lsS("p4_"+d,_copy);var idx=getIdx();if(idx.indexOf(d)<0){idx.unshift(d);idx.sort().reverse();}lsS("p4_idx",idx.slice(0,300));}
 function getDay(d){return lsG("p4_"+d)||null;}
 function getIdx(){return lsG("p4_idx")||[];}
@@ -1018,7 +1143,7 @@ function renderHCon(){
 }
 
 // Helper
-function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function esc(s){return(s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 function taskHTML(t,ro){
   var pc=PR[t.prio]||"#8a9ab0";
   var tags="";for(var ti=0;ti<TAGS.length;ti++){var tg=null;for(var tii=0;tii<(t.tags||[]).length;tii++){if((t.tags||[])[tii]===TAGS[ti].id)tg=TAGS[ti];}if(tg)tags+='<span style="font-size:13px;padding:1px 6px;border-radius:5px;background:'+tg.c+'18;color:'+tg.c+'">'+tg.l+'</span>';}
@@ -2059,6 +2184,59 @@ var PHASE_STATUS=[
   {id:"blocked",label:"受阻",color:"#e05c3a",bg:"#fdf3f0"},
   {id:"done",label:"已完成",color:"#0a8f84",bg:"#e5f5f3"}
 ];
+var PROJ_TEMPLATES=[
+  {title:'建堂',icon:'🏛️',color:'#8b5e3c',
+   desc:'為神的家預備合神心意的聚會場所，使更多人得以進來敬拜、被建造。異象經文：「若不是耶和華建造房屋，建造的人就枉然勞力」（詩127:1）。',
+   notes:{plan:'確立建堂的異象與聖經根據；評估需求（人數成長、空間、地點）、預算與時機；成立建堂委員會與分工。',
+     drive:'全教會同心禁食禱告、奉獻動員；對外溝通、信心建造；克服資金與法規的阻力。',
+     exec:'監督工程進度與品質；管控預算與時程；定期向會眾報告、保持透明。',
+     review:'獻堂感恩、見證神的信實；檢討財務與流程；規劃後續維護與使用，讓場所成為祝福。'},
+   tasks:['成立建堂小組、確立異象與目的','全教會禁食禱告、尋求神的引導與時機','評估需求（人數、空間、地點）','財務規劃與奉獻動員（建堂基金）','尋地／選址與法規評估','建築師與營造廠遴選','設計圖與建照申請','動土、施工與監工','內裝、設備採購與佈置','獻堂感恩禮拜']},
+  {title:'開拓教會',icon:'🌱',color:'#2e8b57',
+   desc:'在新的地區或群體中開拓植堂，建立屬神的教會，使福音廣傳、門徒倍增、神國擴張。異象經文：「我栽種了，亞波羅澆灌了，惟有神叫他生長」（林前3:6）。',
+   notes:{plan:'確認神的呼召與目標群體、地區；禱告勘查、了解當地需求（屬靈地圖）；組建核心開拓團隊與資源。',
+     drive:'福音外展、建立關係；開始小家／查經聚會；對內動員差派與守望代禱。',
+     exec:'建立主日聚會與門訓系統；培育當地同工；邁向自治、自養、自傳。',
+     review:'評估教會的成長與健康度；繁殖再開拓、交棒給當地領袖，建立屬神體系。'},
+   tasks:['確認開拓異象、目標族群與地區','禱告勘查、了解當地需求','組建核心開拓團隊（差派同工）','尋找聚會場地','福音外展與初步建立關係','開始小家／查經聚會','建立主日聚會與敬拜','門徒培育與同工裝備','建立自治自養自傳的體系','評估獨立成堂或繼續陪伴']},
+  {title:'建立裝備系統',icon:'📚',color:'#6b45b0',
+   desc:'建立有系統的門徒培育與裝備課程，使弟兄姊妹生命成長、各盡其職，落實321理念。異象經文：「為要成全聖徒，各盡其職，建立基督的身體」（弗4:12）。',
+   notes:{plan:'確立生命成長藍圖（從初信到成全）與課程架構；融入321理念（三基礎、兩核心、一目的）；盤點現有課程與需求。',
+     drive:'培訓師資、編寫或選用教材；試辦第一梯次、收集回饋；動員報名。',
+     exec:'全面開課、追蹤學員生命成長；陪伴與牧養；學員轉為帶領者。',
+     review:'評估生命改變的果效；修正課程；建立繁殖機制（資訊→啟示→信服→實踐→檢討→修正→反覆→繁殖）。'},
+   tasks:['確立裝備系統目標與生命藍圖','盤點現有課程與需求','設計分級課程（初信→門訓→事奉→領袖）','融入321理念','編寫或選用教材','培訓師資與帶領者','試辦第一梯次、收集回饋','修正課程與流程','全面推動與繁殖（學員成為帶領者）','定期評估與更新']},
+  {title:'傳承交棒',icon:'🤝',color:'#d97706',
+   desc:'有計畫地傳承異象、職分與事奉，興起並交棒給下一代領袖，使神的工作代代延續。異象經文：「你在許多見證人面前聽見我所教訓的，也要交託那忠心能教導別人的人」（提後2:2）。',
+   notes:{plan:'確立傳承的異象與時間表；在禱告中辨識接棒人選；評估其生命、恩賜與呼召。',
+     drive:'制定培育與授權計畫；以無己的心逐步授權、放手讓接棒者操練。',
+     exec:'並肩同行、即時陪伴與回饋；公開的祝福與職分交接；建立新領袖的權柄。',
+     review:'評估交棒後的健康與穩定；退居顧問、持續守望代禱；見證神工作的延續。'},
+   tasks:['確立傳承的異象與時間表','禱告中尋找、辨識接棒人選','評估接棒者的生命、恩賜與呼召','制定培育與授權計畫','逐步授權、放手讓其操練','並肩同行、即時陪伴與回饋','公開的祝福與職分交接','退居顧問、持續守望代禱','評估交棒後的健康與穩定']},
+  {title:'差傳宣教',icon:'🌍',color:'#1e4d8c',
+   desc:'回應大使命，差派、支持宣教，將福音傳到地極，使萬民作主的門徒。異象經文：「所以你們要去，使萬民作我的門徒」（太28:19）。',
+   notes:{plan:'確立差傳異象與目標禾場（未得之民／地區）；成立差傳小組、了解禾場需求與夥伴。',
+     drive:'招募、辨識與差派宣教士；建立代禱與奉獻支持網絡；組訓短宣隊。',
+     exec:'支持前線跨文化福音工作；當地門訓與植堂；宣教士的關懷與述職。',
+     review:'評估福音果效；述職分享、激勵全會眾；繁殖更多差派與奉獻。'},
+   tasks:['確立差傳異象與目標禾場','成立差傳小組、了解禾場需求','招募、辨識與差派宣教士','宣教士跨文化與語言訓練','建立財務與代禱支持系統','短宣隊組訓與差派','與當地教會／機構建立夥伴','宣教士關懷與述職安排','福音果效追蹤與門徒栽培','教會差傳教育與動員']},
+  {title:'職場宣教',icon:'💼',color:'#0a8f84',
+   desc:'裝備信徒在職場中為主作見證，活出基督生命，使職場成為宣教與祝福的禾場。異象經文：「你們是世上的光……叫他們看見你們的好行為，便將榮耀歸給你們在天上的父」（太5:14,16）。',
+   notes:{plan:'確立職場宣教的異象與聖經根據；凝聚職場中的弟兄姊妹（職場小家）；裝備信仰與職場整合。',
+     drive:'建立職場禱告與支持網絡；以生命與專業見證、建立福音關係；動員代禱。',
+     exec:'關懷同事、帶領決志；舉辦職場福音聚會／午餐分享；興起職場小家。',
+     review:'分享職場見證；評估福音果效；繁殖更多職場宣教士與小家。'},
+   tasks:['確立職場宣教的異象與根據','凝聚職場肢體（職場小家）','裝備品格與信仰整合（誠信、卓越、愛人）','學習以生命與專業見證福音','建立職場禱告與支持網絡','關懷同事、建立福音關係','舉辦職場福音聚會／午餐分享','帶領同事決志、進入教會','興起職場領袖、繁殖職場小家','評估與分享職場見證']}
+];
+var _projTplOpen=false;
+function createProjFromTemplate(idx){
+  var t=PROJ_TEMPLATES[idx];if(!t)return;
+  var phases={};
+  PROJ_PHASES.forEach(function(ph){phases[ph.id]={status:"todo",note:(t.notes&&t.notes[ph.id])||"",done:false,expanded:false};});
+  var projects=getProjects();
+  projects.push({id:getProjId(),title:t.title,desc:t.desc||"",start:"",due:"",status:"plan",roles:{},phases:phases,tasks:(t.tasks||[]).map(function(x){return {text:x,done:false,created:tod()};}),open:true,created:tod()});
+  saveProjects(projects);_projTplOpen=false;toast("已從範本建立「"+t.title+"」📋");renderProj();window.scrollTo(0,0);
+}
 
 function renderProj(){
   var projects=getProjects();
@@ -2092,6 +2270,21 @@ function renderProj(){
   h+='<button onclick="hideNewProj()" style="padding:11px 16px;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px;color:#4a5a72;font-size:14px;cursor:pointer">取消</button>';
   h+='</div></div>';
 
+  // Project templates
+  h+='<div style="background:#fff;border:1px solid #e3e8f2;border-radius:14px;margin-bottom:14px;overflow:hidden">';
+  h+='<button onclick="_projTplOpen=!_projTplOpen;renderProj()" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:transparent;border:none;cursor:pointer">';
+  h+='<span style="font-size:15px;font-weight:800;color:#1e4d8c">📋 專案範本 · 一鍵套用</span>';
+  h+='<span style="font-size:13px;color:#7a8fa8">'+(_projTplOpen?'收合 ▲':'展開 ▼')+'</span></button>';
+  if(_projTplOpen){
+    h+='<div style="padding:0 12px 14px"><div style="font-size:12px;color:#9aa6ba;margin-bottom:8px;line-height:1.6">選一個範本快速建立——已預填異象說明、計畫→推動→執行→檢討四階段指引與任務清單，再依實際情況調整即可。</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+    PROJ_TEMPLATES.forEach(function(t,i){
+      h+='<button onclick="createProjFromTemplate('+i+')" style="display:flex;align-items:center;gap:7px;padding:12px 10px;background:'+t.color+'0d;border:1px solid '+t.color+'33;border-left:4px solid '+t.color+';border-radius:11px;color:#1e3252;font-size:14px;font-weight:700;cursor:pointer;text-align:left;line-height:1.3"><span style="font-size:20px;flex-shrink:0">'+t.icon+'</span>'+t.title+'</button>';
+    });
+    h+='</div></div>';
+  }
+  h+='</div>';
+
   // Empty state
   if(projects.length===0){
     h+='<div style="text-align:center;padding:50px 20px;color:#7a8fa8">';
@@ -2101,8 +2294,16 @@ function renderProj(){
     con.innerHTML=h;return;
   }
 
-  // Project cards
+  // Active project cards (non-archived)
+  var _activeCount=0;
+  projects.forEach(function(p){ if(!p.archived)_activeCount++; });
+  if(_activeCount===0){
+    h+='<div style="text-align:center;padding:30px 20px;color:#9aa6ba;background:#f4f6fa;border:1px dashed #d8dce8;border-radius:14px;margin-bottom:14px">';
+    h+='<div style="font-size:36px;margin-bottom:8px">🌱</div>';
+    h+='<div style="font-size:14px;line-height:1.8">目前沒有進行中的專案<br>已結束的專案收在下方，可隨時還原</div></div>';
+  }
   projects.forEach(function(p,pi){
+    if(p.archived)return;
     var st=PROJ_STATUS[0];
     for(var si=0;si<PROJ_STATUS.length;si++){if(PROJ_STATUS[si].id===p.status)st=PROJ_STATUS[si];}
     var doneTasks=(p.tasks||[]).filter(function(t){return t.done;}).length;
@@ -2252,7 +2453,8 @@ function renderProj(){
           var isA=p.status===s.id;
           h+='<button data-pi="'+pi+'" data-sid="'+s.id+'" onclick="changeProjStatus(this.dataset.pi,this.dataset.sid)" style="padding:6px 12px;border:1.5px solid '+s.color+';border-radius:9px;background:'+(isA?s.bg:"transparent")+';color:'+(isA?s.color:"#7a8fa8")+';font-size:13px;cursor:pointer;font-weight:'+(isA?700:400)+'">'+s.icon+' '+s.label+'</button>';
         });
-        h+='<button data-pi="'+pi+'" onclick="delProj(parseInt(this.dataset.pi))" style="padding:6px 12px;border:1px solid #e05c3a40;border-radius:9px;background:#fdf0ec;color:#e05c3a;font-size:13px;cursor:pointer;margin-left:auto">🗑 刪除</button>';
+        h+='<button data-pi="'+pi+'" onclick="endProj(parseInt(this.dataset.pi))" style="padding:6px 12px;border:1px solid #0a8f8440;border-radius:9px;background:#e5f5f3;color:#0a8f84;font-size:13px;cursor:pointer;margin-left:auto;font-weight:700">🏁 結束專案</button>';
+        h+='<button data-pi="'+pi+'" onclick="delProj(parseInt(this.dataset.pi))" style="padding:6px 12px;border:1px solid #e05c3a40;border-radius:9px;background:#fdf0ec;color:#e05c3a;font-size:13px;cursor:pointer">🗑 刪除</button>';
         h+='</div>';
       }
 
@@ -2371,6 +2573,34 @@ function renderProj(){
     h+='</div>'; // card end
   });
 
+  // ── Archived / ended projects ──
+  var _archived=[];
+  projects.forEach(function(p,pi){ if(p.archived)_archived.push({p:p,pi:pi}); });
+  if(_archived.length>0){
+    h+='<div style="margin-top:24px;border-top:2px solid #e3e8f2;padding-top:18px">';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+    h+='<span style="font-size:15px;font-weight:800;color:#7a8fa8">🏁 已結束的專案</span>';
+    h+='<span style="font-size:12px;color:#9aa6ba;background:#f0f4f8;border-radius:8px;padding:2px 9px;font-weight:700">'+_archived.length+'</span>';
+    h+='</div>';
+    _archived.forEach(function(o){
+      var p=o.p, pi=o.pi;
+      var dTasks=(p.tasks||[]).filter(function(t){return t.done;}).length;
+      var tTasks=(p.tasks||[]).length;
+      h+='<div style="background:#f4f6fa;border:1px solid #e3e8f2;border-radius:14px;padding:14px;margin-bottom:10px;opacity:.92">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">';
+      h+='<span style="font-size:12px;padding:3px 10px;border-radius:8px;background:#e5f5f3;color:#0a8f84;font-weight:700">✅ 已結束</span>';
+      if(p.endedAt)h+='<span style="font-size:12px;color:#9aa6ba">結束於 '+p.endedAt+'</span>';
+      h+='</div>';
+      h+='<div style="font-size:16px;font-weight:800;color:#4a5a72;margin-bottom:4px">'+esc(p.title)+'</div>';
+      if(tTasks>0)h+='<div style="font-size:12px;color:#9aa6ba;margin-bottom:10px">任務完成 '+dTasks+'/'+tTasks+'</div>';
+      h+='<div style="display:flex;gap:8px">';
+      h+='<button data-pi="'+pi+'" onclick="restoreProj(parseInt(this.dataset.pi))" style="flex:1;padding:8px;border:1.5px solid #1e4d8c;border-radius:9px;background:transparent;color:#1e4d8c;font-size:13px;cursor:pointer;font-weight:700">↩ 還原專案</button>';
+      h+='<button data-pi="'+pi+'" onclick="delProj(parseInt(this.dataset.pi))" style="padding:8px 14px;border:1px solid #e05c3a40;border-radius:9px;background:#fdf0ec;color:#e05c3a;font-size:13px;cursor:pointer">🗑 刪除</button>';
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
+
   con.innerHTML=h;
 }
 
@@ -2410,13 +2640,67 @@ function toggleProj(pi){
   projects[pi].open=!projects[pi].open;
   saveProjects(projects);renderProj();
 }
+// ── 自製確認視窗（取代原生 confirm，App 內建瀏覽器也能用）──
+var _appConfirmCb=null;
+function appConfirm(title,msg,okColor,cb){
+  _appConfirmCb=cb;
+  var ov=document.getElementById("app-confirm");
+  if(!ov){ov=document.createElement("div");ov.id="app-confirm";document.body.appendChild(ov);}
+  var oc=okColor||"#1e4d8c";
+  ov.style.cssText="position:fixed;inset:0;background:rgba(20,28,48,.55);display:flex;align-items:center;justify-content:center;z-index:99999;padding:24px";
+  ov.innerHTML='<div style="background:#fff;border-radius:18px;max-width:340px;width:100%;padding:24px 22px;box-shadow:0 20px 60px rgba(0,0,0,.3)">'
+    +'<div style="font-size:19px;font-weight:800;color:#1e3252;margin-bottom:10px">'+title+'</div>'
+    +'<div style="font-size:15px;color:#4a5a72;line-height:1.7;margin-bottom:22px;white-space:pre-line">'+msg+'</div>'
+    +'<div style="display:flex;gap:10px">'
+    +'<button onclick="appConfirmClose()" style="flex:1;padding:13px;border:1.5px solid #d8dce8;border-radius:12px;background:#f4f6fa;color:#4a5a72;font-size:16px;font-weight:700;cursor:pointer">取消</button>'
+    +'<button onclick="appConfirmYes()" style="flex:1;padding:13px;border:none;border-radius:12px;background:'+oc+';color:#fff;font-size:16px;font-weight:700;cursor:pointer">確定</button>'
+    +'</div></div>';
+  ov.style.display="flex";
+}
+function appConfirmClose(){var ov=document.getElementById("app-confirm");if(ov)ov.style.display="none";_appConfirmCb=null;}
+function appConfirmYes(){var cb=_appConfirmCb;appConfirmClose();if(cb)cb();}
 function delProj(pi){
-  var projects=getProjects();projects.splice(pi,1);saveProjects(projects);renderProj();toast("專案已刪除");
+  pi=parseInt(pi);
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  var nm=projects[pi].title||"此專案";
+  appConfirm("永久刪除專案","確定要永久刪除「"+nm+"」嗎？\n刪除後無法復原，所有階段記錄與任務都會消失。","#e05c3a",function(){
+    var ps=getProjects();
+    if(pi<0||pi>=ps.length)return;
+    ps.splice(pi,1);saveProjects(ps);renderProj();toast("專案已刪除");
+  });
+}
+function endProj(pi){
+  pi=parseInt(pi);
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  var nm=projects[pi].title||"此專案";
+  appConfirm("結束專案","確定要結束「"+nm+"」嗎？\n專案會標記為已完成並收進「已結束」區，記錄都保留，隨時可以還原。","#0a8f84",function(){
+    var ps=getProjects();
+    if(pi<0||pi>=ps.length)return;
+    ps[pi].archived=true;
+    ps[pi].status="done";
+    ps[pi].endedAt=tod();
+    ps[pi].open=false;
+    saveProjects(ps);renderProj();toast("專案已結束 🏁");
+  });
+}
+function restoreProj(pi){
+  var projects=getProjects();
+  if(pi<0||pi>=projects.length)return;
+  projects[pi].archived=false;
+  projects[pi].endedAt="";
+  if(projects[pi].status==="done")projects[pi].status="active";
+  projects[pi].open=false;
+  saveProjects(projects);renderProj();toast("專案已還原 ↩");
 }
 function changeProjStatus(pi,sid){
+  pi=parseInt(pi);
   var projects=getProjects();
   if(pi<0||pi>=projects.length)return;
   projects[pi].status=sid;saveProjects(projects);renderProj();
+  var lbl=sid;for(var i=0;i<PROJ_STATUS.length;i++){if(PROJ_STATUS[i].id===sid)lbl=PROJ_STATUS[i].label;}
+  toast("狀態已改為「"+lbl+"」");
 }
 function updProjRole(pi,rid,val){
   var projects=getProjects();
@@ -2642,6 +2926,7 @@ function renderSettings(){
   h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.7;margin-top:8px">開啟後，「規劃 → 今日」頁的每個時間區塊會出現 &#9999;&#65039; 可修改名稱／時間／說明，底部也會出現「＋ 新增時間區塊」。日常使用時建議關閉，保持畫面清爽。</div>';
   if(editTB)h+='<button onclick="gotoBlockEdit()" style="width:100%;margin-top:12px;padding:12px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:700;cursor:pointer">前往規劃頁編輯 →</button>';
   h+='</div>';
+  h+=_securitySettingsHTML();
   el.innerHTML=h;
 }
 
@@ -5728,7 +6013,51 @@ var MIN_TEMPLATES=[
    milestones:['節目定案','邀請卡發送','場地佈置','總彩排'],
    equipment:['佈置裝飾','音響燈光','餐具桌椅','禮物','投影設備'],
    budget:['場地佈置','餐點','禮物','文宣邀請卡'],
-   prayers:['福音朋友願意赴約','福音信息感動人心、領人信主','同工同心、各司其職']}
+   prayers:['福音朋友願意赴約','福音信息感動人心、領人信主','同工同心、各司其職']},
+  {name:'郊遊／戶外活動',icon:'🏞️',color:'#1f9e7a',verse:'詩篇19:1',
+   calling:'在神所造的美好中親近神、數算主恩，在輕鬆的相聚裡增進弟兄姊妹的情誼。',
+   audience:'全會眾、家庭與新朋友（很適合邀請福音朋友同樂）',
+   team:[{role:'總召'},{role:'交通／接送'},{role:'場地／路線'},{role:'餐飲／點心'},{role:'團康帶領'},{role:'安全／醫護'},{role:'招待'}],
+   goals:['弟兄姊妹在輕鬆中加深情誼','邀請新朋友融入大家庭','在大自然中一同數算主恩'],
+   rundown:[{time:'',item:'集合・出發',person:''},{time:'',item:'抵達・破冰',person:''},{time:'',item:'團康活動',person:''},{time:'',item:'午餐・愛宴',person:''},{time:'',item:'自由活動・分享',person:''},{time:'',item:'收拾・平安返程',person:''}],
+   tasks:['場地與路線勘查','交通與接送安排','報名統計與分組','餐點與物資採購','團康活動設計','保險與安全須知'],
+   milestones:['場地確認','開放報名','交通定案'],
+   equipment:['遊覽車／交通','急救醫護包','團康道具','餐點與飲水','野餐墊／帳篷','垃圾袋'],
+   budget:['交通車資','場地／門票','餐點','保險','物資'],
+   prayers:['天氣晴朗、出入平安','行車與活動安全','情誼增進、新朋友被主的愛吸引']},
+  {name:'退修會',icon:'⛺',color:'#2c6e8f',verse:'馬可福音6:31',
+   calling:'暫離日常忙碌，安靜退到主面前歇一歇，讓生命被神更新、重新得力、重整方向。',
+   audience:'全教會或特定群體（同工、青年、夫妻等）',
+   team:[{role:'總召'},{role:'講員／帶領'},{role:'敬拜'},{role:'報名／行政'},{role:'場地／住宿'},{role:'餐飲'},{role:'課程／活動'},{role:'禱告守望'}],
+   goals:['安靜親近神、被聖靈更新','生命與服事方向得著更新','在退修中加深彼此連結'],
+   rundown:[{time:'',item:'報到・開場敬拜',person:''},{time:'',item:'信息（一）',person:''},{time:'',item:'安靜默想・獨處',person:''},{time:'',item:'小組分享',person:''},{time:'',item:'信息（二）・回應',person:''},{time:'',item:'差遣・祝福',person:''}],
+   tasks:['主題與講員確定','場地與住宿租借','報名與分房安排','課程與活動設計','交通接駁安排','物資與講義預備'],
+   milestones:['主題講員確定','場地確認','開放報名','行前說明會'],
+   equipment:['投影音響','講義／筆記本','名牌','詩歌本','安靜默想資料','茶水點心'],
+   budget:['場地住宿','講員謝禮','餐飲','交通','文宣講義'],
+   prayers:['求神在退修中親自向人說話','弟兄姊妹放下忙碌、安靜領受','生命方向被更新、重新得力']},
+  {name:'慶生會',icon:'🎂',color:'#d6457f',verse:'詩篇139:14',
+   calling:'為壽星獻上感恩，慶賀神所賜的生命，在歡樂中傳遞主的愛與祝福。',
+   audience:'壽星、小家家人、親友（可邀福音朋友）',
+   team:[{role:'主辦'},{role:'場地佈置'},{role:'蛋糕／餐點'},{role:'節目／遊戲'},{role:'攝影'},{role:'招待'}],
+   goals:['讓壽星感受被愛與祝福','弟兄姊妹同樂、增進情誼','在感恩中一同見證主恩'],
+   rundown:[{time:'',item:'迎賓',person:''},{time:'',item:'唱生日歌・切蛋糕',person:''},{time:'',item:'祝福・感恩分享',person:''},{time:'',item:'遊戲同樂',person:''},{time:'',item:'愛宴・交誼',person:''}],
+   tasks:['確認壽星與日期','蛋糕與餐點訂購','場地佈置','禮物與卡片預備','節目與遊戲安排'],
+   milestones:['日期確認','訂蛋糕'],
+   equipment:['生日蛋糕','佈置裝飾','禮物／卡片','餐點飲料','音響','蠟燭／餐具'],
+   budget:['蛋糕','佈置','禮物','餐點'],
+   prayers:['壽星新的一歲蒙福、更愛主','聚會充滿喜樂與愛','藉慶生向親友傳遞主的愛']},
+  {name:'福音茶會',icon:'🍵',color:'#b5651d',verse:'路加福音14:23',
+   calling:'以溫馨輕鬆的茶會接待福音朋友，藉著款待、見證與信息，引人認識主耶穌。',
+   audience:'福音朋友、慕道友、初次接觸教會的來賓',
+   team:[{role:'總召'},{role:'邀請／陪伴（一對一）'},{role:'茶點／接待'},{role:'司會／主持'},{role:'見證分享'},{role:'講員／福音信息'},{role:'音樂／敬拜'},{role:'後續跟進'}],
+   goals:['營造溫馨無壓力的氛圍','讓福音朋友感受被愛被接納','清楚傳揚福音、邀請決志','留下資料以利後續跟進'],
+   rundown:[{time:'',item:'迎賓・茶點交誼',person:''},{time:'',item:'音樂・開場',person:''},{time:'',item:'生命見證分享',person:''},{time:'',item:'福音信息',person:''},{time:'',item:'回應・決志邀請',person:''},{time:'',item:'自由交誼・留資料',person:''}],
+   tasks:['擬定邀請名單、一對一邀請','茶點與場地佈置','見證者預備','福音信息與決志單預備','建立後續跟進機制'],
+   milestones:['邀請名單確定','茶點場地確認','見證與信息預備'],
+   equipment:['茶點餐飲','桌椅佈置','福音單張／決志卡','音響','來賓資料表','小禮物'],
+   budget:['茶點餐飲','佈置','文宣決志卡','小禮物'],
+   prayers:['福音朋友願意赴約、心門開啟','聖靈動工、信息感動人心','有人決志信主並穩定跟進']}
 ];
 function createMinFromTemplate(idx){
   var t=MIN_TEMPLATES[idx];if(!t)return;
@@ -5809,7 +6138,12 @@ function renderMinistry(){
     h+='<div style="font-size:14px;line-height:1.9">點「＋ 新事工」開始<br>用 321 的眼光規劃神所託付的事工</div></div>';
     con.innerHTML=h;return;
   }
+  var _minActive=0;mins.forEach(function(m){if(!m.archived)_minActive++;});
+  if(_minActive===0){
+    h+='<div style="text-align:center;padding:30px 20px;color:#9aa6ba;background:#f4f6fa;border:1px dashed #d8dce8;border-radius:14px;margin-bottom:14px"><div style="font-size:36px;margin-bottom:8px">🌱</div><div style="font-size:14px;line-height:1.8">目前沒有進行中的事工<br>已結束的事工收在下方，可隨時還原</div></div>';
+  }
   mins.forEach(function(m){
+    if(m.archived)return;
     var ph=MIN_PHASES[0];for(var i=0;i<MIN_PHASES.length;i++){if(MIN_PHASES[i].id===m.phase)ph=MIN_PHASES[i];}
     var chkDone=Object.keys(m.check||{}).filter(function(k){return m.check[k];}).length;
     var tTotal=(m.tasks||[]).length,tDone=(m.tasks||[]).filter(function(t){return t.done;}).length;
@@ -5819,6 +6153,7 @@ function renderMinistry(){
     h+='<div style="font-size:17px;font-weight:800;color:#1e3252;flex:1">'+esc(m.name)+'</div>';
     h+='<span style="font-size:12px;font-weight:700;color:'+ph.color+';background:'+ph.color+'15;padding:3px 10px;border-radius:20px;white-space:nowrap">'+ph.icon+' '+ph.label+'</span>';
     h+='</div>';
+    if(m.done)h+='<div style="margin-top:6px"><span style="font-size:12px;font-weight:700;color:#0a8f84;background:#e5f5f3;padding:3px 10px;border-radius:8px">✅ 已完成</span></div>';
     if(m.verse)h+='<div style="font-size:13px;color:#6b45b0;margin-top:4px">📖 '+esc(m.verse)+'</div>';
     var _meta=[];if(m.date)_meta.push('📅 '+m.date);if(m.place)_meta.push('📍 '+esc(m.place));if(_meta.length)h+='<div style="font-size:13px;color:#7a8fa8;margin-top:4px">'+_meta.join('　')+'</div>';
     h+='<div style="margin-top:10px;display:flex;align-items:center;gap:8px">';
@@ -5832,6 +6167,26 @@ function renderMinistry(){
     h+='</div>';
     h+='</div>';
   });
+  // ── 已結束／封存的事工 ──
+  var _minArch=mins.filter(function(m){return m.archived;});
+  if(_minArch.length>0){
+    h+='<div style="margin-top:24px;border-top:2px solid #e3e8f2;padding-top:18px">';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:15px;font-weight:800;color:#7a8fa8">🏁 已結束的事工</span><span style="font-size:12px;color:#9aa6ba;background:#f0f4f8;border-radius:8px;padding:2px 9px;font-weight:700">'+_minArch.length+'</span></div>';
+    _minArch.forEach(function(m){
+      var tT=(m.tasks||[]).length,tD=(m.tasks||[]).filter(function(t){return t.done;}).length;
+      h+='<div style="background:#f4f6fa;border:1px solid #e3e8f2;border-radius:14px;padding:14px;margin-bottom:10px;opacity:.92">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap"><span style="font-size:12px;padding:3px 10px;border-radius:8px;background:#e5f5f3;color:#0a8f84;font-weight:700">✅ 已結束</span>';
+      if(m.endedAt)h+='<span style="font-size:12px;color:#9aa6ba">結束於 '+m.endedAt+'</span>';
+      h+='</div>';
+      h+='<div style="font-size:16px;font-weight:800;color:#4a5a72;margin-bottom:4px">'+esc(m.name)+'</div>';
+      if(tT>0)h+='<div style="font-size:12px;color:#9aa6ba;margin-bottom:10px">任務完成 '+tD+'/'+tT+'</div>';
+      h+='<div style="display:flex;gap:8px">';
+      h+='<button onclick="minRestore(\''+m.id+'\')" style="flex:1;padding:8px;border:1.5px solid #1e4d8c;border-radius:9px;background:transparent;color:#1e4d8c;font-size:13px;cursor:pointer;font-weight:700">↩ 還原事工</button>';
+      h+='<button onclick="minConfirmDel(\''+m.id+'\')" style="padding:8px 14px;border:1px solid #e05c3a40;border-radius:9px;background:#fdf0ec;color:#e05c3a;font-size:13px;cursor:pointer">🗑 刪除</button>';
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
   con.innerHTML=h;
 }
 function showNewMin(){var b=document.getElementById('newMinBox');if(b)b.style.display='block';}
@@ -5864,6 +6219,99 @@ function minTogCheck(id,key){_updMin(id,function(m){if(!m.check)m.check={};m.che
 function minArmDel(){_minDelArm=true;renderMinistry();}
 function minCancelDel(){_minDelArm=false;renderMinistry();}
 function minDoDel(id){var ms=getMins().filter(function(m){return m.id!==id;});saveMins(ms);_minOpen=null;_minDelArm=false;renderMinistry();toast('事工已刪除');}
+function minMarkDone(id){_updMin(id,function(m){m.done=true;});renderMinistry();toast('事工已標記完成 ✅');}
+function minMarkUndone(id){_updMin(id,function(m){m.done=false;});renderMinistry();toast('已取消完成標記');}
+function minEndArchive(id){
+  var m=_getMin(id);if(!m)return;
+  appConfirm('結束封存事工','確定要結束「'+m.name+'」嗎？\n事工會標記完成並收進「已結束」區，所有規劃內容都保留，隨時可以還原。','#0a8f84',function(){
+    _updMin(id,function(mm){mm.archived=true;mm.done=true;mm.endedAt=tod();});
+    _minOpen=null;_minDelArm=false;renderMinistry();window.scrollTo(0,0);toast('事工已結束封存 🏁');
+  });
+}
+function minRestore(id){_updMin(id,function(m){m.archived=false;m.endedAt='';});renderMinistry();toast('事工已還原 ↩');}
+function minConfirmDel(id){
+  var m=_getMin(id);if(!m)return;
+  appConfirm('永久刪除事工','確定要永久刪除「'+m.name+'」嗎？\n刪除後無法復原，所有規劃內容都會消失。','#e05c3a',function(){minDoDel(id);});
+}
+var MIN_GUIDE={
+  pray:{purpose:'先讓耶穌作王，在禱告中分辨這事工是否出於神的呼召，而非己意。',
+    steps:['在禱告中尋求神的感動，分辨是出於呼召還是己意','找出這事工的異象經文，填入「異象與呼召」','用一句話寫下「為何要做這事工」的目的'],
+    questions:['神給的感動是什麼？','哪一處經文是這事工的根基？','我是無己讓耶穌作主，還是有己想證明自己？'],
+    verse:'你所做的，要交託耶和華，你所謀的，就必成立。(箴16:3)'},
+  plan:{purpose:'把異象落地成「人事時地物」，先建立關係、再安排事。',
+    steps:['人：填好總負責人、同工職責、服事對象','事：寫下具體目標、流程程序、籌備任務','時：訂出日期與籌備里程碑','地與物：確認場地、器材清單、經費預算'],
+    questions:['每個同工都清楚自己負責什麼嗎？','目標具體到可以檢核嗎？','有用 235 的眼光建立同工關係嗎？'],
+    verse:'你們哪一個要蓋一座樓，不先坐下算計花費…？(路14:28)'},
+  do:{purpose:'啟動、協調、克服阻力，一邊做一邊追蹤進度。',
+    steps:['把籌備任務、里程碑逐一執行並打勾','關注逾期或即將到期的任務，即時協調支援','遇到問題隨手記在「檢討與調整」','阻力來時，先謙卑禱告再行動'],
+    questions:['進度如何？哪裡卡住了？','誰需要支援？','我是用心靠聖靈，還是用腦靠自己？'],
+    verse:'我靠著那加給我力量的，凡事都能做。(腓4:13)'},
+  grow:{purpose:'事工不是辦完一場活動，而是建立屬神的體系，使生命繁殖生命、接棒傳承。',
+    steps:['完成「屬靈健檢 12 項」的回顧','寫下「檢討與調整」：學到什麼、如何更好','確認有沒有培養出可以接棒傳承的人','把一切榮耀歸給神，準備標記完成或結束封存'],
+    questions:['達成異象了嗎？學到什麼？','有沒有人被建立、可以接棒？','榮耀歸給誰？'],
+    verse:'你…所聽見的，也要交託那忠心能教導別人的人。(提後2:2)'}
+};
+var _minWizOpen=true;
+function toggleMinWiz(){_minWizOpen=!_minWizOpen;renderMinistry();}
+function minTogGuide(id,phase,idx){_updMin(id,function(m){if(!m.guide)m.guide={};if(!m.guide[phase])m.guide[phase]={};m.guide[phase][idx]=!m.guide[phase][idx];});renderMinistry();}
+function minGoPhase(id,ph){_updMin(id,function(m){m.phase=ph;});renderMinistry();window.scrollTo(0,0);}
+function minNextPhase(id){
+  var order=['pray','plan','do','grow'];
+  _updMin(id,function(m){var i=order.indexOf(m.phase);if(i<0)i=0;if(i<order.length-1)m.phase=order[i+1];});
+  renderMinistry();window.scrollTo(0,0);toast('已進入下一階段 →');
+}
+function _minWizard(m,id){
+  var order=['pray','plan','do','grow'];
+  var cur=m.phase||'pray';var idx=order.indexOf(cur);if(idx<0)idx=0;
+  var ph=MIN_PHASES[idx];var g=MIN_GUIDE[cur];if(!g)return '';
+  var gd=(m.guide&&m.guide[cur])||{};
+  var dc=0;for(var k=0;k<g.steps.length;k++){if(gd[k])dc++;}
+  var all=dc>=g.steps.length;var pct=Math.round(dc/g.steps.length*100);
+  var h='<div style="background:#fff;border:2px solid '+ph.color+'55;border-radius:16px;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px '+ph.color+'1a">';
+  h+='<div onclick="toggleMinWiz()" style="display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:'+ph.color+'12;cursor:pointer">';
+  h+='<span style="font-size:16px;font-weight:800;color:'+ph.color+'">🧭 階段引導精靈</span>';
+  h+='<span style="font-size:13px;color:#7a8fa8;font-weight:700">階段 '+(idx+1)+'/4　'+(_minWizOpen?'收合 ▲':'展開 ▼')+'</span>';
+  h+='</div>';
+  if(_minWizOpen){
+    h+='<div style="padding:15px 16px">';
+    h+='<div style="display:flex;align-items:center;gap:0;margin-bottom:16px">';
+    order.forEach(function(o,oi){
+      var oph=MIN_PHASES[oi];var on=oi===idx;var passed=oi<idx;
+      h+='<div onclick="minGoPhase(\''+id+'\',\''+o+'\')" style="flex:1;text-align:center;cursor:pointer">';
+      h+='<div style="width:36px;height:36px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:17px;background:'+(on?oph.color:(passed?oph.color+'30':'#eef2f7'))+';color:'+(on?'#fff':oph.color)+';border:2px solid '+(on||passed?oph.color:'#dde3ec')+'">'+(passed?'✓':oph.icon)+'</div>';
+      h+='<div style="font-size:10px;margin-top:3px;color:'+(on?oph.color:'#9aa6ba')+';font-weight:'+(on?800:600)+'">'+oph.label+'</div></div>';
+      if(oi<3)h+='<div style="width:14px;height:2px;background:'+(oi<idx?oph.color:'#dde3ec')+';margin-top:-15px;flex-shrink:0"></div>';
+    });
+    h+='</div>';
+    h+='<div style="font-size:19px;font-weight:800;color:'+ph.color+';margin-bottom:5px">'+ph.icon+' '+ph.label+'</div>';
+    h+='<div style="font-size:15px;color:#4a5a72;line-height:1.75;margin-bottom:14px">'+g.purpose+'</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="flex:1;height:7px;background:#eef2f7;border-radius:10px"><div style="width:'+pct+'%;height:100%;background:'+ph.color+';border-radius:10px"></div></div><span style="font-size:13px;font-weight:700;color:'+ph.color+'">'+dc+'/'+g.steps.length+'</span></div>';
+    h+='<div style="font-size:13px;font-weight:700;color:#7a8fa8;margin:12px 0 7px">本階段要做的事（點一下打勾）</div>';
+    g.steps.forEach(function(s,i){
+      var ck=!!gd[i];
+      h+='<div onclick="minTogGuide(\''+id+'\',\''+cur+'\','+i+')" style="display:flex;align-items:flex-start;gap:11px;padding:11px 13px;margin-bottom:7px;border:1.5px solid '+(ck?ph.color+'55':'#e3e8f2')+';border-radius:11px;background:'+(ck?ph.color+'0d':'#fff')+';cursor:pointer">';
+      h+='<div style="width:25px;height:25px;border-radius:7px;flex-shrink:0;border:2px solid '+(ck?ph.color:'#cbd3df')+';background:'+(ck?ph.color:'#fff')+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800">'+(ck?'✓':'')+'</div>';
+      h+='<div style="font-size:15px;line-height:1.6;color:'+(ck?'#9aa6ba':'#1e3252')+';'+(ck?'text-decoration:line-through':'')+'">'+s+'</div>';
+      h+='</div>';
+    });
+    h+='<div style="background:#f7f9fc;border-radius:12px;padding:12px 14px;margin-top:12px">';
+    h+='<div style="font-size:14px;font-weight:700;color:'+ph.color+';margin-bottom:7px">🤔 停下來，這樣自問</div>';
+    g.questions.forEach(function(q){h+='<div style="font-size:15px;color:#4a5a72;line-height:1.85;display:flex;gap:7px"><span style="color:'+ph.color+';font-weight:800">▸</span><span>'+q+'</span></div>';});
+    h+='</div>';
+    h+='<div style="font-size:14px;color:#6b45b0;line-height:1.75;margin-top:12px;padding-left:11px;border-left:3px solid #6b45b033">📖 '+g.verse+'</div>';
+    h+='<div style="margin-top:16px">';
+    if(idx<3){
+      h+='<button onclick="minNextPhase(\''+id+'\')" style="width:100%;padding:15px;border:none;border-radius:12px;background:'+(all?ph.color:'#aeb8c6')+';color:#fff;font-size:16px;font-weight:800;cursor:pointer;line-height:1.5">✅ 完成本階段，進入「'+MIN_PHASES[idx+1].label+'」 →</button>';
+      if(!all)h+='<div style="text-align:center;font-size:12px;color:#9aa6ba;margin-top:7px">還有 '+(g.steps.length-dc)+' 項未勾選，預備好了仍可進入下一階段</div>';
+    }else{
+      h+='<button onclick="minMarkDone(\''+id+'\')" style="width:100%;padding:15px;border:none;border-radius:12px;background:#0a8f84;color:#fff;font-size:16px;font-weight:800;cursor:pointer">🎉 四階段走完 · 標記事工完成</button>';
+      h+='<div style="text-align:center;font-size:12px;color:#9aa6ba;margin-top:7px">完成後可在頁面最下方「🏁 結束封存」存記這段見證</div>';
+    }
+    h+='</div></div>';
+  }
+  h+='</div>';
+  return h;
+}
 function _minSec(title,inner,color){return '<div style="background:#fff;border:1px solid #e8edf5;border-radius:14px;padding:14px 15px;margin-bottom:12px"><div style="font-size:15px;font-weight:800;color:'+(color||'#1e4d8c')+';margin-bottom:10px">'+title+'</div>'+inner+'</div>';}
 function _minTextList(m,key,ph,col){
   var arr=m[key]||[],s='';
@@ -5979,6 +6427,7 @@ function renderMinDetail(id){
   h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">';
   MIN_PHASES.forEach(function(p){var on=m.phase===p.id;h+='<button onclick="minSetPhase(\''+id+'\',\''+p.id+'\')" style="flex:1;min-width:70px;padding:9px 4px;border:1.5px solid '+p.color+';border-radius:11px;background:'+(on?p.color:'transparent')+';color:'+(on?'#fff':p.color)+';font-size:12px;font-weight:700;cursor:pointer;line-height:1.5">'+p.icon+'<br>'+p.label+'</button>';});
   h+='</div>';
+  h+=_minWizard(m,id);
   // 異象呼召（生命根基）
   h+=_minSec('🎯 異象與呼召','<div style="font-size:12px;color:#7a8fa8;margin-bottom:4px">異象經文</div><input value="'+esc(m.verse||'')+'" data-mid="'+id+'" data-field="verse" onchange="minSetField(this)" class="inp" placeholder="例：路加福音4:18-19" style="font-size:14px;margin-bottom:10px"><div style="font-size:12px;color:#7a8fa8;margin-bottom:4px">為何要做這事工？（呼召與目的）</div><textarea data-mid="'+id+'" data-field="calling" onchange="minSetField(this)" class="ta" rows="3" placeholder="神給的感動、這事工要成就的目的…讓耶穌得榮耀" style="font-size:14px">'+esc(m.calling||'')+'</textarea>','#d97706');
   h+='<div style="text-align:center;font-size:13px;color:#9aa6ba;letter-spacing:4px;margin:22px 0 2px;font-weight:800">規 劃 五 要 素</div>';
@@ -6010,8 +6459,21 @@ function renderMinDetail(id){
   h+=_minCheckSec(m,id);
   h+=_minSec('🙏 禱告事項',_minTextList(m,'prayers','新增禱告','#6b45b0'),'#6b45b0');
   h+=_minSec('🌱 檢討與調整','<textarea data-mid="'+id+'" data-field="review" onchange="minSetField(this)" class="ta" rows="3" placeholder="進行得如何？哪裡需要修正？學到什麼？如何繁殖傳承？" style="font-size:14px">'+esc(m.review||'')+'</textarea>','#6b45b0');
-  if(_minDelArm){h+='<div style="display:flex;gap:8px;margin:8px 0 34px"><button onclick="minDoDel(\''+id+'\')" style="flex:1;padding:11px;background:#e05c3a;border:none;border-radius:10px;color:#fff;font-weight:700;cursor:pointer">確定刪除</button><button onclick="minCancelDel()" style="padding:11px 18px;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px;color:#4a5a72;cursor:pointer">取消</button></div>';}
-  else{h+='<button onclick="minArmDel()" style="width:100%;padding:11px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:10px;color:#e05c3a;font-size:14px;cursor:pointer;margin:8px 0 34px">🗑 刪除此事工</button>';}
+  h+='<div style="border-top:1px solid #e3e8f2;margin:24px 0 8px;padding-top:16px">';
+  h+='<div style="display:flex;gap:8px;margin-bottom:10px">';
+  if(m.done){
+    h+='<button onclick="minMarkUndone(\''+id+'\')" style="flex:1;padding:11px;background:#eef2f9;border:1.5px solid #1e4d8c;border-radius:10px;color:#1e4d8c;font-size:14px;font-weight:700;cursor:pointer">↩ 取消完成標記</button>';
+  }else{
+    h+='<button onclick="minMarkDone(\''+id+'\')" style="flex:1;padding:11px;background:#e5f5f3;border:1.5px solid #0a8f84;border-radius:10px;color:#0a8f84;font-size:14px;font-weight:700;cursor:pointer">✅ 標記完成</button>';
+  }
+  if(!m.archived){
+    h+='<button onclick="minEndArchive(\''+id+'\')" style="flex:1;padding:11px;background:#e5f5f3;border:1px solid #0a8f8466;border-radius:10px;color:#0a8f84;font-size:14px;font-weight:700;cursor:pointer">🏁 結束封存</button>';
+  }else{
+    h+='<button onclick="minRestore(\''+id+'\')" style="flex:1;padding:11px;background:#eef2f9;border:1.5px solid #1e4d8c;border-radius:10px;color:#1e4d8c;font-size:14px;font-weight:700;cursor:pointer">↩ 還原事工</button>';
+  }
+  h+='</div>';
+  h+='<button onclick="minConfirmDel(\''+id+'\')" style="width:100%;padding:11px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:10px;color:#e05c3a;font-size:14px;cursor:pointer;margin-bottom:34px">🗑 刪除此事工</button>';
+  h+='</div>';
   return h;
 }
 
@@ -6989,7 +7451,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.3.3";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.4.4";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
