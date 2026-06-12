@@ -1925,6 +1925,16 @@ function renderPray(){
   h+='<span style="font-size:15px;color:#d97706;font-weight:600">'+filled+'/4 完成</span>';
   h+='</div>';
 
+  // Scripture reading
+  var verse=pray.verse||"";
+  h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-left:4px solid #7c4dbd;border-radius:12px;padding:12px 14px;margin-bottom:14px">';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+  h+='<div style="width:32px;height:32px;border-radius:50%;background:#6b45b0;color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center">📖</div>';
+  h+='<div><div style="font-size:15px;font-weight:700;color:#6b45b0">今日讀經章節</div>';
+  h+='<div style="font-size:13px;color:#7a8fa8">聖靈是我的引導</div></div></div>';
+  h+='<input class="inp" placeholder="例：約翰福音3:1-21" value="'+esc(verse)+'" data-pkey2="verse" oninput="updPray(this.dataset.pkey2,this.value)" style="border-color:#6b45b030">';
+  h+='</div>';
+
   // ACTS steps
   ACTS_STEPS.forEach(function(step){
     var val=pray[step.key]||"";
@@ -1945,16 +1955,6 @@ function renderPray(){
     h+='<textarea class="ta" rows="3" placeholder="在此寫下禱告…" data-pkey="'+step.key+'" oninput="updPray(this.dataset.pkey,this.value)" style="border-color:'+step.color+'30">'+esc(val)+'</textarea>';
     h+='</div>';
   });
-
-  // Scripture reading
-  var verse=pray.verse||"";
-  h+='<div style="background:#f8fafc;border:1px solid #d8dce8;border-left:4px solid #7c4dbd;border-radius:12px;padding:12px 14px;margin-bottom:14px">';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-  h+='<div style="width:32px;height:32px;border-radius:50%;background:#6b45b0;color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center">📖</div>';
-  h+='<div><div style="font-size:15px;font-weight:700;color:#6b45b0">今日讀經章節</div>';
-  h+='<div style="font-size:13px;color:#7a8fa8">聖靈是我的引導</div></div></div>';
-  h+='<input class="inp" placeholder="例：約翰福音3:1-21" value="'+esc(verse)+'" data-pkey2="verse" oninput="updPray(this.dataset.pkey2,this.value)" style="border-color:#6b45b030">';
-  h+='</div>';
 
   // 321 reminder
   h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:12px 16px;margin-bottom:14px">';
@@ -6520,7 +6520,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.2.3";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.2.4";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
