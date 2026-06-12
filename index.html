@@ -6453,6 +6453,25 @@ function schedRefreshRepPicker(){
 
 <script>
 /* ============================================================
+   清除舊的 service worker 與快取
+   （避免使用者一直被舊版本卡住；本 App 不需要 service worker）
+   ============================================================ */
+(function(){
+  try{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.getRegistrations().then(function(rs){
+        rs.forEach(function(r){ r.unregister(); });
+      }).catch(function(){});
+    }
+    if(window.caches && caches.keys){
+      caches.keys().then(function(ks){
+        ks.forEach(function(k){ caches.delete(k); });
+      }).catch(function(){});
+    }
+  }catch(e){}
+})();
+
+/* ============================================================
    App 版本更新提醒 (開啟即檢查)
    發佈新版時：
    1) 把下面 APP_VERSION 的號碼往上加（例如 1.0.1 → 1.1.0）

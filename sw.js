@@ -1,57 +1,23 @@
-/* ═══════════════════════════════════════════════
-   321每日得勝 — 離線 Service Worker
-   改版時把 CACHE 的版號 +1（例如 v2、v3），
-   使用者下次開啟就會自動更新快取。
-   ═══════════════════════════════════════════════ */
-var CACHE = '321daily-v1';
-
-var ASSETS = [
-  './',
-  'index.html',
-  'manifest.json',
-  'apple-touch-icon.png',
-  'icon-192.png',
-  'icon-512.png',
-  'icon-512-maskable.png',
-  'favicon-32.png'
-];
-
-/* 安裝：預先快取 app 外殼 */
+/* 自我清除 service worker
+   作用：把舊版 service worker 與所有快取清掉，之後一律走網路抓最新版。
+   瀏覽器每次造訪會自動比對 sw.js 是否變動，變動就會安裝這個新版並自我註銷。 */
 self.addEventListener('install', function(e){
-  e.waitUntil(
-    caches.open(CACHE).then(function(c){
-      return c.addAll(ASSETS);
-    }).then(function(){ return self.skipWaiting(); })
-  );
+  self.skipWaiting();
 });
-
-/* 啟用：清除舊版本快取 */
 self.addEventListener('activate', function(e){
   e.waitUntil(
-    caches.keys().then(function(keys){
-      return Promise.all(keys.map(function(k){
-        if(k !== CACHE){ return caches.delete(k); }
-      }));
-    }).then(function(){ return self.clients.claim(); })
+    caches.keys()
+      .then(function(keys){ return Promise.all(keys.map(function(k){ return caches.delete(k); })); })
+      .then(function(){ return self.registration.unregister(); })
+      .then(function(){ return self.clients.matchAll(); })
+      .then(function(clients){
+        clients.forEach(function(c){ try{ c.navigate(c.url); }catch(err){} });
+      })
   );
 });
-
-/* 取用：快取優先，無網路時回退到首頁 */
 self.addEventListener('fetch', function(e){
-  if(e.request.method !== 'GET'){ return; }
+  /* 永遠走網路，絕不從快取倒舊版 */
   e.respondWith(
-    caches.match(e.request).then(function(cached){
-      if(cached){ return cached; }
-      return fetch(e.request).then(function(resp){
-        if(resp && resp.status === 200 && resp.type === 'basic'){
-          var clone = resp.clone();
-          caches.open(CACHE).then(function(c){ c.put(e.request, clone); });
-        }
-        return resp;
-      }).catch(function(){
-        // 離線且未快取：導航請求回退到首頁
-        if(e.request.mode === 'navigate'){ return caches.match('index.html'); }
-      });
-    })
+    fetch(e.request).catch(function(){ return new Response('', {status:504}); })
   );
 });
