@@ -127,7 +127,7 @@ textarea{resize:none}
 .dark .soap-day-sel.on{background:#1a2a50;border-color:#1e4d8c;color:#7dd3fc}
 /* ── Share Card ── */
 #share-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.92);z-index:960;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;backdrop-filter:blur(8px)}
-#share-box{width:100%;max-width:480px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:slideUp .4s ease}
+#share-box{width:100%;max-width:480px;background:#fff;border-radius:24px;overflow-y:auto;overflow-x:hidden;max-height:calc(100vh - 32px);-webkit-overflow-scrolling:touch;box-shadow:0 24px 60px rgba(0,0,0,.4);animation:slideUp .4s ease}
 .dark #share-box{background:#141826}
 .card-style-btn{padding:8px 14px;border-radius:20px;border:2px solid transparent;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
 .card-style-btn.active{border-color:#1e4d8c;background:#e8edf5;color:#1e4d8c}
@@ -729,6 +729,62 @@ var BL=[
   {id:"rest",label:"家庭休閒",icon:"🏠",color:"#2e8b57",time:"19:30–21:00",desc:"家庭・休閒・關機保護"},
   {id:"evening",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"反思・禱告・預備明日"}
 ];
+// 生活範本（角色預設）— 套用時取代基礎區塊；空字串=預設(BL，傳道人／自由工作者)
+var PRESETS={
+worker:{name:"上班族",icon:"💼",blocks:[
+ {id:"w_dev",label:"晨更靈修",icon:"🌅",color:"#d97706",time:"06:30–06:50",desc:"讀經・禱告・先親近主"},
+ {id:"w_prep",label:"梳洗・早餐・通勤",icon:"🚿",color:"#2e8b57",time:"06:50–08:00",desc:"預備出門"},
+ {id:"w_mit",label:"當日最重要任務",icon:"🔥",color:"#e05c3a",time:"08:00–09:00",desc:"進公司先做要事"},
+ {id:"w_work",label:"工作・會議",icon:"💼",color:"#6366f1",time:"09:00–12:00",desc:"專注本職"},
+ {id:"w_lunch",label:"午餐・關係連結",icon:"🤝",color:"#3b82c4",time:"12:00–13:00",desc:"與同事／家人／「2」"},
+ {id:"w_work2",label:"工作・行政批次",icon:"📋",color:"#0f9b8e",time:"13:00–17:30",desc:"郵件・回覆・雜務"},
+ {id:"w_move",label:"通勤・走路運動",icon:"🚶",color:"#2e8b57",time:"17:30–18:30",desc:"30分運動・身體是聖靈的殿"},
+ {id:"w_family",label:"晚餐・家庭",icon:"🏠",color:"#2e8b57",time:"18:30–20:00",desc:"關機保護・陪伴"},
+ {id:"w_rest",label:"休閒・充電",icon:"☕",color:"#7c4dbd",time:"20:00–21:30",desc:"放鬆・興趣"},
+ {id:"w_eve",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交託明日"}
+]},
+parent:{name:"全職父母",icon:"👨‍👩‍👧",blocks:[
+ {id:"p_dev",label:"晨更・親近主",icon:"🌅",color:"#d97706",time:"05:50–06:20",desc:"趁安靜先靈修"},
+ {id:"p_morn",label:"起床・早餐・送孩子",icon:"🍳",color:"#e05c3a",time:"06:20–08:30",desc:"家庭晨間"},
+ {id:"p_home",label:"家務・採買",icon:"🧺",color:"#2e8b57",time:"08:30–11:00",desc:"整理・備餐"},
+ {id:"p_me",label:"自己的時間",icon:"📖",color:"#7c4dbd",time:"11:00–12:00",desc:"閱讀・禱告・喘息"},
+ {id:"p_lunch",label:"午餐・午休",icon:"🍽️",color:"#3b82c4",time:"12:00–14:00",desc:"孩子午睡＝自己充電"},
+ {id:"p_kids",label:"陪伴孩子",icon:"🧸",color:"#0f9b8e",time:"14:00–17:00",desc:"遊戲・學習・關係"},
+ {id:"p_dinner",label:"晚餐・家庭",icon:"🏠",color:"#2e8b57",time:"17:00–20:00",desc:"備餐・洗澡・睡前"},
+ {id:"p_couple",label:"夫妻／個人時間",icon:"💛",color:"#b45309",time:"20:30–21:30",desc:"連結・放鬆"},
+ {id:"p_eve",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交託明日"}
+]},
+shift:{name:"輪班族",icon:"🔄",blocks:[
+ {id:"sh_dev",label:"起床・晨更",icon:"🌅",color:"#d97706",time:"08:00–08:40",desc:"先親近主・讀經禱告"},
+ {id:"sh_move",label:"運動・家務",icon:"💪",color:"#2e8b57",time:"08:40–10:30",desc:"走路30分・整理"},
+ {id:"sh_meal",label:"早午餐・預備",icon:"🍽️",color:"#3b82c4",time:"10:30–12:30",desc:"用餐・預備上班"},
+ {id:"sh_commute",label:"通勤",icon:"🚶",color:"#6366f1",time:"12:30–13:30",desc:"移動"},
+ {id:"sh_work",label:"上班・本職",icon:"🔥",color:"#e05c3a",time:"14:00–22:00",desc:"專注工作・做在主前"},
+ {id:"sh_late",label:"下班・宵夜",icon:"🍜",color:"#0f9b8e",time:"22:00–23:00",desc:"放鬆・補充"},
+ {id:"sh_eve",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"23:00–23:15",desc:"感恩・交託"},
+ {id:"sh_sleep",label:"睡眠",icon:"😴",color:"#7c4dbd",time:"23:30–08:00",desc:"固定就寢（請依你的班別調整）"}
+]},
+student:{name:"學生",icon:"🎓",blocks:[
+ {id:"st_dev",label:"晨更靈修",icon:"🌅",color:"#d97706",time:"06:40–07:00",desc:"讀經・禱告"},
+ {id:"st_prep",label:"早餐・通勤",icon:"🎒",color:"#2e8b57",time:"07:00–08:00",desc:"預備上學"},
+ {id:"st_class",label:"上課・學習",icon:"📚",color:"#6366f1",time:"08:00–16:00",desc:"專注課業・盡本分"},
+ {id:"st_move",label:"運動・社團",icon:"🏀",color:"#e05c3a",time:"16:00–17:30",desc:"活動身體"},
+ {id:"st_dinner",label:"晚餐・家庭",icon:"🍽️",color:"#3b82c4",time:"17:30–19:00",desc:"用餐・關係"},
+ {id:"st_study",label:"讀書・作業",icon:"✍️",color:"#7c4dbd",time:"19:00–21:00",desc:"複習・預習"},
+ {id:"st_fellow",label:"團契／陪伴",icon:"🤝",color:"#0f9b8e",time:"21:00–21:30",desc:"線上團契・連結"},
+ {id:"st_eve",label:"晚間回顧",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交託明日"}
+]},
+senior:{name:"退休長輩",icon:"🌳",blocks:[
+ {id:"se_dev",label:"晨更靈修",icon:"🌅",color:"#d97706",time:"06:30–07:30",desc:"讀經・禱告・默想"},
+ {id:"se_walk",label:"晨間散步・運動",icon:"🚶",color:"#2e8b57",time:"07:30–08:30",desc:"走路・伸展・曬太陽"},
+ {id:"se_break",label:"早餐・服藥",icon:"🍵",color:"#3b82c4",time:"08:30–09:30",desc:"規律三餐・按時服藥"},
+ {id:"se_learn",label:"讀經／學習",icon:"📖",color:"#7c4dbd",time:"09:30–11:00",desc:"321理念・線上團契"},
+ {id:"se_lunch",label:"午餐・午休",icon:"🍽️",color:"#0f9b8e",time:"11:30–14:00",desc:"用餐・小睡"},
+ {id:"se_serve",label:"關懷・問安",icon:"🤝",color:"#6366f1",time:"14:00–16:00",desc:"關心一位「2」・打電話"},
+ {id:"se_family",label:"家庭・休閒",icon:"🏠",color:"#2e8b57",time:"16:00–19:00",desc:"陪伴・晚餐・興趣"},
+ {id:"se_eve",label:"晚禱・回顧",icon:"🌙",color:"#0a6670",time:"20:00–20:30",desc:"感恩・交託・早睡"}
+]}
+};
 var USFM_MAP={
     '創':'GEN','出':'EXO','利':'LEV','民':'NUM','申':'DEU',
     '書':'JOS','士':'JDG','得':'RUT','撒上':'1SA','撒下':'2SA',
@@ -2532,6 +2588,28 @@ function renderSettings(){
     h+='<button onclick="setFontIdx('+fi+')" style="padding:11px 4px;border-radius:10px;border:1.5px solid '+(onf?"#1e4d8c":"#d8dce8")+';background:'+(onf?"#e8edf5":"transparent")+';color:'+(onf?"#1e4d8c":"#7a8fa8")+';font-weight:'+(onf?800:500)+';cursor:pointer;font-size:14px">'+_fsLabels[fi]+'</button>';
   }
   h+='</div></div>';
+  // 生活範本
+  h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">&#129517; 生活範本</div>';
+  h+='<div class="card" style="margin-bottom:18px">';
+  h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.7;margin-bottom:10px">選一個貼近你生活的範本當<b>起點</b>，一鍵套用每日時間區塊，再用下面的「編輯時間區塊」微調成自己的作息。<b style="color:#1e4d8c">先生命、再關係、後事工。</b></div>';
+  var _curP=getBLPreset()||"worker";
+  var _plist=[{id:"worker",name:"上班族",icon:"💼",sub:"預設・九晚六"},
+              {id:"pastor",name:"傳道人／自由",icon:"📖",sub:"講章寫作"},
+              {id:"parent",name:"全職父母",icon:"👨‍👩‍👧",sub:"育兒・家務"},
+              {id:"shift",name:"輪班族",icon:"🔄",sub:"小夜班範例"},
+              {id:"student",name:"學生",icon:"🎓",sub:"上課・讀書"},
+              {id:"senior",name:"退休長輩",icon:"🌳",sub:"健康・關懷"}];
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  for(var _pi=0;_pi<_plist.length;_pi++){
+    var _P=_plist[_pi]; var _onP=(_curP===_P.id);
+    h+='<button data-pid="'+_P.id+'" onclick="applyPreset(this.dataset.pid)" style="text-align:left;padding:11px 12px;border-radius:12px;border:1.5px solid '+(_onP?"#0a8f84":"#d8dce8")+';background:'+(_onP?"#e7f5f3":"#fff")+';cursor:pointer">';
+    h+='<div style="font-size:15px;font-weight:800;color:'+(_onP?"#0a6e64":"#1e4d8c")+'">'+_P.icon+' '+_P.name+(_onP?' ✓':'')+'</div>';
+    h+='<div style="font-size:12px;color:#7a8fa8;margin-top:3px">'+_P.sub+'</div>';
+    h+='</button>';
+  }
+  h+='</div>';
+  h+='<div style="font-size:12px;color:#9aa6b8;line-height:1.6;margin-top:10px">範本是腳手架，不是枷鎖。套用後仍可自由增刪、改時間，把它變成最適合你的一天。</div>';
+  h+='</div>';
   // 今日事項編輯
   h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">&#128197; 今日事項</div>';
   h+='<div class="card" style="margin-bottom:10px">';
@@ -2551,9 +2629,23 @@ function getBLCustom(){return lsG("p4_blcustom")||{};}
 function saveBLCustom(d){lsS("p4_blcustom",d);}
 function getBLExtra(){return lsG("p4_blextra")||[];}
 function saveBLExtra(arr){lsS("p4_blextra",arr);}
+function getBLPreset(){return lsG("p4_preset")||"";}
+function saveBLPreset(id){lsS("p4_preset",id);}
+function applyPreset(id){
+  var p=PRESETS[id];
+  var nm=p?(p.icon+" "+p.name):"📖 傳道人／自由工作者";
+  saveBLPreset(id||"");
+  saveBLCustom({});
+  saveBLExtra([]);
+  if(typeof toast==="function")toast("✓ 已套用："+nm,"#0a8f84");
+  renderSettings();
+  if(typeof renderHCon==="function")renderHCon();
+}
 function getBL(){
   var custom=getBLCustom();
-  var base=BL.map(function(b){
+  var _pid=getBLPreset()||"worker";
+  var _baseArr=(_pid==="pastor")?BL:(PRESETS[_pid]?PRESETS[_pid].blocks:BL);
+  var base=_baseArr.map(function(b){
     var c=custom[b.id];
     return c?{id:b.id,label:c.label||b.label,icon:c.icon||b.icon,color:b.color,
               time:c.time||b.time,desc:c.desc||b.desc}:b;
@@ -3201,13 +3293,13 @@ function generateAIReport(){
 var _cardType="weekly";
 var _cardTheme="navy";
 var _themes={
-  navy:{bg1:"#0a1628",bg2:"#1e4d8c",bg3:"#0a8f84",text:"#ffffff",sub:"rgba(255,255,255,.7)",accent:"#7dd3fc"},
-  gold:{bg1:"#431407",bg2:"#b45309",bg3:"#d97706",text:"#ffffff",sub:"rgba(255,255,255,.8)",accent:"#fde68a"},
-  teal:{bg1:"#032a25",bg2:"#0a5e55",bg3:"#0a8f84",text:"#ffffff",sub:"rgba(255,255,255,.75)",accent:"#6ee7b7"},
-  rose:{bg1:"#3b0012",bg2:"#9f1239",bg3:"#e05c3a",text:"#ffffff",sub:"rgba(255,255,255,.75)",accent:"#fca5a5"},
-  purple:{bg1:"#1a0533",bg2:"#6b45b0",bg3:"#1e4d8c",text:"#ffffff",sub:"rgba(255,255,255,.75)",accent:"#c4b5fd"},
-  slate:{bg1:"#0f172a",bg2:"#334155",bg3:"#64748b",text:"#f1f5f9",sub:"rgba(241,245,249,.7)",accent:"#94a3b8"},
-  dark:{bg1:"#020617",bg2:"#0f172a",bg3:"#1e2a40",text:"#e2e8f0",sub:"rgba(226,232,240,.65)",accent:"#7dd3fc"}
+  navy:{bg1:"#0b1f3a",bg2:"#163e72",bg3:"#0e7c74",text:"#ffffff",sub:"rgba(255,255,255,.74)",accent:"#9bd9ff",gold:"#f3cd86"},
+  gold:{bg1:"#3a1d06",bg2:"#9a5a12",bg3:"#dd9a2b",text:"#ffffff",sub:"rgba(255,255,255,.82)",accent:"#ffe7a3",gold:"#fff1c4"},
+  teal:{bg1:"#03261f",bg2:"#0a5e4f",bg3:"#13a08c",text:"#ffffff",sub:"rgba(255,255,255,.78)",accent:"#8ff0d4",gold:"#ffe1a0"},
+  rose:{bg1:"#2e0a18",bg2:"#8a1c3f",bg3:"#d4566f",text:"#ffffff",sub:"rgba(255,255,255,.78)",accent:"#ffc2cf",gold:"#ffe1a0"},
+  purple:{bg1:"#160b33",bg2:"#4b2e8a",bg3:"#7d63d2",text:"#ffffff",sub:"rgba(255,255,255,.78)",accent:"#d9c9ff",gold:"#ffe1a0"},
+  slate:{bg1:"#101826",bg2:"#2b3a52",bg3:"#566c86",text:"#f1f5f9",sub:"rgba(241,245,249,.74)",accent:"#bcd0e6",gold:"#ecc987"},
+  dark:{bg1:"#05080f",bg2:"#0e1626",bg3:"#20304c",text:"#e8eefb",sub:"rgba(232,238,251,.70)",accent:"#9bd9ff",gold:"#ecc987"}
 };
 
 function openShareModal(type){
@@ -3278,292 +3370,234 @@ function drawRoundRect(ctx,x,y,w,h,r,fill){
   if(fill){ctx.fillStyle=fill;ctx.fill();}
 }
 
-function redrawCard(){
+function redrawCard(){ _drawCard(); syncShareImg(); }
+function _rrPath(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function _wrapCJK(ctx,text,maxW){var lines=[],cur="";for(var i=0;i<text.length;i++){var ch=text[i];if(ch==="\n"){lines.push(cur);cur="";continue;}if(cur&&ctx.measureText(cur+ch).width>maxW){lines.push(cur);cur=ch;}else{cur+=ch;}}if(cur!=="")lines.push(cur);return lines;}
+var _CFF="-apple-system,'PingFang TC','Helvetica Neue','Microsoft JhengHei','Heiti TC',Arial,sans-serif";
+
+function _drawCard(){
   var canvas=document.getElementById("share-canvas");
   if(!canvas)return;
   var ctx=canvas.getContext("2d");
   var W=800,H=500;
   canvas.width=W;canvas.height=H;
   var th=_themes[_cardTheme]||_themes.navy;
+  var FF=_CFF;
 
-  // ── Background gradient ──
-  var grad=ctx.createLinearGradient(0,0,W,H);
-  grad.addColorStop(0,th.bg1);
-  grad.addColorStop(0.5,th.bg2);
-  grad.addColorStop(1,th.bg3);
+  // Background diagonal gradient
+  var grad=ctx.createLinearGradient(0,0,W*0.65,H);
+  grad.addColorStop(0,th.bg1);grad.addColorStop(0.55,th.bg2);grad.addColorStop(1,th.bg3);
   ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
-
-  // Decorative circles
-  ctx.globalAlpha=0.08;
-  ctx.beginPath();ctx.arc(W-80,80,120,0,Math.PI*2);ctx.fillStyle="#fff";ctx.fill();
-  ctx.beginPath();ctx.arc(60,H-60,80,0,Math.PI*2);ctx.fillStyle="#fff";ctx.fill();
+  // Soft radial glow top-left
+  var rg=ctx.createRadialGradient(170,110,0,170,110,540);
+  rg.addColorStop(0,"rgba(255,255,255,.12)");rg.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+  // Decorative circles + gold ring
+  ctx.globalAlpha=0.06;ctx.fillStyle="#fff";
+  ctx.beginPath();ctx.arc(W-66,86,150,0,7);ctx.fill();
+  ctx.beginPath();ctx.arc(72,H-44,118,0,7);ctx.fill();
+  ctx.globalAlpha=0.45;ctx.strokeStyle=th.gold;ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(W-66,86,150,0,7);ctx.stroke();
   ctx.globalAlpha=1;
 
-  // ── Top branding ──
-  ctx.font="bold 18px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.fillText("國度321空中團契",32,42);
+  // Inner frame border
+  _rrPath(ctx,18,18,W-36,H-36,22);
+  ctx.strokeStyle="rgba(255,255,255,.18)";ctx.lineWidth=1.5;ctx.stroke();
 
-  var today=tod();
-  var dt=new Date(today+"T00:00:00");
-  var dateStr=dt.getFullYear()+"年"+(dt.getMonth()+1)+"月"+dt.getDate()+"日";
-  ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.textAlign="right";
-  ctx.fillText(dateStr,W-32,52);
+  // Top band: brand + date
   ctx.textAlign="left";
+  ctx.font="bold 20px "+FF;ctx.fillStyle=th.text;
+  ctx.fillText("🕊️ 國度321空中團契",40,54);
+  var today=tod();var dt=new Date(today+"T00:00:00");
+  var dateStr=dt.getFullYear()+"年"+(dt.getMonth()+1)+"月"+dt.getDate()+"日";
+  ctx.textAlign="right";ctx.font="14px "+FF;ctx.fillStyle=th.sub;
+  ctx.fillText(dateStr,W-40,52);
+  ctx.textAlign="center";ctx.font="600 14px "+FF;ctx.fillStyle=th.gold;ctx.globalAlpha=0.95;
+  ctx.fillText("活出基督 · 成為得勝者",W/2,52);ctx.globalAlpha=1;
+  ctx.textAlign="left";
+  // gold divider
+  ctx.globalAlpha=0.9;ctx.strokeStyle=th.gold;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(40,70);ctx.lineTo(W-40,70);ctx.stroke();ctx.globalAlpha=1;
 
-  if(_cardType==="weekly") drawWeeklyCard(ctx,W,H,th);
-  else if(_cardType==="verse") drawVerseCard(ctx,W,H,th);
-  else if(_cardType==="victory") drawVictoryCard(ctx,W,H,th);
-  else if(_cardType==="prayer") drawPrayerCard(ctx,W,H,th);
-
-  // Custom message
-  var msg=(document.getElementById("share-msg")||{}).value||"";
-  if(msg.trim()){
-    ctx.font="italic 15px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.textAlign="center";
-    ctx.fillText("「"+msg.trim()+"」",W/2,H-16);
-    ctx.textAlign="left";
+  // Precompute message panel geometry
+  var msg=((document.getElementById("share-msg")||{}).value||"").trim();
+  var ML=null;
+  if(msg){
+    ctx.font="600 25px "+FF;
+    var mlines=_wrapCJK(ctx,msg,W-200).slice(0,2);
+    var lh=37,ph=mlines.length*lh+50,py=H-34-ph;
+    ML={lines:mlines,lh:lh,ph:ph,py:py};
   }
+  var bL=ML?(ML.py-16):(H-66);
 
+  // Type content
+  if(_cardType==="weekly")drawWeeklyCard(ctx,W,H,th,FF,bL);
+  else if(_cardType==="verse")drawVerseCard(ctx,W,H,th,FF,bL);
+  else if(_cardType==="victory")drawVictoryCard(ctx,W,H,th,FF,bL);
+  else if(_cardType==="prayer")drawPrayerCard(ctx,W,H,th,FF,bL);
+
+  // Bottom: message panel OR footer
+  if(ML)drawCardMessage(ctx,W,H,th,FF,ML);
+  else drawCardFooter(ctx,W,H,th,FF);
 }
 
-function drawWeeklyCard(ctx,W,H,th){
-  // Weekly stats
-  var idx=getIdx();
-  var t=tod();
-  var ws=getWkStart(t);
-  var days=[],i;
+function drawCardMessage(ctx,W,H,th,FF,ML){
+  var py=ML.py,ph=ML.ph,lh=ML.lh,lines=ML.lines;
+  drawRoundRect(ctx,40,py,W-80,ph,18,"rgba(255,255,255,.13)");
+  drawRoundRect(ctx,40,py,6,ph,3,th.gold);
+  // quote mark
+  ctx.fillStyle=th.gold;ctx.globalAlpha=0.55;ctx.font="bold 48px Georgia,serif";ctx.textAlign="left";
+  ctx.fillText("\u201C",62,py+46);ctx.globalAlpha=1;
+  // message text centered
+  ctx.font="600 25px "+FF;ctx.fillStyle=th.text;ctx.textAlign="center";
+  var ty=py+(ph-(lines.length-1)*lh)/2+9;
+  lines.forEach(function(l,i){ctx.fillText(l,W/2,ty+i*lh);});
+  ctx.textAlign="left";
+}
+
+function drawCardFooter(ctx,W,H,th,FF){
+  ctx.textAlign="center";
+  ctx.globalAlpha=0.95;ctx.font="italic 17px "+FF;ctx.fillStyle=th.text;
+  ctx.fillText("「靠著愛我們的主，在這一切的事上已經得勝有餘了。」",W/2,H-46);
+  ctx.globalAlpha=1;
+  ctx.font="13px "+FF;ctx.fillStyle=th.sub;
+  ctx.fillText("羅馬書 8:37　·　活出基督，成為得勝者",W/2,H-24);
+  ctx.textAlign="left";
+}
+
+function _cardTitle(ctx,th,FF,title,emoji){
+  ctx.textAlign="left";
+  ctx.font="bold 40px "+FF;ctx.fillStyle=th.text;
+  ctx.fillText(title,40,124);
+  if(emoji){var tw=ctx.measureText(title).width;ctx.font="30px "+FF;ctx.fillText(emoji,40+tw+14,121);}
+}
+
+function drawWeeklyCard(ctx,W,H,th,FF,bL){
+  var t=tod();var ws=getWkStart(t);var days=[],i;
   for(i=0;i<7;i++)days.push(addD(ws,i));
   var wtot=0,wdn=0,focusTot=0;
-  days.forEach(function(d){
-    var dy=getDay(d)||{tasks:[],sessions:0};
-    wtot+=(dy.tasks||[]).length;
-    wdn+=(dy.tasks||[]).filter(function(t){return t.done;}).length;
-    focusTot+=dy.sessions||0;
-  });
+  days.forEach(function(d){var dy=getDay(d)||{tasks:[],sessions:0};wtot+=(dy.tasks||[]).length;wdn+=(dy.tasks||[]).filter(function(x){return x.done;}).length;focusTot+=dy.sessions||0;});
   var wpct=wtot>0?Math.round(wdn/wtot*100):0;
-  var goals=getGoals(ws);
-  var rev=getWRev(ws);
+  var goals=getGoals(ws);var rev=getWRev(ws);
 
-  // Title
-  ctx.font="bold 38px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.text;
-  ctx.fillText("本週回顧  ⭐",32,118);
-
-  // Date range
-  var s1=new Date(ws+"T00:00:00");
-  var e1=new Date(addD(ws,6)+"T00:00:00");
+  _cardTitle(ctx,th,FF,"本週回顧","⭐");
+  var s1=new Date(ws+"T00:00:00");var e1=new Date(addD(ws,6)+"T00:00:00");
   var wLabel=(s1.getMonth()+1)+"月"+s1.getDate()+"日 — "+(e1.getMonth()+1)+"月"+e1.getDate()+"日";
-  ctx.font="16px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.fillText(wLabel,32,148);
+  ctx.font="16px "+FF;ctx.fillStyle=th.sub;ctx.textAlign="left";ctx.fillText(wLabel,40,152);
 
-  // Stats boxes
-  var stats=[
-    {label:"任務完成率",val:wpct+"%"},
-    {label:"完成任務",val:wdn+"/"+wtot},
-    {label:"專注次數",val:focusTot+"次"}
-  ];
+  // Stat cards
+  var stats=[{l:"任務完成率",v:wpct+"%"},{l:"完成任務",v:wdn+"/"+wtot},{l:"專注次數",v:focusTot+" 次"}];
   stats.forEach(function(s,si){
-    var bx=32+si*230,by=170,bw=210,bh=80;
-    drawRoundRect(ctx,bx,by,bw,bh,14,"rgba(255,255,255,.12)");
-    ctx.font="bold 32px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.accent;
-    ctx.fillText(s.val,bx+18,by+46);
-    ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.fillText(s.label,bx+18,by+68);
+    var bx=40+si*242,by=172,bw=222,bh=94;
+    drawRoundRect(ctx,bx,by,bw,bh,16,"rgba(255,255,255,.13)");
+    drawRoundRect(ctx,bx,by,bw,4,2,th.gold);
+    ctx.font="bold 36px "+FF;ctx.fillStyle=th.accent;ctx.textAlign="left";ctx.fillText(s.v,bx+20,by+52);
+    ctx.font="14px "+FF;ctx.fillStyle=th.sub;ctx.fillText(s.l,bx+20,by+76);
   });
 
-  // Goals
-  var goalY=275;
-  ctx.font="bold 16px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("本週目標",32,goalY);
-  goalY+=28;
-  var goalItems=[
-    {icon:"🌿",label:"生命",val:goals.life||"（未設定）"},
-    {icon:"🤝",label:"關係",val:goals.rel||"（未設定）"},
-    {icon:"⭐",label:"事工",val:goals.min||"（未設定）"}
-  ];
-  goalItems.forEach(function(g){
-    if(!g.val||g.val==="（未設定）")return;
-    ctx.font="14px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.text;
-    var txt=g.icon+" "+g.label+"："+g.val;
-    if(txt.length>30)txt=txt.slice(0,30)+"…";
-    ctx.fillText(txt,32,goalY);
-    goalY+=26;
-  });
-
-  // Highlight
-  if(rev.highlight){
-    goalY+=8;
-    drawRoundRect(ctx,32,goalY,W-64,60,12,"rgba(255,255,255,.1)");
-    ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.fillText("本週最大亮點",48,goalY+20);
-    ctx.font="bold 15px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.text;
-    var hl=rev.highlight.length>40?rev.highlight.slice(0,40)+"…":rev.highlight;
-    ctx.fillText(hl,48,goalY+44);
+  // Goals (only if room)
+  var gy=300;
+  if(gy+24<=bL){
+    ctx.font="bold 16px "+FF;ctx.fillStyle=th.gold;ctx.fillText("本週目標",40,gy);gy+=28;
+    var gi=[{ic:"🌿",l:"生命",v:goals.life},{ic:"🤝",l:"關係",v:goals.rel},{ic:"⭐",l:"事工",v:goals.min}];
+    gi.forEach(function(g){
+      if(gy+8>bL)return;
+      if(!g.v||g.v==="（未設定）")return;
+      ctx.font="15px "+FF;ctx.fillStyle=th.text;
+      var txt=g.ic+" "+g.l+"："+g.v;if(txt.length>30)txt=txt.slice(0,30)+"…";
+      ctx.fillText(txt,40,gy);gy+=28;
+    });
   }
 }
 
-function drawVerseCard(ctx,W,H,th){
-  // Show current verse
-  var verse=VS[vi%VS.length];
-  // Split verse and reference
-  var parts=verse.split("— ");
-  var verseText=parts[0]?parts[0].trim():"";
-  var ref=parts[1]?parts[1].trim():"";
-
-  ctx.font="bold 28px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("每日金句  📖",32,115);
-
-  // Quote mark
-  ctx.font="bold 120px Georgia,serif";
-  ctx.fillStyle="rgba(255,255,255,.06)";
-  ctx.fillText('"',20,220);
-
-  // Verse text
-  ctx.font="bold 24px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.text;
-  // Word wrap
-  var maxW=W-80;
-  var cw=24*0.6;
-  var charsPerLine=Math.floor(maxW/cw);
-  var lines=[];
-  var tmp="";
-  for(var ci=0;ci<verseText.length;ci++){
-    tmp+=verseText[ci];
-    if(tmp.length>=charsPerLine||ci===verseText.length-1){
-      lines.push(tmp);tmp="";
-    }
-  }
-  lines.forEach(function(l,li){
-    ctx.fillText(l,40,175+li*38);
-  });
-  var refY=175+lines.length*38+20;
-
-  // Reference
-  ctx.font="bold 18px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("— "+ref,40,refY);
-
-  // Declaration line
-  refY+=50;
-  drawRoundRect(ctx,32,refY,W-64,70,14,"rgba(255,255,255,.1)");
-  ctx.font="17px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.text;
-  ctx.textAlign="center";
-  ctx.fillText("「我靠著那加給我力量的，凡事都能做。」",W/2,refY+30);
-  ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.fillText("讓耶穌作王，活出得勝生命",W/2,refY+54);
-  ctx.textAlign="left";
+function drawVerseCard(ctx,W,H,th,FF,bL){
+  var verse=VS[vi%VS.length];var parts=verse.split("— ");
+  var verseText=parts[0]?parts[0].trim():"";var ref=parts[1]?parts[1].trim():"";
+  _cardTitle(ctx,th,FF,"每日金句","📖");
+  // big quote watermark
+  ctx.font="bold 150px Georgia,serif";ctx.fillStyle="rgba(255,255,255,.06)";ctx.textAlign="left";ctx.fillText("\u201C",34,230);
+  // verse text wrapped
+  ctx.font="bold 27px "+FF;ctx.fillStyle=th.text;ctx.textAlign="left";
+  var lines=_wrapCJK(ctx,verseText,W-120);
+  var vy=180;lines.forEach(function(l){ctx.fillText(l,48,vy);vy+=42;});
+  // reference
+  ctx.font="bold 19px "+FF;ctx.fillStyle=th.accent;ctx.fillText("— "+ref,48,vy+8);
 }
 
-function drawVictoryCard(ctx,W,H,th){
+function drawVictoryCard(ctx,W,H,th,FF,bL){
   var recs=getQRRecords().filter(function(r){return r.type==="victory";});
-  ctx.font="bold 30px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("得勝見證  🏆",32,115);
-
+  _cardTitle(ctx,th,FF,"得勝見證","🏆");
   if(recs.length===0){
-    ctx.font="18px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.textAlign="center";
-    ctx.fillText("點右下角 ✦ 開始記錄你的得勝見證",W/2,250);
-    ctx.textAlign="left";
-    return;
+    ctx.font="18px "+FF;ctx.fillStyle=th.sub;ctx.textAlign="center";
+    ctx.fillText("點右下角 ✦ 開始記錄你的得勝見證",W/2,250);ctx.textAlign="left";return;
   }
-  // Show latest 3
-  var show=recs.slice(0,3);
-  var vy=145;
-  show.forEach(function(v,vi2){
-    drawRoundRect(ctx,32,vy,(W-64),70,12,"rgba(255,255,255,.1)");
-    ctx.font="12px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.accent;
-    ctx.fillText(v.date,48,vy+18);
-    ctx.font="15px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.text;
-    var txt=v.text.length>42?v.text.slice(0,42)+"…":v.text;
-    ctx.fillText(txt,48,vy+44);
-    vy+=82;
-  });
-
-  // Summary
-  vy+=8;
-  ctx.font="bold 17px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.textAlign="center";
-  ctx.fillText("感謝神！已記錄 "+recs.length+" 個得勝見證",W/2,vy);
-  ctx.textAlign="left";
+  var vy=160;var shown=0;
+  for(var k=0;k<recs.length && shown<3;k++){
+    if(vy+78>bL)break;
+    var v=recs[k];
+    drawRoundRect(ctx,40,vy,W-80,72,14,"rgba(255,255,255,.11)");
+    drawRoundRect(ctx,40,vy,6,72,3,th.gold);
+    ctx.font="12px "+FF;ctx.fillStyle=th.accent;ctx.textAlign="left";ctx.fillText(v.date,62,vy+24);
+    ctx.font="16px "+FF;ctx.fillStyle=th.text;
+    var txt=v.text.length>40?v.text.slice(0,40)+"…":v.text;ctx.fillText(txt,62,vy+50);
+    vy+=84;shown++;
+  }
+  if(vy+22<=bL){
+    ctx.font="bold 16px "+FF;ctx.fillStyle=th.gold;ctx.textAlign="center";
+    ctx.fillText("感謝神！已記錄 "+recs.length+" 個得勝見證",W/2,vy+6);ctx.textAlign="left";
+  }
 }
 
-function drawPrayerCard(ctx,W,H,th){
+function drawPrayerCard(ctx,W,H,th,FF,bL){
   var recs=getQRRecords().filter(function(r){return r.type==="prayer";});
   var answered=recs.filter(function(r){return r.answered;});
-  ctx.font="bold 30px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.accent;
-  ctx.fillText("禱告與應允  🙏",32,115);
-
-  // Big stats
-  var bx=32,by=140;
-  [[answered.length,"蒙應允禱告","#0a8f84"],[recs.length,"總禱告記錄","#1e4d8c"],[recs.length>0?Math.round(answered.length/recs.length*100):0+"%","成就率","#d97706"]].forEach(function(s,si){
-    drawRoundRect(ctx,bx+si*235,by,215,90,14,"rgba(255,255,255,.12)");
-    ctx.font="bold 40px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=si===0?"#7dd3fc":si===1?"#93c5fd":"#fde68a";
-    ctx.fillText(si===2?(recs.length>0?Math.round(answered.length/recs.length*100)+"%":"0%"):String(s[0]),bx+si*235+18,by+56);
-    ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.fillText(s[1],bx+si*235+18,by+78);
+  var pct=recs.length>0?Math.round(answered.length/recs.length*100):0;
+  _cardTitle(ctx,th,FF,"禱告與應允","🙏");
+  var stats=[{v:answered.length,l:"蒙應允"},{v:recs.length,l:"總禱告"},{v:pct+"%",l:"成就率"}];
+  stats.forEach(function(s,si){
+    var bx=40+si*242,by=160,bw=222,bh=96;
+    drawRoundRect(ctx,bx,by,bw,bh,16,"rgba(255,255,255,.13)");
+    drawRoundRect(ctx,bx,by,bw,4,2,th.gold);
+    ctx.font="bold 40px "+FF;ctx.fillStyle=th.accent;ctx.textAlign="left";ctx.fillText(String(s.v),bx+20,by+56);
+    ctx.font="14px "+FF;ctx.fillStyle=th.sub;ctx.fillText(s.l,bx+20,by+80);
   });
-
-  // Latest answered prayer
-  if(answered.length>0){
-    var latest=answered[0];
-    var ay=260;
-    drawRoundRect(ctx,32,ay,W-64,90,14,"rgba(255,255,255,.12)");
-    ctx.font="bold 13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.accent;
-    ctx.fillText("✓ 最近蒙應允的禱告",48,ay+22);
-    ctx.font="15px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.text;
-    var ptxt=latest.text.length>38?latest.text.slice(0,38)+"…":latest.text;
-    ctx.fillText(ptxt,48,ay+48);
-    ctx.font="12px -apple-system,'Helvetica Neue',Arial,sans-serif";
-    ctx.fillStyle=th.sub;
-    ctx.fillText("禱告："+latest.date+(latest.answeredDate?"　應允："+latest.answeredDate:""),48,ay+72);
+  if(answered.length>0 && 296+80<=bL+40){
+    var latest=answered[0];var ay=288;
+    if(ay+72<=bL){
+      drawRoundRect(ctx,40,ay,W-80,76,14,"rgba(255,255,255,.12)");
+      drawRoundRect(ctx,40,ay,6,76,3,th.gold);
+      ctx.font="bold 13px "+FF;ctx.fillStyle=th.accent;ctx.textAlign="left";ctx.fillText("✓ 最近蒙應允的禱告",62,ay+24);
+      ctx.font="16px "+FF;ctx.fillStyle=th.text;
+      var ptxt=latest.text.length>36?latest.text.slice(0,36)+"…":latest.text;ctx.fillText(ptxt,62,ay+52);
+    }
   }
-
-  // Verse
-  var vy2=365;
-  ctx.font="bold 15px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle=th.sub;
-  ctx.textAlign="center";
-  ctx.fillText("「你們祈求，就給你們；尋找，就尋見；叩門，就給你們開門。」",W/2,vy2);
-  ctx.font="13px -apple-system,'Helvetica Neue',Arial,sans-serif";
-  ctx.fillStyle="rgba(255,255,255,.45)";
-  ctx.fillText("— 馬太福音 7:7",W/2,vy2+24);
-  ctx.textAlign="left";
+}
+// 把 canvas 轉成 <img>，讓使用者長按即可「加入照片」存到相簿（iOS／多數內嵌瀏覽器）
+function syncShareImg(){
+  var c=document.getElementById("share-canvas");
+  var im=document.getElementById("share-img");
+  if(!c||!im)return;
+  try{ im.src=c.toDataURL("image/png"); }catch(e){}
 }
 
 function downloadCard(){
-  var canvas=document.getElementById("share-canvas");
-  if(!canvas)return;
-  // Try to trigger download
+  var c=document.getElementById("share-canvas");
+  if(!c)return;
+  var im=document.getElementById("share-img");
+  if(im){ try{ im.src=c.toDataURL("image/png"); }catch(e){} }
   try{
-    var link=document.createElement("a");
-    link.download="321-card-"+tod()+".png";
-    link.href=canvas.toDataURL("image/png");
-    link.click();
-    toast("✅ 圖片已準備好，請截圖或長按儲存！");
+    var url=c.toDataURL("image/png");
+    var ua=navigator.userAgent||"";
+    var isIOS=/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&"ontouchend" in document);
+    if(!isIOS){
+      var link=document.createElement("a");
+      link.download="321得勝卡片-"+tod()+".png";
+      link.href=url; document.body.appendChild(link); link.click();
+      document.body.removeChild(link);
+      toast("✅ 圖片已下載！");
+    }else{
+      toast("👆 長按上面的圖片 →「加入照片」即可存到相簿");
+    }
   }catch(e){
     toast("請截圖儲存後分享！");
   }
@@ -5405,6 +5439,7 @@ function renderTodoList(){
 }
 
 
+  window.addEventListener('load',function(){
   // ── Draggable FAB ──
   (function(){
     var fab=document.getElementById('fab');
@@ -5571,6 +5606,7 @@ function renderTodoList(){
     var inp2=document.getElementById('todo-input');
     if(inp2)inp2.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addTodo();}});
   })();
+  });
 
 // ════════════════════════════════════════
 // 時程表 Schedule (Google Calendar style)
@@ -6279,7 +6315,7 @@ function schedRefreshRepPicker(){
     <div style="padding:16px 18px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f4f8">
       <div>
         <div style="font-size:19px;font-weight:800;color:#1e3252">✨ 分享得勝卡片</div>
-        <div style="font-size:14px;color:#7a8fa8;margin-top:2px">截圖後分享到LINE或朋友圈</div>
+        <div style="font-size:14px;color:#7a8fa8;margin-top:2px">長按圖片存到相簿，再分享到 LINE 或朋友圈</div>
       </div>
       <button onclick="closeShareModal()" style="background:#f4f6fa;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#7a8fa8">✕</button>
     </div>
@@ -6292,9 +6328,11 @@ function schedRefreshRepPicker(){
       <button class="card-style-btn" data-ctype="prayer" onclick="selCardType(this,'prayer')">🙏 禱告成就</button>
     </div>
 
-    <!-- Card Preview (canvas) -->
+    <!-- Card Preview -->
     <div style="background:#1a1a2e;padding:12px">
-      <canvas id="share-canvas" width="800" height="500" style="border-radius:12px;width:100%"></canvas>
+      <canvas id="share-canvas" width="800" height="500" style="display:none"></canvas>
+      <img id="share-img" alt="得勝卡片" style="display:block;width:100%;border-radius:12px" />
+      <div style="text-align:center;color:#cdd6e6;font-size:13px;margin-top:8px">👆 長按圖片 →「加入照片／儲存影像」即可存到手機相簿</div>
     </div>
 
     <!-- Customise -->
@@ -6335,7 +6373,7 @@ function schedRefreshRepPicker(){
           </button>
         </div>
       </div>
-      <button onclick="downloadCard()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer">📥 儲存圖片（截圖後分享）</button>
+      <button onclick="downloadCard()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer">📥 儲存圖片（手機請長按上圖）</button>
     </div>
   </div>
 </div>
@@ -6480,7 +6518,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.1.2";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.1.7";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
