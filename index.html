@@ -528,9 +528,9 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 <!-- MORNING PRAYER -->
 <div id="s-pray" class="sc">
   <div class="hdr">
-    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Morning Prayer · ACTS</div>
+    <div style="font-size:12px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Quiet Time · ACTS</div>
     <div style="display:flex;align-items:center;justify-content:space-between">
-    <div style="font-size:22px;color:#d97706;font-weight:900">&#128591; 每日晨禱引導</div>
+    <div style="font-size:22px;color:#d97706;font-weight:900">&#128591; 每日靈修引導</div>
     <button onclick="openSoapModal()" style="padding:7px 12px;background:linear-gradient(135deg,#b45309,#d97706);border:none;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;font-weight:700">📖 讀經</button>
   </div>
     <div style="font-size:14px;color:#7a8fa8;margin-top:3px">讚美 · 認罪 · 感謝 · 祈求 — ACTS模式</div>
@@ -695,7 +695,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 
 <div id="nav">
   <button class="nb on" onclick="goSc('home',this)"><span style="font-size:21px">&#128197;</span>規劃</button>
-  <button class="nb" onclick="goSc('pray',this)"><span style="font-size:21px">&#128591;</span>晨禱</button>
+  <button class="nb" onclick="goSc('pray',this)"><span style="font-size:21px">&#128591;</span>靈修</button>
   <button class="nb" onclick="goSc('920',this)"><span style="font-size:21px">&#129309;</span>關係</button>
   <button class="nb" onclick="goSc('wrev',this)"><span style="font-size:21px">&#127775;</span>週顧</button>
   <button class="nb" onclick="goSc('sched',this)"><span style="font-size:21px">🗓️</span>時程</button>
@@ -1915,7 +1915,7 @@ function renderPray(){
   h+='<div style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border:1px solid #d9770640;border-radius:14px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px">';
   h+='<div style="font-size:36px">🌙</div>';
   h+='<div><div style="font-size:16px;font-weight:700;color:#d97706">'+fL(t)+'</div>';
-  h+='<div style="font-size:14px;color:#7a8fa8;margin-top:2px">每日晨禱 · ACTS模式引導</div></div>';
+  h+='<div style="font-size:14px;color:#7a8fa8;margin-top:2px">每日靈修 · ACTS模式引導</div></div>';
   h+='</div>';
 
   // Progress
@@ -1958,7 +1958,7 @@ function renderPray(){
 
   // 321 reminder
   h+='<div style="background:linear-gradient(135deg,#e0f7f5,#eef2ff);border:1px solid #0f9b8e30;border-radius:12px;padding:12px 16px;margin-bottom:14px">';
-  h+='<div style="color:#0f766e;font-size:15px;line-height:2">💡 <strong>321 晨禱提醒</strong><br>讓耶穌作王從早晨開始<br>用<strong>心</strong>靠聖靈 · 不用腦靠自己<br>焦點在<strong>耶穌</strong>，不在自己</div>';
+  h+='<div style="color:#0f766e;font-size:15px;line-height:2">💡 <strong>321 靈修提醒</strong><br>讓耶穌作王從早晨開始<br>用<strong>心</strong>靠聖靈 · 不用腦靠自己<br>焦點在<strong>耶穌</strong>，不在自己</div>';
   h+='</div>';
 
   // History
@@ -1966,7 +1966,7 @@ function renderPray(){
     var p=getPray(d);return ACTS_STEPS.some(function(s){return p[s.key]&&p[s.key].trim();});
   }).slice(0,7);
   if(prayDays.length>0){
-    h+='<div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:8px">近期晨禱記錄</div>';
+    h+='<div style="font-size:14px;color:#7a8fa8;letter-spacing:2px;font-weight:600;text-transform:uppercase;margin-bottom:8px">近期靈修記錄</div>';
     prayDays.forEach(function(d){
       if(d===t)return;
       var p=getPray(d);
@@ -3379,8 +3379,10 @@ function _drawCard(){
   var canvas=document.getElementById("share-canvas");
   if(!canvas)return;
   var ctx=canvas.getContext("2d");
-  var W=800,H=500;
-  canvas.width=W;canvas.height=H;
+  var W=800,H=500;var DPR=2;
+  canvas.width=W*DPR;canvas.height=H*DPR;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";
   var th=_themes[_cardTheme]||_themes.navy;
   var FF=_CFF;
 
@@ -3406,7 +3408,7 @@ function _drawCard(){
 
   // Top band: brand + date
   ctx.textAlign="left";
-  ctx.font="bold 20px "+FF;ctx.fillStyle=th.text;
+  ctx.font="bold 20px "+FF;ctx.fillStyle=th.text;ctx.textAlign="left";
   ctx.fillText("🕊️ 國度321空中團契",40,54);
   var today=tod();var dt=new Date(today+"T00:00:00");
   var dateStr=dt.getFullYear()+"年"+(dt.getMonth()+1)+"月"+dt.getDate()+"日";
@@ -6518,7 +6520,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.1.7";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.2.3";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
