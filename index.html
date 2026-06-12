@@ -41,14 +41,14 @@ textarea{resize:none}
 .ta{background:#f8fafc;border:1.5px solid #e0dbd2;border-radius:8px;padding:8px 11px;color:#243050;font-size:15px;width:100%;line-height:1.7}
 .ta:focus{border-color:#1e4d8c}
 #nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#f8fafc;border-top:1px solid #d8dce8;display:flex;z-index:90;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -2px 16px rgba(0,0,0,.06)}
-.nb{flex:1;padding:10px 1px 8px;border:none;background:transparent;color:#7a8fa8;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:2px;border-top:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
-.nb.on{color:#1e4d8c;border-top-color:#1e4d8c;background:#e8edf5;font-weight:700}
+.nb{flex:1;margin:5px 3px;padding:6px 1px;border:none;background:transparent;color:#7a8fa8;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:12px;cursor:pointer;font-weight:400;font-family:inherit}
+.nb.on{color:#1e4d8c;background:#e8edf5;font-weight:700}
 .sc{display:none;min-height:100vh;padding-bottom:85px}
 .sc.on{display:block}
 .hdr{background:#f8fafc;border-bottom:1px solid #d8dce8;padding:14px 16px 12px;position:sticky;top:0;z-index:80;box-shadow:0 1px 8px rgba(0,0,0,.06)}
-.tabs{display:flex;background:#f8fafc;border-bottom:1px solid #d8dce8}
-.tb{flex:1;padding:12px 4px;border:none;background:transparent;color:#7a8aaa;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:2.5px solid transparent;cursor:pointer;font-weight:400;font-family:inherit}
-.tb.on{color:#1e4d8c;border-bottom-color:#1e4d8c;background:#e8edf5;font-weight:700}
+.tabs{display:flex;gap:4px;padding:6px 8px;background:#f8fafc;border-bottom:1px solid #d8dce8}
+.tb{flex:1;padding:9px 4px;border:none;background:transparent;color:#7a8aaa;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:12px;cursor:pointer;font-weight:400;font-family:inherit}
+.tb.on{color:#1e4d8c;background:#e8edf5;font-weight:700}
 .badge{font-size:13px;padding:1px 7px;border-radius:6px;font-weight:600;display:inline-block}
 .block-card{background:#f8fafc;border:1px solid #d8dce8;border-radius:12px;padding:13px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
 .task-row{display:flex;align-items:flex-start;gap:8px;padding:9px;border-radius:8px;margin-bottom:3px;border:1px solid #d8dce8;transition:background .15s}
@@ -146,8 +146,10 @@ textarea{resize:none}
 #records-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,20,50,.85);z-index:900;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
 #records-box{background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;animation:slideUp .35s ease}
 .dark #records-box{background:#141826}
-.rec-tab{flex:1;padding:11px 4px;border:none;background:transparent;font-size:14px;cursor:pointer;border-bottom:2.5px solid transparent;color:#7a8fa8;font-weight:500}
+.rec-tab{padding:9px 3px;border:none;background:transparent;font-size:14px;cursor:pointer;border-bottom:2.5px solid transparent;color:#7a8fa8;font-weight:500;text-align:center}
 .rec-tab.on{color:#1e4d8c;border-bottom-color:#1e4d8c;font-weight:700;background:#f0f4ff}
+.set-sheet{background:#fff;color:#1a1d23}
+body.dark .set-sheet{background:#15130f;color:#ede8df}
 .pray-item{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #1e4d8c}
 .pray-item.answered{border-left-color:#0a8f84;background:#e8f8f5}
 .dark .pray-item{background:#1e2030}
@@ -280,6 +282,14 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 </style>
 </head>
 <body>
+<!-- APP UPDATE BANNER -->
+<div id="update-banner" style="display:none;align-items:center;gap:10px;justify-content:space-between;background:linear-gradient(135deg,#1e4d8c,#0a8f84);color:#fff;padding:10px 14px;max-width:480px;margin:0 auto;font-size:14px">
+  <div id="update-banner-text" style="flex:1;line-height:1.45"></div>
+  <div style="display:flex;gap:8px;flex-shrink:0;align-items:center">
+    <button onclick="doAppUpdate()" style="background:#fff;color:#1e4d8c;border:none;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:800;cursor:pointer">立即更新</button>
+    <button onclick="dismissUpdate()" aria-label="關閉" style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer">✕</button>
+  </div>
+</div>
 <div id="toast"></div>
 <div id="ov" onclick="closeSB()"></div>
 <div id="sb">
@@ -304,7 +314,6 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
     <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px">
       <div style="display:flex;align-items:center;gap:6px;cursor:pointer;flex:1;min-width:0" onclick="togHdr()">
         <div style="min-width:0">
-          <div style="font-size:11px;color:#7a8fa8;letter-spacing:2px;text-transform:uppercase">國度321空中團契</div>
           <div id="ttl-main" style="font-size:20px;color:#1a3a6b;font-weight:700;line-height:1.2;letter-spacing:1px">每日活出基督</div>
           <div id="ttl-sub" style="font-size:28px;color:#1a3a6b;font-weight:900;line-height:1.1">成為得勝者</div>
         </div>
@@ -312,8 +321,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
       </div>
       <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;margin-left:8px">
         <span id="sv" style="font-size:14px;color:#0a8f84;font-weight:600;opacity:0;transition:opacity .4s">&#9729;&#65039;</span>
-        <button id="dmbtn" onclick="togDark()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 8px;color:#4a5a72;font-size:19px">&#127769;</button>
-        <button id="fsbtn" onclick="cycleFont()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 10px;color:#1e4d8c;font-size:16px;font-weight:700" title="字體大小">A</button>
+        <button onclick="openSettings()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:6px 9px;color:#4a5a72;font-size:18px" title="設定">&#9881;&#65039;</button>
         <button onclick="openSB()" style="background:#e8edf5;border:1px solid #1e4d8c40;border-radius:8px;padding:6px 11px;color:#1e4d8c;font-size:15px;font-weight:600">&#128218; 記錄</button>
       </div>
     </div>
@@ -365,6 +373,10 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
     <button class="tb" onclick="goProjTab(this)"><span style="font-size:19px">&#128196;</span>專案</button>
   </div>
   <div id="hcon" style="padding:14px 16px 0"></div>
+  <div style="text-align:center;padding:26px 16px 20px;margin-top:6px;border-top:1px solid #e8edf5">
+    <div style="font-size:12px;color:#1a3a6b;letter-spacing:2px;text-transform:uppercase">&#128330;&#65039; 國度321空中團契</div>
+    <div style="font-size:16px;color:#1e4d8c;font-weight:800;margin-top:7px">祝你每日靠主得勝 &#127942;</div>
+  </div>
 </div>
 
 <!-- WEEK VIEW -->
@@ -680,7 +692,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 <div id="nav">
   <button class="nb on" onclick="goSc('home',this)"><span style="font-size:21px">&#128197;</span>規劃</button>
   <button class="nb" onclick="goSc('pray',this)"><span style="font-size:21px">&#128591;</span>晨禱</button>
-  <button class="nb" onclick="goSc('920',this)"><span style="font-size:21px">&#127807;</span>920</button>
+  <button class="nb" onclick="goSc('920',this)"><span style="font-size:21px">&#129309;</span>關係</button>
   <button class="nb" onclick="goSc('wrev',this)"><span style="font-size:21px">&#127775;</span>週顧</button>
   <button class="nb" onclick="goSc('sched',this)"><span style="font-size:21px">🗓️</span>時程</button>
   <button class="nb" onclick="goSc('cal',this)"><span style="font-size:21px">&#128198;</span>日曆</button>
@@ -742,7 +754,7 @@ var VS=["你所做的，要交託耶和華，你所謀的，就必成立。— �
 var curDate=tod(),curDay=blank(),htab="tasks",vi=0,saveT=null;
 var calY=new Date().getFullYear(),calM=new Date().getMonth(),calSel=null;
 var fSel=0,fSec=0,fTot=0,fRun=false,fTimer=null,fSessN=0;
-var coll={},pFilter="all",wkStart=null,darkMode=false;
+var coll={},pFilter="all",wkStart=null,darkMode=false,editTB=false;
 var _ac=null;
 
 // Header collapse
@@ -968,8 +980,8 @@ function renderTasks(ro,fut){
     var bt=curDay.tasks.filter(function(t){return t.block===b.id;}),dn=bt.filter(function(t){return t.done;}).length,clp=coll[b.id];
     h+='<div class="block-card" style="border-left:4px solid '+b.color+'">';
     // Header row: icon + label + time + desc + edit button
-    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:'+(clp?0:10)+'px">';
-    h+='<div data-bid="'+b.id+'" onclick="togColl(this.dataset.bid)" style="display:flex;align-items:center;gap:8px;flex:1;cursor:pointer">';
+    h+='<div data-bid="'+b.id+'" onclick="togColl(this.dataset.bid)" style="display:flex;align-items:center;gap:8px;margin-bottom:'+(clp?0:10)+'px;cursor:pointer">';
+    h+='<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">';
     h+='<span class="bl-icon">'+b.icon+'</span>';
     h+='<div style="flex:1"><div style="color:'+b.color+';font-weight:700;font-size:18px">'+b.label+'</div>';
     h+='<div style="display:flex;gap:6px;margin-top:2px;align-items:center"><span id="blt-disp-'+b.id+'" style="color:#1e4d8c;font-size:13px;font-weight:600;background:#e8edf5;border-radius:5px;padding:1px 5px">'+b.time+'</span><span id="bld-disp-'+b.id+'" style="color:#7a8aaa;font-size:14px">'+b.desc+'</span></div></div>';
@@ -977,7 +989,7 @@ function renderTasks(ro,fut){
     if(bt.length>0)h+='<div style="font-size:14px;padding:2px 8px;border-radius:10px;background:'+(dn===bt.length?'#e2f5f3':'#eeebe4')+';color:'+(dn===bt.length?'#0f9b8e':'#8a9ab0')+';font-weight:600;border:1px solid '+(dn===bt.length?'#0f9b8e40':'#e0dbd2')+'">'+dn+'/'+bt.length+'</div>';
     h+='<span style="color:#7a8fa8;font-size:16px">'+(clp?'▸':'▾')+'</span>';
     // Edit pencil button
-    if(!ro)h+='<button data-bid2="'+b.id+'" onclick="togBLEdit(this.dataset.bid2)" style="background:none;border:none;font-size:18px;cursor:pointer;padding:2px 4px;color:#b0b8c8" title="編輯時間">✏️</button>';
+    if(!ro&&editTB)h+='<button data-bid2="'+b.id+'" onclick="event.stopPropagation();togBLEdit(this.dataset.bid2)" style="background:none;border:none;font-size:18px;cursor:pointer;padding:2px 4px;color:#b0b8c8" title="編輯時間">✏️</button>';
     h+='</div>';
     // Edit panel (hidden by default)
     var custom=getBLCustom();
@@ -986,6 +998,14 @@ function renderTasks(ro,fut){
     h+='<div style="font-size:13px;font-weight:700;color:#1e4d8c;margin-bottom:8px">✏️ 自訂「'+b.label+'」</div>';
     h+='<div style="margin-bottom:8px"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">名稱</div>';
     h+='<input id="bln-'+b.id+'" class="inp" value="'+b.label+'" placeholder="區塊名稱" style="font-size:14px"></div>';
+    h+='<div style="margin-bottom:8px"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">圖示</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px">';
+    h+='<input id="bli-'+b.id+'" class="inp" value="'+b.icon+'" maxlength="4" style="font-size:22px;width:60px;text-align:center;flex-shrink:0;padding:5px">';
+    h+='<div style="display:flex;gap:4px;flex-wrap:wrap;flex:1">';
+    ['🏃','🏋️','🚶','🧘','🌅','🔥','🤝','✍️','📋','🍽️','🏠','🌙','📖','🙏','💼','☕'].forEach(function(em){
+      h+='<button type="button" data-bid="'+b.id+'" data-em="'+em+'" onclick="document.getElementById(\'bli-\'+this.dataset.bid).value=this.dataset.em" style="font-size:19px;width:33px;height:33px;border:1px solid #e0dbd2;border-radius:8px;background:#fff;cursor:pointer;padding:0;line-height:1">'+em+'</button>';
+    });
+    h+='</div></div></div>';
     h+='<div style="display:flex;gap:8px;margin-bottom:8px">';
     h+='<div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">時間</div>';
     h+='<input id="blt-'+b.id+'" class="inp" value="'+b.time+'" placeholder="例：06:00–07:00" style="font-size:14px"></div>';
@@ -1006,7 +1026,7 @@ function renderTasks(ro,fut){
     h+='</div>';
   });
   // Add new block button
-  if(!ro)h+='<button onclick="addExtraBlock()" style="width:100%;padding:12px;background:#f4f6fa;border:2px dashed #1e4d8c40;border-radius:14px;color:#1e4d8c;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px">＋ 新增時間區塊</button>';
+  if(!ro&&editTB)h+='<button onclick="addExtraBlock()" style="width:100%;padding:12px;background:#f4f6fa;border:2px dashed #1e4d8c40;border-radius:14px;color:#1e4d8c;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px">＋ 新增時間區塊</button>';
   return h;
 }
 function togColl(id){coll[id]=!coll[id];renderHCon();}
@@ -1507,6 +1527,25 @@ function save920Log(pid,d,data){lsS("p4_920log_"+pid+"_"+d,data);}
 var FRUITS=["仁愛","喜樂","和平","忍耐","恩慈","良善","信實","溫柔","節制"];
 var FRUIT_COLORS=["#e05c3a","#d97706","#0f9b8e","#3b82c4","#6366f1","#2e8b57","#7c4dbd","#3b82c4","#8a9ab0"];
 
+// ── 關懷行動 (Care Action) ──
+function getCare(){return lsG("p4_care")||{person:"",love:false,understand:false,accept:false,accompany:false,connect:false,note:""};}
+function setCareField(k,v){var c=getCare();c[k]=v;lsS("p4_care",c);}
+function togCareNeed(k){var c=getCare();c[k]=!c[k];lsS("p4_care",c);render920();}
+function getCareLog(){return lsG("p4_care_log")||[];}
+function saveCareLog(a){lsS("p4_care_log",a);}
+function saveCareRound(){
+  var c=getCare();
+  var keys=['love','understand','accept','accompany','connect'];
+  var cnt=0;keys.forEach(function(k){if(c[k])cnt++;});
+  if(!(c.person||'').trim()&&!(c.note||'').trim()&&cnt===0){toast("請先填寫關懷對象或記錄","#e05c3a");return;}
+  var log=getCareLog();
+  log.unshift({id:Date.now()+'',date:tod(),person:(c.person||'').trim(),note:(c.note||'').trim(),needs:{love:!!c.love,understand:!!c.understand,accept:!!c.accept,accompany:!!c.accompany,connect:!!c.connect},count:cnt});
+  saveCareLog(log);
+  lsS("p4_care",{person:"",love:false,understand:false,accept:false,accompany:false,connect:false,note:""});
+  toast("✓ 已存入關懷記錄","#0a8f84");
+  render920();
+}
+function delCareLog(id){var a=getCareLog().filter(function(r){return r.id!==id;});saveCareLog(a);render920();}
 function render920(){
   var data=get920();var t=tod();
   var h="";
@@ -1515,6 +1554,62 @@ function render920(){
   h+='<div style="background:linear-gradient(135deg,#fdf0ec,#fff7ed);border:1px solid #e05c3a30;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
   h+='<div style="font-size:16px;font-weight:700;color:#e05c3a;margin-bottom:6px">920 操練核心</div>';
   h+='<div style="font-size:15px;color:#4a5a72;line-height:1.9">每個跟你有關係的人是你的「<strong style="color:#e05c3a">2</strong>」<br>操練活出「<strong style="color:#0a8f84">0</strong>」無己的生命<br>結出「<strong style="color:#d97706">9</strong>」聖靈的果子</div>';
+  h+='</div>';
+
+  // ── 關懷行動 ──
+  var care=getCare();
+  var NEEDS=[
+    {k:'love',icon:'❤️',name:'被愛',act:'主動表達關心、為他具體代禱、記得他的重要日子',verse:'「你們要彼此相愛」約13:34'},
+    {k:'understand',icon:'👂',name:'被理解',act:'用心傾聽、不急著給建議、複述並確認他的感受',verse:'「快快地聽，慢慢地說」雅1:19'},
+    {k:'accept',icon:'🤗',name:'被接納',act:'接納他真實的樣子、在軟弱與失敗中仍不離不棄',verse:'「要彼此接納，如同基督接納你們」羅15:7'},
+    {k:'accompany',icon:'🫂',name:'被陪伴',act:'每週固定2小時同在——吃飯、散步、一起服事',verse:'「兩個人總比一個人好」傳4:9'},
+    {k:'connect',icon:'🔗',name:'被連結',act:'帶他進入團契小組、連結屬靈同伴與基督的身體',verse:'「全身…百節各按各職」弗4:16'}
+  ];
+  var careCount=0;NEEDS.forEach(function(n){if(care[n.k])careCount++;});
+  h+='<div style="background:linear-gradient(135deg,#fef2f4,#fff7ed);border:1px solid #e05c3a30;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
+  h+='<div style="font-size:16px;font-weight:800;color:#e05c3a;margin-bottom:8px">💗 關懷行動</div>';
+  h+='<div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px">';
+  ['每週兩小時','關懷一個人','活出基督'].forEach(function(x){h+='<span style="background:#fff;border:1px solid #e05c3a40;border-radius:20px;padding:5px 12px;font-size:14px;color:#e05c3a;font-weight:700">'+x+'</span>';});
+  h+='</div>';
+  h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.7;margin-bottom:10px">滿足關係的五大需要，讓人在你的關懷中遇見基督的愛。在這週的相處中，刻意做到並勾選：</div>';
+  NEEDS.forEach(function(n){
+    var on=!!care[n.k];
+    h+='<div style="display:flex;align-items:flex-start;gap:10px;background:'+(on?'#e5f5f3':'#fff')+';border:1px solid '+(on?'#0a8f8440':'#f0e4dc')+';border-radius:12px;padding:10px 12px;margin-bottom:7px">';
+    h+='<button data-ck="'+n.k+'" onclick="togCareNeed(this.dataset.ck)" style="flex-shrink:0;width:26px;height:26px;border-radius:8px;border:2px solid '+(on?'#0a8f84':'#d8dce8')+';background:'+(on?'#0a8f84':'transparent')+';color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center">'+(on?'✓':'')+'</button>';
+    h+='<div style="flex:1;min-width:0">';
+    h+='<div style="font-size:15px;font-weight:700;color:#1a1d23">'+n.icon+' '+n.name+'</div>';
+    h+='<div style="font-size:13px;color:#4a5a72;line-height:1.6;margin-top:2px">'+n.act+'</div>';
+    h+='<div style="font-size:12px;color:#9a8f80;font-style:italic;margin-top:3px">'+n.verse+'</div>';
+    h+='</div></div>';
+  });
+  h+='<div style="background:#fff;border:1px solid #e05c3a30;border-radius:12px;padding:12px;margin-top:4px">';
+  h+='<div style="font-size:14px;font-weight:700;color:#e05c3a;margin-bottom:8px">📝 本週關懷計畫　<span style="font-size:13px;color:#7a8fa8;font-weight:400">五大需要 '+careCount+'/5</span></div>';
+  h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:3px">本週關懷對象</div>';
+  h+='<input class="inp" value="'+esc(care.person||"")+'" placeholder="從你的「2」中選一個人" oninput="setCareField(\'person\',this.value)" style="margin-bottom:8px">';
+  h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:3px">關懷記錄 · 神的帶領</div>';
+  h+='<textarea class="ta" rows="2" placeholder="這2小時做了什麼？對方有什麼回應？" oninput="setCareField(\'note\',this.value)" style="margin-bottom:8px">'+esc(care.note||"")+'</textarea>';
+  h+='<button onclick="saveCareRound()" style="width:100%;padding:11px;background:linear-gradient(135deg,#0a8f84,#0f9b8e);border:none;border-radius:8px;color:#fff;font-size:15px;font-weight:700;cursor:pointer">💾 儲存到關懷記錄 · 開始下一位</button>';
+  h+='</div>';
+  var clog=getCareLog();
+  if(clog.length){
+    var NEEDMAP={love:'❤️被愛',understand:'👂被理解',accept:'🤗被接納',accompany:'🫂被陪伴',connect:'🔗被連結'};
+    h+='<div style="margin-top:14px">';
+    h+='<div style="font-size:14px;font-weight:700;color:#e05c3a;margin-bottom:8px">📚 關懷記錄（'+clog.length+'）</div>';
+    clog.forEach(function(r){
+      h+='<div style="background:#fff;border:1px solid #f0e4dc;border-radius:12px;padding:11px 13px;margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px">';
+      h+='<div style="font-size:15px;font-weight:700;color:#1a1d23;min-width:0">'+(r.person?esc(r.person):'（未填對象）')+'</div>';
+      h+='<div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span style="font-size:12px;color:#7a8fa8">'+r.date+'</span>';
+      h+='<button data-cid="'+r.id+'" onclick="delCareLog(this.dataset.cid)" style="padding:3px 8px;border:1px solid #f0d8d8;border-radius:7px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button></div>';
+      h+='</div>';
+      var nb='';for(var nk in NEEDMAP){if(r.needs&&r.needs[nk])nb+='<span style="font-size:12px;background:#e5f5f3;color:#0a8f84;border-radius:6px;padding:1px 7px;margin:0 4px 4px 0;display:inline-block">'+NEEDMAP[nk]+'</span>';}
+      if(nb)h+='<div style="margin-bottom:5px">'+nb+'</div>';
+      if(r.note)h+='<div style="font-size:14px;color:#4a5a72;line-height:1.6;white-space:pre-wrap">'+esc(r.note)+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+  h+='<div style="font-size:12px;color:#7a8fa8;line-height:1.8;margin-top:10px">🌱 <strong>怎麼落實：</strong>① 從「2」中選一個人 ② 每週排出固定2小時 ③ 相處中刻意滿足1–2項需要 ④ 記錄並為他禱告 ⑤ 一輪後換下一個人，讓關懷繁殖</div>';
   h+='</div>';
 
   // Add person button
@@ -2397,6 +2492,56 @@ function initFont(){
   if(btn)btn.textContent=_fsLabels[_fsIdx]+' A';
 }
 
+// ── Settings page ──
+function getProfile(){return lsG("p4_profile")||{name:"",church:"國度321空中團契"};}
+function setProfileField(k,v){var p=getProfile();p[k]=v;lsS("p4_profile",p);}
+function openSettings(){renderSettings();var m=document.getElementById("settings-modal");if(m)m.style.display="flex";}
+function closeSettings(){var m=document.getElementById("settings-modal");if(m)m.style.display="none";}
+function setFontIdx(i){_fsIdx=((i%4)+4)%4;document.body.classList.remove('fs-small','fs-medium','fs-large','fs-xlarge');document.body.classList.add(_fsSizes[_fsIdx]);lsS('p4_fs',_fsIdx);var b=document.getElementById('fsbtn');if(b)b.textContent=_fsLabels[_fsIdx]+' A';renderSettings();}
+function setEditTB(on){editTB=!!on;renderHCon();renderSettings();}
+function gotoBlockEdit(){editTB=true;closeSettings();document.querySelectorAll(".sc").forEach(function(s){s.classList.remove("on");});document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});var sh=document.getElementById("s-home");if(sh)sh.classList.add("on");var hb=document.querySelector('#nav .nb');if(hb)hb.classList.add("on");htab="tasks";var tbs=document.querySelectorAll('.tabs .tb');tbs.forEach(function(b){b.classList.remove('on');});if(tbs[0])tbs[0].classList.add('on');window.scrollTo(0,0);renderHome();}
+function renderSettings(){
+  var el=document.getElementById("settings-body");if(!el)return;
+  var p=getProfile();
+  var h='';
+  // 個人資料
+  h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">&#128100; 個人資料</div>';
+  h+='<div class="card" style="margin-bottom:18px">';
+  h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:4px">姓名／稱呼</div>';
+  h+='<input class="inp" value="'+esc(p.name||"")+'" placeholder="例：李弟兄、淑芬姊妹" oninput="setProfileField(\'name\',this.value)" style="margin-bottom:12px">';
+  h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:4px">教會／團契</div>';
+  h+='<input class="inp" value="'+esc(p.church||"")+'" placeholder="例：國度321空中團契" oninput="setProfileField(\'church\',this.value)">';
+  h+='</div>';
+  // 夜間模式
+  h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">&#127769; 顯示</div>';
+  h+='<div class="card" style="margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">';
+  h+='<div style="font-size:16px;font-weight:600">夜間模式</div>';
+  h+='<button onclick="togDark();renderSettings()" aria-label="夜間模式" style="width:54px;height:30px;border-radius:15px;border:none;cursor:pointer;background:'+(darkMode?"#0a8f84":"#cfd6e2")+';position:relative;flex-shrink:0">';
+  h+='<span style="position:absolute;top:3px;left:'+(darkMode?"27px":"3px")+';width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s"></span></button>';
+  h+='</div>';
+  // 字體大小
+  h+='<div class="card" style="margin-bottom:18px">';
+  h+='<div style="font-size:16px;font-weight:600;margin-bottom:10px">字體大小</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">';
+  for(var fi=0;fi<_fsLabels.length;fi++){
+    var onf=(_fsIdx===fi);
+    h+='<button onclick="setFontIdx('+fi+')" style="padding:11px 4px;border-radius:10px;border:1.5px solid '+(onf?"#1e4d8c":"#d8dce8")+';background:'+(onf?"#e8edf5":"transparent")+';color:'+(onf?"#1e4d8c":"#7a8fa8")+';font-weight:'+(onf?800:500)+';cursor:pointer;font-size:14px">'+_fsLabels[fi]+'</button>';
+  }
+  h+='</div></div>';
+  // 今日事項編輯
+  h+='<div style="font-size:13px;color:#7a8fa8;font-weight:700;letter-spacing:1px;margin:2px 2px 8px">&#128197; 今日事項</div>';
+  h+='<div class="card" style="margin-bottom:10px">';
+  h+='<div style="display:flex;align-items:center;justify-content:space-between">';
+  h+='<div style="font-size:16px;font-weight:600">編輯時間區塊</div>';
+  h+='<button onclick="setEditTB('+(!editTB)+')" aria-label="編輯時間區塊" style="width:54px;height:30px;border-radius:15px;border:none;cursor:pointer;background:'+(editTB?"#0a8f84":"#cfd6e2")+';position:relative;flex-shrink:0">';
+  h+='<span style="position:absolute;top:3px;left:'+(editTB?"27px":"3px")+';width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s"></span></button>';
+  h+='</div>';
+  h+='<div style="font-size:13px;color:#7a8fa8;line-height:1.7;margin-top:8px">開啟後，「規劃 → 今日」頁的每個時間區塊會出現 &#9999;&#65039; 可修改名稱／時間／說明，底部也會出現「＋ 新增時間區塊」。日常使用時建議關閉，保持畫面清爽。</div>';
+  if(editTB)h+='<button onclick="gotoBlockEdit()" style="width:100%;margin-top:12px;padding:12px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:700;cursor:pointer">前往規劃頁編輯 →</button>';
+  h+='</div>';
+  el.innerHTML=h;
+}
+
 // Custom block settings storage
 function getBLCustom(){return lsG("p4_blcustom")||{};}
 function saveBLCustom(d){lsS("p4_blcustom",d);}
@@ -2406,7 +2551,7 @@ function getBL(){
   var custom=getBLCustom();
   var base=BL.map(function(b){
     var c=custom[b.id];
-    return c?{id:b.id,label:c.label||b.label,icon:b.icon,color:b.color,
+    return c?{id:b.id,label:c.label||b.label,icon:c.icon||b.icon,color:b.color,
               time:c.time||b.time,desc:c.desc||b.desc}:b;
   });
   // Merge extra user-created blocks, sorted by time
@@ -2453,10 +2598,12 @@ function saveBlock(bid){
   var ni=document.getElementById("bln-"+bid);
   var ti=document.getElementById("blt-"+bid);
   var di=document.getElementById("bld-"+bid);
+  var ii=document.getElementById("bli-"+bid);
   if(!ti||!di)return;
   var newLabel=(ni?ni.value.trim():'')||'新時間區塊';
   var newTime=ti.value.trim();
   var newDesc=di.value.trim();
+  var newIcon=ii?ii.value.trim():'';
   // Check if it's an extra block
   var extra=getBLExtra();
   var eIdx=extra.findIndex?extra.findIndex(function(b){return b.id===bid;}):
@@ -2465,10 +2612,12 @@ function saveBlock(bid){
     extra[eIdx].label=newLabel;
     extra[eIdx].time=newTime;
     extra[eIdx].desc=newDesc;
+    if(newIcon)extra[eIdx].icon=newIcon;
     saveBLExtra(extra);
   } else {
     var custom=getBLCustom();
-    custom[bid]={label:newLabel,time:newTime,desc:newDesc};
+    var prev=custom[bid]||{};
+    custom[bid]={label:newLabel,time:newTime,desc:newDesc,icon:newIcon||prev.icon};
     saveBLCustom(custom);
   }
   toast("✓ 已更新");
@@ -2593,11 +2742,73 @@ function delQRRecord(id){
   renderRecords();
   toast("已刪除記錄");
 }
+// Streak helper: from an array of "YYYY-MM-DD" strings, returns {cur,best,days}
+function _streakStats(dates){
+  var map={};
+  dates.forEach(function(d){if(d)map[d]=1;});
+  var keys=Object.keys(map).sort();
+  if(!keys.length)return {cur:0,best:0,days:0};
+  var step=function(ds,n){var dd=new Date(ds+"T00:00:00");dd.setDate(dd.getDate()+n);return dd.getFullYear()+"-"+_pad(dd.getMonth()+1)+"-"+_pad(dd.getDate());};
+  var best=1,run=1;
+  for(var i=1;i<keys.length;i++){
+    if(keys[i]===step(keys[i-1],1))run++;else run=1;
+    if(run>best)best=run;
+  }
+  var cur=0,c=tod();
+  if(!map[c])c=step(c,-1);
+  while(map[c]){cur++;c=step(c,-1);}
+  return {cur:cur,best:best,days:keys.length};
+}
 function renderRecords(){
   var el=document.getElementById("rec-list");
   if(!el)return;
+
+  // Memo tab
+  if(_recTab==="memo"){
+    var memos=getMemos();
+    if(!memos.length){el.innerHTML='<div style="text-align:center;padding:40px 20px;color:#7a8fa8;font-size:16px;line-height:2">尚無備忘錄<br><span style="font-size:14px">點 ✦ → 📝 備忘錄 開始記錄</span></div>';return;}
+    var h='<div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:10px;letter-spacing:1px">📝 備忘錄（'+memos.length+'）</div>';
+    memos.forEach(function(m){
+      h+='<div style="background:#fff;border-radius:12px;padding:13px 14px;margin-bottom:8px;border-left:3px solid #7c4dbd">';
+      h+='<div style="display:flex;align-items:flex-start;gap:8px">';
+      h+='<div style="flex:1;font-size:15px;color:#1e3252;line-height:1.7;white-space:pre-wrap">'+esc(m.text)+'</div>';
+      h+='<button data-mid="'+m.id+'" onclick="deleteMemo(this.dataset.mid);renderRecords()" style="padding:5px 10px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer;flex-shrink:0">刪除</button>';
+      h+='</div>';
+      h+='<div style="font-size:11px;color:#b0b8c8;margin-top:5px">'+m.date+' '+m.time+'</div>';
+      h+='</div>';
+    });
+    el.innerHTML=h;
+    return;
+  }
+
+  // Todo tab
+  if(_recTab==="todo"){
+    var todos=getTodos();
+    if(!todos.length){el.innerHTML='<div style="text-align:center;padding:40px 20px;color:#7a8fa8;font-size:16px;line-height:2">尚無待辦事項<br><span style="font-size:14px">點 ✦ → ☑️ 待辦事項 開始新增</span></div>';return;}
+    var done2=todos.filter(function(t){return t.done;}).length;
+    var h2='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
+    h2+='<div style="font-size:12px;color:#7a8fa8">共 '+todos.length+' 項・已完成 '+done2+' 項</div>';
+    if(done2>0)h2+='<button onclick="clearDoneTodos();renderRecords()" style="padding:4px 10px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:8px;color:#e05c3a;font-size:12px;font-weight:700;cursor:pointer">清除已完成</button>';
+    h2+='</div>';
+    todos.forEach(function(t){
+      h2+='<div style="background:#fff;border-radius:10px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px;opacity:'+(t.done?.55:1)+'">';
+      h2+='<button data-tid="'+t.id+'" onclick="togTodo(this.dataset.tid);renderRecords()" style="width:24px;height:24px;border-radius:6px;border:2px solid '+(t.done?'#0a8f84':'#d8dce8')+';background:'+(t.done?'#0a8f84':'transparent')+';color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center">'+(t.done?'✓':'')+'</button>';
+      h2+='<div style="flex:1;font-size:14px;color:'+(t.done?'#b0b8c8':'#1e3252')+';'+(t.done?'text-decoration:line-through':'')+'">'+esc(t.text)+'</div>';
+      h2+='<button data-tid="'+t.id+'" onclick="deleteTodo(this.dataset.tid);renderRecords()" style="padding:5px 8px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button>';
+      h2+='</div>';
+    });
+    el.innerHTML=h2;
+    return;
+  }
+
+  // QR records (all / prayer / spark / victory / verse / thanks)
   var all=getQRRecords();
   var filtered=_recTab==="all"?all:all.filter(function(r){return r.type===_recTab;});
+  if(_recTab==="all"){
+    // Also show memo+todo count in summary
+    var memoCount=getMemos().length;
+    var todoCount=getTodos().length;
+  }
   if(filtered.length===0){
     el.innerHTML='<div style="text-align:center;padding:40px 20px;color:#7a8fa8;font-size:16px;line-height:2">尚無記錄<br><span style="font-size:14px">點右下角 ✦ 開始記錄</span></div>';
     return;
@@ -2606,7 +2817,6 @@ function renderRecords(){
   var h="";
   var lastDate="";
   filtered.forEach(function(r){
-    // Date separator
     if(r.date!==lastDate){
       lastDate=r.date;
       var dt=new Date(r.date+"T00:00:00");
@@ -2631,7 +2841,6 @@ function renderRecords(){
     if(isAnswered&&r.answeredDate)h+='<div style="font-size:12px;color:#0a8f84;margin-top:4px">🙏 應允日期：'+r.answeredDate+'</div>';
     h+='</div>';
     h+='<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">';
-    // Prayer answered button
     if(r.type==="prayer"){
       h+='<button data-rid="'+r.id+'" onclick="togPrayerAnswered(this.dataset.rid)" style="padding:5px 8px;border:1.5px solid '+(isAnswered?"#0a8f84":"#d8dce8")+';border-radius:8px;background:'+(isAnswered?"#e5f5f3":"transparent")+';color:'+(isAnswered?"#0a8f84":"#7a8fa8")+';font-size:12px;cursor:pointer;font-weight:700;white-space:nowrap">'+(isAnswered?"✓ 已成就":"禱告<br>成就")+'</button>';
     }
@@ -2639,17 +2848,52 @@ function renderRecords(){
     h+='</div>';
     h+='</div></div>';
   });
-  // Stats summary
-  var prayCount=all.filter(function(r){return r.type==="prayer";}).length;
-  var answeredCount=all.filter(function(r){return r.type==="prayer"&&r.answered;}).length;
-  if(prayCount>0){
+  // Stats — Prayer (only on 全部 / 禱告 tab)
+  var prayRecs=all.filter(function(r){return r.type==="prayer";});
+  var prayCount=prayRecs.length;
+  var answeredCount=prayRecs.filter(function(r){return r.answered;}).length;
+  if(prayCount>0&&(_recTab==="all"||_recTab==="prayer")){
+    var pSt=_streakStats(prayRecs.map(function(r){return r.date;}));
     h+='<div style="background:linear-gradient(135deg,#e8edf5,#e5f5f3);border-radius:14px;padding:14px 16px;margin-top:16px;text-align:center">';
-    h+='<div style="font-size:14px;color:#7a8fa8;margin-bottom:6px">禱告統計</div>';
+    h+='<div style="font-size:14px;color:#1e4d8c;margin-bottom:6px;font-weight:700">🙏 禱告統計</div>';
     h+='<div style="display:flex;justify-content:center;gap:24px">';
     h+='<div><div style="font-size:28px;font-weight:900;color:#1e4d8c">'+prayCount+'</div><div style="font-size:13px;color:#7a8fa8">總禱告</div></div>';
     h+='<div><div style="font-size:28px;font-weight:900;color:#0a8f84">'+answeredCount+'</div><div style="font-size:13px;color:#7a8fa8">蒙應允</div></div>';
-    h+='<div><div style="font-size:28px;font-weight:900;color:#d97706">'+(prayCount>0?Math.round(answeredCount/prayCount*100):0)+'%</div><div style="font-size:13px;color:#7a8fa8">成就率</div></div>';
+    h+='<div><div style="font-size:28px;font-weight:900;color:#d97706">'+Math.round(answeredCount/prayCount*100)+'%</div><div style="font-size:13px;color:#7a8fa8">成就率</div></div>';
+    h+='</div>';
+    h+='<div style="margin-top:11px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap">';
+    h+='<span style="background:#fff;border:1px solid #c9d6ea;border-radius:10px;padding:6px 12px;font-size:14px;color:#1e4d8c;font-weight:800">🔥 連續禱告 '+pSt.cur+' 天</span>';
+    h+='<span style="background:#fff;border:1px solid #c9d6ea;border-radius:10px;padding:6px 12px;font-size:14px;color:#7a8fa8;font-weight:800">🏅 最長 '+pSt.best+' 天</span>';
     h+='</div></div>';
+  }
+  // Stats — Gratitude (only on 全部 / 感恩 tab)
+  var thanksRecs=all.filter(function(r){return r.type==="thanks";});
+  if(thanksRecs.length>0&&(_recTab==="all"||_recTab==="thanks")){
+    var ymNow=tod().slice(0,7);
+    var thanksMonth=thanksRecs.filter(function(r){return (r.date||"").slice(0,7)===ymNow;}).length;
+    var tSt=_streakStats(thanksRecs.map(function(r){return r.date;}));
+    var thanksStreak=tSt.cur;
+    var todayThanked=thanksRecs.some(function(r){return r.date===tod();});
+    h+='<div style="background:linear-gradient(135deg,#fdf3e3,#fbe8cf);border-radius:14px;padding:14px 16px;margin-top:14px;text-align:center">';
+    h+='<div style="font-size:14px;color:#a16207;margin-bottom:6px;font-weight:700">💛 感恩統計</div>';
+    h+='<div style="display:flex;justify-content:center;gap:24px">';
+    h+='<div><div style="font-size:28px;font-weight:900;color:#d97706">'+thanksRecs.length+'</div><div style="font-size:13px;color:#a16207">總感恩</div></div>';
+    h+='<div><div style="font-size:28px;font-weight:900;color:#b45309">'+thanksMonth+'</div><div style="font-size:13px;color:#a16207">本月</div></div>';
+    h+='<div><div style="font-size:28px;font-weight:900;color:#92600a">'+tSt.days+'</div><div style="font-size:13px;color:#a16207">感恩天數</div></div>';
+    h+='</div>';
+    h+='<div style="margin-top:11px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap">';
+    h+='<span style="background:#fff7e8;border:1px solid #f0c27b;border-radius:10px;padding:6px 12px;font-size:14px;color:#b45309;font-weight:800">🔥 連續感恩 '+thanksStreak+' 天</span>';
+    h+='<span style="background:#fff7e8;border:1px solid #f0c27b;border-radius:10px;padding:6px 12px;font-size:14px;color:#a16207;font-weight:800">🏅 最長 '+tSt.best+' 天</span>';
+    h+='</div>';
+    if(thanksStreak>0){
+      var _smsg=thanksStreak>=30?"一個月不間斷，神的慈愛日日新！":thanksStreak>=7?"滿一週了，感恩成為習慣！":"持續下去，讓感恩天天湧流";
+      h+='<div style="font-size:12px;color:#a16207;margin-top:8px">'+_smsg+'</div>';
+      if(!todayThanked)h+='<div style="font-size:12px;color:#a16207;margin-top:5px">今天還沒記感恩，點右下角 ✦ 補一筆，延續你的火花 💛</div>';
+    }else{
+      h+='<div style="font-size:12px;color:#a16207;margin-top:8px">今天點右下角 ✦ 記一筆感恩，點燃你的連續感恩 🔥</div>';
+    }
+    h+='<div style="font-size:12px;color:#a16207;margin-top:8px;font-style:italic">「凡事謝恩」(帖前5:18) — 讓耶穌得著一切的榮耀</div>';
+    h+='</div>';
   }
   el.innerHTML=h;
 }
@@ -4071,6 +4315,34 @@ function renderRelContent(){
   h+='<div style="font-size:26px;font-weight:900;color:#0a8f84">'+activeDays+'</div>';
   h+='<div style="font-size:12px;color:#7a8fa8">操練天數</div></div>';
   h+='</div>';
+
+  // ── 關懷行動統計 ──
+  var clog=getCareLog();
+  if(clog.length){
+    var careTotal=clog.length;
+    var carePersons={};clog.forEach(function(r){if(r.person)carePersons[r.person]=1;});
+    var carePersonCount=Object.keys(carePersons).length;
+    var needTotals={love:0,understand:0,accept:0,accompany:0,connect:0};
+    clog.forEach(function(r){if(r.needs){for(var nk in needTotals){if(r.needs[nk])needTotals[nk]++;}}});
+    var CN={love:'❤️ 被愛',understand:'👂 被理解',accept:'🤗 被接納',accompany:'🫂 被陪伴',connect:'🔗 被連結'};
+    var maxNeed=1;for(var mk in needTotals){if(needTotals[mk]>maxNeed)maxNeed=needTotals[mk];}
+    h+='<div class="rel-card" style="margin-bottom:14px;border-top:3px solid #e05c3a">';
+    h+='<div style="font-size:15px;font-weight:700;color:#1e3252;margin-bottom:12px">💗 關懷行動統計</div>';
+    h+='<div style="display:flex;justify-content:center;gap:28px;margin-bottom:14px">';
+    h+='<div style="text-align:center"><div style="font-size:26px;font-weight:900;color:#e05c3a">'+careTotal+'</div><div style="font-size:12px;color:#7a8fa8">關懷則數</div></div>';
+    h+='<div style="text-align:center"><div style="font-size:26px;font-weight:900;color:#0a8f84">'+carePersonCount+'</div><div style="font-size:12px;color:#7a8fa8">關懷對象</div></div>';
+    h+='</div>';
+    h+='<div style="font-size:13px;color:#7a8fa8;margin-bottom:8px">五大需要被滿足次數</div>';
+    for(var ck in CN){
+      var cv=needTotals[ck];var cpct=Math.round(cv/maxNeed*100);
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">';
+      h+='<div style="width:82px;font-size:13px;color:#4a5a72;flex-shrink:0">'+CN[ck]+'</div>';
+      h+='<div style="flex:1;background:#eef1f6;border-radius:6px;height:14px;overflow:hidden"><div style="width:'+cpct+'%;height:100%;background:#0a8f84;border-radius:6px"></div></div>';
+      h+='<div style="width:24px;text-align:right;font-size:13px;font-weight:700;color:#0a8f84;flex-shrink:0">'+cv+'</div>';
+      h+='</div>';
+    }
+    h+='</div>';
+  }
 
   // ── 30-Day Heatmap ──
   h+='<div class="rel-card" style="margin-bottom:14px">';
@@ -6107,16 +6379,34 @@ function schedRefreshRepPicker(){
         <button onclick="closeRecords()" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer">✕</button>
       </div>
       <!-- Tabs -->
-      <div style="display:flex;gap:2px;background:rgba(255,255,255,.15);border-radius:12px;padding:3px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.15);border-radius:12px;padding:4px">
         <button class="rec-tab on" data-tab="all" onclick="switchRecTab('all')" style="border-radius:10px;font-size:13px;color:#fff">全部</button>
         <button class="rec-tab" data-tab="prayer" onclick="switchRecTab('prayer')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">🙏 禱告</button>
         <button class="rec-tab" data-tab="spark" onclick="switchRecTab('spark')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">⚡ 感動</button>
+        <button class="rec-tab" data-tab="thanks" onclick="switchRecTab('thanks')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">💛 感恩</button>
         <button class="rec-tab" data-tab="victory" onclick="switchRecTab('victory')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">🏆 見證</button>
         <button class="rec-tab" data-tab="verse" onclick="switchRecTab('verse')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">📖 金句</button>
+        <button class="rec-tab" data-tab="memo" onclick="switchRecTab('memo')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">📝 備忘</button>
+        <button class="rec-tab" data-tab="todo" onclick="switchRecTab('todo')" style="border-radius:10px;font-size:13px;color:rgba(255,255,255,.7)">☑️ 待辦</button>
       </div>
     </div>
     <!-- Content -->
     <div id="rec-list" style="padding:14px 16px 30px"></div>
+  </div>
+</div>
+<!-- SETTINGS MODAL -->
+<div id="settings-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,10,30,.6);z-index:950;justify-content:center;align-items:flex-end;backdrop-filter:blur(3px)" onclick="if(event.target.id==='settings-modal')closeSettings()">
+  <div class="set-sheet" style="width:100%;max-width:480px;border-radius:22px 22px 0 0;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 -8px 40px rgba(0,0,0,.35)">
+    <div style="background:linear-gradient(135deg,#1e4d8c,#0a8f84);padding:20px 18px 16px;position:sticky;top:0;z-index:5;border-radius:22px 22px 0 0">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase">Settings</div>
+          <div style="font-size:20px;font-weight:900;color:#fff">&#9881;&#65039; 設定</div>
+        </div>
+        <button onclick="closeSettings()" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer">✕</button>
+      </div>
+    </div>
+    <div id="settings-body" style="padding:16px 16px 34px"></div>
   </div>
 </div>
 <!-- QUICK RECORD PANEL -->
@@ -6136,8 +6426,8 @@ function schedRefreshRepPicker(){
       <div class="qr-item" data-action="memo" style="border-right:1px solid #f0f4f8;border-bottom:1px solid #f0f4f8;background:#f8f4ff"><span class="qr-icon-wrap" style="font-size:26px">📝</span><div><div style="font-weight:700;font-size:14px;color:#7c4dbd">備忘錄</div><div style="font-size:11px;color:#7a8fa8">隨手記下</div></div></div>
       <div class="qr-item" data-action="todo" style="border-bottom:1px solid #f0f4f8;background:#f0fff8"><span class="qr-icon-wrap" style="font-size:26px">☑️</span><div><div style="font-weight:700;font-size:14px;color:#2e8b57">待辦事項</div><div style="font-size:11px;color:#7a8fa8">快速新增</div></div></div>
     </div>
-    <div class="qr-item" data-action="records" style="border-bottom:1px solid #f0f4f8;background:#f0f4ff"><span class="qr-icon-wrap" style="font-size:26px">📚</span><div><div style="font-weight:700;color:#1e4d8c">查看所有記錄</div><div style="font-size:12px;color:#7a8fa8">靈感・禱告・見證・金句</div></div></div>
-    <div class="qr-item" data-action="share" style="background:#fff8f0"><span class="qr-icon-wrap" style="font-size:26px">✨</span><div><div style="font-weight:700;color:#d97706">分享得勝卡片</div><div style="font-size:12px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div></div>
+    <div class="qr-item" data-action="records" style="border-bottom:1px solid #f0f4f8;background:#f0f4ff"><span class="qr-icon-wrap" style="font-size:26px">📚</span><div><div style="font-weight:700;font-size:14px;color:#1e4d8c">查看所有記錄</div><div style="font-size:11px;color:#7a8fa8">靈感・禱告・見證・金句</div></div></div>
+    <div class="qr-item" data-action="share" style="background:#fff8f0"><span class="qr-icon-wrap" style="font-size:26px">✨</span><div><div style="font-weight:700;font-size:14px;color:#d97706">分享得勝卡片</div><div style="font-size:11px;color:#7a8fa8">本週回顧・金句・見證・禱告</div></div></div>
   </div>
 </div>
 
@@ -6156,6 +6446,50 @@ function schedRefreshRepPicker(){
 
 <!-- FAB Button -->
 <button id="fab" title="快速記錄">✦</button>
+
+<script>
+/* ============================================================
+   App 版本更新提醒 (開啟即檢查)
+   發佈新版時：
+   1) 把下面 APP_VERSION 的號碼往上加（例如 1.0.1 → 1.1.0）
+   2) 在你的網站放一個 version.json，內容像這樣：
+      {"version":"1.1.0","notes":"新增關懷統計","url":"https://你的網址/321planner.html"}
+   3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
+   舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
+   ============================================================ */
+var APP_VERSION = "1.0.0";        /* ★ 每次發佈新版請往上加 */
+var VERSION_CHECK_URL = "";       /* ★ 填入你的 version.json 網址 */
+var _updateInfo = null;
+function checkAppUpdate(){
+  if(!VERSION_CHECK_URL) return;
+  try{
+    var url = VERSION_CHECK_URL + (VERSION_CHECK_URL.indexOf('?')<0?'?':'&') + '_t=' + Date.now();
+    fetch(url, {cache:'no-store'})
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(!j || !j.version) return;
+        if(j.version !== APP_VERSION && localStorage.getItem('p4_skipver') !== j.version){
+          _updateInfo = j;
+          var t = document.getElementById('update-banner-text');
+          if(t) t.innerHTML = '🔔 有新版本 <strong>v'+j.version+'</strong>' + (j.notes ? '｜'+j.notes : '') + '<br><span style="font-size:12px;opacity:.9">點「立即更新」下載最新版</span>';
+          var b = document.getElementById('update-banner');
+          if(b) b.style.display = 'flex';
+        }
+      })
+      .catch(function(){});
+  }catch(e){}
+}
+function doAppUpdate(){
+  if(_updateInfo && _updateInfo.url){ window.open(_updateInfo.url, '_blank'); }
+  else { try{ location.reload(true); }catch(e){ location.reload(); } }
+}
+function dismissUpdate(){
+  if(_updateInfo && _updateInfo.version){ try{ localStorage.setItem('p4_skipver', _updateInfo.version); }catch(e){} }
+  var b = document.getElementById('update-banner'); if(b) b.style.display='none';
+}
+window.addEventListener('load', function(){ setTimeout(checkAppUpdate, 1500); });
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) checkAppUpdate(); });
+</script>
 
 </body>
 </html>
