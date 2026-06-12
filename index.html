@@ -272,6 +272,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
 .dark #rp-box{background:#141826}
 
 @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes calPop{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}
 
 /* ── Quick Record FAB ── */
 #fab{position:fixed;bottom:120px;right:16px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:18px;cursor:grab;box-shadow:0 3px 12px rgba(30,77,140,.45);z-index:800;display:flex;align-items:center;justify-content:center;opacity:.85;transition:opacity .2s,transform .1s;user-select:none;-webkit-user-select:none;touch-action:none}
@@ -374,6 +375,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
     <button class="tb on" onclick="hTab('tasks',this)"><span style="font-size:19px">&#128197;</span>今日</button>
     <button class="tb" onclick="hTab('priority',this)"><span style="font-size:19px">&#127919;</span>優先</button>
     <button class="tb" onclick="hTab('review',this)"><span style="font-size:19px">&#127769;</span>晚禱</button>
+    <button class="tb" onclick="goMinistryTab(this)"><span style="font-size:19px">🌾</span>事工</button>
     <button class="tb" onclick="goProjTab(this)"><span style="font-size:19px">&#128196;</span>專案</button>
   </div>
   <div id="hcon" style="padding:14px 16px 0"></div>
@@ -553,21 +555,36 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
   <div id="projcon" style="padding:12px 14px"></div>
 </div>
 
+<!-- MINISTRY PLANNING -->
+<div id="s-ministry" class="sc">
+  <div class="hdr">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div style="font-size:9px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px">Ministry Planning</div>
+        <div style="font-size:22px;color:#1e4d8c;font-weight:900">🌾 事工規劃</div>
+        <div style="font-size:14px;color:#7a8fa8;margin-top:3px">異象 &#8594; 預備 &#8594; 執行 &#8594; 繁殖</div>
+      </div>
+    </div>
+  </div>
+  <div id="mincon" style="padding:12px 14px"></div>
+</div>
+
 <!-- SCHEDULE (Google Calendar style) -->
 <div id="s-sched" class="sc">
   <div class="hdr" style="padding-bottom:10px">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <div>
+    <div>
         <div style="font-size:10px;color:#7a8fa8;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px">Daily Schedule</div>
         <div style="font-size:22px;color:#1e4d8c;font-weight:900">🗓️ 每日時程表</div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center">
-        <button onclick="schedPrevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 10px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">‹</button>
-        <div id="sched-date-lbl" style="font-size:14px;font-weight:700;color:#1e3252;min-width:110px;text-align:center"></div>
-        <button onclick="schedNextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 10px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">›</button>
-        <button onclick="schedGoToday()" style="background:#e2f5f3;border:1.5px solid #0f9b8e;border-radius:8px;padding:5px 10px;color:#0a8f84;font-size:12px;font-weight:700;cursor:pointer">今日</button>
+      <div style="display:flex;gap:5px;align-items:center;position:relative;flex-wrap:wrap;justify-content:center;margin-top:10px">
+        <button onclick="schedPrevDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 9px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">‹</button>
+        <button onclick="schedOpenCalendar()" id="sched-date-btn" title="點此選擇日期" style="display:flex;align-items:center;gap:4px;background:#eef2f9;border:1px solid #c5d0e2;border-radius:8px;padding:5px 9px;cursor:pointer;min-width:118px;justify-content:center">
+          <span style="font-size:14px">📅</span>
+          <span id="sched-date-lbl" style="font-size:14px;font-weight:700;color:#1e3252"></span>
+        </button>
+        <button onclick="schedNextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 9px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">›</button>
+        <button onclick="schedGoToday()" id="sched-today-btn" title="回到今天" style="background:#e2f5f3;border:1.5px solid #0f9b8e;border-radius:8px;padding:5px 9px;color:#0a8f84;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:3px"><span style="font-size:14px">📍</span>今日</button>
       </div>
-    </div>
   </div>
   <!-- Timeline body -->
   <div id="sched-wrap" style="position:relative;overflow-y:auto;height:calc(100vh - 160px);background:#fff;-webkit-overflow-scrolling:touch">
@@ -577,6 +594,10 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
   </div>
   <!-- Add event modal trigger -->
   <button onclick="schedOpenAdd()" style="position:fixed;bottom:80px;right:16px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1e4d8c,#0a8f84);border:none;color:#fff;font-size:26px;box-shadow:0 4px 16px rgba(30,77,140,.35);cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;line-height:1" id="sched-fab" style2="right:auto;left:16px">＋</button>
+  <!-- Custom calendar popup -->
+  <div id="sched-cal-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:960;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:22px" onclick="if(event.target===this)schedCloseCalendar()">
+    <div id="sched-cal-card" style="background:#fff;width:100%;max-width:350px;border-radius:22px;padding:18px 18px 16px;box-shadow:0 24px 70px rgba(15,23,42,.4);animation:calPop .25s ease"></div>
+  </div>
 </div>
 
 <!-- SCHED ADD/EDIT MODAL -->
@@ -1623,7 +1644,7 @@ function render920(){
     {k:'understand',icon:'👂',name:'被理解',act:'用心傾聽、不急著給建議、複述並確認他的感受',verse:'「快快地聽，慢慢地說」雅1:19'},
     {k:'accept',icon:'🤗',name:'被接納',act:'接納他真實的樣子、在軟弱與失敗中仍不離不棄',verse:'「要彼此接納，如同基督接納你們」羅15:7'},
     {k:'accompany',icon:'🫂',name:'被陪伴',act:'每週固定2小時同在——吃飯、散步、一起服事',verse:'「兩個人總比一個人好」傳4:9'},
-    {k:'connect',icon:'🔗',name:'被連結',act:'帶他進入團契小組、連結屬靈同伴與基督的身體',verse:'「全身…百節各按各職」弗4:16'}
+    {k:'connect',icon:'🔗',name:'被連結',act:'帶他進入團契小家、連結屬靈同伴與基督的身體',verse:'「全身…百節各按各職」弗4:16'}
   ];
   var careCount=0;NEEDS.forEach(function(n){if(care[n.k])careCount++;});
   h+='<div style="background:linear-gradient(135deg,#fef2f4,#fff7ed);border:1px solid #e05c3a30;border-radius:14px;padding:14px 16px;margin-bottom:14px">';
@@ -5611,6 +5632,390 @@ function renderTodoList(){
   });
 
 // ════════════════════════════════════════
+// 事工規劃 Ministry Planning
+// ════════════════════════════════════════
+var MIN_PHASES=[
+  {id:'pray',label:'禱告預備',icon:'🙏',color:'#d97706'},
+  {id:'plan',label:'籌備規劃',icon:'📋',color:'#1e4d8c'},
+  {id:'do',label:'執行推動',icon:'🚀',color:'#0a8f84'},
+  {id:'grow',label:'檢討繁殖',icon:'🌱',color:'#6b45b0'}
+];
+var MIN_CHECK=[
+  {g:'先生命 · 生命根基',c:'#d97706',items:[
+    '這事工出於神的呼召與異象，不是出於己意、比較或人的期待',
+    '核心同工生命健康、與神關係正常——先被建造，再去服事',
+    '已建立持續的禱告遮蓋，倚靠聖靈引導而非倚靠方法與恩賜',
+    '目的是讓耶穌作王、得著一切榮耀，而非個人成就或教會招牌'
+  ]},
+  {g:'再關係 · 同心連結',c:'#0a8f84',items:[
+    '已與牧者／教會同心，得到屬靈遮蓋與授權（謙卑回到本位）',
+    '團隊角色分工清楚（235：同伴・父母兒女・五重職份戰友）',
+    '重視人過於重視事——不為把事做成而傷害人、破壞關係',
+    '有刻意的陪伴與傳承，使事工能繁殖接棒，而非靠一人獨撐'
+  ]},
+  {g:'後事工 · 落地執行',c:'#1e4d8c',items:[
+    '目標具體、可衡量，有清楚的時間表與里程碑',
+    '已盤點所需資源：人力、經費、場地、器材、時間',
+    '已預想潛在風險與因應（安全、財務、衝突、法規）',
+    '建立定期檢討、修正、調整的機制（檢討→修正→反覆→繁殖）'
+  ]}
+];
+function getMins(){return lsG('p4_ministries')||[];}
+function saveMins(l){lsS('p4_ministries',l);}
+var _minOpen=null,_minGuide=false,_minDelArm=false,_minTplOpen=false;
+var MIN_TEMPLATES=[
+  {name:'主日崇拜籌備',icon:'🙏',color:'#1e4d8c',verse:'詩篇95:6',
+   calling:'帶領會眾在心靈與真理中敬拜神，讓會眾領受神的話、被聖靈更新，讓耶穌得榮耀。',
+   audience:'全教會會眾與初次來訪的福音朋友',
+   team:[{role:'司會／主領'},{role:'敬拜主領'},{role:'司琴／樂手'},{role:'講員'},{role:'音控'},{role:'投影'},{role:'招待／引導'}],
+   goals:['會眾專心敬拜、被神的同在充滿','清楚領受當週信息並付諸實踐','新朋友感到被歡迎、願意再來'],
+   rundown:[{time:'',item:'宣召・敬拜讚美',person:''},{time:'',item:'禱告・讀經',person:''},{time:'',item:'信息',person:''},{time:'',item:'回應・奉獻',person:''},{time:'',item:'報告・差遣祝福',person:''}],
+   tasks:['確認講員與講道主題','敬拜詩歌挑選與排練','預備週報與投影','場地佈置與音響測試','招待與新朋友關懷安排'],
+   milestones:['確認講員','敬拜排練','場地與設備確認'],
+   equipment:['音響・麥克風','投影設備','詩歌投影檔','奉獻袋','聖餐器具（如有聖餐）'],
+   budget:['鮮花佈置','茶點','文宣印製'],
+   prayers:['求聖靈充滿整個聚會','講員忠心傳講、會眾預備心領受','新朋友被主的愛吸引']},
+  {name:'特會／培靈會',icon:'🔥',color:'#d97706',verse:'哈巴谷書3:2',
+   calling:'求神在這世代復興祂的作為，使弟兄姊妹生命被更新、立志委身，迎向教會的復興。',
+   audience:'全教會與鄰近教會弟兄姊妹、慕道朋友',
+   team:[{role:'總召'},{role:'講員接待'},{role:'敬拜團'},{role:'報名／簽到組'},{role:'場地組'},{role:'茶水餐飲組'},{role:'禱告組'}],
+   goals:['生命被神更新、得著屬天異象','回應呼召、立志委身與行動','點燃復興的火，帶回各小家'],
+   rundown:[{time:'',item:'報到・敬拜',person:''},{time:'',item:'信息（一）',person:''},{time:'',item:'休息・茶點',person:''},{time:'',item:'信息（二）・回應',person:''},{time:'',item:'同心禱告・差遣',person:''}],
+   tasks:['邀請並確認講員','文宣設計與開放報名','場地租借與動線規劃','敬拜詩歌排練','接送、住宿、餐飲安排'],
+   milestones:['確認講員與主題','開放報名','場地確認','全體彩排'],
+   equipment:['音響舞台燈光','報名／簽到表','名牌','講義／筆記本','指引看板'],
+   budget:['講員謝禮','場地租借','文宣印製','茶點餐飲','住宿交通'],
+   prayers:['求復興與更新臨到每個人','講員所傳信息帶著能力','報名人數與福音朋友赴會']},
+  {name:'小家／家組',icon:'🏠',color:'#0a8f84',verse:'使徒行傳2:46',
+   calling:'在小家中彼此相愛、彼此牧養，使生命連結於基督、繁殖新的生命與小家。',
+   audience:'小家成員與新朋友（每個與我們有關係的「2」）',
+   team:[{role:'小家長'},{role:'副家長／接棒'},{role:'關懷同工'},{role:'招待／茶點'}],
+   goals:['家人生命彼此連結、向下扎根','關顧到每位家人（人比事重要）','帶領新朋友、預備繁殖新小家'],
+   rundown:[{time:'',item:'破冰・分享近況',person:''},{time:'',item:'敬拜',person:''},{time:'',item:'查經／信息分享',person:''},{time:'',item:'彼此代禱',person:''},{time:'',item:'愛宴・交誼',person:''}],
+   tasks:['預備查經內容','逐一關懷家人','邀請新朋友','預備茶點場地'],
+   milestones:['本季主題確定','邀請新朋友'],
+   equipment:['聖經・查經教材','投影或白板','茶點'],
+   budget:['茶點','教材'],
+   prayers:['家人生命成長、軟弱者得堅固','新朋友加入並穩定聚會','興起接棒的同工']},
+  {name:'社區關懷外展',icon:'🌍',color:'#2e8b57',verse:'路加福音4:18',
+   calling:'走入社區，以行動傳揚福音、服事有需要的人，為主得著這地、建立關係。',
+   audience:'社區居民、弱勢家庭、福音朋友',
+   team:[{role:'總召'},{role:'福音組'},{role:'關懷探訪組'},{role:'物資組'},{role:'接待報名組'},{role:'禱告守望'}],
+   goals:['以實際關懷祝福社區','傳揚福音、領人歸主','與福音朋友建立長期關係'],
+   rundown:[{time:'',item:'迎賓・報到',person:''},{time:'',item:'活動／表演',person:''},{time:'',item:'福音信息分享',person:''},{time:'',item:'決志・關懷登記',person:''},{time:'',item:'物資發放・送客',person:''}],
+   tasks:['物資募集與打包','文宣與社區宣傳','探訪／邀請名單','福音內容與決志單預備','場地申請與佈置'],
+   milestones:['物資到位','宣傳開跑','場地確認'],
+   equipment:['物資包','福音單張・決志卡','帳篷桌椅','音響','名牌'],
+   budget:['關懷物資','文宣印製','場地','餐點'],
+   prayers:['福音廣傳、社區心門開啟','福音朋友決志信主','後續跟進與穩定聚會']},
+  {name:'關懷探訪',icon:'💛',color:'#6b45b0',verse:'雅各書1:27',
+   calling:'看顧軟弱、患難中的肢體，傳遞主的愛與同在——重視人過於重視事。',
+   audience:'生病、軟弱、久未聚會、新朋友、有需要的家庭',
+   team:[{role:'探訪同工（兩人一組）'},{role:'關懷協調'},{role:'禱告守望'}],
+   goals:['牧養軟弱、久未聚會的肢體','傳遞主的安慰與醫治','陪伴並帶回神家'],
+   tasks:['確認探訪名單與時間','預備合適經文與禱告','預備愛心物資／慰問','探訪後記錄與跟進'],
+   milestones:['名單確認','本月探訪完成'],
+   equipment:['愛心物資／水果','慰問卡','聖經'],
+   budget:['探訪物資','交通'],
+   prayers:['被探訪者得安慰、身心靈得醫治','聖靈藉探訪動工','軟弱肢體重新得力、回到神家']},
+  {name:'節慶愛宴（聖誕／佳節）',icon:'🎄',color:'#c0392b',verse:'路加福音2:10-11',
+   calling:'歡慶主恩，藉佳節邀請福音朋友、傳揚基督，使更多人認識救主。',
+   audience:'會眾、家人、慕道與福音朋友',
+   team:[{role:'總召'},{role:'節目組'},{role:'美宣佈置組'},{role:'餐飲組'},{role:'福音組'},{role:'招待組'},{role:'音控'}],
+   goals:['歡慶主恩、營造溫暖氛圍','邀請福音朋友赴會','清楚傳揚基督、領人歸主'],
+   rundown:[{time:'',item:'迎賓・茶點',person:''},{time:'',item:'敬拜・開場',person:''},{time:'',item:'節目表演',person:''},{time:'',item:'福音信息・邀請',person:''},{time:'',item:'愛宴・交誼',person:''}],
+   tasks:['節目規劃與排練','邀請卡設計與發送','場地佈置','餐點規劃與預備','禮物與抽獎預備'],
+   milestones:['節目定案','邀請卡發送','場地佈置','總彩排'],
+   equipment:['佈置裝飾','音響燈光','餐具桌椅','禮物','投影設備'],
+   budget:['場地佈置','餐點','禮物','文宣邀請卡'],
+   prayers:['福音朋友願意赴約','福音信息感動人心、領人信主','同工同心、各司其職']}
+];
+function createMinFromTemplate(idx){
+  var t=MIN_TEMPLATES[idx];if(!t)return;
+  var id='m'+Date.now();var mins=getMins();
+  mins.push({id:id,name:t.name,verse:t.verse||'',calling:t.calling||'',phase:'pray',owner:'',
+    audience:t.audience||'',date:'',timeStart:'',timeEnd:'',place:'',placeNote:'',
+    goals:(t.goals||[]).slice(),
+    duties:[],
+    team:(t.team||[]).map(function(o){return {name:'',role:o.role||''};}),
+    rundown:(t.rundown||[]).map(function(o){return {time:o.time||'',item:o.item||'',person:''};}),
+    milestones:(t.milestones||[]).map(function(o){return {label:o,date:'',done:false};}),
+    tasks:(t.tasks||[]).map(function(o){return {text:o,done:false};}),
+    equipment:(t.equipment||[]).map(function(o){return {name:o,qty:'',person:'',ready:false};}),
+    budget:(t.budget||[]).map(function(o){return {item:o,amount:''};}),
+    prayers:(t.prayers||[]).slice(),
+    check:{},review:'',created:tod()});
+  saveMins(mins);toast('已從範本建立「'+t.name+'」🌾');_minOpen=id;_minTplOpen=false;_minGuide=false;renderMinistry();window.scrollTo(0,0);
+}
+function goMinistryTab(btn){
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on');});
+  document.getElementById('s-ministry').classList.add('on');
+  window.scrollTo(0,0);_minOpen=null;_minDelArm=false;renderMinistry();
+  document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+}
+function _getMin(id){var ms=getMins();for(var i=0;i<ms.length;i++)if(ms[i].id===id)return ms[i];return null;}
+function _updMin(id,fn){var ms=getMins();for(var i=0;i<ms.length;i++){if(ms[i].id===id){fn(ms[i]);saveMins(ms);return;}}}
+function renderMinistry(){
+  var con=document.getElementById('mincon');if(!con)return;
+  if(_minOpen){con.innerHTML=renderMinDetail(_minOpen);return;}
+  var mins=getMins(),h='';
+  // 規劃指南
+  h+='<div style="background:linear-gradient(135deg,#eef4ff,#e2f5f3);border:1px solid #1e4d8c25;border-radius:14px;margin-bottom:14px;overflow:hidden">';
+  h+='<button onclick="_minGuide=!_minGuide;renderMinistry()" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:transparent;border:none;cursor:pointer">';
+  h+='<span style="font-size:15px;font-weight:800;color:#1e4d8c">📖 事工規劃指南 · 先生命再關係後事工</span>';
+  h+='<span style="font-size:13px;color:#7a8fa8">'+(_minGuide?'收合 ▲':'展開 ▼')+'</span></button>';
+  if(_minGuide){
+    h+='<div style="padding:0 15px 15px;font-size:14px;color:#3a4a63;line-height:1.85">';
+    h+='<div style="margin-bottom:6px">一個榮耀神的事工，從<b style="color:#d97706">生命</b>長出，藉<b style="color:#0a8f84">關係</b>連結，才落實為<b style="color:#1e4d8c">事工</b>。規劃時依序自問：</div>';
+    MIN_CHECK.forEach(function(grp){
+      h+='<div style="font-weight:700;color:'+grp.c+';margin:8px 0 3px">'+grp.g+'</div>';
+      grp.items.forEach(function(it){h+='<div style="padding-left:4px;margin-bottom:2px">・'+it+'</div>';});
+    });
+    h+='<div style="margin-top:10px;padding:10px 12px;background:#fff;border-radius:10px;font-size:13px;color:#6b45b0;line-height:1.8">💡 <b>改變八步驟</b>：資訊→啟示→信服→實踐→檢討→修正→反覆→繁殖。事工不是辦完一場活動，而是<b>建立屬神的體系</b>，使生命繁殖生命。</div>';
+    h+='</div>';
+  }
+  h+='</div>';
+  h+='<div style="background:#fff;border:1px solid #e3e8f2;border-radius:14px;margin-bottom:14px;overflow:hidden">';
+  h+='<button onclick="_minTplOpen=!_minTplOpen;renderMinistry()" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:transparent;border:none;cursor:pointer">';
+  h+='<span style="font-size:15px;font-weight:800;color:#1e4d8c">📋 事工範本 · 一鍵套用</span>';
+  h+='<span style="font-size:13px;color:#7a8fa8">'+(_minTplOpen?'收合 ▲':'展開 ▼')+'</span></button>';
+  if(_minTplOpen){
+    h+='<div style="padding:0 12px 14px"><div style="font-size:12px;color:#9aa6ba;margin-bottom:8px;line-height:1.6">選一個範本快速建立——已預填同工職責、流程、任務、器材、經費、禱告等，再依實際情況調整即可。</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+    MIN_TEMPLATES.forEach(function(t,i){
+      h+='<button onclick="createMinFromTemplate('+i+')" style="display:flex;align-items:center;gap:7px;padding:12px 10px;background:'+t.color+'0d;border:1px solid '+t.color+'33;border-left:4px solid '+t.color+';border-radius:11px;color:#1e3252;font-size:14px;font-weight:700;cursor:pointer;text-align:left;line-height:1.3"><span style="font-size:20px;flex-shrink:0">'+t.icon+'</span>'+t.name+'</button>';
+    });
+    h+='</div></div>';
+  }
+  h+='</div>';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">';
+  h+='<div style="font-size:15px;font-weight:700;color:#1e3252">我的事工</div>';
+  h+='<button onclick="showNewMin()" style="padding:9px 18px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;cursor:pointer;font-weight:700">＋ 新事工</button>';
+  h+='</div>';
+  h+='<div id="newMinBox" style="display:none;background:#f4f6fa;border:1.5px solid #1e4d8c40;border-radius:14px;padding:16px;margin-bottom:14px">';
+  h+='<div style="font-size:16px;font-weight:700;color:#1e4d8c;margin-bottom:12px">規劃新事工</div>';
+  h+='<input id="minName" class="inp" placeholder="事工名稱（例：社區關懷站、青年小家）" style="margin-bottom:8px;font-size:15px">';
+  h+='<input id="minVerse" class="inp" placeholder="異象經文（選填，例：路加福音4:18）" style="margin-bottom:8px;font-size:14px">';
+  h+='<textarea id="minCalling" class="ta" rows="2" placeholder="為什麼要做這事工？神給的呼召與感動…（選填）" style="margin-bottom:12px;font-size:14px"></textarea>';
+  h+='<div style="display:flex;gap:8px">';
+  h+='<button onclick="createMin()" style="flex:1;padding:11px;background:#1e4d8c;border:none;border-radius:10px;color:#fff;font-size:15px;cursor:pointer;font-weight:700">建立事工</button>';
+  h+='<button onclick="hideNewMin()" style="padding:11px 16px;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px;color:#4a5a72;font-size:14px;cursor:pointer">取消</button>';
+  h+='</div></div>';
+  if(mins.length===0){
+    h+='<div style="text-align:center;padding:46px 20px;color:#7a8fa8">';
+    h+='<div style="font-size:52px;margin-bottom:14px">🌾</div>';
+    h+='<div style="font-size:17px;font-weight:700;color:#1e3252;margin-bottom:8px">尚無事工規劃</div>';
+    h+='<div style="font-size:14px;line-height:1.9">點「＋ 新事工」開始<br>用 321 的眼光規劃神所託付的事工</div></div>';
+    con.innerHTML=h;return;
+  }
+  mins.forEach(function(m){
+    var ph=MIN_PHASES[0];for(var i=0;i<MIN_PHASES.length;i++){if(MIN_PHASES[i].id===m.phase)ph=MIN_PHASES[i];}
+    var chkDone=Object.keys(m.check||{}).filter(function(k){return m.check[k];}).length;
+    var tTotal=(m.tasks||[]).length,tDone=(m.tasks||[]).filter(function(t){return t.done;}).length;
+    var pct=Math.round((chkDone/12)*100);
+    h+='<div onclick="openMin(\''+m.id+'\')" style="background:#fff;border:1px solid #e3e8f2;border-left:5px solid '+ph.color+';border-radius:14px;padding:15px 16px;margin-bottom:12px;cursor:pointer;box-shadow:0 1px 4px rgba(30,77,140,.06)">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">';
+    h+='<div style="font-size:17px;font-weight:800;color:#1e3252;flex:1">'+esc(m.name)+'</div>';
+    h+='<span style="font-size:12px;font-weight:700;color:'+ph.color+';background:'+ph.color+'15;padding:3px 10px;border-radius:20px;white-space:nowrap">'+ph.icon+' '+ph.label+'</span>';
+    h+='</div>';
+    if(m.verse)h+='<div style="font-size:13px;color:#6b45b0;margin-top:4px">📖 '+esc(m.verse)+'</div>';
+    var _meta=[];if(m.date)_meta.push('📅 '+m.date);if(m.place)_meta.push('📍 '+esc(m.place));if(_meta.length)h+='<div style="font-size:13px;color:#7a8fa8;margin-top:4px">'+_meta.join('　')+'</div>';
+    h+='<div style="margin-top:10px;display:flex;align-items:center;gap:8px">';
+    h+='<div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:'+pct+'%;background:'+ph.color+'"></div></div>';
+    h+='<span style="font-size:12px;color:#7a8fa8;white-space:nowrap">健檢 '+chkDone+'/12</span></div>';
+    var _ov=0,_soon=0,_t=tod();
+    (m.tasks||[]).forEach(function(t){if(t.done||!t.due)return;var diff=Math.round((new Date(t.due+'T00:00:00')-new Date(_t+'T00:00:00'))/86400000);if(diff<0)_ov++;else if(diff<=3)_soon++;});
+    h+='<div style="font-size:12px;color:#9aa6ba;margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span>任務完成 '+tDone+'/'+tTotal+'</span>';
+    if(_ov>0)h+='<span style="color:#e05c3a;font-weight:700">⚠ '+_ov+' 逾期</span>';
+    if(_soon>0)h+='<span style="color:#d97706;font-weight:700">⏳ '+_soon+' 即將到期</span>';
+    h+='</div>';
+    h+='</div>';
+  });
+  con.innerHTML=h;
+}
+function showNewMin(){var b=document.getElementById('newMinBox');if(b)b.style.display='block';}
+function hideNewMin(){var b=document.getElementById('newMinBox');if(b)b.style.display='none';}
+function createMin(){
+  var name=(document.getElementById('minName').value||'').trim();
+  if(!name){toast('請填入事工名稱','#e05c3a');return;}
+  var mins=getMins();
+  mins.push({id:'m'+Date.now(),name:name,verse:(document.getElementById('minVerse').value||'').trim(),calling:(document.getElementById('minCalling').value||'').trim(),phase:'pray',owner:'',audience:'',date:'',timeStart:'',timeEnd:'',place:'',placeNote:'',goals:[],duties:[],team:[],rundown:[],milestones:[],tasks:[],equipment:[],budget:[],prayers:[],check:{},review:'',created:tod()});
+  saveMins(mins);hideNewMin();toast('事工「'+name+'」已建立 🌾');renderMinistry();
+}
+function openMin(id){_minOpen=id;_minDelArm=false;renderMinistry();window.scrollTo(0,0);}
+function backMinList(){_minOpen=null;_minDelArm=false;renderMinistry();window.scrollTo(0,0);}
+function minSetField(el){_updMin(el.dataset.mid,function(m){m[el.dataset.field]=el.value;});}
+function minSetName(el){_updMin(el.dataset.mid,function(m){m.name=el.value.trim()||m.name;});}
+function minSetPhase(id,ph){_updMin(id,function(m){m.phase=ph;});renderMinistry();}
+function minAddStr(id,key){_updMin(id,function(m){if(!m[key])m[key]=[];m[key].push('');});renderMinistry();}
+function minSetListStr(el){_updMin(el.dataset.mid,function(m){m[el.dataset.key][+el.dataset.idx]=el.value;});}
+function minDelItem(id,key,idx){_updMin(id,function(m){m[key].splice(idx,1);});renderMinistry();}
+function minAddTeam(id){_updMin(id,function(m){if(!m.team)m.team=[];m.team.push({name:'',role:''});});renderMinistry();}
+function minSetTeam(el){_updMin(el.dataset.mid,function(m){m.team[+el.dataset.idx][el.dataset.field]=el.value;});}
+function minAddMile(id){_updMin(id,function(m){if(!m.milestones)m.milestones=[];m.milestones.push({label:'',date:'',done:false});});renderMinistry();}
+function minSetMile(el){_updMin(el.dataset.mid,function(m){m.milestones[+el.dataset.idx][el.dataset.field]=el.value;});}
+function minTogMile(id,idx){_updMin(id,function(m){m.milestones[idx].done=!m.milestones[idx].done;});renderMinistry();}
+function minAddTask(id){var inp=document.getElementById('minTaskInp');var v=inp?inp.value.trim():'';if(!v)return;_updMin(id,function(m){if(!m.tasks)m.tasks=[];m.tasks.push({text:v,done:false,owner:'',due:''});});renderMinistry();}
+function minSetTask(el){_updMin(el.dataset.mid,function(m){m.tasks[+el.dataset.idx].text=el.value;});}
+function minSetTaskField(el){_updMin(el.dataset.mid,function(m){m.tasks[+el.dataset.idx][el.dataset.field]=el.value;});renderMinistry();}
+function minTogTask(id,idx){_updMin(id,function(m){m.tasks[idx].done=!m.tasks[idx].done;});renderMinistry();}
+function minTogCheck(id,key){_updMin(id,function(m){if(!m.check)m.check={};m.check[key]=!m.check[key];});renderMinistry();}
+function minArmDel(){_minDelArm=true;renderMinistry();}
+function minCancelDel(){_minDelArm=false;renderMinistry();}
+function minDoDel(id){var ms=getMins().filter(function(m){return m.id!==id;});saveMins(ms);_minOpen=null;_minDelArm=false;renderMinistry();toast('事工已刪除');}
+function _minSec(title,inner,color){return '<div style="background:#fff;border:1px solid #e8edf5;border-radius:14px;padding:14px 15px;margin-bottom:12px"><div style="font-size:15px;font-weight:800;color:'+(color||'#1e4d8c')+';margin-bottom:10px">'+title+'</div>'+inner+'</div>';}
+function _minTextList(m,key,ph,col){
+  var arr=m[key]||[],s='';
+  arr.forEach(function(v,i){
+    s+='<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><input class="inp" value="'+esc(v)+'" data-mid="'+m.id+'" data-key="'+key+'" data-idx="'+i+'" onchange="minSetListStr(this)" style="flex:1;font-size:14px"><button onclick="minDelItem(\''+m.id+'\',\''+key+'\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddStr(\''+m.id+'\',\''+key+'\')" style="font-size:13px;color:'+(col||'#1e4d8c')+';background:'+(col||'#1e4d8c')+'12;border:1px dashed '+(col||'#1e4d8c')+'50;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ '+ph+'</button>';
+  return s;
+}
+function _minTeam(m){
+  var arr=m.team||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><input class="inp" value="'+esc(o.name||'')+'" data-mid="'+m.id+'" data-idx="'+i+'" data-field="name" onchange="minSetTeam(this)" placeholder="姓名" style="flex:1;font-size:14px"><input class="inp" value="'+esc(o.role||'')+'" data-mid="'+m.id+'" data-idx="'+i+'" data-field="role" onchange="minSetTeam(this)" placeholder="職稱／恩賜" style="flex:1;font-size:14px"><button onclick="minDelItem(\''+m.id+'\',\'team\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddTeam(\''+m.id+'\')" style="font-size:13px;color:#0a8f84;background:#e2f5f3;border:1px dashed #0a8f8450;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ 新增同工</button>';
+  return s;
+}
+function _minMiles(m){
+  var arr=m.milestones||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><div class="chk'+(o.done?' done':'')+'" onclick="minTogMile(\''+m.id+'\','+i+')" style="flex-shrink:0">'+(o.done?'<span style="color:#fff;font-size:13px;font-weight:700">✓</span>':'')+'</div><input class="inp" value="'+esc(o.label||'')+'" data-mid="'+m.id+'" data-idx="'+i+'" data-field="label" onchange="minSetMile(this)" placeholder="里程碑" style="flex:1;font-size:14px"><input type="date" class="inp" value="'+esc(o.date||'')+'" data-mid="'+m.id+'" data-idx="'+i+'" data-field="date" onchange="minSetMile(this)" style="font-size:13px;width:128px"><button onclick="minDelItem(\''+m.id+'\',\'milestones\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddMile(\''+m.id+'\')" style="font-size:13px;color:#1e4d8c;background:#eef2f9;border:1px dashed #1e4d8c50;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ 新增里程碑</button>';
+  return s;
+}
+function _minDueBadge(due,done){
+  if(!due)return '';
+  if(done)return '<span style="font-size:12px;color:#9aa6ba">📅 '+due+'</span>';
+  var d=new Date(due+'T00:00:00'),now=new Date(tod()+'T00:00:00');
+  var diff=Math.round((d-now)/86400000),col,txt;
+  if(diff<0){col='#e05c3a';txt='⚠ 逾期 '+(-diff)+' 天';}
+  else if(diff===0){col='#d97706';txt='⏰ 今天到期';}
+  else if(diff<=3){col='#d97706';txt='⏳ '+diff+' 天內';}
+  else{col='#7a8fa8';txt='📅 '+due;}
+  return '<span style="font-size:12px;font-weight:700;color:'+col+';white-space:nowrap">'+txt+'</span>';
+}
+function _minTasks(m,id){
+  var arr=m.tasks||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="margin-bottom:10px">';
+    s+='<div style="display:flex;gap:7px;align-items:center"><div class="chk'+(o.done?' done':'')+'" onclick="minTogTask(\''+id+'\','+i+')" style="flex-shrink:0">'+(o.done?'<span style="color:#fff;font-size:13px;font-weight:700">✓</span>':'')+'</div><input class="inp" value="'+esc(o.text||'')+'" data-mid="'+id+'" data-idx="'+i+'" onchange="minSetTask(this)" style="flex:1;font-size:14px;'+(o.done?'text-decoration:line-through;color:#9aa6ba':'')+'"><button onclick="minDelItem(\''+id+'\',\'tasks\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+    s+='<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0 0 31px"><input class="inp" value="'+esc(o.owner||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="owner" onchange="minSetTaskField(this)" placeholder="負責人" style="width:84px;font-size:12.5px;padding:6px 8px"><input type="date" class="inp" value="'+esc(o.due||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="due" onchange="minSetTaskField(this)" style="width:138px;font-size:12.5px;padding:6px 8px">'+_minDueBadge(o.due,o.done)+'</div>';
+    s+='</div>';
+  });
+  s+='<div style="display:flex;gap:6px;margin-top:4px"><input id="minTaskInp" class="inp" placeholder="新增任務…" onkeydown="if(event.key===\'Enter\')minAddTask(\''+id+'\')" style="flex:1;font-size:14px"><button onclick="minAddTask(\''+id+'\')" style="padding:0 14px;background:#1e4d8c;border:none;border-radius:8px;color:#fff;font-size:20px;cursor:pointer">+</button></div>';
+  s+='<div style="font-size:12px;color:#9aa6ba;margin-top:7px;line-height:1.6">指派負責人與到期日，讓每件任務都有人認領、有期限可追蹤</div>';
+  return s;
+}
+function _minCheckSec(m,id){
+  var done=Object.keys(m.check||{}).filter(function(k){return m.check[k];}).length;
+  var h='<div style="background:linear-gradient(135deg,#fff7ed,#f0f7f5);border:1px solid #d9770633;border-radius:14px;padding:14px 15px;margin-bottom:12px">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><div style="font-size:15px;font-weight:800;color:#1e4d8c">🩺 事工健檢清單</div><span style="font-size:13px;font-weight:700;color:#0a8f84">'+done+'/12</span></div>';
+  h+='<div style="font-size:12px;color:#7a8fa8;margin-bottom:8px">執行前後逐項自我檢視，求主光照</div>';
+  MIN_CHECK.forEach(function(grp,gi){
+    h+='<div style="font-size:13px;font-weight:700;color:'+grp.c+';margin:8px 0 4px">'+grp.g+'</div>';
+    grp.items.forEach(function(it,ii){
+      var key=gi+'-'+ii,on=(m.check||{})[key];
+      h+='<div onclick="minTogCheck(\''+id+'\',\''+key+'\')" style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;cursor:pointer"><div class="chk'+(on?' done':'')+'" style="flex-shrink:0;margin-top:1px">'+(on?'<span style="color:#fff;font-size:13px;font-weight:700">✓</span>':'')+'</div><div style="font-size:14px;line-height:1.6;color:'+(on?'#0a8f84':'#3a4a63')+'">'+it+'</div></div>';
+    });
+  });
+  h+='</div>';return h;
+}
+function _minPillar(ch,color,title){return '<div style="display:flex;align-items:center;gap:9px;margin:22px 0 10px"><span style="width:32px;height:32px;border-radius:9px;background:'+color+';color:#fff;font-size:17px;font-weight:900;display:flex;align-items:center;justify-content:center">'+ch+'</span><span style="font-size:16px;font-weight:800;color:'+color+'">'+title+'</span></div>';}
+function _minRundown(m,id){
+  var arr=m.rundown||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="display:flex;gap:5px;margin-bottom:6px;align-items:center"><input class="inp" value="'+esc(o.time||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="time" onchange="minSetRundown(this)" placeholder="時間" style="width:72px;font-size:13px"><input class="inp" value="'+esc(o.item||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="item" onchange="minSetRundown(this)" placeholder="流程項目" style="flex:1;font-size:14px"><input class="inp" value="'+esc(o.person||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="person" onchange="minSetRundown(this)" placeholder="負責" style="width:60px;font-size:13px"><button onclick="minDelItem(\''+id+'\',\'rundown\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddRundown(\''+id+'\')" style="font-size:13px;color:#1e4d8c;background:#eef2f9;border:1px dashed #1e4d8c50;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ 新增流程</button>';
+  return s;
+}
+function _minEquip(m,id){
+  var arr=m.equipment||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="display:flex;gap:5px;margin-bottom:6px;align-items:center"><div class="chk'+(o.ready?' done':'')+'" onclick="minTogEquip(\''+id+'\','+i+')" style="flex-shrink:0" title="已備妥">'+(o.ready?'<span style="color:#fff;font-size:13px;font-weight:700">✓</span>':'')+'</div><input class="inp" value="'+esc(o.name||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="name" onchange="minSetEquip(this)" placeholder="器材" style="flex:1;font-size:14px"><input class="inp" value="'+esc(o.qty||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="qty" onchange="minSetEquip(this)" placeholder="數量" style="width:56px;font-size:13px"><input class="inp" value="'+esc(o.person||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="person" onchange="minSetEquip(this)" placeholder="負責" style="width:56px;font-size:13px"><button onclick="minDelItem(\''+id+'\',\'equipment\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddEquip(\''+id+'\')" style="font-size:13px;color:#2e8b57;background:#e8f5ee;border:1px dashed #2e8b5750;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ 新增器材（打勾＝已備妥）</button>';
+  return s;
+}
+function _minBudget(m,id){
+  var arr=m.budget||[],s='',total=0;
+  arr.forEach(function(o,i){
+    total+=parseFloat(o.amount)||0;
+    s+='<div style="display:flex;gap:5px;margin-bottom:6px;align-items:center"><input class="inp" value="'+esc(o.item||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="item" onchange="minSetBudget(this)" placeholder="經費項目" style="flex:1;font-size:14px"><input class="inp" type="number" value="'+esc(o.amount||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="amount" onchange="minSetBudget(this)" placeholder="金額" style="width:100px;font-size:14px"><button onclick="minDelItem(\''+id+'\',\'budget\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 4px 2px;border-top:1px solid #eef0f5;margin-top:4px"><span style="font-size:14px;font-weight:700;color:#1e3252">經費總計</span><span id="minBudgetTotal" style="font-size:17px;font-weight:800;color:#bf8f00">$'+total.toLocaleString()+'</span></div>';
+  s+='<button onclick="minAddBudget(\''+id+'\')" style="font-size:13px;color:#bf8f00;background:#fdf6e3;border:1px dashed #bf8f0050;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:6px">＋ 新增經費項目</button>';
+  return s;
+}
+function minAddRundown(id){_updMin(id,function(m){if(!m.rundown)m.rundown=[];m.rundown.push({time:'',item:'',person:''});});renderMinistry();}
+function minSetRundown(el){_updMin(el.dataset.mid,function(m){m.rundown[+el.dataset.idx][el.dataset.field]=el.value;});}
+function minAddEquip(id){_updMin(id,function(m){if(!m.equipment)m.equipment=[];m.equipment.push({name:'',qty:'',person:'',ready:false});});renderMinistry();}
+function minSetEquip(el){_updMin(el.dataset.mid,function(m){m.equipment[+el.dataset.idx][el.dataset.field]=el.value;});}
+function minTogEquip(id,idx){_updMin(id,function(m){m.equipment[idx].ready=!m.equipment[idx].ready;});renderMinistry();}
+function minAddBudget(id){_updMin(id,function(m){if(!m.budget)m.budget=[];m.budget.push({item:'',amount:''});});renderMinistry();}
+function minSetBudget(el){_updMin(el.dataset.mid,function(m){m.budget[+el.dataset.idx][el.dataset.field]=el.value;});_minUpdBudgetTotal(el.dataset.mid);}
+function _minUpdBudgetTotal(id){var m=_getMin(id);if(!m)return;var t=0;(m.budget||[]).forEach(function(o){t+=parseFloat(o.amount)||0;});var el=document.getElementById('minBudgetTotal');if(el)el.textContent='$'+t.toLocaleString();}
+function _minDuties(m,id){
+  var arr=m.duties||[],s='';
+  arr.forEach(function(o,i){
+    s+='<div style="display:flex;gap:5px;margin-bottom:6px;align-items:center"><input class="inp" value="'+esc(o.person||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="person" onchange="minSetDuty(this)" placeholder="同工" style="width:86px;font-size:14px"><input class="inp" value="'+esc(o.work||'')+'" data-mid="'+id+'" data-idx="'+i+'" data-field="work" onchange="minSetDuty(this)" placeholder="負責的工作／職責" style="flex:1;font-size:14px"><button onclick="minDelItem(\''+id+'\',\'duties\','+i+')" style="background:none;border:none;color:#cec8be;font-size:20px;cursor:pointer">×</button></div>';
+  });
+  s+='<button onclick="minAddDuty(\''+id+'\')" style="font-size:13px;color:#1e4d8c;background:#eef2f9;border:1px dashed #1e4d8c50;border-radius:9px;padding:7px 12px;cursor:pointer;width:100%;margin-top:2px">＋ 新增職責分工</button>';
+  return s;
+}
+function minAddDuty(id){_updMin(id,function(m){if(!m.duties)m.duties=[];m.duties.push({person:'',work:''});});renderMinistry();}
+function minSetDuty(el){_updMin(el.dataset.mid,function(m){m.duties[+el.dataset.idx][el.dataset.field]=el.value;});}
+function renderMinDetail(id){
+  var m=_getMin(id);if(!m)return '<div style="padding:20px;color:#e05c3a">找不到此事工</div>';
+  var h='';
+  h+='<button onclick="backMinList()" style="background:#eef2f9;border:1px solid #d8dce8;border-radius:10px;padding:7px 14px;color:#1e4d8c;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px">← 返回事工列表</button>';
+  h+='<input value="'+esc(m.name)+'" data-mid="'+id+'" onchange="minSetName(this)" style="width:100%;font-size:20px;font-weight:800;color:#1e3252;border:none;border-bottom:2px solid #e3e8f2;padding:6px 2px;margin-bottom:14px;background:transparent;outline:none;box-sizing:border-box">';
+  h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">';
+  MIN_PHASES.forEach(function(p){var on=m.phase===p.id;h+='<button onclick="minSetPhase(\''+id+'\',\''+p.id+'\')" style="flex:1;min-width:70px;padding:9px 4px;border:1.5px solid '+p.color+';border-radius:11px;background:'+(on?p.color:'transparent')+';color:'+(on?'#fff':p.color)+';font-size:12px;font-weight:700;cursor:pointer;line-height:1.5">'+p.icon+'<br>'+p.label+'</button>';});
+  h+='</div>';
+  // 異象呼召（生命根基）
+  h+=_minSec('🎯 異象與呼召','<div style="font-size:12px;color:#7a8fa8;margin-bottom:4px">異象經文</div><input value="'+esc(m.verse||'')+'" data-mid="'+id+'" data-field="verse" onchange="minSetField(this)" class="inp" placeholder="例：路加福音4:18-19" style="font-size:14px;margin-bottom:10px"><div style="font-size:12px;color:#7a8fa8;margin-bottom:4px">為何要做這事工？（呼召與目的）</div><textarea data-mid="'+id+'" data-field="calling" onchange="minSetField(this)" class="ta" rows="3" placeholder="神給的感動、這事工要成就的目的…讓耶穌得榮耀" style="font-size:14px">'+esc(m.calling||'')+'</textarea>','#d97706');
+  h+='<div style="text-align:center;font-size:13px;color:#9aa6ba;letter-spacing:4px;margin:22px 0 2px;font-weight:800">規 劃 五 要 素</div>';
+  h+='<div style="text-align:center;font-size:12px;color:#b0b8c8;letter-spacing:1px;margin-bottom:2px">人 · 事 · 時 · 地 · 物</div>';
+  // 人
+  h+=_minPillar('人','#0a8f84','人 — 負責人・同工・參與者');
+  h+=_minSec('總負責人','<input value="'+esc(m.owner||'')+'" data-mid="'+id+'" data-field="owner" onchange="minSetField(this)" class="inp" placeholder="這事工的總召／負責人" style="font-size:14px">','#0a8f84');
+  h+=_minSec('同工與職稱',_minTeam(m)+'<div style="font-size:12px;color:#9aa6ba;margin-top:8px;line-height:1.7">235：2 屬靈同伴・3 屬靈父母兒女・5 五重職份戰友</div>','#0a8f84');
+  h+=_minSec('參與者・服事對象','<textarea data-mid="'+id+'" data-field="audience" onchange="minSetField(this)" class="ta" rows="2" placeholder="這事工服事誰、邀請誰參加、預估人數？（920 的「2」）" style="font-size:14px">'+esc(m.audience||'')+'</textarea>','#0a8f84');
+  // 事
+  h+=_minPillar('事','#1e4d8c','事 — 目標・職責・流程');
+  h+=_minSec('具體目標',_minTextList(m,'goals','新增目標','#1e4d8c'),'#1e4d8c');
+  h+=_minSec('同工職責（誰負責什麼工作）',_minDuties(m,id),'#1e4d8c');
+  h+=_minSec('流程程序（時間・項目・負責）',_minRundown(m,id),'#1e4d8c');
+  h+=_minSec('籌備任務',_minTasks(m,id),'#1e4d8c');
+  // 時
+  h+=_minPillar('時','#d97706','時 — 日期與時間');
+  h+=_minSec('舉行日期與時間','<div style="display:flex;gap:8px;margin-bottom:8px"><div style="flex:1.3"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">日期</div><input type="date" value="'+esc(m.date||'')+'" data-mid="'+id+'" data-field="date" onchange="minSetField(this)" class="inp" style="font-size:14px"></div></div><div style="display:flex;gap:8px"><div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">開始</div><input type="time" value="'+esc(m.timeStart||'')+'" data-mid="'+id+'" data-field="timeStart" onchange="minSetField(this)" class="inp" style="font-size:14px"></div><div style="flex:1"><div style="font-size:12px;color:#7a8fa8;margin-bottom:3px">結束</div><input type="time" value="'+esc(m.timeEnd||'')+'" data-mid="'+id+'" data-field="timeEnd" onchange="minSetField(this)" class="inp" style="font-size:14px"></div></div>','#d97706');
+  h+=_minSec('籌備里程碑',_minMiles(m),'#d97706');
+  // 地
+  h+=_minPillar('地','#6b45b0','地 — 地點與場地');
+  h+=_minSec('地點／場地','<input value="'+esc(m.place||'')+'" data-mid="'+id+'" data-field="place" onchange="minSetField(this)" class="inp" placeholder="地點／場地名稱" style="font-size:14px;margin-bottom:8px"><textarea data-mid="'+id+'" data-field="placeNote" onchange="minSetField(this)" class="ta" rows="2" placeholder="場地備註：容納人數、聯絡人、租借、佈置、動線…" style="font-size:14px">'+esc(m.placeNote||'')+'</textarea>','#6b45b0');
+  // 物
+  h+=_minPillar('物','#2e8b57','物 — 器材與經費');
+  h+=_minSec('器材清單',_minEquip(m,id),'#2e8b57');
+  h+=_minSec('經費預算',_minBudget(m,id),'#bf8f00');
+  // 屬靈健檢 + 禱告 + 檢討
+  h+='<div style="height:6px"></div>';
+  h+=_minCheckSec(m,id);
+  h+=_minSec('🙏 禱告事項',_minTextList(m,'prayers','新增禱告','#6b45b0'),'#6b45b0');
+  h+=_minSec('🌱 檢討與調整','<textarea data-mid="'+id+'" data-field="review" onchange="minSetField(this)" class="ta" rows="3" placeholder="進行得如何？哪裡需要修正？學到什麼？如何繁殖傳承？" style="font-size:14px">'+esc(m.review||'')+'</textarea>','#6b45b0');
+  if(_minDelArm){h+='<div style="display:flex;gap:8px;margin:8px 0 34px"><button onclick="minDoDel(\''+id+'\')" style="flex:1;padding:11px;background:#e05c3a;border:none;border-radius:10px;color:#fff;font-weight:700;cursor:pointer">確定刪除</button><button onclick="minCancelDel()" style="padding:11px 18px;background:#eaecf4;border:1px solid #d8dce8;border-radius:10px;color:#4a5a72;cursor:pointer">取消</button></div>';}
+  else{h+='<button onclick="minArmDel()" style="width:100%;padding:11px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:10px;color:#e05c3a;font-size:14px;cursor:pointer;margin:8px 0 34px">🗑 刪除此事工</button>';}
+  return h;
+}
+
+// ════════════════════════════════════════
 // 時程表 Schedule (Google Calendar style)
 // ════════════════════════════════════════
 var _schedDate=tod();
@@ -5635,6 +6040,70 @@ function schedRenderDateLabel(){
   var dt=new Date(_schedDate+'T00:00:00');
   var days=['日','一','二','三','四','五','六'];
   el.textContent=(dt.getMonth()+1)+'月'+dt.getDate()+'日 週'+days[dt.getDay()];
+  var isToday=_schedDate===tod();
+  // 不在今天時，「今日」鈕變亮提示可回到今天；在今天時則淡化
+  var tb=document.getElementById('sched-today-btn');
+  if(tb){tb.style.opacity=isToday?'.4':'1';tb.style.background=isToday?'#eef2f9':'#e2f5f3';tb.style.borderColor=isToday?'#c5d0e2':'#0f9b8e';tb.style.color=isToday?'#9aa6ba':'#0a8f84';}
+  // 日期鈕：非今天時加上「· 其他天」底色提示
+  var db=document.getElementById('sched-date-btn');
+  if(db)db.style.background=isToday?'#eef2f9':'#fff7e6';
+}
+
+// ── 專屬精美日曆 ──
+var _schedCalY, _schedCalM;
+function schedOpenCalendar(){
+  var d=new Date(_schedDate+'T00:00:00');
+  _schedCalY=d.getFullYear(); _schedCalM=d.getMonth();
+  schedCalRender();
+  var ov=document.getElementById('sched-cal-overlay'); if(ov)ov.style.display='flex';
+}
+function schedCloseCalendar(){
+  var ov=document.getElementById('sched-cal-overlay'); if(ov)ov.style.display='none';
+}
+function schedCalPrevMonth(){ _schedCalM--; if(_schedCalM<0){_schedCalM=11;_schedCalY--;} schedCalRender(); }
+function schedCalNextMonth(){ _schedCalM++; if(_schedCalM>11){_schedCalM=0;_schedCalY++;} schedCalRender(); }
+function schedCalPick(ds){ _schedDate=ds; schedRenderDateLabel(); schedRender(); schedCloseCalendar(); }
+function schedCalRender(){
+  var card=document.getElementById('sched-cal-card'); if(!card)return;
+  var y=_schedCalY, m=_schedCalM;
+  var startDow=new Date(y,m,1).getDay();
+  var daysInMonth=new Date(y,m+1,0).getDate();
+  var todayStr=tod();
+  var h='';
+  // 標頭：月份 + 月導覽
+  h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">';
+  h+='<button onclick="schedCalPrevMonth()" style="width:36px;height:36px;border:none;border-radius:11px;background:#eef2f9;color:#1e4d8c;font-size:20px;line-height:1;cursor:pointer">‹</button>';
+  h+='<div style="font-size:19px;font-weight:800;color:#1e3252;letter-spacing:1px">'+y+'年 '+(m+1)+'月</div>';
+  h+='<button onclick="schedCalNextMonth()" style="width:36px;height:36px;border:none;border-radius:11px;background:#eef2f9;color:#1e4d8c;font-size:20px;line-height:1;cursor:pointer">›</button>';
+  h+='</div>';
+  // 星期列
+  var wk=['日','一','二','三','四','五','六'];
+  h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px">';
+  wk.forEach(function(w,i){ h+='<div style="text-align:center;font-size:12px;font-weight:700;color:'+(i===0?'#d9534f':i===6?'#0a8f84':'#9aa6ba')+';padding:4px 0">'+w+'</div>'; });
+  h+='</div>';
+  // 日期格
+  h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
+  for(var i=0;i<startDow;i++) h+='<div></div>';
+  for(var dd=1;dd<=daysInMonth;dd++){
+    var ds=y+'-'+_pad(m+1)+'-'+_pad(dd);
+    var isToday=ds===todayStr, isSel=ds===_schedDate;
+    var hasEv=(schedLoad(ds)||[]).length>0;
+    var bg=isSel?'linear-gradient(135deg,#1e4d8c,#0a8f84)':(isToday?'#e2f5f3':'transparent');
+    var col=isSel?'#fff':(isToday?'#0a8f84':'#2a3850');
+    var ring=(isToday&&!isSel)?'box-shadow:inset 0 0 0 2px #0f9b8e;':'';
+    var shadow=isSel?'box-shadow:0 4px 12px rgba(30,77,140,.35);':'';
+    h+='<button onclick="schedCalPick(\''+ds+'\')" style="position:relative;aspect-ratio:1;min-height:40px;border:none;border-radius:50%;background:'+bg+';'+ring+shadow+'color:'+col+';font-size:16px;font-weight:'+(isSel||isToday?'800':'600')+';cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .1s">'+dd;
+    if(hasEv) h+='<span style="position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:'+(isSel?'#ffe08a':'#bf8f00')+'"></span>';
+    h+='</button>';
+  }
+  h+='</div>';
+  // 圖例 + 底部按鈕
+  h+='<div style="display:flex;align-items:center;gap:5px;margin-top:12px;font-size:11px;color:#9aa6ba"><span style="width:6px;height:6px;border-radius:50%;background:#bf8f00;display:inline-block"></span>有安排行程的日子</div>';
+  h+='<div style="display:flex;gap:8px;margin-top:10px">';
+  h+='<button onclick="schedCalPick(\''+todayStr+'\')" style="flex:1;padding:12px;border:1.5px solid #0f9b8e;border-radius:13px;background:#e2f5f3;color:#0a8f84;font-size:15px;font-weight:700;cursor:pointer">📍 回到今天</button>';
+  h+='<button onclick="schedCloseCalendar()" style="padding:12px 20px;border:1px solid #d8dce8;border-radius:13px;background:#f4f6fa;color:#7a8fa8;font-size:15px;font-weight:600;cursor:pointer">關閉</button>';
+  h+='</div>';
+  card.innerHTML=h;
 }
 
 function schedPrevDay(){
@@ -6520,7 +6989,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.2.4";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.3.3";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
