@@ -2503,7 +2503,7 @@ function openSettings(){renderSettings();var m=document.getElementById("settings
 function closeSettings(){var m=document.getElementById("settings-modal");if(m)m.style.display="none";}
 function setFontIdx(i){_fsIdx=((i%4)+4)%4;document.body.classList.remove('fs-small','fs-medium','fs-large','fs-xlarge');document.body.classList.add(_fsSizes[_fsIdx]);lsS('p4_fs',_fsIdx);var b=document.getElementById('fsbtn');if(b)b.textContent=_fsLabels[_fsIdx]+' A';renderSettings();}
 function setEditTB(on){editTB=!!on;renderHCon();renderSettings();}
-function gotoBlockEdit(){editTB=true;closeSettings();document.querySelectorAll(".sc").forEach(function(s){s.classList.remove("on");});document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});var sh=document.getElementById("s-home");if(sh)sh.classList.add("on");var hb=document.querySelector('#nav .nb');if(hb)hb.classList.add("on");htab="tasks";var tbs=document.querySelectorAll('.tabs .tb');tbs.forEach(function(b){b.classList.remove('on');});if(tbs[0])tbs[0].classList.add('on');window.scrollTo(0,0);renderHome();}
+function gotoBlockEdit(){editTB=true;closeSettings();document.querySelectorAll(".sc").forEach(function(s){s.classList.remove("on");});document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});var sh=document.getElementById("s-home");if(sh)sh.classList.add("on");var hb=document.querySelector('#nav .nb');if(hb)hb.classList.add("on");htab="tasks";var tbs=document.querySelectorAll('.tabs .tb');tbs.forEach(function(b){b.classList.remove('on');});if(tbs[0])tbs[0].classList.add('on');curDate=tod();window.scrollTo(0,0);loadAndRender();}
 function renderSettings(){
   var el=document.getElementById("settings-body");if(!el)return;
   var p=getProfile();
@@ -5300,6 +5300,7 @@ window.onload=function(){
   rotateVerse();setInterval(rotateVerse,9000);
   wkStart=getWkStart(tod());
   loadAndRender();initFocus();renderCal();
+};
 // ── Memo ──
 function getMemos(){return lsG('p4_memos')||[];}
 function saveMemos(m){lsS('p4_memos',m);}
@@ -5570,7 +5571,6 @@ function renderTodoList(){
     var inp2=document.getElementById('todo-input');
     if(inp2)inp2.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addTodo();}});
   })();
-};
 
 // ════════════════════════════════════════
 // 時程表 Schedule (Google Calendar style)
@@ -6480,7 +6480,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.1.0";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.1.2";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
