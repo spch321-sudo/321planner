@@ -614,6 +614,7 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
         </button>
         <button onclick="schedNextDay()" style="background:#eaecf4;border:1px solid #d8dce8;border-radius:8px;padding:5px 9px;color:#4a5a72;font-size:18px;line-height:1;cursor:pointer">›</button>
         <button onclick="schedGoToday()" id="sched-today-btn" title="回到今天" style="background:#e2f5f3;border:1.5px solid #0f9b8e;border-radius:8px;padding:5px 9px;color:#0a8f84;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:3px"><span style="font-size:14px">📍</span>今日</button>
+        <button onclick="calMgrOpen()" id="sched-cals-btn" title="我的行事曆" style="background:#f3eefb;border:1.5px solid #c9b6ec;border-radius:8px;padding:5px 9px;color:#6b3fb0;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:3px"><span style="font-size:14px">📋</span>行事曆</button>
       </div>
   </div>
   <!-- Timeline body -->
@@ -627,6 +628,52 @@ body.fs-xlarge [style*="font-size:9px"]  { font-size:15px !important }
   <!-- Custom calendar popup -->
   <div id="sched-cal-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:960;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:22px" onclick="if(event.target===this)schedCloseCalendar()">
     <div id="sched-cal-card" style="background:#fff;width:100%;max-width:350px;border-radius:22px;padding:18px 18px 16px;box-shadow:0 24px 70px rgba(15,23,42,.4);animation:calPop .25s ease"></div>
+  </div>
+
+  <!-- 我的行事曆：清單管理浮層 -->
+  <div id="sched-cals-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:965;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px)" onclick="if(event.target===this)calMgrClose()">
+    <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:88vh;display:flex;flex-direction:column;animation:slideUp .35s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px;flex-shrink:0">
+        <div style="font-size:18px;font-weight:800;color:#1e3252">📋 我的行事曆</div>
+        <button onclick="calMgrClose()" style="background:#eaecf4;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#4a5a72">✕</button>
+      </div>
+      <div style="padding:0 18px 4px;font-size:12px;color:#7a8fa8;line-height:1.5;flex-shrink:0">建立一份自訂行事曆（如讀經計畫、禁食計畫、退修會行程），逐項填入日期與事項，儲存後會自動排入「每日時程」。</div>
+      <div id="cal-mgr-list" style="overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 18px 6px;flex:1"></div>
+      <div style="padding:10px 18px calc(18px + env(safe-area-inset-bottom));flex-shrink:0;border-top:1px solid #e6e9f2;background:#f4f6fa">
+        <button onclick="calEditNew()" style="width:100%;padding:14px;background:linear-gradient(135deg,#6b3fb0,#1e4d8c);border:none;border-radius:13px;color:#fff;font-size:16px;font-weight:800;cursor:pointer">＋ 新增行事曆</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 我的行事曆：編輯器浮層 -->
+  <div id="sched-caledit-overlay" style="display:none;position:fixed;inset:0;background:rgba(5,10,30,.85);z-index:970;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px)">
+    <div style="background:#f4f6fa;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:92vh;display:flex;flex-direction:column;animation:slideUp .35s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px;flex-shrink:0">
+        <div style="font-size:18px;font-weight:800;color:#1e3252" id="cal-edit-title">新增行事曆</div>
+        <button onclick="calEditClose()" style="background:#eaecf4;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#4a5a72">✕</button>
+      </div>
+      <div style="overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 18px 6px;flex:1">
+        <div style="margin-bottom:14px">
+          <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:5px;letter-spacing:1px">行事曆名稱</div>
+          <input id="cal-edit-name" type="text" placeholder="例如：七日讀經計畫…" maxlength="30"
+            style="width:100%;padding:11px 13px;border:1.5px solid #d8dce8;border-radius:11px;font-size:15px;background:#fff;box-sizing:border-box;outline:none;color:#1e3252">
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:7px;letter-spacing:1px">顏色標記</div>
+          <div id="cal-edit-colors" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="font-size:12px;color:#7a8fa8;font-weight:700;letter-spacing:1px">行事曆內容（日期 · 事項）</div>
+          <span id="cal-edit-count" style="font-size:11px;color:#9aa6ba"></span>
+        </div>
+        <div id="cal-edit-items"></div>
+        <button onclick="calAddRow()" style="width:100%;padding:12px;margin-top:4px;background:#eef2f9;border:1.5px dashed #b7c4dc;border-radius:12px;color:#1e4d8c;font-size:14px;font-weight:700;cursor:pointer">＋ 新增一項</button>
+      </div>
+      <div style="padding:12px 18px calc(16px + env(safe-area-inset-bottom));flex-shrink:0;border-top:1px solid #e6e9f2;background:#f4f6fa;display:flex;gap:10px">
+        <button id="cal-edit-del" onclick="calDelete()" style="display:none;flex:0 0 auto;padding:13px 16px;background:#fdf0ec;border:1.5px solid #e05c3a40;border-radius:12px;color:#e05c3a;font-size:14px;font-weight:700;cursor:pointer">🗑️ 刪除</button>
+        <button onclick="calSave()" style="flex:1;padding:13px;background:linear-gradient(135deg,#6b3fb0,#0a8f84);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:800;cursor:pointer">✓ 儲存並加入時程</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -988,7 +1035,6 @@ function goSc(id,btn){
   document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});
   document.getElementById("s-"+id).classList.add("on");
   if(btn)btn.classList.add("on");window.scrollTo(0,0);
-  if(id==="home")renderHome();
   if(id==="cal")renderCal();
   if(id==="sta")renderStats();
   if(id==="wk")renderWk();
@@ -1447,7 +1493,7 @@ function renderWk(){
 // Gratitude
 function getGrat(d){return lsG("p4_grat_"+d)||{items:["","",""],verse:""};}
 function saveGrat(d,g){lsS("p4_grat_"+d,g);}
-function updGrat(n,val){var t=tod();var g=getGrat(t);g.items[n]=val;saveGrat(t,g);try{renderPracticeNudge();}catch(_e){}}
+function updGrat(n,val){var t=tod();var g=getGrat(t);g.items[n]=val;saveGrat(t,g);}
 function updGratVerse(val){var t=tod();var g=getGrat(t);g.verse=val;saveGrat(t,g);}
 function renderGrat(){
   var t=tod(),idx=getIdx(),g=getGrat(t);
@@ -1944,7 +1990,7 @@ function saveCareRound(){
   saveCareLog(log);
   lsS("p4_care",{person:"",love:false,understand:false,accept:false,accompany:false,connect:false,note:""});
   toast("✓ 已存入關懷記錄","#0a8f84");
-  render920();try{renderPracticeNudge();}catch(_e){}
+  render920();
 }
 function delCareLog(id){var a=getCareLog().filter(function(r){return r.id!==id;});saveCareLog(a);render920();}
 // ── 發展 235：屬靈同伴(2)・屬靈父母兒女(3)・五重職份戰友(5) ──
@@ -2427,12 +2473,11 @@ function renderPray(){
 
 function updPray(key,val){
   var t=tod();var pray=getPray(t);pray[key]=val;savePray(t,pray);
-  try{renderPracticeNudge();}catch(_e){}
 }
 function usePrayPrompt(key,prompt){
   var t=tod();var pray=getPray(t);
   pray[key]=(pray[key]?pray[key]+"\n":"")+prompt+"\n";
-  savePray(t,pray);renderPray();try{renderPracticeNudge();}catch(_e){}
+  savePray(t,pray);renderPray();
 }
 
 
@@ -6938,7 +6983,7 @@ function schedSaveEv(){
     customInterval:_schedCI,customUnit:_schedCU,customEnd:_schedCE,
     customCount:customCount,customEndDate:customEndDate};
   var evs=schedLoad(_schedDate);
-  if(_schedEditId!==null){evs[_schedEditId]=ev;}else{evs.push(ev);}
+  if(_schedEditId!==null){if(evs[_schedEditId]&&evs[_schedEditId]._cal)ev._cal=evs[_schedEditId]._cal;evs[_schedEditId]=ev;}else{evs.push(ev);}
   evs.sort(function(a,b){return a.start<b.start?-1:1;});
   schedSave(_schedDate,evs);
   // Save repeat rules separately (no pre-expansion)
@@ -7112,6 +7157,215 @@ function schedRefreshRepPicker(){
     wb.style.border=sel?'1.5px solid #1e4d8c':'1.5px solid #d8dce8';
   }
 }
+
+/* ════════════════════════════════════════════
+   我的行事曆（自訂行事曆 → 自動排入每日時程）
+   資料：p4_schedcals = [{id,name,color,items:[{date,title,start,end,note}],dates:[...]}]
+   產生的事件存回 p4_sched_<date>，附 _cal 標記，時程自動顯示
+   ════════════════════════════════════════════ */
+var _CAL_COLORS=['#1e4d8c','#0a8f84','#d97706','#e05c3a','#7c4dbd','#2e8b57','#b45309','#6366f1'];
+var _calEdit=null;        // 編輯中的行事曆物件
+var _calEditIsNew=false;
+
+function calsLoad(){return lsG('p4_schedcals')||[];}
+function calsSave(a){lsS('p4_schedcals',a);}
+
+/* ── 清單管理 ── */
+function calMgrOpen(){
+  calMgrRender();
+  var ov=document.getElementById('sched-cals-overlay'); if(ov)ov.style.display='flex';
+}
+function calMgrClose(){
+  var ov=document.getElementById('sched-cals-overlay'); if(ov)ov.style.display='none';
+}
+function calMgrRender(){
+  var box=document.getElementById('cal-mgr-list'); if(!box)return;
+  var cals=calsLoad();
+  if(cals.length===0){
+    box.innerHTML='<div style="text-align:center;padding:40px 16px;color:#9aa6ba">'
+      +'<div style="font-size:42px;margin-bottom:10px">🗓️</div>'
+      +'<div style="font-size:14px;line-height:1.7">尚未建立任何行事曆<br>點下方「＋ 新增行事曆」開始</div></div>';
+    return;
+  }
+  var h='';
+  cals.forEach(function(c){
+    var items=c.items||[];
+    var valid=items.filter(function(it){return it.date&&it.title;});
+    var dates=valid.map(function(it){return it.date;}).sort();
+    var range=dates.length?(dates[0]+(dates.length>1?(' ～ '+dates[dates.length-1]):'')):'尚無內容';
+    h+='<div onclick="calEditOpen(\''+c.id+'\')" style="background:#fff;border:1px solid #e6e9f2;border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;box-shadow:0 1px 3px rgba(30,50,82,.05)">'
+      +'<div style="display:flex;align-items:center;gap:9px">'
+      +'<span style="width:13px;height:13px;border-radius:50%;background:'+(c.color||'#1e4d8c')+';flex-shrink:0;box-shadow:0 0 0 3px '+(c.color||'#1e4d8c')+'22"></span>'
+      +'<div style="font-size:16px;font-weight:800;color:#1e3252;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+_esc(c.name||'未命名行事曆')+'</div>'
+      +'<span style="font-size:12px;color:#6b3fb0;font-weight:700;background:#f3eefb;border-radius:20px;padding:3px 10px">'+valid.length+' 項</span>'
+      +'</div>'
+      +'<div style="font-size:12px;color:#9aa6ba;margin-top:7px;padding-left:22px">📅 '+_esc(range)+'</div>'
+      +'</div>';
+  });
+  box.innerHTML=h;
+}
+
+/* ── 開啟編輯器 ── */
+function calEditNew(){
+  _calEditIsNew=true;
+  _calEdit={id:'cal_'+Date.now(),name:'',color:_CAL_COLORS[4],
+    items:[{date:_schedDate||tod(),title:'',start:'09:00',end:'10:00',note:''}],dates:[]};
+  document.getElementById('cal-edit-title').textContent='新增行事曆';
+  document.getElementById('cal-edit-del').style.display='none';
+  _calEditPaint();
+  var ov=document.getElementById('sched-caledit-overlay'); if(ov)ov.style.display='flex';
+  setTimeout(function(){var n=document.getElementById('cal-edit-name');if(n)n.focus();},220);
+}
+function calEditOpen(id){
+  var c=calsLoad().filter(function(x){return x.id===id;})[0];
+  if(!c){toast('找不到此行事曆','#e05c3a');return;}
+  _calEditIsNew=false;
+  _calEdit={id:c.id,name:c.name||'',color:c.color||_CAL_COLORS[0],
+    items:(c.items||[]).map(function(it){return {date:it.date,title:it.title,start:it.start||'09:00',end:it.end||'10:00',note:it.note||''};}),
+    dates:(c.dates||[]).slice()};
+  if(_calEdit.items.length===0)_calEdit.items.push({date:_schedDate||tod(),title:'',start:'09:00',end:'10:00',note:''});
+  document.getElementById('cal-edit-title').textContent='編輯行事曆';
+  document.getElementById('cal-edit-del').style.display='block';
+  _calEditPaint();
+  calMgrClose();
+  var ov=document.getElementById('sched-caledit-overlay'); if(ov)ov.style.display='flex';
+}
+function calEditClose(){
+  var ov=document.getElementById('sched-caledit-overlay'); if(ov)ov.style.display='none';
+  _calEdit=null;
+}
+
+function _calEditPaint(){
+  document.getElementById('cal-edit-name').value=_calEdit.name||'';
+  calRenderColors();
+  calRenderItems();
+}
+
+/* ── 顏色 ── */
+function calRenderColors(){
+  var box=document.getElementById('cal-edit-colors'); if(!box)return;
+  var h='';
+  _CAL_COLORS.forEach(function(col){
+    var on=col===_calEdit.color;
+    h+='<div onclick="calPickColor(\''+col+'\')" style="width:30px;height:30px;border-radius:50%;background:'+col+';cursor:pointer;border:3px solid '+(on?col:'transparent')+';box-shadow:'+(on?'0 0 0 2px #fff inset':'none')+'"></div>';
+  });
+  box.innerHTML=h;
+}
+function calPickColor(col){ if(_calEdit){_calEdit.color=col;calRenderColors();} }
+
+/* ── 內容項目 ── */
+function calRenderItems(){
+  var box=document.getElementById('cal-edit-items'); if(!box)return;
+  var h='';
+  _calEdit.items.forEach(function(it,i){
+    h+='<div class="cal-item-row" data-i="'+i+'" style="background:#fff;border:1px solid #e6e9f2;border-radius:13px;padding:11px 12px;margin-bottom:10px">'
+      +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">'
+        +'<span style="width:22px;height:22px;border-radius:50%;background:'+(_calEdit.color)+'22;color:'+(_calEdit.color)+';font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span>'
+        +'<input type="date" data-f="date" value="'+(it.date||'')+'" style="flex:1;padding:8px 10px;border:1.5px solid #d8dce8;border-radius:9px;font-size:14px;background:#fff;color:#1e3252;outline:none;-webkit-appearance:none">'
+        +'<button onclick="calRemoveRow('+i+')" title="刪除這項" style="width:30px;height:30px;border:none;border-radius:8px;background:#fdf0ec;color:#e05c3a;font-size:16px;cursor:pointer;flex-shrink:0">✕</button>'
+      +'</div>'
+      +'<input type="text" data-f="title" value="'+_escAttr(it.title)+'" placeholder="事項內容…" maxlength="50" style="width:100%;padding:9px 11px;border:1.5px solid #d8dce8;border-radius:9px;font-size:14px;background:#fff;color:#1e3252;outline:none;box-sizing:border-box;margin-bottom:8px">'
+      +'<div style="display:flex;gap:8px;align-items:center">'
+        +'<input type="time" data-f="start" value="'+(it.start||'09:00')+'" style="flex:1;padding:8px 10px;border:1.5px solid #d8dce8;border-radius:9px;font-size:14px;background:#fff;color:#1e3252;outline:none;-webkit-appearance:none">'
+        +'<span style="color:#9aa6ba;font-size:13px">至</span>'
+        +'<input type="time" data-f="end" value="'+(it.end||'10:00')+'" style="flex:1;padding:8px 10px;border:1.5px solid #d8dce8;border-radius:9px;font-size:14px;background:#fff;color:#1e3252;outline:none;-webkit-appearance:none">'
+      +'</div>'
+      +'</div>';
+  });
+  box.innerHTML=h;
+  var cnt=document.getElementById('cal-edit-count');
+  if(cnt)cnt.textContent='共 '+_calEdit.items.length+' 項';
+}
+function calSyncFromDOM(){
+  if(!_calEdit)return;
+  var rows=document.querySelectorAll('#cal-edit-items .cal-item-row');
+  for(var i=0;i<rows.length;i++){
+    var idx=parseInt(rows[i].dataset.i);
+    var it=_calEdit.items[idx]; if(!it)continue;
+    var get=function(f){var el=rows[i].querySelector('[data-f="'+f+'"]');return el?el.value:'';};
+    it.date=get('date'); it.title=get('title'); it.start=get('start')||'09:00'; it.end=get('end')||'10:00';
+  }
+}
+function calAddRow(){
+  calSyncFromDOM();
+  var last=_calEdit.items[_calEdit.items.length-1];
+  _calEdit.items.push({date:(last&&last.date)||_schedDate||tod(),title:'',start:'09:00',end:'10:00',note:''});
+  calRenderItems();
+  var box=document.getElementById('cal-edit-items');
+  if(box){var rows=box.querySelectorAll('.cal-item-row');var lastRow=rows[rows.length-1];if(lastRow){var ti=lastRow.querySelector('[data-f="title"]');if(ti)ti.focus();}}
+}
+function calRemoveRow(i){
+  calSyncFromDOM();
+  if(_calEdit.items.length<=1){_calEdit.items[0]={date:_schedDate||tod(),title:'',start:'09:00',end:'10:00',note:''};}
+  else{_calEdit.items.splice(i,1);}
+  calRenderItems();
+}
+
+/* ── 寫入 / 移除時程 ── */
+function _calStrip(date,calId){
+  // 從某日時程移除屬於此行事曆的事件
+  var arr=schedLoad(date).filter(function(e){return e._cal!==calId;});
+  schedSave(date,arr);
+}
+function calApply(cal){
+  // 1) 清掉舊的（依先前產生過的日期）
+  var old=cal.dates||[];
+  for(var i=0;i<old.length;i++)_calStrip(old[i],cal.id);
+  // 2) 寫入新的
+  var touched={};
+  (cal.items||[]).forEach(function(it){
+    if(!it.date||!it.title)return;
+    var s=it.start||'09:00',e=it.end||'10:00';
+    if(s>=e)e=s; // 容錯：結束不早於開始
+    var arr=schedLoad(it.date);
+    arr.push({title:it.title,start:s,end:e,color:cal.color||'#1e4d8c',note:it.note||'',repeat:'none',_cal:cal.id});
+    arr.sort(function(a,b){return a.start<b.start?-1:1;});
+    schedSave(it.date,arr);
+    touched[it.date]=1;
+  });
+  cal.dates=Object.keys(touched);
+}
+function calSave(){
+  if(!_calEdit)return;
+  calSyncFromDOM();
+  var name=(document.getElementById('cal-edit-name').value||'').trim();
+  if(!name){toast('請輸入行事曆名稱','#e05c3a');var n=document.getElementById('cal-edit-name');if(n)n.focus();return;}
+  _calEdit.name=name;
+  var valid=_calEdit.items.filter(function(it){return it.date&&(it.title||'').trim();});
+  if(valid.length===0){toast('請至少填入一項「日期＋事項」','#e05c3a');return;}
+  _calEdit.items=valid.map(function(it){return {date:it.date,title:it.title.trim(),start:it.start||'09:00',end:it.end||'10:00',note:it.note||''};});
+  // 套用到時程
+  calApply(_calEdit);
+  // 存行事曆清單
+  var cals=calsLoad();
+  var found=false;
+  for(var i=0;i<cals.length;i++){if(cals[i].id===_calEdit.id){cals[i]=_calEdit;found=true;break;}}
+  if(!found)cals.push(_calEdit);
+  calsSave(cals);
+  // 跳到第一個日期讓用戶看到結果
+  var firstDate=_calEdit.dates.slice().sort()[0];
+  calEditClose();
+  calMgrClose();
+  if(firstDate){_schedDate=firstDate;schedRenderDateLabel();}
+  schedRender();
+  toast('✓ 已加入時程（共 '+valid.length+' 項）','#0a8f84');
+}
+function calDelete(){
+  if(!_calEdit)return;
+  if(!confirm('確定刪除「'+(_calEdit.name||'此行事曆')+'」？\n已排入時程的相關事件也會一併移除。'))return;
+  var old=_calEdit.dates||[];
+  for(var i=0;i<old.length;i++)_calStrip(old[i],_calEdit.id);
+  var cals=calsLoad().filter(function(x){return x.id!==_calEdit.id;});
+  calsSave(cals);
+  calEditClose();
+  calMgrRender();
+  schedRender();
+  toast('已刪除行事曆','#e05c3a');
+}
+
+/* HTML 防注入小工具 */
+function _esc(s){s=String(s==null?'':s);return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function _escAttr(s){return _esc(s).replace(/"/g,'&quot;');}
 </script>
 
 
@@ -7620,7 +7874,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.13.1";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.14.0";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
