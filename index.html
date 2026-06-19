@@ -988,6 +988,7 @@ function goSc(id,btn){
   document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("on");});
   document.getElementById("s-"+id).classList.add("on");
   if(btn)btn.classList.add("on");window.scrollTo(0,0);
+  if(id==="home")renderHome();
   if(id==="cal")renderCal();
   if(id==="sta")renderStats();
   if(id==="wk")renderWk();
@@ -1446,7 +1447,7 @@ function renderWk(){
 // Gratitude
 function getGrat(d){return lsG("p4_grat_"+d)||{items:["","",""],verse:""};}
 function saveGrat(d,g){lsS("p4_grat_"+d,g);}
-function updGrat(n,val){var t=tod();var g=getGrat(t);g.items[n]=val;saveGrat(t,g);}
+function updGrat(n,val){var t=tod();var g=getGrat(t);g.items[n]=val;saveGrat(t,g);try{renderPracticeNudge();}catch(_e){}}
 function updGratVerse(val){var t=tod();var g=getGrat(t);g.verse=val;saveGrat(t,g);}
 function renderGrat(){
   var t=tod(),idx=getIdx(),g=getGrat(t);
@@ -1943,7 +1944,7 @@ function saveCareRound(){
   saveCareLog(log);
   lsS("p4_care",{person:"",love:false,understand:false,accept:false,accompany:false,connect:false,note:""});
   toast("✓ 已存入關懷記錄","#0a8f84");
-  render920();
+  render920();try{renderPracticeNudge();}catch(_e){}
 }
 function delCareLog(id){var a=getCareLog().filter(function(r){return r.id!==id;});saveCareLog(a);render920();}
 // ── 發展 235：屬靈同伴(2)・屬靈父母兒女(3)・五重職份戰友(5) ──
@@ -2426,11 +2427,12 @@ function renderPray(){
 
 function updPray(key,val){
   var t=tod();var pray=getPray(t);pray[key]=val;savePray(t,pray);
+  try{renderPracticeNudge();}catch(_e){}
 }
 function usePrayPrompt(key,prompt){
   var t=tod();var pray=getPray(t);
   pray[key]=(pray[key]?pray[key]+"\n":"")+prompt+"\n";
-  savePray(t,pray);renderPray();
+  savePray(t,pray);renderPray();try{renderPracticeNudge();}catch(_e){}
 }
 
 
@@ -7618,7 +7620,7 @@ function schedRefreshRepPicker(){
    3) 把 VERSION_CHECK_URL 填成那個 version.json 的網址
    舊版使用者一開啟 App（有網路時）就會看到更新橫幅。
    ============================================================ */
-var APP_VERSION = "1.13.0";        /* ★ 每次發佈新版請往上加 */
+var APP_VERSION = "1.13.1";        /* ★ 每次發佈新版請往上加 */
 var VERSION_CHECK_URL = "https://spch321-sudo.github.io/321planner/version.json";       /* ★ 你的 version.json 網址 */
 var _updateInfo = null;
 function checkAppUpdate(){
