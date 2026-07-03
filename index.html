@@ -3433,9 +3433,15 @@ function togPrayerAnswered(id){
 
 // ══ Records Viewer ══
 var _recTab="all";
+var _recEditId=null;
+function recEditStart(id){_recEditId=id;renderRecords();setTimeout(function(){var ta=document.getElementById("rec-edit-ta");if(ta){ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(e){}}},60);}
+function recEditCancel(){_recEditId=null;renderRecords();}
+function recEditSave(id,kind){var ta=document.getElementById("rec-edit-ta");if(!ta)return;var v=(ta.value||"").trim();if(!v){toast("內容不可空白","#e05c3a");return;}var i;if(kind==="memo"){var ms=getMemos();for(i=0;i<ms.length;i++){if(ms[i].id===id){ms[i].text=v;break;}}saveMemos(ms);}else if(kind==="todo"){var ts=getTodos();for(i=0;i<ts.length;i++){if(ts[i].id===id){ts[i].text=v;break;}}saveTodos(ts);}else{var rs=getQRRecords();for(i=0;i<rs.length;i++){if(rs[i].id===id){rs[i].text=v;break;}}saveQRRecords(rs);}_recEditId=null;renderRecords();toast("✓ 已更新記錄","#0a8f84");}
+function _recEditBtn(id){if(id===_recEditId)return "";return '<button data-eid="'+id+'" onclick="recEditStart(this.dataset.eid)" style="padding:5px 10px;border:1px solid #1e4d8c40;border-radius:8px;background:transparent;color:#1e4d8c;font-size:12px;cursor:pointer;flex-shrink:0;white-space:nowrap">編輯</button>';}
+function _recEditBox(id,text,kind){var h='<div style="margin-top:2px">';h+='<textarea id="rec-edit-ta" style="width:100%;box-sizing:border-box;min-height:92px;font-size:15px;line-height:1.7;color:#1e3252;border:1.5px solid #1e4d8c66;border-radius:10px;padding:10px 12px;resize:vertical;font-family:inherit;background:#fbfcfe">'+esc(text)+'</textarea>';h+='<div style="display:flex;gap:8px;margin-top:8px">';h+='<button data-eid="'+id+'" data-ekind="'+kind+'" onclick="recEditSave(this.dataset.eid,this.dataset.ekind)" style="flex:1;padding:9px;background:#0a8f84;border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:700;cursor:pointer">✓ 儲存</button>';h+='<button onclick="recEditCancel()" style="padding:9px 18px;background:#eaecf4;border:1px solid #d8dce8;border-radius:9px;color:#4a5a72;font-size:14px;cursor:pointer">取消</button>';h+='</div></div>';return h;}
 
 function openRecords(){
-  _recTab="all";
+  _recTab="all";_recEditId=null;
   var el=document.getElementById("records-modal");
   if(!el)return;
   el.style.display="flex";
@@ -3446,7 +3452,7 @@ function closeRecords(){
   if(el)el.style.display="none";
 }
 function switchRecTab(tab){
-  _recTab=tab;
+  _recTab=tab;_recEditId=null;
   document.querySelectorAll(".rec-tab").forEach(function(b){
     b.classList.toggle("on",b.dataset.tab===tab);
   });
@@ -3486,10 +3492,10 @@ function renderRecords(){
     var h='<div style="font-size:12px;color:#7a8fa8;font-weight:700;margin-bottom:10px;letter-spacing:1px">📝 備忘錄（'+memos.length+'）</div>';
     memos.forEach(function(m){
       h+='<div style="background:#fff;border-radius:12px;padding:13px 14px;margin-bottom:8px;border-left:3px solid #7c4dbd">';
-      h+='<div style="display:flex;align-items:flex-start;gap:8px">';
+      if(m.id===_recEditId){h+=_recEditBox(m.id,m.text,"memo");}else{h+='<div style="display:flex;align-items:flex-start;gap:8px">';
       h+='<div style="flex:1;font-size:15px;color:#1e3252;line-height:1.7;white-space:pre-wrap">'+esc(m.text)+'</div>';
-      h+='<button data-mid="'+m.id+'" onclick="deleteMemo(this.dataset.mid);renderRecords()" style="padding:5px 10px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer;flex-shrink:0">刪除</button>';
-      h+='</div>';
+      h+=_recEditBtn(m.id);h+='<button data-mid="'+m.id+'" onclick="deleteMemo(this.dataset.mid);renderRecords()" style="padding:5px 10px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer;flex-shrink:0">刪除</button>';
+      h+='</div>';}
       h+='<div style="font-size:11px;color:#b0b8c8;margin-top:5px">'+m.date+' '+m.time+'</div>';
       h+='</div>';
     });
@@ -3507,11 +3513,11 @@ function renderRecords(){
     if(done2>0)h2+='<button onclick="clearDoneTodos();renderRecords()" style="padding:4px 10px;background:#fdf0ec;border:1px solid #e05c3a40;border-radius:8px;color:#e05c3a;font-size:12px;font-weight:700;cursor:pointer">清除已完成</button>';
     h2+='</div>';
     todos.forEach(function(t){
-      h2+='<div style="background:#fff;border-radius:10px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px;opacity:'+(t.done?.55:1)+'">';
+      if(t.id===_recEditId){h2+='<div style="background:#fff;border-radius:10px;padding:12px 13px;margin-bottom:8px">'+_recEditBox(t.id,t.text,"todo")+'</div>';}else{h2+='<div style="background:#fff;border-radius:10px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px;opacity:'+(t.done?.55:1)+'">';
       h2+='<button data-tid="'+t.id+'" onclick="togTodo(this.dataset.tid);renderRecords()" style="width:24px;height:24px;border-radius:6px;border:2px solid '+(t.done?'#0a8f84':'#d8dce8')+';background:'+(t.done?'#0a8f84':'transparent')+';color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center">'+(t.done?'✓':'')+'</button>';
       h2+='<div style="flex:1;font-size:14px;color:'+(t.done?'#b0b8c8':'#1e3252')+';'+(t.done?'text-decoration:line-through':'')+'">'+esc(t.text)+'</div>';
-      h2+='<button data-tid="'+t.id+'" onclick="deleteTodo(this.dataset.tid);renderRecords()" style="padding:5px 8px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button>';
-      h2+='</div>';
+      h2+=_recEditBtn(t.id);h2+='<button data-tid="'+t.id+'" onclick="deleteTodo(this.dataset.tid);renderRecords()" style="padding:5px 8px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button>';
+      h2+='</div>';}
     });
     el.innerHTML=h2;
     return;
@@ -3553,15 +3559,15 @@ function renderRecords(){
     h+='<span style="font-size:12px;color:#7a8fa8">'+r.time+'</span>';
     if(isAnswered)h+='<span style="font-size:12px;color:#0a8f84;font-weight:700;background:#e5f5f3;padding:1px 8px;border-radius:6px">✓ 蒙應允</span>';
     h+='</div>';
-    h+='<div style="font-size:15px;color:#1e3252;line-height:1.7">'+esc(r.text)+'</div>';
+    if(r.id===_recEditId){h+=_recEditBox(r.id,r.text,"qr");}else{h+='<div style="font-size:15px;color:#1e3252;line-height:1.7">'+esc(r.text)+'</div>';}
     if(isAnswered&&r.answeredDate)h+='<div style="font-size:12px;color:#0a8f84;margin-top:4px">🙏 應允日期：'+r.answeredDate+'</div>';
     h+='</div>';
-    h+='<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">';
+    if(r.id!==_recEditId){h+='<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">';
     if(r.type==="prayer"){
       h+='<button data-rid="'+r.id+'" onclick="togPrayerAnswered(this.dataset.rid)" style="padding:5px 8px;border:1.5px solid '+(isAnswered?"#0a8f84":"#d8dce8")+';border-radius:8px;background:'+(isAnswered?"#e5f5f3":"transparent")+';color:'+(isAnswered?"#0a8f84":"#7a8fa8")+';font-size:12px;cursor:pointer;font-weight:700;white-space:nowrap">'+(isAnswered?"✓ 已成就":"禱告<br>成就")+'</button>';
     }
-    h+='<button data-rid="'+r.id+'" onclick="delQRRecord(this.dataset.rid)" style="padding:5px 8px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button>';
-    h+='</div>';
+    h+=_recEditBtn(r.id);h+='<button data-rid="'+r.id+'" onclick="delQRRecord(this.dataset.rid)" style="padding:5px 8px;border:1px solid #f0d8d8;border-radius:8px;background:transparent;color:#e05c3a;font-size:12px;cursor:pointer">刪除</button>';
+    h+='</div>';}
     h+='</div></div>';
   });
   // Stats — Prayer (only on 全部 / 禱告 tab)
