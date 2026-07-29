@@ -3219,7 +3219,7 @@ function gotoBlockEdit(){editTB=true;closeSettings();document.querySelectorAll("
 var APP_LANG='tc';   /* ★ 各語言檔分別為 'tc' / 'sc' / 'en' */
 /* 部署為同一站台的 /tc /sc /en 子資料夾（Week3 建置系統的產出）。
    若各語言用不同網址，改成完整網址，例如 {tc:'https://…/321planner-tc/'} */
-var LANG_URLS={tc:'../tc/',sc:'../sc/',en:'../en/'};
+var LANG_URLS={tc:'/321planner/',sc:'/321planner-sc/',en:'/321planner-en/'};
 function switchLang(code){
   if(code===APP_LANG){if(typeof closeSettings==='function')closeSettings();return;}
   try{lsS('p4_lang',code);}catch(e){}
