@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2145",
-  "version": "v2026.1021.2145",
-  "notes": "三語整合：繁體、简体、English 合為同一個 App，在「設定 → 🌐 語言」一鍵切換，資料完全共用；下次開啟自動進入上次使用的語言。",
-  "notes_sc": "三语整合：繁体、简体、English 合为同一个 App，在「设置 → 🌐 语言」一键切换，数据完全共用；下次打开自动进入上次使用的语言。",
-  "notes_en": "Three languages, one app: 繁體, 简体 and English now live in a single app — switch any time in Settings → 🌐 Language, with all your data shared."
+  "v": "v2026.1021.2232",
+  "version": "v2026.1021.2232",
+  "notes": "日曆新功能：①連結 Google 日曆，行程顯示在月曆上；②每日得勝的行程可以自動同步到 Google 日曆（或一次匯入）；③各角色 6:00–7:00 晨讀靈修、7:00–8:00 梳洗通勤。",
+  "notes_sc": "日历新功能：①连结 Google 日历，行程显示在月历上；②每日得胜的行程可以自动同步到 Google 日历（或一次导入）；③各角色 6:00–7:00 晨读灵修、7:00–8:00 梳洗通勤。",
+  "notes_en": "Calendar update: ① link Google Calendar and see its events here; ② auto-sync your 321 schedule to Google Calendar (or import once); ③ every role now starts with 6:00–7:00 Morning Bible Reading and 7:00–8:00 wash-up & commute."
 }

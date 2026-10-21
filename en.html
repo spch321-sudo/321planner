@@ -8328,7 +8328,7 @@ function gcalFile(inp) {
   if (!GCAL_S) return;
   try {
     var st = document.createElement('style'); st.id = 'gccss';
-    st.textContent = '.gc-dots{position:absolute;top:4px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:2px;pointer-events:none}.gc-dots i{display:block;width:6px;height:6px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.85)}.gc-dots b{font-size:9px;line-height:1;font-weight:800;color:#4285f4;margin-left:1px}.cal-cell.today .gc-dots b,.cal-cell.sel .gc-dots b{color:#fff}body.dark .gc-sheet{background:#1e1c18!important;color:#ede8df}body.dark .gc-sheet div[style*="#f4f7fc"]{background:#242018!important}body.dark .gc-sheet div[style*="#243050"]{color:#ede8df!important}';
+    st.textContent = '.gc-dots{position:absolute;top:4px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:2px;pointer-events:none}.gc-dots i{display:block;width:6px;height:6px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.85)}.gc-dots b{font-size:9px;line-height:1;font-weight:800;color:#4285f4;margin-left:1px}.gc-sheet input[type=checkbox],#gf-wrap input[type=checkbox]{-webkit-appearance:checkbox;appearance:auto;accent-color:#4285f4;border-radius:4px}.cal-cell.today .gc-dots b,.cal-cell.sel .gc-dots b{color:#fff}body.dark .gc-sheet{background:#1e1c18!important;color:#ede8df}body.dark .gc-sheet div[style*="#f4f7fc"]{background:#242018!important}body.dark .gc-sheet div[style*="#243050"]{color:#ede8df!important}';
     document.head.appendChild(st);
   } catch (e) { }
   if (typeof renderCal === 'function') { var _rc = renderCal; renderCal = function () { var r = _rc.apply(this, arguments); try { gcalPaint(); } catch (e) { } return r; }; }
@@ -8352,6 +8352,269 @@ function gcalFile(inp) {
 })();
 
 /* ============================================================
+   匯出到 Google 日曆（ES5）
+   把「時程」的行程（含重複規則）與可選的每日時間區塊，產生標準 .ics 檔；
+   使用者到 Google 日曆「設定 → 匯入」選這個檔即可。
+   UID 依內容固定：同一個行程重複匯出不會在 Google 變成兩筆。
+   從 Google 連結進來的行程（p4x_）不會再被匯出，避免重複。
+   ============================================================ */
+var GEX_S = ({
+  tc: { btn: '📤 匯出到 Google 日曆', title: '匯出到 Google 日曆', sched: '時程裡的行程（含重複行程）', blocks: '每日時間區塊（晨讀靈修、梳洗通勤…，每天重複）', range: '只匯出今天以後的行程', make: '📥 產生日曆檔', none: '沒有可以匯出的行程', done: '✓ 已產生日曆檔：{n} 個行程', howTitle: '怎麼匯入 Google 日曆？', how: ['按上面「產生日曆檔」，檔案會存到「下載」（iPhone 選「儲存到檔案」）', '用<b>電腦</b>瀏覽器打開 Google 日曆，按右上角齒輪 →「<b>設定</b>」→ 左邊「<b>匯入與匯出</b>」（也可以按下面的按鈕直接開）', '按「<b>從電腦中選取檔案</b>」，選剛才的 <b>321每日得勝.ics</b>，再選要放進哪一個日曆（建議先新建一個「321每日得勝」日曆，方便整批管理）', '按「<b>匯入</b>」就完成了。行程改過後，再匯出、再匯入一次即可；沒改的行程不會重複'], open: '🌐 開啟 Google 日曆匯入頁', note: '手機上的 Google 日曆 App 不能匯入檔案；iPhone 直接點檔案會加到「Apple 行事曆」。', file: '321每日得勝', cal: '321每日得勝' },
+  sc: { btn: '📤 导出到 Google 日历', title: '导出到 Google 日历', sched: '时程里的行程（含重复行程）', blocks: '每日时间区块（晨读灵修、梳洗通勤…，每天重复）', range: '只导出今天以后的行程', make: '📥 生成日历文件', none: '没有可以导出的行程', done: '✓ 已生成日历文件：{n} 个行程', howTitle: '怎么导入 Google 日历？', how: ['按上面「生成日历文件」，文件会存到「下载」（iPhone 选「存储到文件」）', '用<b>电脑</b>浏览器打开 Google 日历，按右上角齿轮 →「<b>设置</b>」→ 左边「<b>导入和导出</b>」（也可以按下面的按钮直接打开）', '按「<b>从计算机中选择文件</b>」，选刚才的 <b>321每日得胜.ics</b>，再选要放进哪一个日历（建议先新建一个「321每日得胜」日历，方便整批管理）', '按「<b>导入</b>」就完成了。行程改过后，再导出、再导入一次即可；没改的行程不会重复'], open: '🌐 打开 Google 日历导入页', note: '手机上的 Google 日历 App 不能导入文件；iPhone 直接点文件会加到「Apple 日历」。', file: '321每日得胜', cal: '321每日得胜' },
+  en: { btn: '📤 Export to Google Calendar', title: 'Export to Google Calendar', sched: 'Schedule events (including repeating ones)', blocks: 'Daily time blocks (morning reading, commute… repeating daily)', range: 'Only events from today onward', make: '📥 Create calendar file', none: 'There are no events to export', done: '✓ Calendar file created: {n} events', howTitle: 'How do I import it into Google Calendar?', how: ['Tap “Create calendar file” above — it is saved to Downloads (on iPhone choose “Save to Files”)', 'Open Google Calendar in a <b>computer</b> browser, click the gear (top right) → “<b>Settings</b>” → “<b>Import &amp; export</b>” on the left (or use the button below)', 'Click “<b>Select file from your computer</b>”, choose <b>321-Daily-Victory.ics</b>, then pick the calendar to add it to (tip: create a “321 Daily Victory” calendar first so you can manage them together)', 'Click “<b>Import</b>”. After you change events, just export and import again — unchanged events will not be duplicated'], open: '🌐 Open Google Calendar import page', note: 'The Google Calendar phone app can’t import files; on iPhone, tapping the file adds it to Apple Calendar instead.', file: '321-Daily-Victory', cal: '321 Daily Victory' }
+})[APP_LANG] || null;
+
+function _gxP(n) { n = parseInt(n, 10) || 0; return n < 10 ? '0' + n : '' + n; }
+function _gxEsc(s) { return String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+function _gxFold(line) {
+  var out = [], s = line;
+  while (s.length > 60) { out.push(s.slice(0, 60)); s = ' ' + s.slice(60); }
+  out.push(s); return out.join('\r\n');
+}
+function _gxHash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); }
+function _gxTZ() { try { var z = Intl.DateTimeFormat().resolvedOptions().timeZone; if (z && /\//.test(z)) return z; } catch (e) { } return ''; }
+/* "2026-10-21" + "06:30" → "20261021T063000"；"24:00" → 隔天 00:00 */
+function _gxDT(ds, hm) {
+  var p = String(hm || '00:00').split(':'), h = parseInt(p[0], 10) || 0, m = parseInt(p[1], 10) || 0;
+  var d = new Date(ds + 'T00:00:00'); d.setHours(h, m, 0, 0);
+  return d.getFullYear() + _gxP(d.getMonth() + 1) + _gxP(d.getDate()) + 'T' + _gxP(d.getHours()) + _gxP(d.getMinutes()) + '00';
+}
+function _gxEnd(ds, st, en) {
+  var a = String(st || '00:00'), b = String(en || '');
+  if (!/^\d{1,2}:\d{2}$/.test(b) || b <= a && b !== '24:00') {   /* 沒有結束時間或比開始早：預設一小時 */
+    var p = a.split(':'), d = new Date(ds + 'T00:00:00'); d.setHours((parseInt(p[0], 10) || 0) + 1, parseInt(p[1], 10) || 0, 0, 0);
+    return d.getFullYear() + _gxP(d.getMonth() + 1) + _gxP(d.getDate()) + 'T' + _gxP(d.getHours()) + _gxP(d.getMinutes()) + '00';
+  }
+  return _gxDT(ds, b);
+}
+function _gxStamp() { var d = new Date(); return d.getUTCFullYear() + _gxP(d.getUTCMonth() + 1) + _gxP(d.getUTCDate()) + 'T' + _gxP(d.getUTCHours()) + _gxP(d.getUTCMinutes()) + _gxP(d.getUTCSeconds()) + 'Z'; }
+function _gxUntil(ds) { var d = new Date(ds + 'T23:59:59'); return d.getUTCFullYear() + _gxP(d.getUTCMonth() + 1) + _gxP(d.getUTCDate()) + 'T' + _gxP(d.getUTCHours()) + _gxP(d.getUTCMinutes()) + _gxP(d.getUTCSeconds()) + 'Z'; }
+var _GX_WD = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+/* App 的重複規則 → RRULE */
+function _gxRule(r) {
+  var o = new Date(r._origin + 'T00:00:00'), s;
+  if (r.repeat === 'daily') s = 'FREQ=DAILY';
+  else if (r.repeat === 'weekly') {
+    var w = (r.weekdays && r.weekdays.length) ? r.weekdays.slice().sort() : [o.getDay()], a = [];
+    for (var i = 0; i < w.length; i++) a.push(_GX_WD[w[i]]);
+    s = 'FREQ=WEEKLY;BYDAY=' + a.join(',');
+  } else if (r.repeat === 'monthly') s = 'FREQ=MONTHLY;BYMONTHDAY=' + o.getDate();
+  else if (r.repeat === 'yearly') s = 'FREQ=YEARLY';
+  else if (r.repeat === 'custom') {
+    var ci = Math.max(1, parseInt(r.customInterval, 10) || 1), cu = r.customUnit || 'day';
+    s = 'FREQ=' + ({ day: 'DAILY', week: 'WEEKLY', month: 'MONTHLY', year: 'YEARLY' }[cu] || 'DAILY') + (ci > 1 ? ';INTERVAL=' + ci : '');
+  } else return '';
+  if (r.customEnd === 'count' && r.customCount) s += ';COUNT=' + (parseInt(r.customCount, 10) + 1);   /* App 的次數不含第一次 */
+  else if (r.customEnd === 'date' && r.customEndDate) s += ';UNTIL=' + _gxUntil(r.customEndDate);
+  return s;
+}
+function gexBuild(opt) {
+  var tz = _gxTZ(), tzp = tz ? ';TZID=' + tz : '', today = (typeof tod === 'function') ? tod() : '', stamp = _gxStamp(), seen = {}, n = 0;
+  var L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//321planner//' + (APP_LANG || 'tc').toUpperCase() + '//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:' + _gxEsc(GEX_S.cal)];
+  if (tz) L.push('X-WR-TIMEZONE:' + tz);
+  function add(uid, ds, st, en, title, note, rrule) {
+    if (seen[uid]) return; seen[uid] = 1; n++;
+    L.push('BEGIN:VEVENT', 'UID:' + uid + '@321planner', 'DTSTAMP:' + stamp,
+      'DTSTART' + tzp + ':' + _gxDT(ds, st), 'DTEND' + tzp + ':' + _gxEnd(ds, st, en));
+    if (rrule) L.push('RRULE:' + rrule);
+    L.push(_gxFold('SUMMARY:' + _gxEsc(title || '—')));
+    if (note) L.push(_gxFold('DESCRIPTION:' + _gxEsc(note)));
+    L.push('END:VEVENT');
+  }
+  if (opt.sched) {
+    /* 單次行程：所有 p4_sched_<日期>（重複行程的本尊由規則處理） */
+    var keys = [];
+    for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && /^p4_sched_\d{4}-\d{2}-\d{2}$/.test(k)) keys.push(k); }
+    keys.sort();
+    for (var j = 0; j < keys.length; j++) {
+      var ds = keys[j].slice(9);
+      if (opt.future && today && ds < today) continue;
+      var arr = []; try { arr = JSON.parse(localStorage.getItem(keys[j])) || []; } catch (e) { arr = []; }
+      for (var q = 0; q < arr.length; q++) {
+        var ev = arr[q]; if (!ev || !ev.start) continue;
+        if (ev.repeat && ev.repeat !== 'none') continue;
+        add('s' + _gxHash(ds + '|' + ev.start + '|' + (ev.end || '') + '|' + (ev.title || '')), ds, ev.start, ev.end, ev.title, ev.note, '');
+      }
+    }
+    /* 重複行程 */
+    var rules = []; try { rules = JSON.parse(localStorage.getItem('p4_schedrules')) || []; } catch (e) { rules = []; }
+    for (var r = 0; r < rules.length; r++) {
+      var ru = rules[r]; if (!ru || !ru._origin || !ru.start) continue;
+      var rr = _gxRule(ru); if (!rr) continue;
+      if (opt.future && today && ru.customEnd === 'date' && ru.customEndDate && ru.customEndDate < today) continue;
+      add('r' + _gxHash(ru._origin + '|' + ru.start + '|' + (ru.end || '') + '|' + (ru.title || '') + '|' + rr), ru._origin, ru.start, ru.end, ru.title, ru.note, rr);
+    }
+  }
+  if (opt.blocks && typeof getBL === 'function') {
+    var bl = getBL() || [];
+    for (var b = 0; b < bl.length; b++) {
+      var blk = bl[b], tm = String(blk.time || '').match(/(\d{1,2}:\d{2})\s*[–\-~～]\s*(\d{1,2}:\d{2})/);
+      if (!tm) continue;
+      var st = tm[1].length === 4 ? '0' + tm[1] : tm[1], en = tm[2].length === 4 ? '0' + tm[2] : tm[2];
+      if (en <= st) continue;   /* 跨夜（例如睡眠）不匯出 */
+      add('b' + _gxHash((blk.id || '') + '|' + st + '|' + en + '|' + (blk.label || '')), today, st, en, (blk.icon ? blk.icon + ' ' : '') + blk.label, blk.desc, 'FREQ=DAILY');
+    }
+  }
+  L.push('END:VCALENDAR');
+  return { text: L.join('\r\n') + '\r\n', n: n };
+}
+function gexDownload() {
+  var o = { sched: !!(document.getElementById('gx-sched') || {}).checked, blocks: !!(document.getElementById('gx-blocks') || {}).checked, future: !!(document.getElementById('gx-future') || {}).checked };
+  var r = gexBuild(o);
+  if (!r.n) { _gcToast(GEX_S.none); return; }
+  var name = GEX_S.file + '.ics', blob = new Blob([r.text], { type: 'text/calendar;charset=utf-8' });
+  var done = function () { _gcToast(GEX_S.done.split('{n}').join(r.n)); };
+  try {
+    var f = (typeof File === 'function') ? new File([blob], name, { type: 'text/calendar' }) : null;
+    if (f && /iPhone|iPad|iPod/.test(navigator.userAgent) && navigator.canShare && navigator.canShare({ files: [f] })) {
+      navigator.share({ files: [f], title: name }).then(done, function () { });
+      return;
+    }
+  } catch (e) { }
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(function () { try { URL.revokeObjectURL(a.href); a.parentNode.removeChild(a); } catch (e) { } }, 1500);
+  done();
+}
+function gexOpen() {
+  var m = document.getElementById('gcal-modal');
+  if (!m) { gcalOpen(); m = document.getElementById('gcal-modal'); }
+  var ck = function (id, label, on) { return '<label style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;font-size:16px;line-height:1.5;cursor:pointer"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + ' style="width:22px;height:22px;flex:0 0 22px;margin-top:1px"><span>' + label + '</span></label>'; };
+  var h = '<div class="gc-sheet" style="background:#fff;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:20px;font-weight:900;color:#1e4d8c">' + GEX_S.title + '</div><button onclick="gcalClose()" aria-label="✕" style="width:36px;height:36px;border-radius:50%;border:none;background:#eef1f7;font-size:18px;cursor:pointer">✕</button></div>';
+  h += ck('gx-sched', GEX_S.sched, true) + ck('gx-blocks', GEX_S.blocks, false) + ck('gx-future', GEX_S.range, true);
+  h += '<button onclick="gexDownload()" style="width:100%;margin:10px 0 18px;padding:14px;border:none;border-radius:12px;background:#0b8043;color:#fff;font-size:18px;font-weight:800;cursor:pointer">' + GEX_S.make + '</button>';
+  h += '<div style="background:#f4f7fc;border-radius:14px;padding:14px 14px 6px"><div style="font-size:17px;font-weight:800;color:#1e4d8c;margin-bottom:10px">' + GEX_S.howTitle + '</div>';
+  for (var j = 0; j < GEX_S.how.length; j++) h += '<div style="display:flex;gap:10px;margin-bottom:12px"><span style="flex:0 0 28px;height:28px;border-radius:50%;background:#0b8043;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">' + (j + 1) + '</span><div style="flex:1;font-size:16px;line-height:1.65;color:#243050">' + GEX_S.how[j] + '</div></div>';
+  h += '<a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener" style="display:block;text-align:center;margin:4px 0 12px;padding:12px;border-radius:12px;border:1.5px solid #0b8043;color:#0b8043;font-size:16px;font-weight:800;text-decoration:none">' + GEX_S.open + '</a>';
+  h += '<div style="font-size:14px;line-height:1.6;color:#65768b;margin:0 0 10px">' + GEX_S.note + '</div></div></div>';
+  m.innerHTML = h; m.style.display = 'flex';
+}
+/* 在 Google 日曆卡片最下面加「匯出」按鈕 */
+(function () {
+  if (!GEX_S || typeof gcalPanel !== 'function') return;
+  var _gp = gcalPanel;
+  gcalPanel = function () {
+    _gp.apply(this, arguments);
+    var box = document.getElementById('gc-panel'); if (!box) return;
+    var card = box.querySelector('.card'); if (!card || document.getElementById('gx-btn')) return;
+    card.insertAdjacentHTML('beforeend', '<button id="gx-btn" onclick="gexOpen()" style="width:100%;margin-top:10px;padding:12px;border:1.5px solid #0b8043;border-radius:12px;background:#e8f5ec;color:#0b8043;font-size:16px;font-weight:800;cursor:pointer">' + GEX_S.btn + '</button>');
+  };
+})();
+
+/* ============================================================
+   Google 日曆訂閱每日得勝（ES5）
+   App 把行程上傳到轉接站的私人網址（PUT /feed/<id>），Google 日曆用「透過網址新增」訂閱。
+   之後行程一有變動就自動重新上傳（20 秒合併一次、內容沒變不傳）。
+   id／key 只存在這台裝置（p4x_gfeed），不進雲端同步與備份。
+   ============================================================ */
+var GFD_S = ({
+  tc: { sec: '🔄 自動同步到 Google 日曆（建議）', intro: '建立一個專屬網址，讓 Google 日曆訂閱你的每日得勝行程。之後在 App 新增或修改行程，Google 日曆會自己跟著更新。', create: '🔗 建立同步網址', creating: '正在建立…', urlLbl: '你的專屬同步網址', copy: '📋 複製網址', copied: '✓ 已複製網址', syncNow: '🔄 立即同步', stop: '停止同步', stopAsk: '停止後，Google 日曆裡訂閱的「321每日得勝」就不會再更新（可以到 Google 日曆把它移除）。確定停止？', stopped: '已停止同步', synced: '最後同步', ok: '✓ 已同步 {n} 個行程', fail: '同步失敗：{e}', failCfg: '轉接站還沒開啟行程儲存（KV），請稍後再試', failNet: '目前沒有網路，稍後會自動再試', inclBlocks: '也同步每日時間區塊', steps: ['按「複製網址」', '用<b>電腦</b>打開 Google 日曆，左邊「<b>其他日曆</b>」旁按「<b>＋</b>」→「<b>透過網址</b>」', '貼上網址，按「<b>新增日曆</b>」。左邊就會出現「321每日得勝」'], note: '⏱ Google 日曆約每幾小時到一天才會重新讀取一次，所以剛改的行程不會立刻出現。急用的行程可以用下面的「一次匯入」。🔒 網址請不要分享給別人。', onceSec: '📥 一次匯入（檔案）', open: '🌐 開啟 Google 日曆「透過網址新增」' },
+  sc: { sec: '🔄 自动同步到 Google 日历（建议）', intro: '建立一个专属网址，让 Google 日历订阅你的每日得胜行程。之后在 App 新增或修改行程，Google 日历会自己跟着更新。', create: '🔗 建立同步网址', creating: '正在建立…', urlLbl: '你的专属同步网址', copy: '📋 复制网址', copied: '✓ 已复制网址', syncNow: '🔄 立即同步', stop: '停止同步', stopAsk: '停止后，Google 日历里订阅的「321每日得胜」就不会再更新（可以到 Google 日历把它移除）。确定停止？', stopped: '已停止同步', synced: '最后同步', ok: '✓ 已同步 {n} 个行程', fail: '同步失败：{e}', failCfg: '转接站还没开启行程存储（KV），请稍后再试', failNet: '目前没有网络，稍后会自动再试', inclBlocks: '也同步每日时间区块', steps: ['按「复制网址」', '用<b>电脑</b>打开 Google 日历，左边「<b>其他日历</b>」旁按「<b>＋</b>」→「<b>通过网址</b>」', '粘贴网址，按「<b>添加日历</b>」。左边就会出现「321每日得胜」'], note: '⏱ Google 日历约每几小时到一天才会重新读取一次，所以刚改的行程不会立刻出现。急用的行程可以用下面的「一次导入」。🔒 网址请不要分享给别人。', onceSec: '📥 一次导入（文件）', open: '🌐 打开 Google 日历「通过网址添加」' },
+  en: { sec: '🔄 Auto-sync to Google Calendar (recommended)', intro: 'Create a private link that Google Calendar subscribes to. From then on, whenever you add or change events in the app, Google Calendar follows along.', create: '🔗 Create sync link', creating: 'Creating…', urlLbl: 'Your private sync link', copy: '📋 Copy link', copied: '✓ Link copied', syncNow: '🔄 Sync now', stop: 'Stop syncing', stopAsk: 'After stopping, the subscribed “321 Daily Victory” calendar in Google will no longer update (you can remove it there). Stop syncing?', stopped: 'Syncing stopped', synced: 'Last synced', ok: '✓ Synced {n} events', fail: 'Sync failed: {e}', failCfg: 'The relay’s event storage (KV) isn’t turned on yet — please try later', failNet: 'No connection — it will retry automatically', inclBlocks: 'Also sync daily time blocks', steps: ['Tap “Copy link”', 'Open Google Calendar on a <b>computer</b>, click “<b>+</b>” next to “<b>Other calendars</b>” → “<b>From URL</b>”', 'Paste the link and click “<b>Add calendar</b>”. “321 Daily Victory” appears on the left'], note: '⏱ Google Calendar re-reads subscribed calendars only every few hours (up to a day), so new changes won’t show instantly. For something urgent, use the one-time import below. 🔒 Don’t share this link.', onceSec: '📥 One-time import (file)', open: '🌐 Open Google Calendar “From URL”' }
+})[APP_LANG] || null;
+
+function gfeedCfg() { return _gcLS('p4x_gfeed', null); }
+function gfeedSave(c) { if (c) _gcSS('p4x_gfeed', c); else { try { localStorage.removeItem('p4x_gfeed'); } catch (e) { } } }
+function gfeedUrl(c) { return GCAL_PROXY + 'feed/' + c.id + '.ics'; }
+function _gfRand(n) {
+  var ch = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789', s = '', a = null;
+  try { a = new Uint32Array(n); (window.crypto || window.msCrypto).getRandomValues(a); } catch (e) { a = null; }
+  for (var i = 0; i < n; i++) s += ch.charAt((a ? a[i] : Math.floor(Math.random() * 4294967296)) % ch.length);
+  return s;
+}
+function _gfReq(method, c, body, ok, fail) {
+  try {
+    var x = new XMLHttpRequest();
+    x.open(method, GCAL_PROXY + 'feed/' + c.id, true);
+    x.setRequestHeader('X-Feed-Key', c.key);
+    if (body != null) x.setRequestHeader('Content-Type', 'text/calendar; charset=utf-8');
+    x.timeout = 25000;
+    x.onload = function () { if (x.status >= 200 && x.status < 300) ok(); else fail(x.status); };
+    x.onerror = function () { fail(0); }; x.ontimeout = function () { fail(-1); };
+    x.send(body);
+  } catch (e) { fail(0); }
+}
+function _gfErr(st) { if (navigator.onLine === false || st === -1) return GFD_S.failNet; if (st === 501) return GFD_S.failCfg; return 'http ' + st; }
+var _gfBusy = false, _gfTimer = null;
+function gfeedSync(force, cb) {
+  var c = gfeedCfg(); if (!c || _gfBusy) { if (cb) cb('busy'); return; }
+  var r = gexBuild({ sched: true, blocks: !!c.blocks, future: false });
+  var body = r.text.replace(/DTSTAMP:\d{8}T\d{6}Z\r\n/g, '');      /* 比對內容時不看產生時間 */
+  var hh = _gxHash(body) + ':' + body.length;
+  if (!force && c.hash === hh) { if (cb) cb(null, r.n, true); return; }
+  if (navigator.onLine === false) { if (cb) cb(GFD_S.failNet); return; }
+  _gfBusy = true;
+  var txt = r.text.replace('X-WR-CALNAME:', 'REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\nX-PUBLISHED-TTL:PT1H\r\nX-WR-CALNAME:');
+  _gfReq('PUT', c, txt, function () {
+    _gfBusy = false; var c2 = gfeedCfg() || c; c2.hash = hh; c2.ts = Date.now(); c2.n = r.n; c2.err = ''; gfeedSave(c2);
+    gfeedPaint(); if (cb) cb(null, r.n);
+  }, function (st) {
+    _gfBusy = false; var c2 = gfeedCfg() || c; c2.err = _gfErr(st); gfeedSave(c2);
+    gfeedPaint(); if (cb) cb(c2.err);
+  });
+}
+function gfeedLater() { if (!gfeedCfg()) return; clearTimeout(_gfTimer); _gfTimer = setTimeout(function () { gfeedSync(false); }, 20000); }
+function gfeedCreate() {
+  var b = document.getElementById('gf-create'); if (b) { b.disabled = true; b.textContent = GFD_S.creating; }
+  var c = { id: _gfRand(28), key: _gfRand(40), blocks: false, ts: 0 };
+  gfeedSave(c);
+  gfeedSync(true, function (e, n) {
+    if (e) { gfeedSave(null); _gcToast(GFD_S.fail.split('{e}').join(e)); }
+    else _gcToast(GFD_S.ok.split('{n}').join(n));
+    gfeedPaint();
+  });
+}
+function gfeedNow() { gfeedSync(true, function (e, n) { _gcToast(e ? GFD_S.fail.split('{e}').join(e) : GFD_S.ok.split('{n}').join(n)); }); }
+function gfeedBlocks(on) { var c = gfeedCfg(); if (!c) return; c.blocks = !!on; c.hash = ''; gfeedSave(c); gfeedNow(); }
+function gfeedCopy() {
+  var c = gfeedCfg(); if (!c) return; var u = gfeedUrl(c);
+  var fb = function () { var i = document.getElementById('gf-url'); if (i) { i.focus(); i.select(); try { document.execCommand('copy'); } catch (e) { } } _gcToast(GFD_S.copied); };
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(u).then(function () { _gcToast(GFD_S.copied); }, fb); return; } } catch (e) { }
+  fb();
+}
+function gfeedStop() {
+  var c = gfeedCfg(); if (!c || !confirm(GFD_S.stopAsk)) return;
+  _gfReq('DELETE', c, null, function () { }, function () { });
+  gfeedSave(null); gfeedPaint(); _gcToast(GFD_S.stopped);
+}
+function gfeedHTML() {
+  var c = gfeedCfg(), h = '<div id="gf-sec" style="border:2px solid #4285f4;border-radius:16px;padding:14px;margin-bottom:16px;background:#f5f9ff">';
+  h += '<div style="font-size:17px;font-weight:900;color:#1a56c4;margin-bottom:8px">' + GFD_S.sec + '</div>';
+  if (!c) {
+    h += '<div style="font-size:16px;line-height:1.65;color:#243050;margin-bottom:12px">' + GFD_S.intro + '</div>';
+    h += '<button id="gf-create" onclick="gfeedCreate()" style="width:100%;padding:14px;border:none;border-radius:12px;background:#4285f4;color:#fff;font-size:18px;font-weight:800;cursor:pointer">' + GFD_S.create + '</button>';
+  } else {
+    h += '<div style="font-size:14px;font-weight:700;color:#4a5a72;margin-bottom:6px">' + GFD_S.urlLbl + '</div>';
+    h += '<input id="gf-url" class="inp" readonly value="' + _gcEsc(gfeedUrl(c)) + '" onclick="this.select()" style="width:100%;font-size:14px;margin-bottom:8px">';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px"><button onclick="gfeedCopy()" style="padding:12px 4px;border:none;border-radius:10px;background:#4285f4;color:#fff;font-size:16px;font-weight:800;cursor:pointer;word-break:keep-all">' + GFD_S.copy + '</button><button onclick="gfeedNow()" style="padding:12px 4px;border:1.5px solid #4285f4;border-radius:10px;background:#fff;color:#1a56c4;font-size:16px;font-weight:700;cursor:pointer;word-break:keep-all">' + GFD_S.syncNow + '</button></div>';
+    h += '<div style="font-size:13px;color:' + (c.err ? '#c0392b' : '#65768b') + ';margin-bottom:8px">' + (c.err ? GFD_S.fail.split('{e}').join(_gcEsc(c.err)) : GFD_S.synced + '：' + (c.ts ? _gcAgo(c.ts).replace(GCAL_S.synced + ' ', '') : '—') + (c.n != null ? ' · ' + c.n + ' ' + GCAL_S.events : '')) + '</div>';
+    h += '<label style="display:flex;align-items:center;gap:10px;font-size:15px;margin-bottom:10px;cursor:pointer"><input type="checkbox"' + (c.blocks ? ' checked' : '') + ' onchange="gfeedBlocks(this.checked)" style="width:22px;height:22px">' + GFD_S.inclBlocks + '</label>';
+    for (var j = 0; j < GFD_S.steps.length; j++) h += '<div style="display:flex;gap:10px;margin-bottom:10px"><span style="flex:0 0 28px;height:28px;border-radius:50%;background:#4285f4;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">' + (j + 1) + '</span><div style="flex:1;font-size:16px;line-height:1.65;color:#243050">' + GFD_S.steps[j] + '</div></div>';
+    h += '<a href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl" target="_blank" rel="noopener" style="display:block;text-align:center;margin:2px 0 10px;padding:11px;border-radius:12px;border:1.5px solid #4285f4;color:#1a56c4;font-size:15px;font-weight:800;text-decoration:none">' + GFD_S.open + '</a>';
+    h += '<div style="font-size:14px;line-height:1.6;color:#65768b;margin-bottom:8px">' + GFD_S.note + '</div>';
+    h += '<button onclick="gfeedStop()" style="padding:8px 14px;border-radius:14px;border:1px solid #f0c9c0;background:transparent;color:#c0392b;font-size:14px;cursor:pointer">' + GFD_S.stop + '</button>';
+  }
+  return h + '</div><div style="font-size:17px;font-weight:900;color:#0b8043;margin:4px 0 2px">' + GFD_S.onceSec + '</div>';
+}
+function gfeedPaint() { var w = document.getElementById('gf-wrap'); if (w) w.innerHTML = gfeedHTML(); }
+(function () {
+  if (!GFD_S || typeof gexOpen !== 'function') return;
+  var _go = gexOpen;
+  gexOpen = function () {
+    _go.apply(this, arguments);
+    var sh = document.querySelector('#gcal-modal .gc-sheet'); if (!sh || !sh.firstChild) return;
+    sh.firstChild.insertAdjacentHTML('afterend', '<div id="gf-wrap">' + gfeedHTML() + '</div>');
+  };
+  /* 行程或時間區塊一變動，就排程重新上傳 */
+  if (typeof lsS === 'function') {
+    var _ls = lsS;
+    lsS = function (k) { var r = _ls.apply(this, arguments); try { if (k && /^p4_(sched_|schedrules$|preset$|blcustom$|blextra$)/.test(k)) gfeedLater(); } catch (e) { } return r; };
+  }
+  window.addEventListener('load', function () { setTimeout(function () { try { if (gfeedCfg()) gfeedSync(false); } catch (e) { } }, 4000); });
+  window.addEventListener('online', function () { try { if (gfeedCfg()) gfeedSync(false); } catch (e) { } });
+})();
+
+/* ============================================================
    自動更新（ES5）——發佈新版後，已安裝的手機自動換成新版
    三道保險：① version.json 輪詢（不吃快取）② Service Worker 更新事件
              ③ 新 SW 啟用時通知頁面；背景中的舊頁面直接帶到新版
@@ -8359,7 +8622,7 @@ function gcalFile(inp) {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2145";
+var APP_VERSION = "v2026.1021.2232";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({

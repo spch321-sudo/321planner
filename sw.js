@@ -4,7 +4,7 @@
    ‧ activate：只刪自己前綴的舊快取（同網域還有其他 321 App）、clients.claim、通知所有頁面；
      背景中的舊頁面直接帶到新版
    ‧ fetch：HTML／JS／JSON 網路優先（no-cache），離線才用快取；圖片快取優先；影音與 Range 請求不攔截 */
-var VER = 'v2026.1021.2145';
+var VER = 'v2026.1021.2232';
 var PFX = 'p4planner-';
 var V = PFX + VER;
 var SHELL = ['./', './index.html', './tc.html', './sc.html', './en.html',
