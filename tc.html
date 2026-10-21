@@ -6932,10 +6932,10 @@ function schedRender(){
 
   // BL preset blocks (lighter, background layer)
   // Use BL + body block for background layer
-  var blDefs=[{icon:'🚶',label:'身體啟動',time:'07:00-08:00',color:'#2e8b57'}].concat(BL.map(function(b){
+  var blDefs=(((typeof getBL==='function'?getBL():BL)||BL).map(function(b){
     // BL.time uses en-dash (–), normalize to hyphen
     var t=b.time;
-    for(var ci=0;ci<t.length;ci++){var cc=t.charCodeAt(ci);if(cc>45&&cc<65){t=t.substring(0,ci)+'-'+t.substring(ci+1);break;}}
+    t=String(t||'').replace(/\s*[–—~～]\s*/,'-');
     return {icon:b.icon,label:b.label,time:t,color:b.color};
   }));
   blDefs.forEach(function(bl){
@@ -8653,6 +8653,84 @@ function gfeedPaint() { var w = document.getElementById('gf-wrap'); if (w) w.inn
 })();
 
 /* ============================================================
+   「時程」頁也顯示 Google 日曆行程（ES5，唯讀）
+   全天行程顯示在時間軸上方；有時間的行程畫在時間軸上（白底、彩色邊框，與自己的行程區分）。
+   跟自己的行程重疊時，Google 行程靠右半邊，不會蓋住。點一下顯示詳細內容。
+   ============================================================ */
+var GSC_S = ({
+  tc: { allDay: '全天', from: '來自', ro: '（Google 日曆，唯讀；請到 Google 修改）' },
+  sc: { allDay: '全天', from: '来自', ro: '（Google 日历，只读；请到 Google 修改）' },
+  en: { allDay: 'All day', from: 'From', ro: '(Google Calendar, read-only — edit it in Google)' }
+})[APP_LANG] || { allDay: 'All day', from: '', ro: '' };
+var _gscList = [];
+function _gscHM(ms) { var d = new Date(ms); return _gcPad(d.getHours()) + ':' + _gcPad(d.getMinutes()); }
+function gschedPaint() {
+  var grid = document.getElementById('sched-grid'); if (!grid || typeof _schedDate === 'undefined') return;
+  var old = grid.querySelectorAll('.gsc-ev'); for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
+  var bar = document.getElementById('gsc-allday'); if (bar) bar.parentNode.removeChild(bar);
+  if (!gcalCfg().cals.length) return;
+  var list = gcalIndex()[_schedDate] || []; _gscList = list;
+  if (!list.length) return;
+  /* 自己的行程時段，用來判斷重疊 */
+  var mine = [];
+  try {
+    var ev = (schedLoad(_schedDate) || []).concat(schedGetRepeatEventsForDay(_schedDate) || []);
+    for (var m = 0; m < ev.length; m++) if (ev[m] && ev[m].start) mine.push([ev[m].start, ev[m].end && ev[m].end > ev[m].start ? ev[m].end : ev[m].start]);
+  } catch (e) { }
+  var day0 = new Date(_schedDate + 'T00:00:00').getTime(), day1 = day0 + 86400000, chips = '', html = '';
+  for (var k = 0; k < list.length; k++) {
+    var it = list[k], e2 = it.e;
+    if (e2.a) {
+      chips += '<button onclick="gschedInfo(' + k + ')" style="flex:0 0 auto;max-width:100%;padding:5px 10px;border-radius:14px;border:1.5px solid ' + it.c + ';background:#fff;color:#243050;font-size:13px;font-weight:700;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📅 ' + _gcEsc(e2.t || '—') + '</button>';
+      continue;
+    }
+    var s = Math.max(e2.s, day0), en = Math.min(Math.max(e2.e, e2.s + 30 * 60000), day1);
+    var st = _gscHM(s), et = en >= day1 ? '24:00' : _gscHM(en);
+    var sy = schedTimeToY(st), ey = schedTimeToY(et);
+    if (ey <= 0 && sy <= 0) continue;
+    var bh = Math.max(ey - sy, 22), clash = false;
+    for (var q = 0; q < mine.length; q++) if (mine[q][0] < et && (mine[q][1] > st || mine[q][0] >= st)) { clash = true; break; }
+    var pos = clash ? 'left:calc(50% + 30px);right:8px;' : 'left:60px;right:8px;';
+    html += '<div class="gsc-ev" onclick="gschedInfo(' + k + ')" style="position:absolute;' + pos + 'top:' + sy + 'px;height:' + bh + 'px;background:#fff;border:1.5px dashed ' + it.c + ';border-left:5px solid ' + it.c + ';border-radius:8px;padding:4px 8px;box-sizing:border-box;cursor:pointer;overflow:hidden;z-index:11;box-shadow:0 1px 4px rgba(0,0,0,.08)">'
+      + '<div style="font-size:13px;font-weight:700;color:#243050;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">📅 ' + _gcEsc(e2.t || '—') + '</div>'
+      + (bh > 34 ? '<div style="font-size:11px;color:' + it.c + '">' + _gscHM(e2.s) + ' – ' + _gscHM(e2.e) + '</div>' : '')
+      + '</div>';
+  }
+  if (html) grid.insertAdjacentHTML('beforeend', html);
+  if (chips) grid.insertAdjacentHTML('beforebegin', '<div id="gsc-allday" style="display:flex;flex-wrap:wrap;gap:6px;padding:0 8px 8px 60px">' + chips + '</div>');
+}
+function gschedInfo(k) {
+  var it = _gscList[k]; if (!it) return;
+  var e = it.e, t = e.a ? GSC_S.allDay : (_gscHM(e.s) + ' – ' + _gscHM(e.e));
+  var msg = '📅 ' + (e.t || '—') + '\n' + t + (e.l ? '\n📍 ' + e.l : '') + '\n' + GSC_S.from + ' ' + it.cn + ' ' + GSC_S.ro;
+  alert(msg);
+}
+(function () {
+  if (typeof schedRender !== 'function') return;
+  var _sr = schedRender;
+  schedRender = function () { var r = _sr.apply(this, arguments); try { gschedPaint(); } catch (e) { } return r; };
+  /* Google 行程更新後，若正在看時程頁就重畫 */
+  if (typeof gcalRedraw === 'function') {
+    var _rd = gcalRedraw;
+    gcalRedraw = function () { var r = _rd.apply(this, arguments); try { var sc = document.getElementById('s-sched'); if (sc && /\bon\b/.test(sc.className)) schedRender(); } catch (e) { } return r; };
+  }
+  if (typeof goSc === 'function') {
+    var _go = goSc;
+    goSc = function (id) {
+      var r = _go.apply(this, arguments);
+      if (id === 'sched') {
+        try {
+          var cfg = gcalCfg(), cache = gcalCache(), stale = false;
+          for (var i = 0; i < cfg.cals.length; i++) if (cfg.cals[i].url && (!cache[cfg.cals[i].id] || Date.now() - cache[cfg.cals[i].id].ts > 30 * 60000)) stale = true;
+          if (stale) gcalRefresh(true);
+        } catch (e) { }
+      }
+      return r;
+    };
+  }
+})();
+
+/* ============================================================
    自動更新（ES5）——發佈新版後，已安裝的手機自動換成新版
    三道保險：① version.json 輪詢（不吃快取）② Service Worker 更新事件
              ③ 新 SW 啟用時通知頁面；背景中的舊頁面直接帶到新版
@@ -8660,7 +8738,7 @@ function gfeedPaint() { var w = document.getElementById('gf-wrap'); if (w) w.inn
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2258";
+var APP_VERSION = "v2026.1021.2308";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({

@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2258",
-  "version": "v2026.1021.2258",
-  "notes": "日曆頁現在也會標出「時程」裡的行程（含重複行程），點日期就能看到當天安排；並可連結 Google 日曆、同步到 Google 日曆。",
-  "notes_sc": "日历页现在也会标出「时程」里的行程（含重复行程），点日期就能看到当天安排；并可连结 Google 日历、同步到 Google 日历。",
-  "notes_en": "The Calendar page now shows your Schedule events (including repeating ones) — tap a date to see that day; plus Google Calendar linking and sync."
+  "v": "v2026.1021.2308",
+  "version": "v2026.1021.2308",
+  "notes": "時程頁也會顯示 Google 日曆的行程（全天行程在上方，重疊時靠右不蓋住），行程與 Google 日曆雙向同步；時程背景改成依你的角色顯示時間區塊。",
+  "notes_sc": "时程页也会显示 Google 日历的行程（全天行程在上方，重叠时靠右不盖住），行程与 Google 日历双向同步；时程背景改成依你的角色显示时间区块。",
+  "notes_en": "The Schedule page now shows your Google Calendar events too (all-day ones on top; overlaps move to the right) for two-way sync; the background now shows your own role’s time blocks."
 }
