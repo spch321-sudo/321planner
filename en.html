@@ -847,7 +847,9 @@ var BL=[
   {id:"admin",label:"Admin",icon:"📋",color:"#6366f1",time:"16:00–18:00",desc:"Email · replies · odds and ends"},
   {id:"connect2",label:"Evening Fellowship",icon:"🍽️",color:"#0f9b8e",time:"18:00–19:30",desc:"Meal · connecting · fellowship"},
   {id:"rest",label:"Family Leisure",icon:"🏠",color:"#2e8b57",time:"19:30–21:00",desc:"Family · leisure · unplug"},
-  {id:"evening",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"Reflect · pray · prepare for tomorrow"}
+  {id:"evening",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"Reflect · pray · prepare for tomorrow"},
+ {id:"bl_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"bl_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"22:00–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"}
 ];
 // Life template(Default roles)— Replaces the base blocks when applied; empty string=default (BL , pastor / freelancer)
 var PRESETS={
@@ -861,7 +863,9 @@ worker:{name:"Office workers",icon:"💼",blocks:[
  {id:"w_move",label:"Commute · Walk",icon:"🚶",color:"#2e8b57",time:"17:30–18:30",desc:"30-min exercise · your body is the Spirit's temple"},
  {id:"w_family",label:"Dinner · Family",icon:"🏠",color:"#2e8b57",time:"18:30–20:00",desc:"Unplug · be present"},
  {id:"w_rest",label:"Leisure · Recharge",icon:"☕",color:"#7c4dbd",time:"20:00–21:30",desc:"Relax · hobbies"},
- {id:"w_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"}
+ {id:"w_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"},
+ {id:"w_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"w_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"}
 ]},
 parent:{name:"Full-time parent",icon:"👨‍👩‍👧",blocks:[
  {id:"p_dev",label:"Morning Bible Reading",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"Join the Air Fellowship · read 321 together"},
@@ -872,7 +876,9 @@ parent:{name:"Full-time parent",icon:"👨‍👩‍👧",blocks:[
  {id:"p_kids",label:"Time with Kids",icon:"🧸",color:"#0f9b8e",time:"14:00–17:00",desc:"Play · learning · relationships"},
  {id:"p_dinner",label:"Dinner · Family",icon:"🏠",color:"#2e8b57",time:"17:00–20:00",desc:"Meal prep · shower · bedtime"},
  {id:"p_couple",label:"Couple / Personal Time",icon:"💛",color:"#b45309",time:"20:30–21:30",desc:"Connect · relax"},
- {id:"p_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"}
+ {id:"p_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"},
+ {id:"p_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"p_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"}
 ]},
 shift:{name:"Shift workers",icon:"🔄",blocks:[
  {id:"sh_dev",label:"Morning Bible Reading",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"Join the Air Fellowship · read 321 together"},
@@ -883,7 +889,9 @@ shift:{name:"Shift workers",icon:"🔄",blocks:[
  {id:"sh_work",label:"Work · Main Job",icon:"🔥",color:"#e05c3a",time:"14:00–22:00",desc:"Focused work · as unto the Lord"},
  {id:"sh_late",label:"Off Work · Late Snack",icon:"🍜",color:"#0f9b8e",time:"22:00–22:30",desc:"Relax · recharge"},
  {id:"sh_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"22:30–22:45",desc:"Give thanks · surrender"},
- {id:"sh_sleep",label:"Sleep",icon:"😴",color:"#7c4dbd",time:"23:00–06:00",desc:"Fixed bedtime · 7 hours of sleep (adjust to your shift)"}
+ {id:"sh_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"sh_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"22:45–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"},
+ {id:"sh_sleep",label:"Sleep",icon:"😴",color:"#7c4dbd",time:"24:00–05:00",desc:"Fixed bedtime · 7 hours of sleep (adjust to your shift)"}
 ]},
 student:{name:"Students",icon:"🎓",blocks:[
  {id:"st_dev",label:"Morning Bible Reading",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"Join the Air Fellowship · read 321 together"},
@@ -893,7 +901,9 @@ student:{name:"Students",icon:"🎓",blocks:[
  {id:"st_dinner",label:"Dinner · Family",icon:"🍽️",color:"#3b82c4",time:"17:30–19:00",desc:"Meal · relationships"},
  {id:"st_study",label:"Study · Homework",icon:"✍️",color:"#7c4dbd",time:"19:00–21:00",desc:"Review · preview"},
  {id:"st_fellow",label:"Fellowship / Presence",icon:"🤝",color:"#0f9b8e",time:"21:00–21:30",desc:"Online fellowship · connection"},
- {id:"st_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"}
+ {id:"st_eve",label:"Evening Review",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"Give thanks · entrust tomorrow"},
+ {id:"st_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"st_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"}
 ]},
 senior:{name:"Retired seniors",icon:"🌳",blocks:[
  {id:"se_dev",label:"Morning Bible Reading",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"Join the Air Fellowship · read 321 together"},
@@ -903,7 +913,9 @@ senior:{name:"Retired seniors",icon:"🌳",blocks:[
  {id:"se_lunch",label:"Lunch · Rest",icon:"🍽️",color:"#0f9b8e",time:"11:30–14:00",desc:"Meal · nap"},
  {id:"se_serve",label:"Care · Check-in",icon:"🤝",color:"#6366f1",time:"14:00–16:00",desc:"Care for one “2” · make a call"},
  {id:"se_family",label:"Family · Leisure",icon:"🏠",color:"#2e8b57",time:"16:00–19:00",desc:"Time together · dinner · hobbies"},
- {id:"se_eve",label:"Evening Prayer · Review",icon:"🌙",color:"#0a6670",time:"20:00–20:30",desc:"Give thanks · surrender · early night"}
+ {id:"se_eve",label:"Evening Prayer · Review",icon:"🌙",color:"#0a6670",time:"20:00–20:30",desc:"Give thanks · surrender · early night"},
+ {id:"se_wake",label:"Wake · Quiet Prep",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"Pray · drink water · get ready for morning reading"},
+ {id:"se_night",label:"Rest · Sleep",icon:"😴",color:"#475569",time:"20:30–24:00",desc:"Phone down · sleep early, ready for tomorrow’s reading"}
 ]}
 };
 var USFM_MAP={
@@ -8650,6 +8662,7 @@ var _gscList = [];
 function _gscHM(ms) { var d = new Date(ms); return _gcPad(d.getHours()) + ':' + _gcPad(d.getMinutes()); }
 function gschedPaint() {
   var grid = document.getElementById('sched-grid'); if (!grid || typeof _schedDate === 'undefined') return;
+  grid.style.marginBottom = '140px';   /* 讓 24:00 不被底部分頁列擋住 */
   var old = grid.querySelectorAll('.gsc-ev'); for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
   var bar = document.getElementById('gsc-allday'); if (bar) bar.parentNode.removeChild(bar);
   if (!gcalCfg().cals.length) return;
@@ -8722,7 +8735,7 @@ function gschedInfo(k) {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2308";
+var APP_VERSION = "v2026.1021.2330";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({

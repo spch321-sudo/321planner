@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2308",
-  "version": "v2026.1021.2308",
-  "notes": "時程頁也會顯示 Google 日曆的行程（全天行程在上方，重疊時靠右不蓋住），行程與 Google 日曆雙向同步；時程背景改成依你的角色顯示時間區塊。",
-  "notes_sc": "时程页也会显示 Google 日历的行程（全天行程在上方，重叠时靠右不盖住），行程与 Google 日历双向同步；时程背景改成依你的角色显示时间区块。",
-  "notes_en": "The Schedule page now shows your Google Calendar events too (all-day ones on top; overlaps move to the right) for two-way sync; the background now shows your own role’s time blocks."
+  "v": "v2026.1021.2330",
+  "version": "v2026.1021.2330",
+  "notes": "每天時間排滿 5:00～24:00：每個角色加上 5:00 起床・安靜預備，晚上排到 24:00；時程頁可以完整看到 24:00。",
+  "notes_sc": "每天时间排满 5:00～24:00：每个角色加上 5:00 起床・安静预备，晚上排到 24:00；时程页可以完整看到 24:00。",
+  "notes_en": "Your day now runs 5:00–24:00: every role starts with 5:00 Wake · Quiet Prep and ends at 24:00, and the Schedule page shows all the way to 24:00."
 }

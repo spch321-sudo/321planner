@@ -846,7 +846,9 @@ var BL=[
   {id:"admin",label:"行政事务",icon:"📋",color:"#6366f1",time:"16:00–18:00",desc:"邮件・回覆・杂务"},
   {id:"connect2",label:"晚间团契",icon:"🍽️",color:"#0f9b8e",time:"18:00–19:30",desc:"用餐・关系连结・团契"},
   {id:"rest",label:"家庭休闲",icon:"🏠",color:"#2e8b57",time:"19:30–21:00",desc:"家庭・休闲・关机保护"},
-  {id:"evening",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"反思・祷告・预备明日"}
+  {id:"evening",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:00–22:00",desc:"反思・祷告・预备明日"},
+ {id:"bl_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"bl_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"22:00–24:00",desc:"放下手机・早点睡，明天有力气晨读"}
 ];
 // 生活范本（角色预设）— 套用时取代基础区块；空字串=预设(BL，传道人／自由工作者)
 var PRESETS={
@@ -860,7 +862,9 @@ worker:{name:"上班族",icon:"💼",blocks:[
  {id:"w_move",label:"通勤・走路运动",icon:"🚶",color:"#2e8b57",time:"17:30–18:30",desc:"30分运动・身体是圣灵的殿"},
  {id:"w_family",label:"晚餐・家庭",icon:"🏠",color:"#2e8b57",time:"18:30–20:00",desc:"关机保护・陪伴"},
  {id:"w_rest",label:"休闲・充电",icon:"☕",color:"#7c4dbd",time:"20:00–21:30",desc:"放松・兴趣"},
- {id:"w_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"}
+ {id:"w_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"},
+ {id:"w_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"w_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"放下手机・早点睡，明天有力气晨读"}
 ]},
 parent:{name:"全职父母",icon:"👨‍👩‍👧",blocks:[
  {id:"p_dev",label:"晨读灵修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"上空中团契・一起晨读321"},
@@ -871,7 +875,9 @@ parent:{name:"全职父母",icon:"👨‍👩‍👧",blocks:[
  {id:"p_kids",label:"陪伴孩子",icon:"🧸",color:"#0f9b8e",time:"14:00–17:00",desc:"游戏・学习・关系"},
  {id:"p_dinner",label:"晚餐・家庭",icon:"🏠",color:"#2e8b57",time:"17:00–20:00",desc:"备餐・洗澡・睡前"},
  {id:"p_couple",label:"夫妻／个人时间",icon:"💛",color:"#b45309",time:"20:30–21:30",desc:"连结・放松"},
- {id:"p_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"}
+ {id:"p_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"},
+ {id:"p_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"p_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"放下手机・早点睡，明天有力气晨读"}
 ]},
 shift:{name:"轮班族",icon:"🔄",blocks:[
  {id:"sh_dev",label:"晨读灵修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"上空中团契・一起晨读321"},
@@ -882,7 +888,9 @@ shift:{name:"轮班族",icon:"🔄",blocks:[
  {id:"sh_work",label:"上班・本职",icon:"🔥",color:"#e05c3a",time:"14:00–22:00",desc:"专注工作・做在主前"},
  {id:"sh_late",label:"下班・宵夜",icon:"🍜",color:"#0f9b8e",time:"22:00–22:30",desc:"放松・补充"},
  {id:"sh_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"22:30–22:45",desc:"感恩・交托"},
- {id:"sh_sleep",label:"睡眠",icon:"😴",color:"#7c4dbd",time:"23:00–06:00",desc:"固定就寝・睡足7小时（请依班别调整）"}
+ {id:"sh_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"sh_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"22:45–24:00",desc:"放下手机・早点睡，明天有力气晨读"},
+ {id:"sh_sleep",label:"睡眠",icon:"😴",color:"#7c4dbd",time:"24:00–05:00",desc:"固定就寝・睡足7小时（请依班别调整）"}
 ]},
 student:{name:"学生",icon:"🎓",blocks:[
  {id:"st_dev",label:"晨读灵修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"上空中团契・一起晨读321"},
@@ -892,7 +900,9 @@ student:{name:"学生",icon:"🎓",blocks:[
  {id:"st_dinner",label:"晚餐・家庭",icon:"🍽️",color:"#3b82c4",time:"17:30–19:00",desc:"用餐・关系"},
  {id:"st_study",label:"读书・作业",icon:"✍️",color:"#7c4dbd",time:"19:00–21:00",desc:"复习・预习"},
  {id:"st_fellow",label:"团契／陪伴",icon:"🤝",color:"#0f9b8e",time:"21:00–21:30",desc:"线上团契・连结"},
- {id:"st_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"}
+ {id:"st_eve",label:"晚间回顾",icon:"🌙",color:"#0a6670",time:"21:30–21:45",desc:"感恩・交托明日"},
+ {id:"st_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"st_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"21:45–24:00",desc:"放下手机・早点睡，明天有力气晨读"}
 ]},
 senior:{name:"退休长辈",icon:"🌳",blocks:[
  {id:"se_dev",label:"晨读灵修",icon:"🌅",color:"#d97706",time:"06:00–07:00",desc:"上空中团契・一起晨读321"},
@@ -902,7 +912,9 @@ senior:{name:"退休长辈",icon:"🌳",blocks:[
  {id:"se_lunch",label:"午餐・午休",icon:"🍽️",color:"#0f9b8e",time:"11:30–14:00",desc:"用餐・小睡"},
  {id:"se_serve",label:"关怀・问安",icon:"🤝",color:"#6366f1",time:"14:00–16:00",desc:"关心一位「2」・打电话"},
  {id:"se_family",label:"家庭・休闲",icon:"🏠",color:"#2e8b57",time:"16:00–19:00",desc:"陪伴・晚餐・兴趣"},
- {id:"se_eve",label:"晚祷・回顾",icon:"🌙",color:"#0a6670",time:"20:00–20:30",desc:"感恩・交托・早睡"}
+ {id:"se_eve",label:"晚祷・回顾",icon:"🌙",color:"#0a6670",time:"20:00–20:30",desc:"感恩・交托・早睡"},
+ {id:"se_wake",label:"起床・安静预备",icon:"🌄",color:"#b45309",time:"05:00–06:00",desc:"祷告・喝水・预备心晨读"},
+ {id:"se_night",label:"休息・就寝",icon:"😴",color:"#475569",time:"20:30–24:00",desc:"放下手机・早点睡，明天有力气晨读"}
 ]}
 };
 var USFM_MAP={
@@ -8649,6 +8661,7 @@ var _gscList = [];
 function _gscHM(ms) { var d = new Date(ms); return _gcPad(d.getHours()) + ':' + _gcPad(d.getMinutes()); }
 function gschedPaint() {
   var grid = document.getElementById('sched-grid'); if (!grid || typeof _schedDate === 'undefined') return;
+  grid.style.marginBottom = '140px';   /* 讓 24:00 不被底部分頁列擋住 */
   var old = grid.querySelectorAll('.gsc-ev'); for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
   var bar = document.getElementById('gsc-allday'); if (bar) bar.parentNode.removeChild(bar);
   if (!gcalCfg().cals.length) return;
@@ -8721,7 +8734,7 @@ function gschedInfo(k) {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2308";
+var APP_VERSION = "v2026.1021.2330";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
