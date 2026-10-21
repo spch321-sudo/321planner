@@ -1,9 +1,13 @@
 {
+  "id": "/321planner/",
   "name": "321每日得勝",
   "short_name": "321每日得勝",
+  "description": "國度321空中團契──每日靈修、321理念操練、920關懷、事工規劃與行事曆。繁體／简体／English 可切換。",
+  "lang": "zh-TW",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#f4f6fa",
   "theme_color": "#2d3a8c",
   "icons": [
@@ -18,6 +22,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

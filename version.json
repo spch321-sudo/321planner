@@ -1,4 +1,7 @@
 {
-  "version": "1.13.0",
-  "notes": "品牌更新為「國度321空中團契」，並更換為新的團契 logo（介面與分享卡片）。"
+  "v": "v2026.1021.2145",
+  "version": "v2026.1021.2145",
+  "notes": "三語整合：繁體、简体、English 合為同一個 App，在「設定 → 🌐 語言」一鍵切換，資料完全共用；下次開啟自動進入上次使用的語言。",
+  "notes_sc": "三语整合：繁体、简体、English 合为同一个 App，在「设置 → 🌐 语言」一键切换，数据完全共用；下次打开自动进入上次使用的语言。",
+  "notes_en": "Three languages, one app: 繁體, 简体 and English now live in a single app — switch any time in Settings → 🌐 Language, with all your data shared."
 }
