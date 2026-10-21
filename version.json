@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2340",
-  "version": "v2026.1021.2340",
-  "notes": "新增「互加日曆」：把同步網址分享給家人或同工，就能互相看到行程（其他人看不到）；晚間回顧延長為 30 分鐘，時程上不再被遮住。",
-  "notes_sc": "新增「互加日历」：把同步网址分享给家人或同工，就能互相看到行程（其他人看不到）；晚间回顾延长为 30 分钟，时程上不再被遮住。",
-  "notes_en": "New “shared calendars”: send your sync link to family or co-workers and see each other’s schedules (nobody else can); evening review is now 30 minutes and no longer hidden on the Schedule page."
+  "v": "v2026.1022.0005",
+  "version": "v2026.1022.0005",
+  "notes": "規劃頁更清爽：移除「今日靈命操練」卡片與「先生命、再關係、後事工」橫幅，打開就直接看到今天的時間區塊。",
+  "notes_sc": "规划页更清爽：移除「今日灵命操练」卡片与「先生命、再关系、后事工」横幅，打开就直接看到今天的时间区块。",
+  "notes_en": "A cleaner Plan page: the daily practice card and the “Life, relationships, ministry” banner are removed so today’s time blocks come first."
 }

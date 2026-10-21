@@ -1280,7 +1280,8 @@ function _practiceStreak(){
   }
   return n;
 }
-function renderPracticeNudge(){
+function renderPracticeNudge(){var _pn=document.getElementById("practice-nudge");if(_pn){_pn.style.display="none";_pn.innerHTML="";}}
+function _renderPracticeNudgeOff(){
   var el=document.getElementById("practice-nudge"); if(!el)return;
   if(curDate!==tod()||htab!=="tasks"){el.style.display="none";el.innerHTML="";return;}
   var t=tod();
@@ -1401,7 +1402,7 @@ function onbRender(){
 function renderTasks(ro,fut){
   var tpls=getTemplates();
   var tplBtn=tpls.length>0?'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">'+tpls.map(function(tpl,tplIdx){return'<button data-tidx="'+tplIdx+'" onclick="applyTpl(parseInt(this.dataset.tidx))" style="padding:4px 10px;background:#e8edf5;border:1px solid #1e4d8c40;border-radius:12px;color:#1e4d8c;font-size:14px;cursor:pointer;font-weight:600">📁 '+esc(tpl.name)+'</button>';}).join('')+"</div>":'';
-  var h=tplBtn+'<div class="card" style="background:#e8edf5;border:1px solid #1e4d8c20;font-size:15px;color:#4338ca;line-height:1.7;margin-bottom:12px">🌿 先<strong>生命</strong>、再<strong>關係</strong>、後<strong>事工</strong> — 讓耶穌作王掌權 · <span style="color:#65768b">雙擊任務可編輯</span></div>';
+  var h=tplBtn;
   var blList=getBL();
   var _allCol=blList.length>0&&blList.every(function(b){return coll[b.id];});
   h+='<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="togCollAll()" style="padding:6px 14px;background:#eef1f7;border:1px solid #d8dce8;border-radius:12px;color:#5b6b82;font-size:14px;cursor:pointer;font-weight:700">'+(_allCol?'🔽 全部展開':'🔼 全部收合')+'</button></div>';
@@ -8848,7 +8849,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2340";
+var APP_VERSION = "v2026.1022.0005";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
