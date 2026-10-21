@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2232",
-  "version": "v2026.1021.2232",
-  "notes": "日曆新功能：①連結 Google 日曆，行程顯示在月曆上；②每日得勝的行程可以自動同步到 Google 日曆（或一次匯入）；③各角色 6:00–7:00 晨讀靈修、7:00–8:00 梳洗通勤。",
-  "notes_sc": "日历新功能：①连结 Google 日历，行程显示在月历上；②每日得胜的行程可以自动同步到 Google 日历（或一次导入）；③各角色 6:00–7:00 晨读灵修、7:00–8:00 梳洗通勤。",
-  "notes_en": "Calendar update: ① link Google Calendar and see its events here; ② auto-sync your 321 schedule to Google Calendar (or import once); ③ every role now starts with 6:00–7:00 Morning Bible Reading and 7:00–8:00 wash-up & commute."
+  "v": "v2026.1021.2258",
+  "version": "v2026.1021.2258",
+  "notes": "日曆頁現在也會標出「時程」裡的行程（含重複行程），點日期就能看到當天安排；並可連結 Google 日曆、同步到 Google 日曆。",
+  "notes_sc": "日历页现在也会标出「时程」里的行程（含重复行程），点日期就能看到当天安排；并可连结 Google 日历、同步到 Google 日历。",
+  "notes_en": "The Calendar page now shows your Schedule events (including repeating ones) — tap a date to see that day; plus Google Calendar linking and sync."
 }

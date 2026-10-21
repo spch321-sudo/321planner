@@ -8193,13 +8193,35 @@ function gcalRedraw() {
 }
 
 /* ---------- 月曆格子上的色點 ---------- */
+/* 每日得勝自己的「時程」行程（含重複行程）——每次即時讀，改了就看得到 */
+var GCAL_APP = ({ tc: '321每日得勝・時程', sc: '321每日得胜・时程', en: '321 Daily Victory · Schedule' })[APP_LANG] || '321';
+function _gcAppDay(ds) {
+  var out = [], arr = [];
+  try { arr = (typeof schedLoad === 'function' ? schedLoad(ds) : []) || []; } catch (e) { arr = []; }
+  try { if (typeof schedGetRepeatEventsForDay === 'function') arr = arr.concat(schedGetRepeatEventsForDay(ds) || []); } catch (e) { }
+  for (var i = 0; i < arr.length; i++) {
+    var ev = arr[i]; if (!ev || !ev.start) continue;
+    var p = String(ev.start).split(':'), q = String(ev.end || '').split(':');
+    var s = new Date(ds + 'T00:00:00'); s.setHours(+p[0] || 0, +p[1] || 0, 0, 0);
+    var e = new Date(ds + 'T00:00:00'); if (q.length === 2 && ev.end > ev.start) e.setHours(+q[0] || 0, +q[1] || 0, 0, 0); else e = new Date(s.getTime());
+    out.push({ e: { s: s.getTime(), e: e.getTime(), a: 0, t: ev.title || '', l: ev.note || '' }, c: ev.color || '#1e4d8c', cn: GCAL_APP, app: 1 });
+  }
+  out.sort(function (a, b) { return a.e.s - b.e.s; });
+  return out;
+}
+function _gcDayList(ds) {
+  var g = gcalCfg().cals.length ? (gcalIndex()[ds] || []) : [];
+  var a = _gcAppDay(ds);
+  if (!a.length) return g;
+  return g.filter(function (x) { return x.e.a; }).concat(a, g.filter(function (x) { return !x.e.a; })).sort(function (x, y) { return (y.e.a - x.e.a) || (x.e.s - y.e.s); });
+}
 function gcalPaint() {
-  var g = document.getElementById('calgrid'); if (!g || !gcalCfg().cals.length) return;
+  var g = document.getElementById('calgrid'); if (!g) return;
   var idx = gcalIndex(), cells = g.children, day = 0;
   for (var i = 0; i < cells.length; i++) {
     if (/\bempty\b/.test(cells[i].className)) continue;
     day++;
-    var k = calY + '-' + _gcPad(calM + 1) + '-' + _gcPad(day), list = idx[k];
+    var k = calY + '-' + _gcPad(calM + 1) + '-' + _gcPad(day), list = _gcDayList(k);
     if (!list || !list.length) continue;
     var cols = [], seen = {};
     for (var j = 0; j < list.length && cols.length < 3; j++) if (!seen[list[j].c]) { seen[list[j].c] = 1; cols.push(list[j].c); }
@@ -8219,8 +8241,8 @@ function _gcTime(e) {
 /* 點選日期：在預覽卡片下方列出 Google 行程 */
 function gcalDay(ds) {
   var old = document.getElementById('gc-day'); if (old) old.parentNode.removeChild(old);
-  if (!ds || !gcalCfg().cals.length) return;
-  var list = gcalIndex()[ds]; if (!list || !list.length) return;
+  if (!ds) return;
+  var list = _gcDayList(ds); if (!list || !list.length) return;
   var cp = document.getElementById('calprev'); if (!cp) return;
   var h = '<div id="gc-day" class="card" style="margin-top:10px;border-top:3px solid #4285f4"><div style="font-size:15px;font-weight:800;color:#1e4d8c;margin-bottom:8px">' + GCAL_S.dayTitle + '</div>';
   var max = 12;
@@ -8638,7 +8660,7 @@ function gfeedPaint() { var w = document.getElementById('gf-wrap'); if (w) w.inn
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1021.2232";
+var APP_VERSION = "v2026.1021.2258";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
