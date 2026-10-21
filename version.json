@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1021.2330",
-  "version": "v2026.1021.2330",
-  "notes": "每天時間排滿 5:00～24:00：每個角色加上 5:00 起床・安靜預備，晚上排到 24:00；時程頁可以完整看到 24:00。",
-  "notes_sc": "每天时间排满 5:00～24:00：每个角色加上 5:00 起床・安静预备，晚上排到 24:00；时程页可以完整看到 24:00。",
-  "notes_en": "Your day now runs 5:00–24:00: every role starts with 5:00 Wake · Quiet Prep and ends at 24:00, and the Schedule page shows all the way to 24:00."
+  "v": "v2026.1021.2340",
+  "version": "v2026.1021.2340",
+  "notes": "新增「互加日曆」：把同步網址分享給家人或同工，就能互相看到行程（其他人看不到）；晚間回顧延長為 30 分鐘，時程上不再被遮住。",
+  "notes_sc": "新增「互加日历」：把同步网址分享给家人或同工，就能互相看到行程（其他人看不到）；晚间回顾延长为 30 分钟，时程上不再被遮住。",
+  "notes_en": "New “shared calendars”: send your sync link to family or co-workers and see each other’s schedules (nobody else can); evening review is now 30 minutes and no longer hidden on the Schedule page."
 }
