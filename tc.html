@@ -8699,15 +8699,26 @@ function gschedPaint() {
   var list = gcalIndex()[_schedDate] || []; _gscList = list;
   if (!list.length) return;
   /* 自己的行程時段，用來判斷重疊 */
+  /* 與 schedRender 同樣的排序，索引才對得上 schedEditEv(i) */
   var mine = [];
   try {
     var ev = (schedLoad(_schedDate) || []).concat(schedGetRepeatEventsForDay(_schedDate) || []);
-    for (var m = 0; m < ev.length; m++) if (ev[m] && ev[m].start) mine.push([ev[m].start, ev[m].end && ev[m].end > ev[m].start ? ev[m].end : ev[m].start]);
+    ev.sort(function (a, b) { return a.start < b.start ? -1 : 1; });
+    for (var m = 0; m < ev.length; m++) if (ev[m] && ev[m].start) mine.push([ev[m].start, ev[m].end && ev[m].end > ev[m].start ? ev[m].end : ev[m].start, m]);
   } catch (e) { }
+  var squeeze = {};
   var day0 = new Date(_schedDate + 'T00:00:00').getTime(), day1 = day0 + 86400000, chips = '', html = '';
   for (var k = 0; k < list.length; k++) {
     var it = list[k], e2 = it.e;
-    if (e2.a) {
+    /* 跨日、長達 20 小時以上的行程（出差、旅行等）當成全天顯示在上方，不在時間軸上畫一整條把畫面蓋住 */
+    var longEv = !e2.a && (e2.e - e2.s >= 20 * 3600000 || (e2.s <= day0 + SCHED_START * 3600000 && e2.e >= day1));
+    if (e2.a || longEv) {
+      if (longEv) {
+        var d1 = new Date(e2.s), d2 = new Date(e2.e - 1);
+        var rng = (d1.getMonth() + 1) + '/' + d1.getDate() + (d1.toDateString() === d2.toDateString() ? '' : '–' + (d2.getMonth() + 1) + '/' + d2.getDate());
+        chips += '<button onclick="gschedInfo(' + k + ')" style="flex:0 0 auto;max-width:100%;padding:5px 10px;border-radius:14px;border:1.5px solid ' + it.c + ';background:#fff;color:#243050;font-size:13px;font-weight:700;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📅 ' + _gcEsc(e2.t || '—') + ' <span style="font-weight:600;color:' + it.c + '">' + rng + '</span></button>';
+        continue;
+      }
       chips += '<button onclick="gschedInfo(' + k + ')" style="flex:0 0 auto;max-width:100%;padding:5px 10px;border-radius:14px;border:1.5px solid ' + it.c + ';background:#fff;color:#243050;font-size:13px;font-weight:700;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📅 ' + _gcEsc(e2.t || '—') + '</button>';
       continue;
     }
@@ -8715,8 +8726,9 @@ function gschedPaint() {
     var st = _gscHM(s), et = en >= day1 ? '24:00' : _gscHM(en);
     var sy = schedTimeToY(st), ey = schedTimeToY(et);
     if (ey <= 0 && sy <= 0) continue;
+    if (sy < 0) sy = 0;   /* 時間軸從 05:00 開始，更早的部分不往上畫（以免蓋住上方的全天行程） */
     var bh = Math.max(ey - sy, 22), clash = false;
-    for (var q = 0; q < mine.length; q++) if (mine[q][0] < et && (mine[q][1] > st || mine[q][0] >= st)) { clash = true; break; }
+    for (var q = 0; q < mine.length; q++) if (mine[q][0] < et && (mine[q][1] > st || mine[q][0] >= st)) { clash = true; squeeze[mine[q][2]] = 1; }
     var pos = clash ? 'left:calc(50% + 30px);right:8px;' : 'left:60px;right:8px;';
     html += '<div class="gsc-ev" onclick="gschedInfo(' + k + ')" style="position:absolute;' + pos + 'top:' + sy + 'px;height:' + bh + 'px;background:#fff;border:1.5px dashed ' + it.c + ';border-left:5px solid ' + it.c + ';border-radius:8px;padding:4px 8px;box-sizing:border-box;cursor:pointer;overflow:hidden;z-index:11;box-shadow:0 1px 4px rgba(0,0,0,.08)">'
       + '<div style="font-size:13px;font-weight:700;color:#243050;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">📅 ' + _gcEsc(e2.t || '—') + '</div>'
@@ -8724,6 +8736,11 @@ function gschedPaint() {
       + '</div>';
   }
   if (html) grid.insertAdjacentHTML('beforeend', html);
+  /* 跟 Google 行程重疊的自己的行程縮到左半邊，兩邊並排都看得到 */
+  for (var sq in squeeze) {
+    var own = grid.querySelector('[onclick="schedEditEv(' + sq + ')"]');
+    if (own) own.style.right = 'calc(50% - 26px)';
+  }
   if (chips) grid.insertAdjacentHTML('beforebegin', '<div id="gsc-allday" style="display:flex;flex-wrap:wrap;gap:6px;padding:0 8px 8px 60px">' + chips + '</div>');
 }
 function gschedInfo(k) {
@@ -8849,7 +8866,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1022.0005";
+var APP_VERSION = "v2026.1025.0933";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
