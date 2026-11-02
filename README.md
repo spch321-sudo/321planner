@@ -6,7 +6,7 @@ index.html 只負責導向：上次使用的語言 → 新使用者依手機語�
 
 ## 上傳（spch321-sudo/321planner）
 把本資料夾全部檔案整批上傳覆蓋。321planner.html、slide.html 不受影響，保留即可。
-版本號在 tc/sc/en.html 的 APP_VERSION、sw.js 的 VER、version.json 三處一致。目前版本 v2026.1102.2350。
+版本號在 tc/sc/en.html 的 APP_VERSION、sw.js 的 VER、version.json 三處一致。目前版本 v2026.1103.0930。
 
 ## 一起共讀（coread.js＋peerjs.min.js）
 每個畫面頂端的 📡 可開共讀房間／輸入 6 位數碼加入；加入者跟著帶領者切到同一個畫面與捲動位置，只同步「在哪個畫面」，個人資料不傳送。

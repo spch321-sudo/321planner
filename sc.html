@@ -8849,7 +8849,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1102.2350";
+var APP_VERSION = "v2026.1103.0930";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
@@ -9001,6 +9001,37 @@ window.addEventListener('load', function(){ try{ var bl=document.getElementById(
   document.addEventListener('click',function(e){ if(e.target.closest('#nav')){ setTimeout(function(){ var h=document.querySelector('.sc.on .hdr'); if(h)h.classList.remove('hdr-tuck'); lastY=0; },60); } },true);
 })();
 </script>
-<script src="coread.js?v=v2026.1102.2350"></script>
+<script>
+/* 321 互動功能（朗讀／畫線／小智／美圖）設定：gxr.js＝逐句朗讀與頂列按鈕（ES5），gxa.js＝小智、美圖工作室、畫線面板、工具箱 */
+window.GXR_CFG = {
+  name: "321每日得胜", slug: "planner", lang: function () { return "zs"; },
+  bottomSel: ".nav,#bnav,.bnav",
+  view: function () { var s = document.querySelector('.sc.on'); var t = document.querySelector('.tb.on'); return (s ? s.id : 'x') + (t ? ':' + (t.textContent || '').trim() : ''); },
+  title: function () { return (window.GXR_CFG.name || '') ; },
+  read: { rootFn: function () { var s = document.querySelector('.sc.on'); return [s || document.body]; }, sel: "#verse,#verse-display,.soap-step,.rel-card,.ai-section,.card,.hdr-mintitle,#ttl-main,#ttl-sub", skipIn: "button,textarea,input,select,.tb,.nb,.badge,.toast,.crbar,.crsheet,.sched-wd-btn,.psbtn" },
+  css: '.gxr-btns.float{top:auto !important;bottom:176px !important;right:12px !important}',
+  hl: true
+};
+window.GXA_CFG = {
+  name: "321每日得胜", nameEn: "321 Daily Victory", slug: "planner", lang: function () { return "zs"; },
+  lessons: function () {
+    var out = [], LBL = ["每日经文与提醒"];
+    try { out.push({ label: LBL[0], read: false, paras: VS.slice(0) }); } catch (e) {}
+    return out;
+  },
+  current: function () { return 1; },
+  quote: function () { return window.GXR ? GXR.quote() : null; },
+  ready: function (G) {
+    G.sage({
+      system: function () { return "你是「小智」，国度321空中团契「321每日得胜」App 的 AI 灵修与生活规划陪伴。你是福音派、敬虔爱主的牧者与生活教练，协助使用者规划每日、每周的时间与事工，并以 321 理念回应：三个基础（耶稣是我的榜样、圣经是我的准则、圣灵是我的引导）、两个核心（让耶稣作王、让耶稣得到一切的荣耀）、一个目的（建立属神的体系）。回答要简短、实用、温柔，以圣经为根据，引用经文时标明出处；不评断、不取代专业医疗或心理协助，必要时鼓励寻求牧者与专业人士。用繁体中文口语回答。\n\n回答格式：用简短的小标题（####）与条列分段；请把最重要的一句用「> 」标成引言，那一句会被做成美图。不要用程式码区块或念不出来的装饰符号。若写到祷告，标题用「凭信心祷告」、用读者第一人称让读者自己祷告，结尾一律用「奉主耶稣的名祷告，阿们」。"; },
+      quicks: function () { return ["怎么安排一天的优先顺序？", "今天的灵修（SOAP）怎么写比较好？", "忙碌的时候怎么保守安静时间？", "帮我写一段晚间的感恩祷告", "我常拖延，有什么属灵又实用的方法？"]; },
+      onSpeak: function (t) { try { GXR.speak(t); } catch (e) {} }
+    });
+  }
+};
+</script>
+<script src="gxr.js?v=gx1103"></script>
+<script src="gxa.js?v=gx1103"></script>
+<script src="coread.js?v=v2026.1103.0930"></script>
 </body>
 </html>

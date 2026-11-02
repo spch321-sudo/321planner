@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1102.2350",
-  "version": "v2026.1102.2350",
-  "notes": "新增「一起共讀」：每個畫面頂端的 📡 按鈕可開共讀房間，弟兄姊妹加入後會跟著帶領者切換到同一個畫面、同一個捲動位置（個人資料不會分享）。",
-  "notes_sc": "新增「一起共读」：每个画面顶端的 📡 按钮可开共读房间，弟兄姊妹加入后会跟着带领者切换到同一个画面、同一个滚动位置（个人数据不会分享）。",
-  "notes_en": "New: Read together. Tap 📡 at the top of any screen to open a room; others who join follow you to the same screen and scroll position (personal data is never shared)."
+  "v": "v2026.1103.0930",
+  "version": "v2026.1103.0930",
+  "notes": "新增朗讀（🔊逐句跟讀、背景播放）、畫線、問小智、美圖工作室與 321 工具箱。",
+  "notes_sc": "新增朗读（🔊逐句跟读、后台播放）、画线、问小智、美图工作室与 321 工具箱。",
+  "notes_en": "New: read-aloud with sentence highlighting, highlights, Xiaozhi AI, card studio and the 321 toolbox."
 }
