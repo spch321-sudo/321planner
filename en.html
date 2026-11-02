@@ -8850,7 +8850,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1025.0933";
+var APP_VERSION = "v2026.1102.2350";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
@@ -8867,6 +8867,7 @@ function _updToast(m) { try { if (typeof toast === 'function') toast(m); } catch
 /* 忙碌：開著任何視窗（*-modal）或正在輸入有內容的欄位 */
 function updBusy() {
   try {
+    if (window.CR && CR.on && CR.on()) return true;   /* 共讀中不重載 */
     var a = document.activeElement;
     if (a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && /^(text|search|email|url|tel|number|)$/i.test(a.type || ''))) && a.value) return true;
     var ms = document.querySelectorAll('[id$="-modal"]');
@@ -9001,5 +9002,6 @@ window.addEventListener('load', function(){ try{ var bl=document.getElementById(
   document.addEventListener('click',function(e){ if(e.target.closest('#nav')){ setTimeout(function(){ var h=document.querySelector('.sc.on .hdr'); if(h)h.classList.remove('hdr-tuck'); lastY=0; },60); } },true);
 })();
 </script>
+<script src="coread.js?v=v2026.1102.2350"></script>
 </body>
 </html>

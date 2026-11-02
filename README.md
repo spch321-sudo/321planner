@@ -6,7 +6,13 @@ index.html 只負責導向：上次使用的語言 → 新使用者依手機語�
 
 ## 上傳（spch321-sudo/321planner）
 把本資料夾全部檔案整批上傳覆蓋。321planner.html、slide.html 不受影響，保留即可。
-版本號在 tc/sc/en.html 的 APP_VERSION、sw.js 的 VER、version.json 三處一致。
+版本號在 tc/sc/en.html 的 APP_VERSION、sw.js 的 VER、version.json 三處一致。目前版本 v2026.1102.2350。
+
+## 一起共讀（coread.js＋peerjs.min.js）
+每個畫面頂端的 📡 可開共讀房間／輸入 6 位數碼加入；加入者跟著帶領者切到同一個畫面與捲動位置，只同步「在哪個畫面」，個人資料不傳送。
+三語頁面共用房號前綴 pl321-，彼此互通。邀請連結 ?join=碼，投影螢幕 ?join=碼&screen=1。
+同步畫面：規劃（日期、今日／優先／晚禱）、靈修、關係、週顧、時程（日期）、日曆（年月）、週視圖；
+不同步：設定、記錄、日誌、統計、專案、事工、各種視窗與共讀面板。
 
 ## 舊網址（建議）
 321planner-sc、321planner-en 兩個 repo 各上傳對應資料夾裡的 index.html 與 sw.js，
