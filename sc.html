@@ -8849,7 +8849,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1103.0840";
+var APP_VERSION = "v2026.1103.0840-xz1103";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
@@ -9018,6 +9018,7 @@ window.GXR_CFG = {
   hl: true
 };
 window.GXA_CFG = {
+  xzSet: { sel: '#settings-body' },
   name: "321每日得胜", nameEn: "321 Daily Victory", slug: "planner", lang: function () { return "zs"; },
   lessons: function () {
     var out = [], LBL = ["每日经文与提醒"];
@@ -9036,7 +9037,8 @@ window.GXA_CFG = {
 };
 </script>
 <script src="gxr.js?v=gx1103"></script>
-<script src="gxa.js?v=gx1103"></script>
-<script src="coread.js?v=v2026.1103.0840"></script>
+<script src="xz2.js?v=xz1103"></script>
+<script src="gxa.js?v=gx1103-xz1103"></script>
+<script src="coread.js?v=v2026.1103.0840-xz1103"></script>
 </body>
 </html>

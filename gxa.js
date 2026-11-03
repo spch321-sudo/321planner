@@ -797,6 +797,7 @@ var SAGE321 = (function () {
     t = String(t).replace(/^\s+|\s+$/g, '');
     if (!t || XZ.busy) return;
     XZ.open = true;
+    if (C.onSend) { try { C.onSend(); } catch (e) {} }
     push('user', t);
     draw(); call();
   }
@@ -809,6 +810,7 @@ var SAGE321 = (function () {
              '請幫我更明白這句話，並幫助我活出來。';
     })(String(quote || '').slice(0, 300), note || '');
     if (XZ.busy) { draw(); return; }
+    if (C.onSend) { try { C.onSend(); } catch (e) {} }
     push('user', q);
     draw(); call();
   }
@@ -859,7 +861,7 @@ var SAGE321 = (function () {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       signal: ctrl ? ctrl.signal : undefined,
-      body: JSON.stringify(C.sendModel ? { model: C.model, max_tokens: C.maxTokens, system: sys, messages: msgs } : { system: sys, messages: msgs })
+      body: JSON.stringify((C.sendModel || typeof C.maxTokens === 'function') ? { model: C.model, max_tokens: (typeof C.maxTokens === 'function' ? C.maxTokens() : C.maxTokens), system: sys, messages: msgs } : { system: sys, messages: msgs })
     }).then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
@@ -1075,6 +1077,7 @@ var SAGE321 = (function () {
     }
     el.className = ('gxz ' + (XZ.open ? 'on' : '')).replace(/\s+$/, '');
     if (!XZ.open) return;
+    el.style.setProperty('--xzs', FSZ[fsI()]);
     var oldB = document.getElementById('gxxzb'), oldTop = oldB ? oldB.scrollTop : 0;
     var inp = document.getElementById('gxxzin'), typed = inp ? inp.value : '';
 
@@ -1109,6 +1112,7 @@ var SAGE321 = (function () {
       '<div class="xzcard">' +
       '<div class="xzh"><b>' + esc(C.emoji + ' ' + C.name) + '</b>' +
       '<span class="xs muted" style="flex:1">' + esc(C.tagline) + '</span>' +
+      '<button class="ico xzfs" onclick="SAGE321.fs()" aria-label="Aa">A</button>' +
       (anyLong ? '<button class="ico" onclick="SAGE321.foldAll()">' + esc(L('foldAll')) + '</button>' : '') +
       (XZ.msgs.length ? '<button class="ico" onclick="SAGE321.clear()">' + esc(L('clear')) + '</button>' : '') +
       '<button class="ico" onclick="SAGE321.close()">' + esc(L('close')) + '</button></div>' +
@@ -1131,6 +1135,9 @@ var SAGE321 = (function () {
     }, 30);
   }
 
+  var FSZ = [1, 1.15, 1.3, 1.5];
+  function fsI() { var i = 0; try { i = parseInt(localStorage.getItem('sage321_fs'), 10) || 0; } catch (e) {} return i >= 0 && i < FSZ.length ? i : 0; }
+  function fs() { var i = (fsI() + 1) % FSZ.length; try { localStorage.setItem('sage321_fs', String(i)); } catch (e) {} draw(true); }
   function clear() { XZ.msgs = []; draw(); }
 
   function init(cfg) {
@@ -1143,7 +1150,7 @@ var SAGE321 = (function () {
   var API = {
     init: init,
     open: open, close: close, clear: clear,
-    ask: ask, send: send, pick: pick, reask: reask,
+    ask: ask, send: send, pick: pick, reask: reask, fs: fs,
     star: star, drop: drop, unstar: unstar, savedIdx: savedIdx,
     share: share, card: card,
     fold: fold, foldAll: foldAll, speak: speak, draw: draw,
@@ -1199,12 +1206,7 @@ var GX = (function () {
   function sysExtra() {
     let s = '\n\n【回答對象】' + A().sys;
     if (EN) s = '\n\n[Audience]' + A().sys;
-    const k = alen();
-    if (k !== 'mid') {
-      s += (EN ? '\n\n[Length]' : '\n\n【回答長度】') + GXD.len[k] +
-        T('（這一條長度要求優先於上面「回應精簡」的原則；仍然照上面的「回答格式」排版。）',
-          ' (This length request overrides the earlier instruction to keep answers short; still follow the answer-format rules above.)');
-    }
+    s += '\n\n' + XZ2.sysTail();   /* 信仰背景＋讀者資料＋回答長度（五段）改由 XZ2 提供，只送一次 */
     if (isSC()) s += '\n\n【語言】這位讀者使用简体中文，請一律用简体中文回答。';
     return s;
   }
@@ -1219,40 +1221,60 @@ var GX = (function () {
     const nm = GXD.names;
     return AUD_KEYS.map(k => `<button class="gxa${aud() === k ? ' on' : ''}" onclick="GX.setAud('${k}','${where}')">${GXD.icon[k]} ${esc(nm[k])}</button>`).join('');
   }
-  function ctl() {
-    const k = aud(), L = alen(), ln = GXD.lenNames;
-    return `<div class="gxrow">
-      <button class="gxsm" onclick="GX.togAud()">${GXD.icon[k]} ${esc(T('對象：', 'For: ') + GXD.names[k])} ${audOpen ? '▴' : '▾'}</button>
-      <span class="gxlen"><span class="xs muted">${esc(T('長度', 'Length'))}</span>${['brief', 'mid', 'full'].map(x =>
-        `<button class="${L === x ? 'on' : ''}" onclick="GX.setLen('${x}')">${esc(ln[x])}</button>`).join('')}</span></div>
-      ${audOpen ? `<div class="gxaud">${audBtns('xz')}</div><p class="xs muted gxhint">${esc(GXD.hints[k])}</p>` : ''}`;
-  }
-  function togAud() { audOpen = !audOpen; SAGE321.draw(true); }
+  function ctl() { return XZ2.controlsHtml({ qs: true }); }
+  function togAud() { XZ2.act('audtog'); }
   function setAud(k, where) {
     if (AUD_KEYS.indexOf(k) < 0) return;
     S.set.aud = k; keep();
     say(T('回答對象：', 'Answering for: ') + GXD.names[k]);
+    try { XZ2.refresh(); } catch (e) {}
     if (where === 'xz') SAGE321.draw(true);
     else if (where === 'pl') plPaint();
     else render();
   }
-  function setLen(k) {
-    if (alen() === k) return;
-    S.set.alen = k; keep();
-    const nm = GXD.lenNames[k];
-    if (SAGE321.reask()) say(T('用「' + nm + '」重新回答…', 'Answering again: ' + nm + '…'));
-    else { say(T('回答長度：', 'Answer length: ') + nm); SAGE321.draw(true); }
-  }
+  function setLen(k) { XZ2.act('len', k); }
   function settingsCard() {
-    const k = aud(), L = alen(), ln = GXD.lenNames;
-    return `<div class="card" id="gxset"><p class="eyebrow">${esc(T('小智回答對象', 'Who Xiaozhi answers for'))}</p>
-      <div class="gxaud">${audBtns('me')}</div>
-      <p class="xs muted gxhint">${esc(GXD.hints[k])}</p>
-      <p class="eyebrow" style="margin-top:12px">${esc(T('回答長度', 'Answer length'))}</p>
-      <div class="row">${['brief', 'mid', 'full'].map(x => `<button class="pill ${L === x ? 'on' : ''}" onclick="GX.setLenMe('${x}')">${esc(ln[x])}</button>`).join('')}</div>
+    return `<div class="card" id="gxset"><p class="eyebrow">${esc(T('小智設定', 'Xiaozhi settings'))}</p>${XZ2.settingsHtml()}
       <p class="xs muted" style="margin:8px 0 0">${esc(T('讀經樂出題、小智寫祝福也會跟著回答對象調整口氣。', 'Bible Fun questions and Xiaozhi’s blessings follow this setting too.'))}</p></div>`;
   }
-  function setLenMe(k) { S.set.alen = k; keep(); say(T('回答長度：', 'Answer length: ') + GXD.lenNames[k]); render(); }
+  function setLenMe(k) { XZ2.act('sLen', k); }
+
+  /* ===== XZ2（-xz1103）：小智最新功能共用套件——回答長度五段、讀者資料、慕道友信仰背景、設定頁區塊、滿版小智頁摘要列 ===== */
+  XZ2.init({
+    app: (window.GX_BOOK && GX_BOOK.slug) || 'gxa', pfx: 'gxa-' + ((window.GX_BOOK && GX_BOOK.slug) || 'app') + '-', ownAud: true,
+    lang: function () { return LANG; },
+    aud: { get: function () { try { return S.set.aud; } catch (e) { return 'adult'; } }, set: function (k) { try { S.set.aud = k; keep(); } catch (e) {} } },
+    legacyLen: function () { try { return S.set.alen; } catch (e) { return ''; } },
+    ctxWord: '課文脈絡', ctxWordZs: '课文脉络', ctxWordEn: 'the lesson context',
+    qsLabel: ['對象範例題', '对象范例题', 'Examples for me'],
+    reAnswer: function (m) { try { if (SAGE321.reask()) { say(m); return true; } } catch (e) {} return false; },
+    onAsk: function (q) { try { SAGE321.pick(q); } catch (e) {} },
+    toast: function (m) { try { say(m); } catch (e) {} },
+    readCtx: function () { try { const n = (S && S.last) || 0; return n && D.ch.length ? [T('目前讀到：', 'Currently reading: ') + chLabel(n)] : []; } catch (e) { return []; } }
+  });
+  try { XZ2.watchScroll('#gxxzb'); } catch (e) {}
+  /* App 自己的「設定／我的」頁面：GXA_CFG.xzSet = { sel:容器選擇器, need:出現這個子元素才掛, before:掛在這個子元素前面（省略＝放最後） } */
+  try {
+    const hs = C().xzSet;
+    if (hs && hs.sel) {
+      let tm = 0;
+      const place = () => {
+        try {
+          document.querySelectorAll(hs.sel).forEach(c => {
+            if (c.querySelector('[data-xz2host]')) return;
+            if (hs.need && !c.querySelector(hs.need)) return;
+            const d = document.createElement('div'); d.setAttribute('data-xz2host', ''); d.className = 'xz2host';
+            d.style.cssText = 'margin:14px 0;padding:12px 0 4px;border-top:1px solid rgba(128,128,128,.25);clear:both;text-align:left';
+            d.innerHTML = '<div style="font-weight:700;margin:0 0 8px;font-size:15px">' + esc(T('小智設定', 'Xiaozhi settings')) + '</div>' + XZ2.settingsHtml();
+            const a = hs.before && c.querySelector(hs.before);
+            if (a && a.parentNode) a.parentNode.insertBefore(d, a); else c.appendChild(d);
+          });
+        } catch (e) {}
+      };
+      const start = () => { try { new MutationObserver(() => { clearTimeout(tm); tm = setTimeout(place, 120); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} place(); };
+      if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
+    }
+  } catch (e) {}
 
   /* ── 共用：一次性呼叫小智（重試、逾時） ───────────────────────── */
   async function aiRaw(sys, ask, ms, maxT) {
@@ -4751,6 +4773,10 @@ body:has(#gxaroot .gxz.on) .xz-fab,body:has(#gxaroot .gxz.on) #fab,body:has(#gxa
 .gxroot .chrow .s{display:block;font-size:calc(var(--fs)*.76);color:var(--dusk);margin-top:2px}
 `;
     document.head.appendChild(st);
+    /* 滿版小智頁（-xz1103）：整頁、頂部貼齊、輸入欄固定在畫面最底、回答全寬、A 字級鈕 */
+    const st2 = document.createElement('style'); st2.id = 'xz2full';
+    st2.textContent = ".gxz.on .xzmask{display:none}\n.gxz.on .xzcard{top:0;height:100%;max-height:none;border-radius:0;animation:none;background:var(--paper)}\n.gxz.on .xzh{padding-top:calc(12px + env(safe-area-inset-top,0px))}\n.gxz.on .xzctl{padding:8px 14px 10px;max-height:52vh;overflow:auto;-webkit-overflow-scrolling:touch;flex:0 0 auto;--xz2-fs:calc(var(--fs,17px)*.8);--xz2-acc:var(--pine)}\n.gxz.on .xzb{flex:1 1 auto;min-height:0;padding:12px 14px}\n.gxz.on .xzm.assistant,.gxz.on .xzhi{max-width:100%;width:100%}\n.gxz.on .xzm.user{max-width:90%}\n.gxz.on .xzf{padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:var(--paper)}\n.gxroot .gxz .xzm,.gxroot .gxz .xzhi,.gxroot .gxz .xzsv{font-size:calc(var(--fs,17px)*.94*var(--xzs,1))}\n.gxroot .gxz .xzh .ico.xzfs{min-width:34px;font-weight:700}\n.gxz .xz2s,.gxroot .xz2s{--xz2-fs:calc(var(--fs,17px)*.82);--xz2-acc:var(--pine)}\n.gxz .xzf .btn{width:auto!important;flex:0 0 auto}\n.gxz .xzf input{flex:1 1 auto;min-width:0;width:auto}\n.gxz .xzm{overflow-wrap:anywhere}\n.gxz.on .xzfab{display:none}";
+    document.head.appendChild(st2);
   })();
   /* ── 對外 ── */
   window.NAR321 = NAR321; window.SAGE321 = SAGE321; window.GX = GX; window.GXS = GXS;
@@ -4777,6 +4803,7 @@ body:has(#gxaroot .gxz.on) .xz-fab,body:has(#gxaroot .gxz.on) #fab,body:has(#gxa
         worker: SVC.xz, model: SVC.model, sendModel: !!SVC.sendModel, maxTokens: SVC.maxTokens || 1000,
         name: T('小智', 'Xiaozhi'), tagline: T('陪讀 · 解經 · 禱告', 'Read · Reflect · Pray'),
         sysExtra: () => GX.sysExtra(), followups: () => GX.followups(), controls: () => GX.ctl(),
+        maxTokens: () => XZ2.maxTokens(), onSend: () => XZ2.collapse(),
         onCard: (t, q) => GXS.fromAnswer(t, q),
         onShare: (t, q) => GX.shareText(GX.sc((q ? q + '\n\n' : '') + SAGE321.plainOf(t) + '\n\n—— ' + GX.FELLOW + '\n' + GX.home())),
         toast: (m) => toast(m),
