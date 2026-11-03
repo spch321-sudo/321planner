@@ -8849,7 +8849,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1103.0930";
+var APP_VERSION = "v2026.1103.0840";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
@@ -8867,6 +8867,11 @@ function _updToast(m) { try { if (typeof toast === 'function') toast(m); } catch
 function updBusy() {
   try {
     if (window.CR && CR.on && CR.on()) return true;   /* 共讀中不重載 */
+    if (window.speechSynthesis && speechSynthesis.speaking) return true;           /* 朗讀中 */
+    if (document.getElementById('spkbar') || document.documentElement.classList.contains('gxa-lock')) return true;   /* 朗讀控制列／美圖工作室／小智／工具箱全螢幕 */
+    if (document.querySelector('#gxaroot .on, .gxsmask.on, .gxz.on, .hlsheet-mask, .gxr-ov')) return true;
+    var _m = document.querySelectorAll('audio,video');
+    for (var _i = 0; _i < _m.length; _i++) if (!_m[_i].paused && !_m[_i].ended && _m[_i].readyState > 1) return true;   /* 配樂／朗讀音訊／錄影預覽 */
     var a = document.activeElement;
     if (a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && /^(text|search|email|url|tel|number|)$/i.test(a.type || ''))) && a.value) return true;
     var ms = document.querySelectorAll('[id$="-modal"]');
@@ -9032,6 +9037,6 @@ window.GXA_CFG = {
 </script>
 <script src="gxr.js?v=gx1103"></script>
 <script src="gxa.js?v=gx1103"></script>
-<script src="coread.js?v=v2026.1103.0930"></script>
+<script src="coread.js?v=v2026.1103.0840"></script>
 </body>
 </html>

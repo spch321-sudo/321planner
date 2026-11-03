@@ -4,6 +4,11 @@
 index.html 只負責導向：上次使用的語言 → 新使用者依手機語言 → 繁體。
 也可用網址指定：/321planner/?lang=sc 或 ?lang=en
 
+## v2026.1103.0840（自動更新確認與補強）
+- 實測確認 tc／sc／en 三頁皆為自動更新版（version.json 輪詢＋SW 更新、空閒自動套用、防無限重整、設定頁有檢查更新／強制更新、快取只清 p4planner- 前綴）。
+- 補強「忙碌」判斷：朗讀中（朗讀控制列／內建語音）、美圖工作室／小智／工具箱全螢幕、畫線面板、配樂／錄影預覽播放中時不自動重整，只顯示更新橫幅，結束後自動套用。
+- 版本 `v2026.1103.0840` 四處一致：`version.json`、`sw.js`、tc／sc／en.html（APP_VERSION）、本 README。
+
 ## 上傳（spch321-sudo/321planner）
 把本資料夾全部檔案整批上傳覆蓋。321planner.html、slide.html 不受影響，保留即可。
 版本號在 tc/sc/en.html 的 APP_VERSION、sw.js 的 VER、version.json 三處一致。目前版本 v2026.1103.0930。
