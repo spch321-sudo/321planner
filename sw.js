@@ -4,13 +4,13 @@
    ‧ activate：只刪自己前綴的舊快取（同網域還有其他 321 App）、clients.claim、通知所有頁面；
      背景中的舊頁面直接帶到新版
    ‧ fetch：HTML／JS／JSON 網路優先（no-cache），離線才用快取；圖片快取優先；影音與 Range 請求不攔截 */
-var VER = 'v2026.1103.0840-xz1103';
+var VER = 'v2026.1103.0840-xz1103-xzm1103';
 var PFX = 'p4planner-';
 var V = PFX + VER;
 var SHELL = ['./', './index.html', './tc.html', './sc.html', './en.html',
   './manifest.json', './manifest-sc.json', './manifest-en.json',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png', './favicon-32.png',
-  './coread.js', './peerjs.min.js', './gxr.js', './gxa.js', './xz2.js'];
+  './coread.js', './peerjs.min.js', './gxr.js', './gxa.js', './xz2.js', './xzm.js'];
 
 function mine(k) { return k.indexOf(PFX) === 0 || /^p4-v\d/.test(k); }  /* p4-v… 是三個舊 repo 的快取名 */
 

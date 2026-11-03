@@ -1376,7 +1376,7 @@ var TTS321 = (function () {
   function speakText(text, title) {
     if (!ttsInit()) return;
     placeBar();
-    var parts = TTS321.chunks(text).map(function (t) { return { t: t }; });
+    var parts = TTS321.chunks(text).map(function (t) { return { t: t, els: [] }; });   /* els:[]：沒有對應畫面元素時 elFor 不要丟錯 */
     if (!parts.length) return;
     TTS321.play(parts, { title: title || (S3('小智', '小智', 'Xiaozhi')) });
     sync();
@@ -1433,15 +1433,18 @@ var TTS321 = (function () {
     var db = GXA.hl.db(), pre = SLUG + '|';
     function items() {
       var a = [];
-      for (var k in db) if (db.hasOwnProperty(k) && k.indexOf(pre) === 0 && db[k] && db[k].t) a.push({ k: k, h: db[k] });
-      a.sort(function (x, y) { return (y.h.ts || 0) - (x.h.ts || 0); });
+      var pz = SLUG + '-xz|';   /* XZM：小智回答的畫線，另成一個「小智」類別 */
+      for (var k in db) if (db.hasOwnProperty(k) && (k.indexOf(pre) === 0 || k.indexOf(pz) === 0) && db[k] && db[k].t) a.push({ k: k, h: db[k], z: k.indexOf(pz) === 0 });
+      a.sort(function (x, y) { return (x.z ? 1 : 0) - (y.z ? 1 : 0) || (y.h.ts || 0) - (x.h.ts || 0); });
       return a;
     }
     function draw() {
       var a = items(), h = '<div class="gxr-card full"><div class="gxr-h">' + S3('我的畫線', '我的画线', 'My highlights') + '<button class="gxr-x" data-x="1" aria-label="close">✕</button></div><div class="gxr-scroll">';
       if (!a.length) h += '<p class="gxr-empty">' + S3('還沒有畫線。在內文點一句話，就會畫上金色線；再點一下可以換色、寫默想、問小智、做成美圖。', '还没有画线。在内文点一句话，就会画上金色线；再点一下可以换色、写默想、问小智、做成美图。', 'No highlights yet. Tap any sentence in the text to underline it; tap again to change colour, add a reflection, ask Xiaozhi or make a card.') + '</p>';
+      var zn = 0; each(a, function (it) { if (it.z) zn++; });
       each(a, function (it, i) {
         var hh = it.h;
+        if (it.z && (i === 0 || !a[i - 1].z)) h += '<div class="gxr-sec" style="margin:14px 0 6px;font-weight:700;opacity:.8">✨ ' + S3('小智', '小智', 'Xiaozhi') + '　' + zn + '</div>';
         h += '<div class="gxr-hi"><span class="gxr-dot" style="background:' + (COLHEX[hh.c] || COLHEX.gold) + '"></span><div class="gxr-hb"><div class="gxr-ht">' + esc(hh.t) + '</div>' +
           (hh.ref ? '<div class="gxr-hr">' + esc(hh.ref) + '</div>' : '') + (hh.n ? '<div class="gxr-hn">' + esc(hh.n) + '</div>' : '') +
           '<div class="gxr-ha"><button data-i="' + i + '" data-a="card">🖼 ' + S3('做成美圖', '做成美图', 'Make a card') + '</button><button data-i="' + i + '" data-a="ask">✨ ' + S3('問小智', '问小智', 'Ask Xiaozhi') + '</button><button data-i="' + i + '" data-a="read">🔊</button><button data-i="' + i + '" data-a="del">✕</button></div></div></div>';
