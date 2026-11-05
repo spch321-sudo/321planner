@@ -4,7 +4,7 @@
    ‧ activate：只刪自己前綴的舊快取（同網域還有其他 321 App）、clients.claim、通知所有頁面；
      背景中的舊頁面直接帶到新版
    ‧ fetch：HTML／JS／JSON 網路優先（no-cache），離線才用快取；圖片快取優先；影音與 Range 請求不攔截 */
-var VER = 'v2026.1103.0840-xz1103-xzm1103';
+var VER = 'v2026.1103.0840-xz1103-xzm1103-rf1105';
 var PFX = 'p4planner-';
 var V = PFX + VER;
 var SHELL = ['./', './index.html', './tc.html', './sc.html', './en.html',
@@ -40,6 +40,33 @@ self.addEventListener('message', function (e) {
   if (e.data === 'skip' || (e.data && e.data.type === 'SKIP_WAITING')) self.skipWaiting();
 });
 
+
+/* v2.58.3 移植：網路優先，但超過 SHELL_WAIT 毫秒還沒回就先用「完全相同」的快取開，網路那份繼續下載並更新快取。
+   只有導覽請求才可以退回 tc.html（程式檔退回 HTML 會變成 SyntaxError）。 */
+var SHELL_WAIT = 1000;
+function shellFetch(r, u, key, nav, scope) {
+  var net = fetch(u.origin + u.pathname + u.search, { cache: 'no-cache', credentials: 'same-origin' }).then(function (resp) {
+    if (resp && resp.ok) { var cp = resp.clone(); caches.open(V).then(function (c) { c.put(key, cp); }); }
+    return resp;
+  });
+  function fromCache() {
+    return caches.match(key).then(function (h) {
+      if (h) return h;
+      return caches.match(r, { ignoreSearch: true }).then(function (h2) {
+        return h2 || (nav ? caches.match(u.origin + scope + 'tc.html') : undefined);
+      });
+    });
+  }
+  var timer = new Promise(function (res) {
+    setTimeout(function () { fromCache().then(function (h) { res(h || null); }, function () { res(null); }); }, SHELL_WAIT);
+  });
+  var first = net.then(function (resp) { return resp; }, function () { return null; });
+  return Promise.race([first, timer]).then(function (x) {
+    if (x) return x;
+    return net['catch'](function () { return undefined; }).then(function (resp) { return resp || fromCache(); }).then(function (resp) { return resp || Response.error(); });
+  });
+}
+
 self.addEventListener('fetch', function (e) {
   var r = e.request; if (r.method !== 'GET') return;
   var u; try { u = new URL(r.url); } catch (x) { return; }
@@ -59,17 +86,7 @@ self.addEventListener('fetch', function (e) {
   var nav = r.mode === 'navigate' || /\.html$/.test(p) || /\/$/.test(p);
   if (nav || /\.(json|js|css)$/.test(p)) {
     var key = u.origin + (/\/$/.test(p) ? p + 'index.html' : p);   /* 每個語言檔各自一個快取鍵 */
-    e.respondWith(fetch(u.origin + p + u.search, { cache: 'no-cache', credentials: 'same-origin' }).then(function (resp) {
-      if (resp && resp.ok) { var cp = resp.clone(); caches.open(V).then(function (c) { c.put(key, cp); }); }
-      return resp;
-    })['catch'](function () {
-      return caches.match(key).then(function (h) {
-        if (h) return h;
-        return caches.match(r, { ignoreSearch: true }).then(function (h2) {
-          return h2 || (nav ? caches.match(u.origin + scope + 'tc.html') : undefined);
-        });
-      });
-    }));
+    e.respondWith(shellFetch(r, u, key, nav, scope));
     return;
   }
 

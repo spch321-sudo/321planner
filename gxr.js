@@ -1,5 +1,5 @@
-/* gxr.js — 321 閱讀套件（ES5）：TTS321 朗讀核心 v1.4.0（取自創世記講義）＋ GXR 掛件。 */
-var TTS321 = (function () {
+/* gxr.js — 321 閱讀套件（ES5）：TTS321 朗讀核心 v1.5.0（v1.4.0＋互動聖經 v2.60 的失敗回復、看門狗、睡前定時）（取自創世記講義）＋ GXR 掛件。 */
+var TTS321 = (function () {   /* v1.5.0-rf1105：失敗回復（快速模式＋斷路器）、看門狗依實際長度、睡前定時 */
   'use strict';
 
   /* ── 預設值 ────────────────────────────────────────────────────────── */
@@ -34,6 +34,7 @@ var TTS321 = (function () {
       startOver: '從頭開始讀',
       followOn: '朗讀時自動捲動', followOff: '不自動捲動，畫面由你控制',
       fallback: '真人語音連不上，改用裝置語音',
+      sleep: '睡前定時', sleepOn: '{n} 分鐘後淡出並停止', sleepOff: '已關閉睡前定時',
       nosupport: '這台裝置不支援朗讀'
     },
     media: null,          // { artist, album, icon } 鎖屏／耳機／車機上顯示什麼
@@ -289,32 +290,40 @@ var TTS321 = (function () {
    * 那是 Worker 冷啟動的指紋，不是哪個語音的 bug。解法是開機預熱 ＋ 退避重試。
    * ------------------------------------------------------------------- */
 
-  function post(text) {
+  function post(text, ms) {
+    var ctrl = null, tm = 0;
+    try { if (ms && window.AbortController) { ctrl = new AbortController(); tm = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, ms); } } catch (e) {}
     return fetch(C.worker, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      signal: ctrl ? ctrl.signal : undefined,
       body: JSON.stringify({
         voice: voiceName(), rate: rateAttr(),
         sil: C.sil.s, silc: C.sil.c, sile: C.sil.e, text: text
       })
     }).then(function (res) {
+      if (tm) clearTimeout(tm);
       if (!res.ok) throw new Error('TTS ' + res.status);
       return res.blob();
-    });
+    }, function (err) { if (tm) clearTimeout(tm); throw err; });
   }
 
-  function fetchAudio(piece) {
+  /* 失敗回復：一般 15 秒逾時 × 3 次；第一段或剛失敗過用 quick（6 秒 × 2 次）。
+     失敗後 20 秒內（快取沒有的）其餘各段立刻放棄，改用裝置語音；按 ▶ 開新一輪時歸零。 */
+  var DOWN_UNTIL = 0;
+  function fetchAudio(piece, quick) {
     var key = voiceName() + '|' + rateAttr() + '|' + piece;
     return new Promise(function (resolve, reject) {
       cacheGet(key, function (hit) {
         if (hit) return resolve(hit);
-        var n = 0;
+        if (Date.now() < DOWN_UNTIL) return reject(new Error('cloud paused'));
+        var n = 0, ms = quick ? 6000 : 15000, rt = quick ? C.retry.slice(0, 1) : C.retry;
         function attempt() {
-          post(piece).then(function (blob) {
-            cachePut(key, blob); resolve(blob);
+          post(piece, ms).then(function (blob) {
+            DOWN_UNTIL = 0; cachePut(key, blob); resolve(blob);
           }, function (err) {
-            if (n >= C.retry.length) return reject(err);
-            var wait = C.retry[n++];
+            if (n >= rt.length || Date.now() < DOWN_UNTIL) { DOWN_UNTIL = Date.now() + 20000; return reject(err); }
+            var wait = rt[n++];
             setTimeout(attempt, wait);
           });
         }
@@ -554,12 +563,14 @@ var TTS321 = (function () {
       BAR.id = 'spkbar'; BAR.className = 'spkbar';
       document.body.appendChild(BAR);
       BAR.addEventListener('click', function (e) {
-        var a = e.target.getAttribute && e.target.getAttribute('data-a');
+        var tg = e.target; while (tg && tg !== BAR && !(tg.getAttribute && tg.getAttribute('data-a'))) tg = tg.parentNode;
+        var a = tg && tg.getAttribute && tg.getAttribute('data-a');
         if (a === 'prev') step(-1);
         else if (a === 'next') step(1);
         else if (a === 'pause') togglePause();
         else if (a === 'stop') stop();
         else if (a === 'follow') toggleFollow();
+        else if (a === 'sleep') sleepCycle();
       });
     }
     var st = SPK.buffering ? '<span class="pv">' + esc(L('buffering')) + '</span>'
@@ -584,6 +595,7 @@ var TTS321 = (function () {
       (SPK.pause ? '▶' : '⏸') + '</button>' +
       '<button data-a="next" title="' + esc(L('next')) + '">⏭</button>' +
       fol +
+      '<button data-a="sleep" class="' + (SLEEP.mode ? 'on' : '') + '" title="' + esc(L('sleep')) + '">⏲' + (SLEEP.mode ? '<small style="font-size:10px">' + SLEEP_MIN[SLEEP.mode] + '</small>' : '') + '</button>' +
       '<button data-a="stop" title="' + esc(L('stop')) + '">✕</button>';
   }
 
@@ -602,7 +614,7 @@ var TTS321 = (function () {
     if (PL.blobs[k] || PL.pend[k]) return;
     PL.pend[k] = 1; PL.running++;
     var my = SPK.tok;
-    fetchAudio(speechText(PL.units[k])).then(function (b) {
+    fetchAudio(speechText(PL.units[k]), k === PL.start || PL.fail > 0).then(function (b) {
       if (PL && PL.tok === my) PL.blobs[k] = b;
     }, function () {
       if (PL && PL.tok === my) { PL.fail++; PL.try[k] = (PL.try[k] || 0) + 1; }
@@ -621,8 +633,9 @@ var TTS321 = (function () {
     if (k >= PL.units.length) return stop({ done: true });
     var b = PL.blobs[k];
     if (!b) {
-      if ((PL.try[k] || 0) >= 3) {          // 這一段真的抓不到，跳過去，不要卡住整課
-        PL.i = k; SPK.i = k; return playAt(k + 1);
+      if ((PL.try[k] || 0) >= 3) {          // 這一段雲端抓不到：只這一段改用裝置語音，唸完再回雲端
+        PL.i = k; SPK.i = k;
+        return nativeOne(k);
       }
       SPK.buffering = true; SPK.i = k; drawBar(); pump();
       return setTimeout(function () { playAt(k); }, 150);
@@ -636,6 +649,7 @@ var TTS321 = (function () {
     a.src = URL.createObjectURL(b);
     a.onended = function () {
       if (!PL || PL.tok !== SPK.tok) return;
+      wdClear();
       try { URL.revokeObjectURL(a.src); } catch (e) {}
       PL.cur = 1 - PL.cur;
       playAt(k + 1);
@@ -644,6 +658,10 @@ var TTS321 = (function () {
       if (PL && PL.tok === SPK.tok) { PL.cur = 1 - PL.cur; playAt(k + 1); }
     };
     var p = a.play(); if (p && p['catch']) p['catch'](function () {});
+    wdArm(k, Math.max(15000, Math.round(speechText(PL.units[k]).length * 480 + 10000)));
+    a.onloadedmetadata = a.ondurationchange = function () {
+      if (PL && PL.tok === SPK.tok && PL.i === k && isFinite(a.duration) && a.duration > 0) wdArm(k, Math.round(a.duration * 1000 + 5000));
+    };
     mark(PL.units[k]);
     mediaNow(k, PL.units.length);
     if (C.onItem) { try { C.onItem(k, PL.units[k]); } catch (e) {} }
@@ -653,6 +671,74 @@ var TTS321 = (function () {
       var nx = els[1 - PL.cur];
       try { nx.src = URL.createObjectURL(nb); nx.load(); } catch (e) {}
     }
+  }
+
+
+  /* ── 看門狗：這一段超過「實際長度＋5 秒」還沒唸完就跳下一段（音檔沒載入前用 字數×480 毫秒＋10 秒，最少 15 秒）── */
+  var WDT = null;
+  function wdClear() { if (WDT) { clearTimeout(WDT); WDT = null; } }
+  function wdArm(k, ms) {
+    wdClear();
+    var my = SPK.tok;
+    WDT = setTimeout(function () {
+      WDT = null;
+      if (!PL || PL.tok !== my || SPK.pause || PL.i !== k) return;
+      PL.cur = 1 - PL.cur; playAt(k + 1);
+    }, ms);
+  }
+  function wdRearm() {   // 暫停後續播：用剩餘時間重新計時
+    if (!PL) return;
+    var a = current(), d = a && a.duration;
+    wdArm(PL.i, (d && isFinite(d)) ? Math.max(5000, Math.round((d - a.currentTime) * 1000 + 5000)) : 15000);
+  }
+
+  /* ── 單段改用裝置語音：唸完回雲端 ── */
+  function nativeOne(k) {
+    if (!PL) return;
+    if (!window.speechSynthesis) { PL.cur = 1 - PL.cur; return playAt(k + 1); }
+    var my = SPK.tok, done = false;
+    if (!PL.toasted) { PL.toasted = 1; toast(L('fallback')); }
+    SPK.buffering = false; mark(PL.units[k]); drawBar();
+    function next() {
+      if (done) return; done = true; wdClear();
+      if (!PL || PL.tok !== my) return;
+      if (Date.now() >= DOWN_UNTIL) { for (var j = k + 1; j < PL.units.length; j++) PL.try[j] = 0; }   // 雲端恢復了：後面的段落重新試
+      playAt(k + 1);
+    }
+    try {
+      speechSynthesis.cancel();
+      var u = new window.SpeechSynthesisUtterance(sanitize(PL.units[k].t));
+      u.lang = C.lang; u.rate = 0.94 + (set().rate || 0) * 0.05;
+      u.onend = u.onerror = next;
+      speechSynthesis.speak(u);
+      setTimeout(function () { if (!done && PL && PL.tok === my) { try { speechSynthesis.cancel(); } catch (e) {} next(); } }, Math.max(15000, Math.round(sanitize(PL.units[k].t).length * 480 + 10000)));   /* 裝置語音沒回報結束時的保險 */
+    } catch (e) { next(); }
+  }
+
+  /* ── 睡前定時：關 → 15 → 30 → 60 分鐘 → 關；時間到淡出 5 秒再停（保留續讀位置）── */
+  var SLEEP = { mode: 0, t: null, fade: null }, SLEEP_MIN = [0, 15, 30, 60];
+  function sleepClear() { if (SLEEP.t) { clearTimeout(SLEEP.t); SLEEP.t = null; } if (SLEEP.fade) { clearInterval(SLEEP.fade); SLEEP.fade = null; } }
+  function sleepFrom() { sleepClear(); if (SLEEP.mode) SLEEP.t = setTimeout(sleepFire, SLEEP_MIN[SLEEP.mode] * 60000); }
+  function sleepCycle() {
+    SLEEP.mode = (SLEEP.mode + 1) % SLEEP_MIN.length; sleepFrom();
+    toast(SLEEP.mode ? L('sleepOn').replace('{n}', SLEEP_MIN[SLEEP.mode]) : L('sleepOff'));
+    drawBar();
+  }
+  function sleepFire() {
+    SLEEP.t = null;
+    if (!SPK.on) return;
+    var els = []; try { els = pair(); } catch (e) {}
+    var n = 0;
+    SLEEP.fade = setInterval(function () {
+      n++;
+      for (var i = 0; i < els.length; i++) { try { els[i].volume = Math.max(0, 1 - n * 0.2); } catch (e) {} }
+      if (n >= 5) {
+        clearInterval(SLEEP.fade); SLEEP.fade = null;
+        stop();   // 非自然結束（宿主有開書籤時會保留續讀位置）
+        for (var j = 0; j < els.length; j++) { try { els[j].volume = 1; } catch (e) {} }
+        SLEEP.mode = 0; drawBar();
+      }
+    }, 1000);
   }
 
   function waitAndStart() {
@@ -786,8 +872,9 @@ var TTS321 = (function () {
     };
     PL = {
       tok: my, units: units, blobs: [], pend: [], try: [], i: st, cur: 0,
-      scope: opts.scope || null, fail: 0, running: 0
+      scope: opts.scope || null, fail: 0, running: 0, start: st
     };
+    DOWN_UNTIL = 0; sleepFrom();
     var els = pair(), k;
     for (k = 0; k < els.length; k++) {
       try { els[k].pause(); els[k].removeAttribute('src'); els[k].load(); } catch (e) {}
@@ -820,12 +907,12 @@ var TTS321 = (function () {
     if (SPK.on && !opt.forget && !opt.done) bmSave();
     if (opt.done) clearBookmark();
     SPK.tok++; SPK.on = false; SPK.pause = false; SPK.buffering = false;
-    SPK.stall = 0;
+    SPK.stall = 0; wdClear(); sleepClear();   /* 任何停止都清掉睡前計時 */
     watch(false);
     PL = null;
     try {
       var els = pair();
-      for (var i = 0; i < els.length; i++) { els[i].pause(); els[i].onended = null; els[i].onerror = null; }
+      for (var i = 0; i < els.length; i++) { els[i].pause(); els[i].onended = null; els[i].onerror = null; try { els[i].volume = 1; } catch (e2) {} }
     } catch (e) {}
     try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
     wakeRelease();
@@ -839,8 +926,8 @@ var TTS321 = (function () {
     SPK.pause = !SPK.pause;
     try {
       var a = pair()[PL ? PL.cur : 0];
-      if (SPK.pause) a.pause();
-      else { var p = a.play(); if (p && p['catch']) p['catch'](function () {}); }
+      if (SPK.pause) { a.pause(); wdClear(); }
+      else { var p = a.play(); if (p && p['catch']) p['catch'](function () {}); wdRearm(); }
     } catch (e) {}
     SPK.stall = 0;
     if (SPK.pause) { bmSave(); wakeRelease(); }   // 暫停著被系統關掉，回來還找得到
@@ -1021,6 +1108,8 @@ var TTS321 = (function () {
     cacheClear: cacheClear,
     nudge: nudge,                   /* 手動推一把（很少用得到；看門狗自己會推）*/
     isOn: function () { return !!SPK.on; },
+    sleepFire: function () { sleepFire(); },   /* 測試用：立刻執行「時間到」 */
+    sleepMode: function () { return SLEEP.mode; },
     isPaused: function () { return !!SPK.pause; },
     index: function () { return PL ? PL.i : -1; },
     total: function () { return PL ? PL.units.length : 0; },
