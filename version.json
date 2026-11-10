@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1103.0840-xz1103-xzm1103-rf1105",
-  "version": "v2026.1103.0840-xz1103-xzm1103-rf1105",
-  "notes": "新增朗讀（🔊逐句跟讀、背景播放）、畫線、問小智、美圖工作室與 321 工具箱。",
-  "notes_sc": "新增朗读（🔊逐句跟读、后台播放）、画线、问小智、美图工作室与 321 工具箱。",
-  "notes_en": "New: read-aloud with sentence highlighting, highlights, Xiaozhi AI, card studio and the 321 toolbox."
+  "v": "v2026.1111.0747-k321",
+  "version": "v2026.1111.0747-k321",
+  "notes": "新增「321 共用帳號」：一組帳號碼自動加密備份、換手機找回，時程自動出現在 321管家。",
+  "notes_sc": "新增「321 共用账号」：一组账号码自动加密备份、换手机找回，时程自动出现在 321管家。",
+  "notes_en": "New 321 Account: one code for encrypted backup and restore, and your schedule appears in the 321 Steward."
 }
