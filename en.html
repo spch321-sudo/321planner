@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>/* ?lang321=：空中團契／小智問答帶入語言（zh 繁、zs 简、en；其他語言用英文） */
+(function(){try{var q=location.search||"",m=/[?&]lang321=([A-Za-z]+)/.exec(q);if(!m)return;
+var l={zh:"tc",zs:"sc",en:"en",ko:"en",ja:"en",id:"en",ceb:"en"}[m[1].toLowerCase()];q=q.replace(/([?&])lang321=[^&]*(&|$)/,function(a,b,d){return d?b:"";}).replace(/[?&]$/,"");
+if(l){try{localStorage.setItem("p4_lang",JSON.stringify(l));}catch(e){}
+if(l!=="en"){location.replace(l+".html"+q+(location.hash||""));return;}}
+try{history.replaceState(history.state,"",location.pathname+q+(location.hash||""));}catch(e){}
+}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -8850,7 +8857,7 @@ function gshareSend() {
    防無限重整：同一版最多一般重整一次，仍是舊檔就硬更新一次，再不行只顯示橫幅。
    硬更新只清「本 App」的快取與 SW，不動同網域的其他 321 App，也不動 localStorage 資料。
    ============================================================ */
-var APP_VERSION = "v2026.1111.0747-k321";
+var APP_VERSION = "v2026.1111.0747-k321-lg1111";
 var VERSION_CHECK_URL = "version.json";
 var UPD = { reg: null, target: '', pending: false };
 var UPD_S = ({
@@ -9042,8 +9049,8 @@ window.GXA_CFG = {
 <script src="gxa.js?v=gx1103-xz1103-rf1105"></script>
 <script src="xzm.js?v=xzm1103"></script>
 <script>try{XZM.install(XZM.preset.gx());}catch(e){}</script>
-<script src="coread.js?v=v2026.1111.0747-k321"></script>
-<script src="../321steward/k321acct.js?v=v2026.1111.0747-k321"></script>
-<script src="k321.js?v=v2026.1111.0747-k321"></script>
+<script src="coread.js?v=v2026.1111.0747-k321-lg1111"></script>
+<script src="../321steward/k321acct.js?v=v2026.1111.0747-k321-lg1111"></script>
+<script src="k321.js?v=v2026.1111.0747-k321-lg1111"></script>
 </body>
 </html>

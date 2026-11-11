@@ -18,6 +18,9 @@
 (function(){
   var M={tc:'tc.html',sc:'sc.html',en:'en.html'};
   var q=location.search||'',lang=null,m=/[?&]lang=(tc|sc|en)\b/.exec(q);
+  /* ?lang321=：空中團契／小智問答帶入語言（zh 繁、zs 简、en；其他語言用英文） */
+  var m3=/[?&]lang321=([A-Za-z]+)/.exec(q);
+  if(m3){var l3={zh:"tc",zs:"sc",en:"en",ko:"en",ja:"en",id:"en",ceb:"en"}[m3[1].toLowerCase()];q=q.replace(/([?&])lang321=[^&]*(&|$)/,function(a,b,d){return d?b:"";}).replace(/[?&]$/,"");if(l3){lang=l3;m=null;try{localStorage.setItem('p4_lang',JSON.stringify(lang));}catch(e){}}}
   if(m){lang=m[1];try{localStorage.setItem('p4_lang',JSON.stringify(lang));}catch(e){}}
   if(!M[lang]){try{var r=localStorage.getItem('p4_lang');lang=r?JSON.parse(r):null;}catch(e){lang=null;}}
   if(!M[lang]){

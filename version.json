@@ -1,7 +1,7 @@
 {
-  "v": "v2026.1111.0747-k321",
-  "version": "v2026.1111.0747-k321",
-  "notes": "新增「321 共用帳號」：一組帳號碼自動加密備份、換手機找回，時程自動出現在 321管家。",
-  "notes_sc": "新增「321 共用账号」：一组账号码自动加密备份、换手机找回，时程自动出现在 321管家。",
-  "notes_en": "New 321 Account: one code for encrypted backup and restore, and your schedule appears in the 321 Steward."
+  "v": "v2026.1111.0747-k321-lg1111",
+  "version": "v2026.1111.0747-k321-lg1111",
+  "notes": "支援 ?lang321= 由空中團契／小智問答帶入語言：從空中團契或小智點進來，自動用相同語言開啟。",
+  "notes_sc": "支持 ?lang321= 由空中团契／小智问答带入语言：从空中团契或小智点进来，自动用相同语言打开。",
+  "notes_en": "Supports ?lang321=: opened from the fellowship app or Xiaozhi, it now opens in the same language."
 }
